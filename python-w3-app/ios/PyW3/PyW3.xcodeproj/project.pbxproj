@@ -1,0 +1,406 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BB200001000000000000BB01 /* PyW3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100001000000000000BB01 /* PyW3App.swift */; };
+		BB200002000000000000BB01 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100002000000000000BB01 /* Extensions.swift */; };
+		BB200003000000000000BB01 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100003000000000000BB01 /* Models.swift */; };
+		BB200004000000000000BB01 /* PythonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100004000000000000BB01 /* PythonData.swift */; };
+		BB200005000000000000BB01 /* QuizData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100005000000000000BB01 /* QuizData.swift */; };
+		BB200006000000000000BB01 /* ReferenceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100006000000000000BB01 /* ReferenceData.swift */; };
+		BB200007000000000000BB01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100007000000000000BB01 /* ContentView.swift */; };
+		BB200008000000000000BB01 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100008000000000000BB01 /* HomeView.swift */; };
+		BB200009000000000000BB01 /* TutorialListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100009000000000000BB01 /* TutorialListView.swift */; };
+		BB200010000000000000BB01 /* LessonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100010000000000000BB01 /* LessonDetailView.swift */; };
+		BB200011000000000000BB01 /* TryItView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100011000000000000BB01 /* TryItView.swift */; };
+		BB200012000000000000BB01 /* ExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100012000000000000BB01 /* ExerciseView.swift */; };
+		BB200013000000000000BB01 /* ReferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100013000000000000BB01 /* ReferenceView.swift */; };
+		BB200014000000000000BB01 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB100014000000000000BB01 /* ProfileView.swift */; };
+		BB200015000000000000BB01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB100016000000000000BB01 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BB000000000000000000BB01 /* PyW3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PyW3.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB100001000000000000BB01 /* PyW3App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PyW3App.swift; sourceTree = "<group>"; };
+		BB100002000000000000BB01 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BB100003000000000000BB01 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		BB100004000000000000BB01 /* PythonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonData.swift; sourceTree = "<group>"; };
+		BB100005000000000000BB01 /* QuizData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizData.swift; sourceTree = "<group>"; };
+		BB100006000000000000BB01 /* ReferenceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceData.swift; sourceTree = "<group>"; };
+		BB100007000000000000BB01 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BB100008000000000000BB01 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		BB100009000000000000BB01 /* TutorialListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialListView.swift; sourceTree = "<group>"; };
+		BB100010000000000000BB01 /* LessonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailView.swift; sourceTree = "<group>"; };
+		BB100011000000000000BB01 /* TryItView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TryItView.swift; sourceTree = "<group>"; };
+		BB100012000000000000BB01 /* ExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseView.swift; sourceTree = "<group>"; };
+		BB100013000000000000BB01 /* ReferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceView.swift; sourceTree = "<group>"; };
+		BB100014000000000000BB01 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		BB100015000000000000BB01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB100016000000000000BB01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BB300001000000000000BB01 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BB400001000000000000BB01 = {
+			isa = PBXGroup;
+			children = (
+				BB400002000000000000BB01 /* Sources */,
+				BB400009000000000000BB01 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BB400002000000000000BB01 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				BB100001000000000000BB01 /* PyW3App.swift */,
+				BB100002000000000000BB01 /* Extensions.swift */,
+				BB400003000000000000BB01 /* Models */,
+				BB400004000000000000BB01 /* Data */,
+				BB400005000000000000BB01 /* Views */,
+				BB400008000000000000BB01 /* Resources */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		BB400003000000000000BB01 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BB100003000000000000BB01 /* Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BB400004000000000000BB01 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BB100004000000000000BB01 /* PythonData.swift */,
+				BB100005000000000000BB01 /* QuizData.swift */,
+				BB100006000000000000BB01 /* ReferenceData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		BB400005000000000000BB01 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BB100007000000000000BB01 /* ContentView.swift */,
+				BB100008000000000000BB01 /* HomeView.swift */,
+				BB100009000000000000BB01 /* TutorialListView.swift */,
+				BB100010000000000000BB01 /* LessonDetailView.swift */,
+				BB100011000000000000BB01 /* TryItView.swift */,
+				BB100012000000000000BB01 /* ExerciseView.swift */,
+				BB100013000000000000BB01 /* ReferenceView.swift */,
+				BB100014000000000000BB01 /* ProfileView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BB400008000000000000BB01 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BB100015000000000000BB01 /* Info.plist */,
+				BB100016000000000000BB01 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BB400009000000000000BB01 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BB000000000000000000BB01 /* PyW3.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BB500001000000000000BB01 /* PyW3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB600001000000000000BB01 /* Build configuration list for PBXNativeTarget "PyW3" */;
+			buildPhases = (
+				BB300000000000000000BB01 /* Sources */,
+				BB300001000000000000BB01 /* Frameworks */,
+				BB300002000000000000BB01 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PyW3;
+			productName = PyW3;
+			productReference = BB000000000000000000BB01 /* PyW3.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BB700001000000000000BB01 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					BB500001000000000000BB01 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = BB600002000000000000BB01 /* Build configuration list for PBXProject "PyW3" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BB400001000000000000BB01;
+			productRefGroup = BB400009000000000000BB01 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BB500001000000000000BB01 /* PyW3 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BB300002000000000000BB01 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB200015000000000000BB01 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BB300000000000000000BB01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB200001000000000000BB01 /* PyW3App.swift in Sources */,
+				BB200002000000000000BB01 /* Extensions.swift in Sources */,
+				BB200003000000000000BB01 /* Models.swift in Sources */,
+				BB200004000000000000BB01 /* PythonData.swift in Sources */,
+				BB200005000000000000BB01 /* QuizData.swift in Sources */,
+				BB200006000000000000BB01 /* ReferenceData.swift in Sources */,
+				BB200007000000000000BB01 /* ContentView.swift in Sources */,
+				BB200008000000000000BB01 /* HomeView.swift in Sources */,
+				BB200009000000000000BB01 /* TutorialListView.swift in Sources */,
+				BB200010000000000000BB01 /* LessonDetailView.swift in Sources */,
+				BB200011000000000000BB01 /* TryItView.swift in Sources */,
+				BB200012000000000000BB01 /* ExerciseView.swift in Sources */,
+				BB200013000000000000BB01 /* ReferenceView.swift in Sources */,
+				BB200014000000000000BB01 /* ProfileView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BB800001000000000000BB01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyw3.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BB800002000000000000BB01 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyw3.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BB800003000000000000BB01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLE = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = F759M2QFW3;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BB800004000000000000BB01 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLE = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = F759M2QFW3;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BB600001000000000000BB01 /* Build configuration list for PBXNativeTarget "PyW3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB800001000000000000BB01 /* Debug */,
+				BB800002000000000000BB01 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BB600002000000000000BB01 /* Build configuration list for PBXProject "PyW3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB800003000000000000BB01 /* Debug */,
+				BB800004000000000000BB01 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BB700001000000000000BB01 /* Project object */;
+}
