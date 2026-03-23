@@ -100,10 +100,10 @@ struct ProfileView: View {
                                 store.xp = 0; store.dailyXP = 0; store.streak = 0
                                 store.quizHighScores.removeAll()
                                 let d = UserDefaults.standard
-                                d.removeObject(forKey: "pw3_completed"); d.removeObject(forKey: "pw3_xp")
-                                d.removeObject(forKey: "pw3_streak"); d.removeObject(forKey: "pw3_quizScores")
-                                d.removeObject(forKey: "pw3_dailyXP"); d.removeObject(forKey: "pw3_lastLessonDay")
-                                d.removeObject(forKey: "pw3_lastXPDate")
+                                d.removeObject(forKey: "pe5_completed"); d.removeObject(forKey: "pe5_xp")
+                                d.removeObject(forKey: "pe5_streak"); d.removeObject(forKey: "pe5_quizScores")
+                                d.removeObject(forKey: "pe5_dailyXP"); d.removeObject(forKey: "pe5_lastLessonDay")
+                                d.removeObject(forKey: "pe5_lastXPDate")
                             }
                         } message: { Text("This will erase all your progress, XP, and quiz scores.") }
                         

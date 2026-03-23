@@ -49,7 +49,7 @@ struct HomeView: View {
                     .padding(.vertical, 4)
                     .background(Color.w3Green)
                     .cornerRadius(6)
-                Text("W3")
+                Text("E5")
                     .font(.system(size: 32, weight: .black, design: .rounded))
                     .foregroundColor(.white)
                 Spacer()

@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct PyW3App: App {
+struct PyE5App: App {
     @StateObject private var store = PythonStore()
     
     var body: some Scene {

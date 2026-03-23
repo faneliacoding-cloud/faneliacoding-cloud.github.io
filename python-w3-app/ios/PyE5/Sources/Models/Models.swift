@@ -66,23 +66,23 @@ class PythonStore: ObservableObject {
     
     init() {
         let d = UserDefaults.standard
-        completedLessons = Set(d.stringArray(forKey: "pw3_completed") ?? [])
-        xp = d.integer(forKey: "pw3_xp")
-        streak = d.integer(forKey: "pw3_streak")
+        completedLessons = Set(d.stringArray(forKey: "pe5_completed") ?? [])
+        xp = d.integer(forKey: "pe5_xp")
+        streak = d.integer(forKey: "pe5_streak")
         quizHighScores = (try? JSONDecoder().decode(
             [String: Int].self,
-            from: d.data(forKey: "pw3_quizScores") ?? Data()
+            from: d.data(forKey: "pe5_quizScores") ?? Data()
         )) ?? [:]
         
         // Daily XP reset
         let today = Calendar.current.startOfDay(for: Date())
-        if let last = d.object(forKey: "pw3_lastXPDate") as? Date,
+        if let last = d.object(forKey: "pe5_lastXPDate") as? Date,
            !Calendar.current.isDate(last, inSameDayAs: today) {
             dailyXP = 0
         } else {
-            dailyXP = d.integer(forKey: "pw3_dailyXP")
+            dailyXP = d.integer(forKey: "pe5_dailyXP")
         }
-        d.set(today, forKey: "pw3_lastXPDate")
+        d.set(today, forKey: "pe5_lastXPDate")
     }
     
     func markComplete(_ lessonId: String) {
@@ -119,7 +119,7 @@ class PythonStore: ObservableObject {
     private func bumpStreak() {
         let d = UserDefaults.standard
         let today = Calendar.current.startOfDay(for: Date())
-        if let lastDay = d.object(forKey: "pw3_lastLessonDay") as? Date {
+        if let lastDay = d.object(forKey: "pe5_lastLessonDay") as? Date {
             let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
             if Calendar.current.isDate(lastDay, inSameDayAs: yesterday) {
                 streak += 1
@@ -129,18 +129,18 @@ class PythonStore: ObservableObject {
         } else {
             streak = 1
         }
-        d.set(today, forKey: "pw3_lastLessonDay")
+        d.set(today, forKey: "pe5_lastLessonDay")
         save()
     }
     
     private func save() {
         let d = UserDefaults.standard
-        d.set(Array(completedLessons), forKey: "pw3_completed")
-        d.set(xp, forKey: "pw3_xp")
-        d.set(dailyXP, forKey: "pw3_dailyXP")
-        d.set(streak, forKey: "pw3_streak")
+        d.set(Array(completedLessons), forKey: "pe5_completed")
+        d.set(xp, forKey: "pe5_xp")
+        d.set(dailyXP, forKey: "pe5_dailyXP")
+        d.set(streak, forKey: "pe5_streak")
         if let data = try? JSONEncoder().encode(quizHighScores) {
-            d.set(data, forKey: "pw3_quizScores")
+            d.set(data, forKey: "pe5_quizScores")
         }
     }
 }
