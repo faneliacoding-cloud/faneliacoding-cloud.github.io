@@ -343,5 +343,251 @@
     }, { threshold: 0.5 });
     document.querySelectorAll('[data-target]').forEach(el => counterIO.observe(el));
   </script>
+
+  <!-- ═══════════════════ AI CHATBOT ═══════════════════ -->
+  <div id="chatbot-fab" onclick="toggleChat()" aria-label="Chat with Fanelia AI">
+    <span id="fab-icon">💬</span>
+    <div id="fab-pulse"></div>
+  </div>
+
+  <div id="chatbot" class="chatbot-closed">
+    <div id="chat-header">
+      <div id="chat-header-info">
+        <div id="chat-avatar">🤖</div>
+        <div>
+          <div id="chat-bot-name">Fanelia AI</div>
+          <div id="chat-bot-status">Online · Ask me anything</div>
+        </div>
+      </div>
+      <button id="chat-close" onclick="toggleChat()" aria-label="Close chat">✕</button>
+    </div>
+    <div id="chat-messages">
+      <div class="chat-msg bot">
+        <div class="msg-bubble">Hey! 👋 I'm the <strong>Fanelia AI</strong> assistant. Ask me about our music, genres, tracks, licensing, or anything about DJ Escaflowne!</div>
+      </div>
+      <div class="chat-suggestions" id="chatSuggestions">
+        <button class="sug-btn" onclick="sendSuggestion(this)">🎵 What genres do you make?</button>
+        <button class="sug-btn" onclick="sendSuggestion(this)">💰 How do I purchase a track?</button>
+        <button class="sug-btn" onclick="sendSuggestion(this)">🔥 What's your top track?</button>
+        <button class="sug-btn" onclick="sendSuggestion(this)">🎧 Who is DJ Escaflowne?</button>
+      </div>
+    </div>
+    <div id="chat-input-wrap">
+      <input type="text" id="chat-input" placeholder="Ask about music, tracks, licensing..." autocomplete="off" />
+      <button id="chat-send" onclick="sendMessage()" aria-label="Send">➤</button>
+    </div>
+  </div>
+
+  <script>
+  // ─── Chatbot Logic ───
+  function toggleChat() {
+    const bot = document.getElementById('chatbot');
+    const fab = document.getElementById('chatbot-fab');
+    const isOpen = !bot.classList.contains('chatbot-closed');
+    if (isOpen) {
+      bot.classList.add('chatbot-closed');
+      fab.style.display = 'flex';
+    } else {
+      bot.classList.remove('chatbot-closed');
+      fab.style.display = 'none';
+      document.getElementById('chat-input').focus();
+    }
+  }
+
+  function sendSuggestion(btn) {
+    const text = btn.textContent.replace(/^[^\s]+\s/, '');
+    document.getElementById('chatSuggestions').style.display = 'none';
+    addMsg(btn.textContent, 'user');
+    respond(text.toLowerCase());
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    document.getElementById('chatSuggestions').style.display = 'none';
+    addMsg(text, 'user');
+    respond(text.toLowerCase());
+  }
+
+  document.getElementById('chat-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') sendMessage();
+  });
+
+  function addMsg(text, who) {
+    const wrap = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'chat-msg ' + who;
+    div.innerHTML = `<div class="msg-bubble">${text}</div>`;
+    wrap.appendChild(div);
+    wrap.scrollTop = wrap.scrollHeight;
+  }
+
+  function typingThenReply(html) {
+    const wrap = document.getElementById('chat-messages');
+    const typing = document.createElement('div');
+    typing.className = 'chat-msg bot';
+    typing.innerHTML = `<div class="msg-bubble typing-dots"><span></span><span></span><span></span></div>`;
+    wrap.appendChild(typing);
+    wrap.scrollTop = wrap.scrollHeight;
+    setTimeout(() => {
+      typing.remove();
+      const div = document.createElement('div');
+      div.className = 'chat-msg bot';
+      div.innerHTML = `<div class="msg-bubble">${html}</div>`;
+      wrap.appendChild(div);
+      wrap.scrollTop = wrap.scrollHeight;
+    }, 800 + Math.random() * 600);
+  }
+
+  // ─── Knowledge Base ───
+  const KB = [
+    // Genres
+    { keys: ['genre', 'genres', 'type of music', 'what kind', 'style', 'what music', 'what do you make', 'what do you produce'],
+      resp: `🎵 House Of Fanelia covers a wide range of genres:<br><br>
+        🏠 <strong>House</strong> — Deep, tech, and progressive house<br>
+        ⚡ <strong>Electronic</strong> — Synth-heavy, futuristic vibes<br>
+        🎤 <strong>R&B</strong> — Smooth, soulful grooves<br>
+        🔥 <strong>Hip-Hop</strong> — Hard-hitting beats with attitude<br>
+        🌊 <strong>Chill / Lo-Fi</strong> — Laid-back, atmospheric tracks<br><br>
+        Every track is paired with stunning anime-inspired visuals! 🎬`
+    },
+    // Purchasing / Licensing
+    { keys: ['buy', 'purchase', 'license', 'licensing', 'how much', 'price', 'cost', 'download', 'beat', 'beats for sale', 'use your music', 'sync', 'commercial', 'royalty'],
+      resp: `💰 <strong>Interested in licensing or purchasing a track?</strong><br><br>
+        We offer flexible licensing for content creators, filmmakers, and brands:<br><br>
+        📧 <strong>Email:</strong> <a href="mailto:escaflowne5@gmail.com" style="color:var(--cyan)">escaflowne5@gmail.com</a><br>
+        📩 Subject: "Track Licensing Inquiry"<br><br>
+        Include the track name(s) you're interested in and how you'd like to use them. We'll get back to you within 24 hours with pricing and available license types!<br><br>
+        🎵 <em>Options include: Personal use, YouTube/content, commercial sync, exclusive rights</em>`
+    },
+    // Top track / Best / Popular
+    { keys: ['top track', 'best track', 'popular', 'most viewed', 'biggest hit', 'most popular', 'best song', 'top song', 'hit'],
+      resp: `🔥 Our biggest hit is <strong>"Addicted to You (It's Yours Remix)"</strong> with over <strong>9,400 views</strong>!<br><br>
+        ▶ <a href="https://www.youtube.com/watch?v=-9vwfnL85Eo" target="_blank" style="color:var(--cyan)">Watch on YouTube</a><br><br>
+        Other fan favorites:<br>
+        • "What Was it?" — 367 views<br>
+        • "Why Don't I Feel Safe?" — 167 views<br>
+        • "That Guy For You" — 116 views<br><br>
+        Check them all in the <a href="#tracks" style="color:var(--magenta)" onclick="toggleChat()">Featured Tracks</a> section! 🎧`
+    },
+    // DJ Escaflowne / About
+    { keys: ['who is', 'dj escaflowne', 'escaflowne', 'founder', 'producer', 'about', 'who are you', 'who made', 'creator', 'behind'],
+      resp: `🎧 <strong>DJ Escaflowne</strong> is the founder and producer behind House Of Fanelia.<br><br>
+        Born from a love of music and anime culture, DJ Escaflowne creates genre-defying beats that blend House, Electronic, R&B, and Hip-Hop. Every track is an original production paired with cinematic anime-inspired visuals.<br><br>
+        📍 Based in the United States<br>
+        🎵 120+ Original Productions<br>
+        🌍 100,000+ Views Worldwide<br><br>
+        <em>"The beat never stops."</em> 🔥`
+    },
+    // Subscribe
+    { keys: ['subscribe', 'follow', 'channel', 'youtube', 'where to listen', 'where can i'],
+      resp: `📺 You can subscribe to <strong>House Of Fanelia</strong> on YouTube!<br><br>
+        ▶ <a href="https://www.youtube.com/@HouseOfFanelia?sub_confirmation=1" target="_blank" style="color:var(--cyan)">Subscribe on YouTube</a><br><br>
+        Hit the 🔔 bell to get notified when new tracks drop. We release new music regularly! 🎵`
+    },
+    // Specific tracks
+    { keys: ['addicted', 'it\'s yours', 'yours remix'],
+      resp: `🔥 <strong>"Addicted to You (It's Yours Remix)"</strong> is our biggest hit with 9.4K+ views!<br><br>
+        ▶ <a href="https://www.youtube.com/watch?v=-9vwfnL85Eo" target="_blank" style="color:var(--cyan)">Watch Now</a><br><br>
+        This track blends smooth R&B vibes with electronic production. It resonated with fans and went semi-viral! 🚀`
+    },
+    { keys: ['what was it', 'la dama', 'vestido rojo', 'hooked on you', 'feel safe', 'that guy'],
+      resp: `🎵 Great taste! Here are links to some of our featured tracks:<br><br>
+        • <a href="https://www.youtube.com/watch?v=bsNkSUbMuTs" target="_blank" style="color:var(--cyan)">What Was it?</a> — 367 views<br>
+        • <a href="https://www.youtube.com/watch?v=tOBaFQrgQjQ" target="_blank" style="color:var(--cyan)">Why Don't I Feel Safe?</a> — 167 views<br>
+        • <a href="https://www.youtube.com/watch?v=RQp0pucRN2Q" target="_blank" style="color:var(--cyan)">That Guy For You</a> — 116 views<br>
+        • <a href="https://www.youtube.com/watch?v=Hx_XYPkd8Zw" target="_blank" style="color:var(--cyan)">La Dama del Vestido Rojo</a> — 55 views<br>
+        • <a href="https://www.youtube.com/watch?v=R5VmGYbEcJA" target="_blank" style="color:var(--cyan)">Hooked on You</a><br><br>
+        Want to license any of them? Just ask! 💰`
+    },
+    // New music / releases
+    { keys: ['new music', 'new track', 'latest', 'release', 'when', 'upcoming', 'next drop', 'schedule'],
+      resp: `🆕 We drop new tracks regularly on YouTube!<br><br>
+        Our latest release is <strong>"La Dama del Vestido Rojo"</strong>. New music comes out weekly — make sure you're subscribed with notifications on!<br><br>
+        ▶ <a href="https://www.youtube.com/@HouseOfFanelia?sub_confirmation=1" target="_blank" style="color:var(--cyan)">Subscribe to stay updated</a> 🔔`
+    },
+    // Collaboration
+    { keys: ['collab', 'collaborate', 'feature', 'work together', 'remix', 'partner'],
+      resp: `🤝 <strong>Interested in collaborating?</strong><br><br>
+        DJ Escaflowne is open to:<br>
+        • 🎵 Remix swaps<br>
+        • 🎬 Visual/anime collaborations<br>
+        • 🎤 Featured productions<br>
+        • 📺 Cross-channel promotions<br><br>
+        📧 Reach out: <a href="mailto:escaflowne5@gmail.com" style="color:var(--cyan)">escaflowne5@gmail.com</a><br>
+        Subject: "Collaboration Inquiry" 🚀`
+    },
+    // Anime / Visuals
+    { keys: ['anime', 'visual', 'art', 'artwork', 'thumbnail', 'video style'],
+      resp: `🎬 Every House Of Fanelia track features <strong>stunning anime-inspired visuals</strong>!<br><br>
+        The visuals are a core part of the experience — each video is crafted to feel like a cinematic anime scene that matches the mood and energy of the music.<br><br>
+        It's the fusion of sound and art. Music you can see, art you can hear. 🎨✨`
+    },
+    // Contact
+    { keys: ['contact', 'email', 'reach', 'message', 'get in touch', 'talk'],
+      resp: `📧 You can reach DJ Escaflowne at:<br><br>
+        <strong>Email:</strong> <a href="mailto:escaflowne5@gmail.com" style="color:var(--cyan)">escaflowne5@gmail.com</a><br><br>
+        Whether it's licensing, collabs, or just to connect — we'd love to hear from you! 💜`
+    },
+    // Hello / Greeting
+    { keys: ['hello', 'hi', 'hey', 'sup', 'what\'s up', 'yo', 'greetings'],
+      resp: `Hey! 👋 Welcome to House Of Fanelia! How can I help you today?<br><br>
+        I can tell you about our <strong>music</strong>, <strong>genres</strong>, <strong>licensing</strong>, <strong>collaborations</strong>, or anything about <strong>DJ Escaflowne</strong>. Just ask! 🎧`
+    },
+    // Thanks
+    { keys: ['thank', 'thanks', 'appreciate', 'awesome', 'cool', 'great'],
+      resp: `You're welcome! 🙏 Glad I could help. If you have more questions, I'm here! The beat never stops. 🎧🔥`
+    },
+    // Playlist
+    { keys: ['playlist', 'mix', 'collection', 'compilation'],
+      resp: `📋 Check out the full catalog on YouTube! We have 120+ tracks organized by vibe and genre.<br><br>
+        ▶ <a href="https://www.youtube.com/@HouseOfFanelia" target="_blank" style="color:var(--cyan)">Browse All Videos</a><br><br>
+        Looking for a specific mood? Tell me (chill, hype, dark, smooth) and I'll point you to the right tracks! 🎵`
+    },
+    // Mood-based
+    { keys: ['chill', 'relax', 'calm', 'lofi', 'lo-fi', 'study', 'sleep'],
+      resp: `🌊 For chill vibes, check out:<br><br>
+        • <a href="https://www.youtube.com/watch?v=tOBaFQrgQjQ" target="_blank" style="color:var(--cyan)">Why Don't I Feel Safe?</a> — Emotional & atmospheric<br>
+        • <a href="https://www.youtube.com/watch?v=R5VmGYbEcJA" target="_blank" style="color:var(--cyan)">Hooked on You</a> — Smooth groove<br><br>
+        Perfect for late-night sessions or just zoning out. 🌙`
+    },
+    { keys: ['hype', 'energy', 'party', 'workout', 'dance', 'club', 'turn up', 'banger'],
+      resp: `🔥 For high-energy bangers, try:<br><br>
+        • <a href="https://www.youtube.com/watch?v=-9vwfnL85Eo" target="_blank" style="color:var(--cyan)">Addicted to You (It's Yours Remix)</a> — 9.4K views, pure fire 🔥<br>
+        • <a href="https://www.youtube.com/watch?v=bsNkSUbMuTs" target="_blank" style="color:var(--cyan)">What Was it?</a> — High-energy vibes<br><br>
+        Get the speakers LOUD! 🔊`
+    },
+    // How many
+    { keys: ['how many', 'total', 'count', 'number of'],
+      resp: `📊 House Of Fanelia by the numbers:<br><br>
+        🎵 <strong>120+</strong> Tracks Released<br>
+        👁️ <strong>101,000+</strong> Total Views<br>
+        🎧 <strong>558+</strong> Subscribers<br>
+        🎭 <strong>5</strong> Genres<br>
+        📅 Founded <strong>June 2025</strong><br><br>
+        And growing every day! 📈`
+    }
+  ];
+
+  function respond(text) {
+    let best = null, bestScore = 0;
+    for (const entry of KB) {
+      let score = 0;
+      for (const k of entry.keys) {
+        if (text.includes(k)) score += k.length;
+      }
+      if (score > bestScore) { bestScore = score; best = entry; }
+    }
+    if (best) {
+      typingThenReply(best.resp);
+    } else {
+      typingThenReply(`Great question! For anything I can't answer directly, feel free to reach out to DJ Escaflowne:<br><br>
+        📧 <a href="mailto:escaflowne5@gmail.com" style="color:var(--cyan)">escaflowne5@gmail.com</a><br><br>
+        Or try asking me about our <strong>genres</strong>, <strong>top tracks</strong>, <strong>licensing</strong>, or <strong>collaborations</strong>! 🎧`);
+    }
+  }
+  </script>
 </body>
 </html>
