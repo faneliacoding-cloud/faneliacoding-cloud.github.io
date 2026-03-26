@@ -25,7 +25,7 @@
       <div class="nav-links">
         <a href="#tracks">Tracks</a>
         <a href="#about">About</a>
-        <a href="#stats">Stats</a>
+        <a href="#support">Support</a>
         <a href="https://www.youtube.com/@HouseOfFanelia?sub_confirmation=1" target="_blank" class="btn btn-primary nav-cta" style="padding:8px 20px;font-size:13px;">Subscribe</a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -35,7 +35,7 @@
     <div class="mobile-menu" id="mobileMenu">
       <a href="#tracks">Tracks</a>
       <a href="#about">About</a>
-      <a href="#stats">Stats</a>
+      <a href="#support">Support</a>
       <a href="https://www.youtube.com/@HouseOfFanelia?sub_confirmation=1" target="_blank">🔴 Subscribe</a>
     </div>
   </nav>
@@ -243,6 +243,46 @@
           <div class="stat-label">Genres</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ SUPPORT / DONATE ═══════════════════ -->
+  <section id="support">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Support The Music</span>
+        <h2 class="section-title">Fuel The <span class="gradient-text">Beat</span></h2>
+        <p class="section-sub">Love what you hear? Support House Of Fanelia and help keep the music alive. Every contribution goes directly into producing new tracks and visuals.</p>
+      </div>
+      <div class="donate-grid">
+
+        <div class="donate-card animate-in">
+          <div class="donate-emoji">☕</div>
+          <div class="donate-tier">Supporter</div>
+          <div class="donate-price">$5</div>
+          <div class="donate-desc">Buy DJ Escaflowne a coffee and keep the late-night sessions going.</div>
+          <a href="#" class="btn btn-donate" id="donate-5" data-amount="5">Donate $5</a>
+        </div>
+
+        <div class="donate-card donate-featured animate-in">
+          <div class="donate-badge">⭐ Most Popular</div>
+          <div class="donate-emoji">🎵</div>
+          <div class="donate-tier">Champion</div>
+          <div class="donate-price">$15</div>
+          <div class="donate-desc">Help fund the next track. Get a shoutout in the next video's description.</div>
+          <a href="#" class="btn btn-donate" id="donate-15" data-amount="15">Donate $15</a>
+        </div>
+
+        <div class="donate-card animate-in">
+          <div class="donate-emoji">👑</div>
+          <div class="donate-tier">Legend</div>
+          <div class="donate-price">$50</div>
+          <div class="donate-desc">Become a legend. Get a custom shoutout in the next video + your name in the credits.</div>
+          <a href="#" class="btn btn-donate" id="donate-50" data-amount="50">Donate $50</a>
+        </div>
+
+      </div>
+      <p class="donate-note">💜 All donations are processed securely through Stripe. Thank you for supporting independent music!</p>
     </div>
   </section>
 
@@ -560,6 +600,15 @@
         Get the speakers LOUD! 🔊`
     },
     // How many
+    // Donate / Support
+    { keys: ['donate', 'donation', 'support', 'tip', 'fund', 'contribute', 'pay', 'money', 'stripe'],
+      resp: `💜 <strong>Want to support House Of Fanelia?</strong><br><br>
+        We have three tiers:<br>
+        ☕ <strong>Supporter — $5</strong> — Buy DJ Escaflowne a coffee<br>
+        🎵 <strong>Champion — $15</strong> — Fund the next track + get a video shoutout<br>
+        👑 <strong>Legend — $50</strong> — Custom shoutout + your name in the credits<br><br>
+        Check the <a href="#support" style="color:var(--magenta)" onclick="toggleChat()">Support section</a> to donate! All payments are secure via Stripe. 🙏`
+    },
     { keys: ['how many', 'total', 'count', 'number of'],
       resp: `📊 House Of Fanelia by the numbers:<br><br>
         🎵 <strong>120+</strong> Tracks Released<br>

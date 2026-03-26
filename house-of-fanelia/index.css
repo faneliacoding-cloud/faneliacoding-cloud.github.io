@@ -176,6 +176,47 @@ a { text-decoration: none; color: inherit; }
 .cta-title { font-family: var(--font-h); font-size: clamp(32px,5vw,52px); font-weight: 900; margin-bottom: 16px; }
 .cta-sub { color: var(--text-2); font-size: 18px; max-width: 540px; margin: 0 auto 40px; line-height: 1.7; }
 
+/* ═══════════════════════ SUPPORT / DONATE ═══════════════════════ */
+#support { padding: 120px 0; background: var(--bg); position: relative; overflow: hidden; }
+#support::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(224,64,251,0.06), transparent 60%); pointer-events: none; }
+.donate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; }
+.donate-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 40px 28px; text-align: center;
+  transition: all 0.35s ease; position: relative;
+  opacity: 0; transform: translateY(30px);
+}
+.donate-card.visible { opacity: 1; transform: translateY(0); }
+.donate-card:hover { transform: translateY(-6px); box-shadow: var(--glow), var(--shadow); border-color: rgba(224,64,251,0.3); }
+.donate-featured { border-color: var(--magenta); box-shadow: var(--glow); transform: scale(1.04); }
+.donate-featured.visible { transform: scale(1.04); }
+.donate-featured:hover { transform: scale(1.04) translateY(-6px); }
+.donate-badge {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--grad); color: #fff; font-size: 12px; font-weight: 700;
+  padding: 6px 20px; border-radius: 50px; white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(224,64,251,0.4);
+}
+.donate-emoji { font-size: 48px; margin-bottom: 16px; }
+.donate-tier { font-family: var(--font-h); font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.donate-price {
+  font-family: var(--font-h); font-size: 42px; font-weight: 900;
+  background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 16px;
+}
+.donate-desc { color: var(--text-2); font-size: 14px; line-height: 1.65; margin-bottom: 28px; min-height: 44px; }
+.btn-donate {
+  width: 100%; background: var(--surface2); border: 1px solid var(--border2);
+  color: var(--text); padding: 14px; border-radius: 50px;
+  font-family: var(--font-h); font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all 0.3s; display: inline-flex;
+  align-items: center; justify-content: center;
+}
+.btn-donate:hover { background: var(--grad); border-color: transparent; color: #fff; box-shadow: 0 4px 20px rgba(224,64,251,0.4); }
+.donate-featured .btn-donate { background: var(--grad); color: #fff; border-color: transparent; box-shadow: 0 4px 20px rgba(224,64,251,0.35); }
+.donate-featured .btn-donate:hover { box-shadow: 0 8px 32px rgba(224,64,251,0.5); transform: translateY(-2px); }
+.donate-note { text-align: center; color: var(--text-3); font-size: 13px; margin-top: 32px; }
+
 /* ═══════════════════════ FOOTER ═══════════════════════ */
 footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 48px 0; }
 .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 24px; }
@@ -331,6 +372,7 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 4
   .tracks-grid { grid-template-columns: 1fr 1fr; }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .donate-grid { grid-template-columns: 1fr 1fr 1fr; }
 }
 
 @media (max-width: 640px) {
@@ -345,5 +387,9 @@ footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 4
   .hero-genre-pills { gap: 8px; }
   .genre-pill { font-size: 12px; padding: 5px 14px; }
   .footer-inner { text-align: center; }
+  .donate-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .donate-featured { transform: scale(1); }
+  .donate-featured.visible { transform: scale(1); }
+  .donate-featured:hover { transform: translateY(-6px); }
 }
 
