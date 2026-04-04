@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FaneliaBooks — Premium Ebooks for Every Goal</title>
+  <meta name="description" content="Discover premium ebooks on finance, productivity, business, fitness, cooking, tech, romance and more. Instant digital downloads at unbeatable prices." />
+
+  <!-- Open Graph / Instagram / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://faneliabooks.com/" />
+  <meta property="og:title" content="FaneliaBooks — Premium Ebooks for Every Goal" />
+  <meta property="og:description" content="30+ curated ebooks on finance, business, AI, fitness, romance & more. Instant PDF download — starting at $7." />
+  <meta property="og:image" content="https://faneliabooks.com/covers/6-figures-with-a-laptop.png" />
+  <meta property="og:image:width" content="1080" />
+  <meta property="og:image:height" content="1080" />
+  <meta property="og:site_name" content="FaneliaBooks" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FaneliaBooks — Premium Ebooks for Every Goal" />
+  <meta name="twitter:description" content="30+ curated ebooks on finance, business, AI, fitness, romance & more. Instant PDF download." />
+  <meta name="twitter:image" content="https://faneliabooks.com/covers/6-figures-with-a-laptop.png" />
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2232036020957454');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2232036020957454&ev=PageView&noscript=1"/></noscript>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5647692449421962" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav-header" id="nav-header">
+    <div class="nav-inner">
+      <a href="#" class="logo" id="logo-link">
+        <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="url(#logoGrad)"/>
+          <path d="M8 8h10a6 6 0 0 1 0 12H8V8z" fill="white" fill-opacity="0.9"/>
+          <path d="M8 22h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6366f1"/>
+              <stop offset="1" stop-color="#22d3ee"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">FaneliaBooks</span>
+      </a>
+
+      <div class="nav-search-wrap">
+        <div class="nav-search" id="nav-search-bar">
+          <svg class="search-icon" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M16 16l-3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input type="text" id="search-input" placeholder="Search books, topics…" autocomplete="off" />
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#shelves-container" class="nav-link" id="nav-browse">Browse</a>
+        <a href="#categories-section" class="nav-link">Categories</a>
+        <button class="btn-cta" id="nav-cta">Get Instant Access</button>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-search">
+        <svg class="search-icon" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M16 16l-3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" id="mobile-search-input" placeholder="Search books…" autocomplete="off" />
+      </div>
+      <a href="#shelves-container" class="mobile-nav-link">Browse All</a>
+      <a href="#categories-section" class="mobile-nav-link">Categories</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-orb hero-orb-3"></div>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">📚 30+ Premium Ebooks — Instant Download</div>
+        <h1 class="hero-title">
+          Read More.<br />
+          <em>Earn More. Live Better.</em>
+        </h1>
+        <p class="hero-subtitle">Curated ebooks on finance, business, fitness, romance, productivity and more. Your next breakthrough is one page away.</p>
+        <div class="hero-actions">
+          <a href="#shelves-container" class="btn-hero-primary" id="hero-browse-btn">Browse the Collection</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><strong>30+</strong><span>Ebooks</span></div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat"><strong>10</strong><span>Categories</span></div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat"><strong>$7</strong><span>Starting at</span></div>
+        </div>
+      </div>
+      <div class="hero-books-preview">
+        <div class="preview-stack">
+          <img src="covers/the-30-day-money-reset.png" alt="The 30 Day Money Reset" class="preview-book preview-book-back" loading="lazy" />
+          <img src="covers/options-in-plain-english.png" alt="Options in Plain English" class="preview-book preview-book-mid" loading="lazy" />
+          <img src="covers/6-figures-with-a-laptop.png" alt="6 Figures With A Laptop" class="preview-book preview-book-front" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AD UNIT: Below Hero -->
+  <div class="ad-banner-wrap" id="ad-hero-bottom">
+    <ins class="adsbygoogle ad-unit" style="display:block"
+         data-ad-client="ca-pub-5647692449421962" data-ad-slot="auto"
+         data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <!-- CATEGORY PILLS -->
+  <section class="categories-section" id="categories-section">
+    <div class="container">
+      <div class="category-scroll" id="category-tabs" role="tablist">
+        <button class="cat-tab active" data-cat="all" role="tab" aria-selected="true" id="tab-all">All Books</button>
+        <button class="cat-tab" data-cat="finance" role="tab" id="tab-finance">💰 Finance</button>
+        <button class="cat-tab" data-cat="productivity" role="tab" id="tab-productivity">⚡ Productivity</button>
+        <button class="cat-tab" data-cat="business" role="tab" id="tab-business">🚀 Business</button>
+        <button class="cat-tab" data-cat="fitness" role="tab" id="tab-fitness">💪 Fitness</button>
+        <button class="cat-tab" data-cat="cooking" role="tab" id="tab-cooking">🍳 Cooking</button>
+        <button class="cat-tab" data-cat="tech" role="tab" id="tab-tech">💻 Tech & AI</button>
+        <button class="cat-tab" data-cat="relationships" role="tab" id="tab-relationships">❤️ Relationships</button>
+        <button class="cat-tab" data-cat="romance" role="tab" id="tab-romance">💕 Romance</button>
+        <button class="cat-tab" data-cat="childrens" role="tab" id="tab-childrens">🌟 Children's</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK SHELVES (themed carousels) -->
+  <div id="shelves-container">
+    <!-- Rendered by JS -->
+  </div>
+
+  <!-- ALL BOOKS GRID (shown when filtering) -->
+  <section class="books-section" id="books-section">
+    <div class="container">
+      <div class="books-header">
+        <h2 class="books-title" id="books-title">All Books <span class="books-count" id="books-count"></span></h2>
+        <div class="sort-wrap">
+          <label for="sort-select" class="sr-only">Sort by</label>
+          <select id="sort-select" class="sort-select">
+            <option value="default">Featured</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+            <option value="name-asc">A–Z</option>
+          </select>
+        </div>
+      </div>
+      <div class="books-grid" id="books-grid"></div>
+      <div class="no-results" id="no-results" style="display:none;">
+        <div class="no-results-icon">🔍</div>
+        <p>No books found. Try a different search or category.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AD UNIT: Mid-Page -->
+  <div class="ad-banner-wrap" id="ad-midpage">
+    <ins class="adsbygoogle ad-unit" style="display:block"
+         data-ad-client="ca-pub-5647692449421962" data-ad-slot="auto"
+         data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <!-- TRUST SECTION -->
+  <section class="trust-section">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">⚡</div>
+          <h3>Instant Download</h3>
+          <p>Get your PDF immediately after purchase — no waiting, no shipping.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🔒</div>
+          <h3>Secure Checkout</h3>
+          <p>All purchases processed securely through Stripe's trusted platform.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📱</div>
+          <h3>Read Anywhere</h3>
+          <p>PDF format works on any device — phone, tablet, laptop, or e-reader.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">💯</div>
+          <h3>Quality Guaranteed</h3>
+          <p>Every book is carefully crafted with actionable, real-world content.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AD UNIT: Pre-Footer -->
+  <div class="ad-banner-wrap" id="ad-prefooter">
+    <ins class="adsbygoogle ad-unit" style="display:block"
+         data-ad-client="ca-pub-5647692449421962" data-ad-slot="auto"
+         data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="32" height="32" rx="8" fill="url(#logoGrad2)"/>
+              <path d="M8 8h10a6 6 0 0 1 0 12H8V8z" fill="white" fill-opacity="0.9"/>
+              <path d="M8 22h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="logoGrad2" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#6366f1"/>
+                  <stop offset="1" stop-color="#22d3ee"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="logo-text">FaneliaBooks</span>
+          </a>
+          <p class="footer-tagline">Premium ebooks for every goal and every life.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Categories</h4>
+            <a href="#" data-filter-cat="finance">Finance</a>
+            <a href="#" data-filter-cat="business">Business</a>
+            <a href="#" data-filter-cat="productivity">Productivity</a>
+            <a href="#" data-filter-cat="fitness">Fitness & Health</a>
+          </div>
+          <div class="footer-col">
+            <h4>More</h4>
+            <a href="#" data-filter-cat="cooking">Cooking</a>
+            <a href="#" data-filter-cat="tech">Tech & AI</a>
+            <a href="#" data-filter-cat="romance">Romance</a>
+            <a href="#" data-filter-cat="relationships">Relationships</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 FaneliaBooks. All rights reserved. &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a> &nbsp;·&nbsp; Secure payments via Stripe.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BOOK DETAIL MODAL -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none;">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-inner">
+        <div class="modal-cover-wrap">
+          <img src="" alt="" class="modal-cover" id="modal-cover" />
+          <div class="modal-cover-glow"></div>
+        </div>
+        <div class="modal-content">
+          <div class="modal-category" id="modal-category"></div>
+          <h2 class="modal-title" id="modal-title"></h2>
+          <div class="modal-meta">
+            <div class="modal-price" id="modal-price"></div>
+            <div class="modal-badge">📄 PDF — Instant Download</div>
+          </div>
+          <p class="modal-desc" id="modal-desc"></p>
+          <div class="modal-perks">
+            <div class="perk"><span>✅</span> Instant delivery to your inbox</div>
+            <div class="perk"><span>✅</span> Works on any device</div>
+            <div class="perk"><span>✅</span> Secure checkout via Stripe</div>
+          </div>
+          <!-- Apple Pay / Google Pay wallet buttons -->
+          <div id="wallet-buttons" style="display:none; margin-bottom:12px;">
+            <div id="payment-request-button"></div>
+            <div class="wallet-divider"><span>or pay with card</span></div>
+          </div>
+          <button class="btn-buy" id="modal-buy">
+            <span>Buy Now — </span><span id="modal-buy-price"></span>
+          </button>
+          <p class="modal-guarantee">30-day money-back guarantee</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="app.js"></script>
+</body>
+</html>

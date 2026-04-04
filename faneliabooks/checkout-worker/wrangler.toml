@@ -1,0 +1,7 @@
+name = "faneliabooks-checkout"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "EBOOK_KV"
+id = "06146a1098ca4bac87681a0103dfe2c9"

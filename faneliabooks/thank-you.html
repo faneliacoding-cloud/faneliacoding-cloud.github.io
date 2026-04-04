@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You! — FaneliaBooks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f0f13;
+      color: #f0f0f6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #1d1d28;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 60px 48px;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    }
+    .icon { font-size: 4rem; margin-bottom: 24px; animation: pop 0.5s cubic-bezier(0.4,0,0.2,1); }
+    @keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #a78bfa, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    p { color: #c0c0d0; line-height: 1.7; margin-bottom: 12px; }
+    .book-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #e0e0f0;
+      margin-bottom: 20px;
+    }
+    .note {
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 24px 0;
+      color: #a78bfa;
+      font-size: 0.9rem;
+    }
+
+    /* Download button — prominent, animated */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      text-decoration: none;
+      border: none;
+      border-radius: 50px;
+      padding: 18px 40px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      margin: 24px 0 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 30px rgba(16,185,129,0.3);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(16,185,129,0.5);
+    }
+    .download-btn:active { transform: translateY(-1px); }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 8px 30px rgba(16,185,129,0.3); }
+      50% { box-shadow: 0 8px 40px rgba(16,185,129,0.5); }
+    }
+    .download-btn svg { width: 22px; height: 22px; }
+
+    /* Loading state */
+    .loading-state { margin: 24px 0; }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid rgba(167,139,250,0.2);
+      border-top-color: #a78bfa;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { color: #a78bfa; font-size: 0.95rem; }
+
+    /* Error state */
+    .error-msg {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 24px 0;
+      color: #f87171;
+      font-size: 0.9rem;
+    }
+
+    a.btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      padding: 14px 32px;
+      font-weight: 600;
+      margin-top: 8px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    a.btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">🎉</div>
+    <h1>You're in!</h1>
+
+    <!-- Loading State (shown while verifying) -->
+    <div id="loading-state" class="loading-state">
+      <div class="spinner"></div>
+      <div class="loading-text">Verifying your purchase…</div>
+    </div>
+
+    <!-- Success State (shown after verification) -->
+    <div id="success-state" class="hidden">
+      <p>Your purchase was successful!</p>
+      <div id="book-title" class="book-title"></div>
+      <button id="download-btn" class="download-btn" onclick="downloadBook()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+        </svg>
+        <span>Download Your Book</span>
+      </button>
+      <p style="font-size: 0.85rem; color: #888; margin-top: 8px;">
+        Your download link is valid — save a copy for your records.
+      </p>
+    </div>
+
+    <!-- Error State (shown if verification fails) -->
+    <div id="error-state" class="hidden">
+      <div class="error-msg" id="error-msg">We couldn't verify your purchase. Please check your email for a receipt from Stripe.</div>
+    </div>
+
+    <!-- No Session State (no session_id in URL) -->
+    <div id="no-session-state" class="hidden">
+      <p>Your purchase was successful. Check your email for your download link — it's on its way from Stripe.</p>
+    </div>
+
+    <div class="note">📬 Need help? Contact us at <strong>faneliabooks@gmail.com</strong></div>
+    <p>Thank you for supporting FaneliaBooks. Now go read something great!</p>
+    <a href="/" class="btn">Browse More Books →</a>
+  </div>
+
+  <script>
+    const WORKER = "https://faneliabooks-checkout.faneliabooks.workers.dev";
+    let downloadUrl = null;
+
+    async function verifyPurchase() {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get("session_id");
+
+      if (!sessionId) {
+        // No session_id — likely Apple/Google Pay or direct visit
+        document.getElementById("loading-state").classList.add("hidden");
+        document.getElementById("no-session-state").classList.remove("hidden");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${WORKER}/verify`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ session_id: sessionId }),
+        });
+
+        const data = await res.json();
+
+        if (data.verified) {
+          // Success!
+          downloadUrl = data.download_url;
+          document.getElementById("book-title").textContent = `📖 ${data.book}`;
+          document.getElementById("loading-state").classList.add("hidden");
+          document.getElementById("success-state").classList.remove("hidden");
+
+          // Track purchase for Meta Pixel
+          if (typeof fbq === "function") {
+            fbq("track", "Purchase", {
+              content_name: data.book,
+              content_ids: [data.slug],
+              content_type: "product",
+              currency: "USD",
+            });
+          }
+        } else {
+          throw new Error(data.error || "Verification failed");
+        }
+      } catch (err) {
+        document.getElementById("loading-state").classList.add("hidden");
+        document.getElementById("error-state").classList.remove("hidden");
+        document.getElementById("error-msg").textContent =
+          "We couldn't verify your purchase: " + err.message +
+          ". Contact faneliabooks@gmail.com with your receipt.";
+      }
+    }
+
+    function downloadBook() {
+      if (downloadUrl) {
+        window.location.href = downloadUrl;
+      }
+    }
+
+    // Start verification on page load
+    verifyPurchase();
+  </script>
+</body>
+</html>

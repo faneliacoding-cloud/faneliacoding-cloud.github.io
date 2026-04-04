@@ -1,0 +1,974 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Code Everything — FaneliaBooks</title><style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0d1117;color:#e6edf3;line-height:1.8;font-size:1rem}
+.cover{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#0d1117 100%);text-align:center;padding:60px 32px}
+.cover h1{font-size:3.5rem;font-weight:800;background:linear-gradient(90deg,#58a6ff,#bc8cff,#3fb950);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px;line-height:1.1}
+.cover .sub{font-size:1.15rem;color:#8b949e;max-width:600px;margin:0 auto 24px}
+.cover .badge{display:inline-block;background:#21262d;border:1px solid #30363d;border-radius:20px;padding:6px 18px;font-size:0.85rem;color:#58a6ff;margin-bottom:16px}
+.toc{max-width:800px;margin:0 auto;padding:60px 32px}
+.toc h2{font-size:2rem;font-weight:700;color:#f0f6fc;margin-bottom:32px;border-bottom:1px solid #30363d;padding-bottom:16px}
+.toc-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #21262d;color:#c9d1d9;font-size:0.95rem}
+.chapter{max-width:800px;margin:0 auto;padding:60px 32px;border-top:1px solid #21262d}
+.lang-header{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+.lang-badge{background:#21262d;border:1px solid #30363d;border-radius:8px;padding:8px 16px;font-family:'JetBrains Mono',monospace;font-size:0.8rem;white-space:nowrap}
+h2.lt{font-size:2rem;font-weight:700;color:#f0f6fc}
+h3{font-size:1.1rem;font-weight:600;color:#58a6ff;margin:28px 0 10px}
+p{color:#8b949e;margin-bottom:14px;line-height:1.8}
+pre{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;overflow-x:auto;margin:16px 0;white-space:pre-wrap;word-break:break-word}
+code{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:#e6edf3}
+.uses{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
+.use{background:#21262d;border:1px solid #30363d;border-radius:6px;padding:4px 12px;font-size:0.82rem;color:#3fb950}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.stat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;text-align:center}
+.stat .v{font-size:1.3rem;font-weight:700;color:#58a6ff;word-break:break-word}
+.stat .l{font-size:0.78rem;color:#8b949e;margin-top:4px}
+.intro{background:#161b22;border-left:3px solid #58a6ff;padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:28px;font-style:italic;color:#c9d1d9}
+hr{border:none;border-top:1px solid #21262d;margin:40px 0}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.88rem}
+th{background:#21262d;color:#f0f6fc;padding:10px 14px;text-align:left;border:1px solid #30363d}
+td{padding:10px 14px;border:1px solid #21262d;color:#8b949e}
+tr:nth-child(even) td{background:#161b22}
+.final{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:40px;margin:40px 32px;text-align:center}
+.final h2{font-size:1.6rem;font-weight:700;color:#f0f6fc;margin-bottom:12px}
+</style>
+</head><body>
+<div class="cover">
+<div class="badge">💻 Tech &amp; AI &nbsp;·&nbsp; 100+ Pages &nbsp;·&nbsp; 20 Languages</div>
+<h1>Code Everything</h1>
+<p class="sub">The Complete Guide to Every Programming Language Being Used Today — Syntax, Use Cases, Real Code Examples, and When to Choose Each One</p>
+<p style="color:#3fb950;font-size:0.95rem;margin-top:8px">20 Languages &nbsp;·&nbsp; Real Code Examples &nbsp;·&nbsp; Beginner to Advanced</p>
+</div>
+<div class="toc"><h2>📋 Table of Contents</h2><div class="toc-item"><span>🐍 Python</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>⚡ JavaScript</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>🔷 TypeScript</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>☕ Java</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>⚙️ C</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>🦫 Go</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>🦀 Rust</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>🍎 Swift</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>🎯 Kotlin</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>🐘 PHP</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>💎 Ruby</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>🗄️ SQL</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>📊 R</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>🖥️ Bash</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>🎨 Dart / Flutter</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>⚡ Scala</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>🌙 Lua</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>λ Haskell</span><span style="color:#3fb950">✓</span></div><div class="toc-item"><span>💜 Elixir</span><span style="color:#3fb950">✓</span></div></div>
+<div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">🐍</span>
+<div><span class="lang-badge" style="border-color:#3776ab;color:#3776ab">Python</span><h2 class="lt">Python</h2></div>
+</div>
+<div class="intro">Created by Guido van Rossum in 1991. Python is now the world's most popular programming language — beloved for its readability, vast ecosystem, and unmatched versatility from web apps to cutting-edge AI.</div>
+<h3>Where Python is Used</h3><div class="uses"><span class="use">AI / Machine Learning</span><span class="use">Web (Django/Flask)</span><span class="use">Data Science</span><span class="use">Automation</span><span class="use">Scripting</span><span class="use">APIs</span></div>
+<div class="stats">
+<div class="stat"><div class="v">1991</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">#1 TIOBE 2025</div><div class="l">Rank</div></div>
+<div class="stat"><div class="v">48%</div><div class="l">Devs Using</div></div>
+</div><h3>▶ Variables & Types</h3><pre><code>x = 10
+name = 'Alice'
+pi = 3.14
+active = True
+mixedList = [1, 'hello', True, None]</code></pre><h3>▶ Functions</h3><pre><code>def greet(name, greeting='Hello'):
+    return f'{greeting}, {name}!'
+
+print(greet('World'))         # Hello, World!
+print(greet('Bob', 'Hi'))     # Hi, Bob!</code></pre><h3>▶ Classes</h3><pre><code>class Dog:
+    def __init__(self, name, breed):
+        self.name = name
+        self.breed = breed
+    def bark(self):
+        return f'{self.name} says Woof!'
+
+d = Dog('Rex', 'Labrador')
+print(d.bark())</code></pre><h3>▶ List Comprehensions & Generators</h3><pre><code>squares = [x**2 for x in range(10)]
+evens = [x for x in range(20) if x % 2 == 0]
+nested = [(x, y) for x in range(3) for y in range(3)]
+gen = (x**2 for x in range(1000000))  # memory efficient</code></pre><h3>▶ Decorators</h3><pre><code>def log(func):
+    def wrapper(*args, **kwargs):
+        print(f'Calling {func.__name__}')
+        result = func(*args, **kwargs)
+        print(f'Done: {result}')
+        return result
+    return wrapper
+
+@log
+def add(a, b):
+    return a + b
+
+add(3, 4)</code></pre><h3>▶ Async/Await</h3><pre><code>import asyncio
+
+async def fetch(url):
+    await asyncio.sleep(0.1)  # non-blocking
+    return f'Data from {url}'
+
+async def main():
+    urls = ['url1', 'url2', 'url3']
+    results = await asyncio.gather(*[fetch(u) for u in urls])
+    print(results)
+
+asyncio.run(main())</code></pre><h3>▶ Exception Handling</h3><pre><code>try:
+    value = int(input('Enter number: '))
+    result = 100 / value
+except ValueError:
+    print('Not a number!')
+except ZeroDivisionError:
+    print('Cannot divide by zero!')
+except Exception as e:
+    print(f'Unexpected: {e}')
+else:
+    print(f'Result: {result}')
+finally:
+    print('Always runs')</code></pre>
+<h3>The Verdict</h3><p>Python is the perfect first language and a powerful last language. Its 'batteries included' philosophy means you can build almost anything without leaving the ecosystem.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">⚡</span>
+<div><span class="lang-badge" style="border-color:#f7df1e;color:#f7df1e">JavaScript</span><h2 class="lt">JavaScript</h2></div>
+</div>
+<div class="intro">Created by Brendan Eich in just 10 days in 1995. JavaScript is the only language that runs natively in every web browser. Node.js extended it to the server, making JS the world's most widely deployed language.</div>
+<h3>Where JavaScript is Used</h3><div class="uses"><span class="use">Web Frontend</span><span class="use">Node.js Backend</span><span class="use">Mobile (React Native)</span><span class="use">Desktop (Electron)</span><span class="use">APIs</span></div>
+<div class="stats">
+<div class="stat"><div class="v">1995</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">#3 TIOBE 2025</div><div class="l">Rank</div></div>
+<div class="stat"><div class="v">65%</div><div class="l">Devs Using</div></div>
+</div><h3>▶ Variables & Arrow Functions</h3><pre><code>const name = 'Alice';
+let count = 0;
+
+const add = (a, b) => a + b;
+const greet = name => `Hello, ${name}!`;
+
+console.log(greet('World')); // Hello, World!</code></pre><h3>▶ Arrays & Destructuring</h3><pre><code>const nums = [1, 2, 3, 4, 5];
+const doubled = nums.map(n => n * 2);       // [2,4,6,8,10]
+const evens = nums.filter(n => n % 2 === 0); // [2,4]
+const sum = nums.reduce((acc, n) => acc + n, 0); // 15
+
+const [first, second, ...rest] = nums;
+console.log(first, rest); // 1 [3,4,5]</code></pre><h3>▶ Objects & Classes</h3><pre><code>class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greet() { return `Hi, I'm ${this.name}`; }
+  static create(name) { return new Person(name, 0); }
+}
+
+const { name, age } = new Person('Alice', 30);</code></pre><h3>▶ Promises & Async</h3><pre><code>async function fetchUser(id) {
+  try {
+    const res = await fetch(`/api/users/${id}`);
+    if (!res.ok) throw new Error('Not found');
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}</code></pre><h3>▶ Modules</h3><pre><code>// utils.js
+export const PI = 3.14159;
+export function square(n) { return n * n; }
+export default function main() { console.log('main'); }
+
+// app.js
+import main, { PI, square } from './utils.js';
+console.log(PI, square(5)); // 3.14159 25</code></pre><h3>▶ Closures & Higher-Order Functions</h3><pre><code>function counter(start = 0) {
+  let count = start;
+  return {
+    increment: () => ++count,
+    decrement: () => --count,
+    value: () => count
+  };
+}
+
+const c = counter(10);
+c.increment(); c.increment();
+console.log(c.value()); // 12</code></pre>
+<h3>The Verdict</h3><p>JavaScript's event-driven model makes it uniquely powerful for interactive applications. With Node.js it's now a legitimate full-stack language — learn it well.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">🔷</span>
+<div><span class="lang-badge" style="border-color:#3178c6;color:#3178c6">TypeScript</span><h2 class="lt">TypeScript</h2></div>
+</div>
+<div class="intro">TypeScript is JavaScript with a powerful type system, created by Microsoft's Anders Hejlsberg in 2012. It compiles down to JavaScript but catches bugs at compile time that JavaScript only reveals at runtime — or never.</div>
+<h3>Where TypeScript is Used</h3><div class="uses"><span class="use">Large-scale Web Apps</span><span class="use">Enterprise Software</span><span class="use">Node.js APIs</span><span class="use">React/Angular/Vue</span></div>
+<div class="stats">
+<div class="stat"><div class="v">2012</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">Top 5 language</div><div class="l">GitHub</div></div>
+<div class="stat"><div class="v">38%</div><div class="l">Teams Using</div></div>
+</div><h3>▶ Type Annotations</h3><pre><code>let name: string = 'Alice';
+let age: number = 30;
+let scores: number[] = [95, 87, 92];
+let data: Record<string, unknown> = {};
+type Point = { x: number; y: number };</code></pre><h3>▶ Interfaces & Types</h3><pre><code>interface User {
+  id: number;
+  name: string;
+  email?: string;  // optional
+  readonly createdAt: Date;
+}
+
+type Status = 'active' | 'inactive' | 'pending';
+type ApiResponse<T> = { data: T; error?: string; };</code></pre><h3>▶ Generics</h3><pre><code>function first<T>(arr: T[]): T | undefined {
+  return arr[0];
+}
+
+class Stack<T> {
+  private items: T[] = [];
+  push(item: T) { this.items.push(item); }
+  pop(): T | undefined { return this.items.pop(); }
+  get size(): number { return this.items.length; }
+}</code></pre><h3>▶ Utility Types</h3><pre><code>type PartialUser = Partial<User>;
+type ReadonlyUser = Readonly<User>;
+type UserKeys = keyof User;
+type PickedUser = Pick<User, 'id' | 'name'>;
+type OmitEmail = Omit<User, 'email'>;</code></pre>
+<h3>The Verdict</h3><p>TypeScript catches entire classes of bugs at compile time. For teams, the upfront cost of types pays dividends immediately. It's no longer optional for serious projects.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">☕</span>
+<div><span class="lang-badge" style="border-color:#f89820;color:#f89820">Java</span><h2 class="lt">Java</h2></div>
+</div>
+<div class="intro">James Gosling at Sun Microsystems created Java in 1995 with 'Write Once, Run Anywhere.' The JVM makes it portable. Java powers Android, most enterprise software, and the world's largest financial systems.</div>
+<h3>Where Java is Used</h3><div class="uses"><span class="use">Enterprise Applications</span><span class="use">Android Development</span><span class="use">Spring Boot APIs</span><span class="use">Big Data (Spark)</span></div>
+<div class="stats">
+<div class="stat"><div class="v">1995</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">3B+ devices</div><div class="l">Android</div></div>
+<div class="stat"><div class="v">#1 language</div><div class="l">Enterprise</div></div>
+</div><h3>▶ Classes & OOP</h3><pre><code>public class BankAccount {
+    private String owner;
+    private double balance;
+    public BankAccount(String owner, double initial) {
+        this.owner = owner;
+        this.balance = initial;
+    }
+    public void deposit(double amount) { balance += amount; }
+    public boolean withdraw(double amount) {
+        if (amount > balance) return false;
+        balance -= amount;
+        return true;
+    }
+    @Override public String toString() {
+        return String.format("%s: $%.2f", owner, balance);
+    }
+}</code></pre><h3>▶ Interfaces & Generics</h3><pre><code>public interface Repository<T, ID> {
+    Optional<T> findById(ID id);
+    List<T> findAll();
+    T save(T entity);
+    void delete(ID id);
+}
+
+public class UserRepository implements Repository<User, Long> {
+    // implementation...
+}</code></pre><h3>▶ Streams (Java 8+)</h3><pre><code>List<Employee> employees = getEmployees();
+Map<String, Double> avgSalaryByDept = employees.stream()
+    .filter(e -> e.isActive())
+    .collect(Collectors.groupingBy(
+        Employee::getDepartment,
+        Collectors.averagingDouble(Employee::getSalary)
+    ));
+
+Optional<Employee> highest = employees.stream()
+    .max(Comparator.comparingDouble(Employee::getSalary));</code></pre><h3>▶ Records (Java 16+)</h3><pre><code>public record Point(double x, double y) {
+    // Compact constructor for validation
+    public Point {
+        if (x < 0 || y < 0) throw new IllegalArgumentException();
+    }
+    public double distanceTo(Point other) {
+        return Math.hypot(x - other.x(), y - other.y());
+    }
+}</code></pre>
+<h3>The Verdict</h3><p>Java's strict type system and enterprise ecosystem have made it the backbone of global software for 30 years. Spring Boot is the gold standard for scalable APIs.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">⚙️</span>
+<div><span class="lang-badge" style="border-color:#a8b9cc;color:#a8b9cc">C</span><h2 class="lt">C</h2></div>
+</div>
+<div class="intro">Dennis Ritchie created C at Bell Labs from 1969–1973 to write Unix. C is the foundation of modern computing — Linux, Windows, macOS, iOS, every programming language runtime, and most embedded systems are written in C.</div>
+<h3>Where C is Used</h3><div class="uses"><span class="use">Operating Systems</span><span class="use">Embedded Systems</span><span class="use">Compilers</span><span class="use">Game Engines</span><span class="use">Drivers</span></div>
+<div class="stats">
+<div class="stat"><div class="v">1972</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">#2 TIOBE 2025</div><div class="l">Rank</div></div>
+<div class="stat"><div class="v">Linux kernel</div><div class="l">Powers</div></div>
+</div><h3>▶ Basics</h3><pre><code>#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char name[50] = "World";
+    int len = strlen(name);
+    printf("Hello, %s! (%d chars)\n", name, len);
+    return 0;
+}</code></pre><h3>▶ Pointers</h3><pre><code>int x = 42;
+int *ptr = &x;          // pointer to x
+printf("%d\n", *ptr);    // dereference: 42
+*ptr = 100;              // modify through pointer
+printf("%d\n", x);       // x is now 100
+
+int arr[5] = {10,20,30,40,50};
+int *p = arr;            // arr decays to pointer
+printf("%d\n", *(p + 2)); // arr[2] = 30</code></pre><h3>▶ Structs</h3><pre><code>typedef struct {
+    char name[100];
+    int   age;
+    float gpa;
+} Student;
+
+Student s = {"Alice", 20, 3.85};
+printf("%s | age %d | GPA %.2f\n", s.name, s.age, s.gpa);</code></pre><h3>▶ Memory Management</h3><pre><code>int *arr = malloc(10 * sizeof(int));
+if (!arr) { perror("malloc"); return 1; }
+for (int i = 0; i < 10; i++) arr[i] = i * i;
+printf("%d\n", arr[4]); // 16
+free(arr);               // ALWAYS free what you malloc</code></pre>
+<h3>The Verdict</h3><p>Understanding C gives you a superpower — you understand exactly what the hardware is doing. Every other language eventually compiles to something C understands.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">🦫</span>
+<div><span class="lang-badge" style="border-color:#00add8;color:#00add8">Go</span><h2 class="lt">Go</h2></div>
+</div>
+<div class="intro">Robert Griesemer, Rob Pike, and Ken Thompson at Google created Go in 2007, releasing in 2009. Go was designed for the scale of Google: fast compilation, built-in concurrency via goroutines, and single-binary deployments.</div>
+<h3>Where Go is Used</h3><div class="uses"><span class="use">Cloud Infrastructure</span><span class="use">APIs and Microservices</span><span class="use">Docker & Kubernetes</span><span class="use">CLI Tools</span><span class="use">DevOps</span></div>
+<div class="stats">
+<div class="stat"><div class="v">2009</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">Docker & K8s</div><div class="l">Powers</div></div>
+<div class="stat"><div class="v">Near-instant</div><div class="l">Compilation</div></div>
+</div><h3>▶ Basic Syntax</h3><pre><code>package main
+
+import (
+    "fmt"
+    "strings"
+)
+
+func main() {
+    name := "Go"  // short variable declaration
+    fmt.Printf("Hello from %s!\n", strings.ToUpper(name))
+}</code></pre><h3>▶ Multiple Return Values & Errors</h3><pre><code>func divide(a, b float64) (float64, error) {
+    if b == 0 {
+        return 0, fmt.Errorf("cannot divide by zero")
+    }
+    return a / b, nil
+}
+
+result, err := divide(10, 3)
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Printf("%.4f\n", result) // 3.3333</code></pre><h3>▶ Goroutines & Channels</h3><pre><code>func producer(ch chan<- int, n int) {
+    for i := 0; i < n; i++ {
+        ch <- i * i
+    }
+    close(ch)
+}
+
+ch := make(chan int, 10)
+go producer(ch, 5)
+for val := range ch {
+    fmt.Println(val) // 0 1 4 9 16
+}</code></pre><h3>▶ Interfaces</h3><pre><code>type Shape interface {
+    Area() float64
+    Perimeter() float64
+}
+type Circle struct{ Radius float64 }
+func (c Circle) Area() float64 { return math.Pi * c.Radius * c.Radius }
+func (c Circle) Perimeter() float64 { return 2 * math.Pi * c.Radius }</code></pre>
+<h3>The Verdict</h3><p>Go's killer feature is goroutines: launch 100,000+ concurrent operations with tiny memory per goroutine. If you're building cloud infrastructure, Go is the language.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">🦀</span>
+<div><span class="lang-badge" style="border-color:#ce422b;color:#ce422b">Rust</span><h2 class="lt">Rust</h2></div>
+</div>
+<div class="intro">Mozilla Research started Rust in 2006 (released 2015) to fix C's memory safety problems without garbage collection. Its Borrow Checker enforces memory safety at compile time, eliminating entire classes of bugs.</div>
+<h3>Where Rust is Used</h3><div class="uses"><span class="use">Systems Programming</span><span class="use">WebAssembly</span><span class="use">Embedded Systems</span><span class="use">Game Engines</span><span class="use">Cryptography</span></div>
+<div class="stats">
+<div class="stat"><div class="v">2015</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">9 years running</div><div class="l">Most Loved</div></div>
+<div class="stat"><div class="v">C/C++ parity</div><div class="l">Performance</div></div>
+</div><h3>▶ Ownership & Borrowing</h3><pre><code>let s1 = String::from("hello");
+let s2 = s1;  // s1 is MOVED — no longer valid
+// println!("{}", s1); // ERROR: value used after move
+
+let s3 = String::from("world");
+let len = calculate_length(&s3); // borrow, not move
+println!("{} has {} chars", s3, len); // s3 still valid
+
+fn calculate_length(s: &String) -> usize { s.len() }</code></pre><h3>▶ Structs & Implementations</h3><pre><code>#[derive(Debug, Clone)]
+struct Rectangle {
+    width: f64,
+    height: f64,
+}
+impl Rectangle {
+    fn new(w: f64, h: f64) -> Self { Rectangle { width: w, height: h } }
+    fn area(&self) -> f64 { self.width * self.height }
+    fn is_square(&self) -> bool { self.width == self.height }
+}</code></pre><h3>▶ Enums & Pattern Matching</h3><pre><code>enum Command {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    Color(u8, u8, u8),
+}
+
+let cmd = Command::Move { x: 10, y: 20 };
+match cmd {
+    Command::Quit => println!("Quitting"),
+    Command::Move { x, y } => println!("Move to ({x}, {y})"),
+    Command::Write(msg) => println!("Write: {msg}"),
+    Command::Color(r, g, b) => println!("Color: #{r:02x}{g:02x}{b:02x}"),
+}</code></pre><h3>▶ Error Handling with Result</h3><pre><code>use std::fs;
+use std::io;
+
+fn read_username(path: &str) -> Result<String, io::Error> {
+    let content = fs::read_to_string(path)?; // ? = early return on error
+    Ok(content.trim().to_string())
+}
+
+// Using it:
+match read_username("user.txt") {
+    Ok(name) => println!("User: {name}"),
+    Err(e) => eprintln!("Error: {e}"),
+}</code></pre>
+<h3>The Verdict</h3><p>Rust eliminates null pointers, buffer overflows, and data races at compile time — zero runtime cost. It is redefining what safe systems programming looks like.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">🍎</span>
+<div><span class="lang-badge" style="border-color:#f05138;color:#f05138">Swift</span><h2 class="lt">Swift</h2></div>
+</div>
+<div class="intro">Chris Lattner at Apple created Swift in 2014 to replace Objective-C. Swift is faster, safer, and far more expressive. It is the primary language for iOS, macOS, watchOS, and tvOS — the gateway to 2+ billion Apple devices.</div>
+<h3>Where Swift is Used</h3><div class="uses"><span class="use">iOS App Development</span><span class="use">macOS Apps</span><span class="use">watchOS / tvOS</span><span class="use">Server-side (Vapor)</span></div>
+<div class="stats">
+<div class="stat"><div class="v">2014</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">iOS/macOS/tvOS</div><div class="l">Apple Platform</div></div>
+<div class="stat"><div class="v">2B+ devices</div><div class="l">App Store</div></div>
+</div><h3>▶ Optionals & Safe Unwrapping</h3><pre><code>var username: String? = nil
+username = "Alice"
+
+if let name = username {
+    print("Hello, \(name)")
+}
+
+let greeting = username ?? "Guest" // nil-coalescing
+guard let safeUser = username else { return }</code></pre><h3>▶ Structs & Enums</h3><pre><code>struct Point {
+    var x: Double
+    var y: Double
+    func distance(to other: Point) -> Double {
+        return sqrt(pow(x - other.x, 2) + pow(y - other.y, 2))
+    }
+}
+
+enum Direction { case north, south, east, west }
+func move(_ dir: Direction, steps: Int) -> String {
+    return "Moving \(steps) steps \(dir)"
+}</code></pre><h3>▶ Protocols & Extensions</h3><pre><code>protocol Drawable {
+    func draw() -> String
+    var color: String { get }
+}
+
+extension Array where Element: Numeric {
+    var sum: Element { reduce(0, +) }
+    var average: Double {
+        guard !isEmpty else { return 0 }
+        return Double(reduce(0, +) as! Int) / Double(count)
+    }
+}</code></pre><h3>▶ Closures & Higher-Order Functions</h3><pre><code>let numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3]
+let sorted = numbers.sorted { $0 < $1 }
+let doubled = numbers.map { $0 * 2 }
+let evens = numbers.filter { $0.isMultiple(of: 2) }
+let total = numbers.reduce(0, +)</code></pre>
+<h3>The Verdict</h3><p>Swift's optionals alone eliminate a whole class of crashes that plague Objective-C and other languages. If you want to build for Apple platforms, Swift is simply the most elegant choice.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">🎯</span>
+<div><span class="lang-badge" style="border-color:#7f52ff;color:#7f52ff">Kotlin</span><h2 class="lt">Kotlin</h2></div>
+</div>
+<div class="intro">JetBrains created Kotlin in 2011 on the JVM. Google endorsed it as the preferred Android language in 2017. Kotlin is 100% interoperable with Java and fixes nearly all of Java's most irritating pain points.</div>
+<h3>Where Kotlin is Used</h3><div class="uses"><span class="use">Android Development</span><span class="use">Spring Boot APIs</span><span class="use">Kotlin Multiplatform</span><span class="use">Server-side JVM</span></div>
+<div class="stats">
+<div class="stat"><div class="v">2016</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">Android primary</div><div class="l">Google endorsed</div></div>
+<div class="stat"><div class="v">100%</div><div class="l">Java interop</div></div>
+</div><h3>▶ Null Safety & Data Classes</h3><pre><code>data class User(val id: Int, val name: String, val email: String?)
+
+val user = User(1, "Alice", null)
+println(user.email?.uppercase() ?: "No email") // safe call + elvis
+val admin = user.copy(email = "alice@admin.com")</code></pre><h3>▶ Extension Functions</h3><pre><code>fun String.isPalindrome(): Boolean = this == this.reversed()
+fun List<Int>.secondLargest(): Int? = sorted().dropLast(1).lastOrNull()
+
+println("racecar".isPalindrome())  // true
+println(listOf(3,1,4,1,5).secondLargest()) // 4</code></pre><h3>▶ Coroutines</h3><pre><code>import kotlinx.coroutines.*
+
+suspend fun fetchData(id: Int): String {
+    delay(100) // non-blocking
+    return "Data for $id"
+}
+
+fun main() = runBlocking {
+    val results = (1..5).map { id ->
+        async { fetchData(id) }
+    }.awaitAll()
+    println(results)
+}</code></pre><h3>▶ Sealed Classes</h3><pre><code>sealed class Result<out T> {
+    data class Success<T>(val data: T) : Result<T>()
+    data class Error(val message: String) : Result<Nothing>()
+    object Loading : Result<Nothing>()
+}
+
+fun handle(result: Result<User>) = when(result) {
+    is Result.Success -> println(result.data)
+    is Result.Error   -> println(result.message)
+    Result.Loading    -> println("Loading...")
+}</code></pre>
+<h3>The Verdict</h3><p>Kotlin is Java but better in almost every measurable way — terser, null-safe, and more expressive. If you're building Android apps or JVM services, use Kotlin.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">🐘</span>
+<div><span class="lang-badge" style="border-color:#8892bf;color:#8892bf">PHP</span><h2 class="lt">PHP</h2></div>
+</div>
+<div class="intro">Rasmus Lerdorf created PHP in 1994 as a set of CGI scripts for his personal website. PHP grew into the server-side language powering 77% of the web, including WordPress, Drupal, and Laravel-based applications worldwide.</div>
+<h3>Where PHP is Used</h3><div class="uses"><span class="use">WordPress / CMS</span><span class="use">Laravel Web Apps</span><span class="use">E-commerce (Magento)</span><span class="use">High-traffic APIs</span></div>
+<div class="stats">
+<div class="stat"><div class="v">1994</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">77% of all sites</div><div class="l">Web share</div></div>
+<div class="stat"><div class="v">43% of web</div><div class="l">WordPress</div></div>
+</div><h3>▶ Modern PHP 8</h3><pre><code><?php
+
+declare(strict_types=1);
+
+function greet(string $name, int $times = 1): string {
+    return str_repeat("Hello, $name! ", $times);
+}
+
+echo greet('World', 3); // Hello, World! Hello, World! Hello, World!</code></pre><h3>▶ Classes & Constructor Promotion</h3><pre><code>class Product {
+    public function __construct(
+        private readonly int    $id,
+        private string          $name,
+        private float           $price,
+    ) {}
+
+    public function applyDiscount(float $pct): static {
+        $this->price *= (1 - $pct / 100);
+        return $this;
+    }
+
+    public function __toString(): string {
+        return "{$this->name}: \${$this->price:.2f}";
+    }
+}</code></pre><h3>▶ Laravel Eloquent</h3><pre><code>use App\Models\User;
+
+$user = User::where('active', true)
+            ->with('orders')
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+// Create with mass assignment
+$newUser = User::create([
+    'name'  => 'Alice',
+    'email' => 'alice@example.com',
+]);</code></pre>
+<h3>The Verdict</h3><p>Modern PHP 8.x with strict types and Laravel is a very capable framework. The 77% web share ensures PHP skills remain highly marketable for the foreseeable future.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">💎</span>
+<div><span class="lang-badge" style="border-color:#cc342d;color:#cc342d">Ruby</span><h2 class="lt">Ruby</h2></div>
+</div>
+<div class="intro">Yukihiro Matsumoto created Ruby in Japan in 1995, designing it to maximize developer happiness. Ruby on Rails (2004) revolutionized web development, introducing conventions that inspired Django, Laravel, and even Node.js frameworks.</div>
+<h3>Where Ruby is Used</h3><div class="uses"><span class="use">Ruby on Rails Web Apps</span><span class="use">Rapid Prototyping</span><span class="use">DevOps (Chef/Puppet)</span><span class="use">Shopify</span></div>
+<div class="stats">
+<div class="stat"><div class="v">1995</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">Shopify</div><div class="l">Powers</div></div>
+<div class="stat"><div class="v">Developer happiness</div><div class="l">Philosophy</div></div>
+</div><h3>▶ Expressive Syntax</h3><pre><code>5.times { puts 'Hello!' }
+[1,2,3].each { |n| puts n * 2 }
+
+result = [1,2,3,4,5]
+  .select(&:odd?)
+  .map { |n| n ** 2 }
+  .sum
+puts result # 35</code></pre><h3>▶ Classes & Modules</h3><pre><code>class Person
+  attr_accessor :name, :age
+
+  def initialize(name, age)
+    @name = name
+    @age  = age
+  end
+
+  def adult? = @age >= 18
+  def to_s = "#{@name} (#{@age})"
+end
+
+alice = Person.new('Alice', 30)
+puts alice.adult? # true</code></pre><h3>▶ Rails MVC</h3><pre><code># routes.rb
+resources :articles, only: [:index, :show, :create]
+
+# ArticlesController
+def index
+  @articles = Article.published
+                     .includes(:author)
+                     .order(created_at: :desc)
+                     .page(params[:page])
+  render json: @articles
+end</code></pre>
+<h3>The Verdict</h3><p>Ruby on Rails can take you from zero to working app faster than almost any other full-stack framework. Shopify's billion-dollar empire runs on Rails.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">🗄️</span>
+<div><span class="lang-badge" style="border-color:#f29111;color:#f29111">SQL</span><h2 class="lt">SQL</h2></div>
+</div>
+<div class="intro">SQL (Structured Query Language) was developed at IBM by Donald Chamberlin and Raymond Boyce in the early 1970s. Standardized in 1986, SQL is the universal language of relational databases and data analysis.</div>
+<h3>Where SQL is Used</h3><div class="uses"><span class="use">Database Queries</span><span class="use">Data Analysis</span><span class="use">Business Intelligence</span><span class="use">ETL Pipelines</span><span class="use">Backend Storage</span></div>
+<div class="stats">
+<div class="stat"><div class="v">1974</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">1986</div><div class="l">ISO Standard</div></div>
+<div class="stat"><div class="v">Every company</div><div class="l">Used by</div></div>
+</div><h3>▶ SELECT & Filtering</h3><pre><code>-- Basic select with conditions
+SELECT name, email, created_at
+FROM   users
+WHERE  status = 'active'
+  AND  created_at >= '2024-01-01'
+ORDER  BY created_at DESC
+LIMIT  50 OFFSET 100;</code></pre><h3>▶ JOINs</h3><pre><code>SELECT u.name,
+       COUNT(o.id)   AS order_count,
+       SUM(o.total)  AS total_spent
+FROM   users u
+  LEFT JOIN orders o
+    ON u.id = o.user_id
+   AND o.status = 'completed'
+GROUP  BY u.id, u.name
+HAVING SUM(o.total) > 1000
+ORDER  BY total_spent DESC;</code></pre><h3>▶ Window Functions</h3><pre><code>SELECT
+  name,
+  department,
+  salary,
+  AVG(salary)  OVER (PARTITION BY department)   AS dept_avg,
+  RANK()       OVER (ORDER BY salary DESC)       AS company_rank,
+  LAG(salary)  OVER (ORDER BY hire_date)         AS prev_hire_salary
+FROM employees;</code></pre><h3>▶ CTEs & Subqueries</h3><pre><code>WITH monthly_revenue AS (
+  SELECT
+    DATE_TRUNC('month', created_at) AS month,
+    SUM(total) AS revenue
+  FROM orders
+  WHERE status = 'completed'
+  GROUP BY 1
+)
+SELECT
+  month,
+  revenue,
+  LAG(revenue) OVER (ORDER BY month) AS prev_month,
+  ROUND(100.0 * (revenue - LAG(revenue) OVER (ORDER BY month))
+    / NULLIF(LAG(revenue) OVER (ORDER BY month), 0), 2) AS pct_change
+FROM monthly_revenue;</code></pre>
+<h3>The Verdict</h3><p>SQL is arguably the most important language to learn after English. Every company has databases. Every product has data. SQL is how you interrogate it.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">📊</span>
+<div><span class="lang-badge" style="border-color:#276dc3;color:#276dc3">R</span><h2 class="lt">R</h2></div>
+</div>
+<div class="intro">Ross Ihaka and Robert Gentleman at the University of Auckland created R in 1993. R is the language of statisticians and data scientists, with the world's best data visualization library (ggplot2) built in.</div>
+<h3>Where R is Used</h3><div class="uses"><span class="use">Statistical Analysis</span><span class="use">Data Visualization</span><span class="use">Bioinformatics</span><span class="use">Academic Research</span><span class="use">Machine Learning</span></div>
+<div class="stats">
+<div class="stat"><div class="v">1993</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">Statisticians</div><div class="l">Used by</div></div>
+<div class="stat"><div class="v">Best viz library</div><div class="l">ggplot2</div></div>
+</div><h3>▶ Vectors & Basic Stats</h3><pre><code>x <- c(23, 45, 12, 67, 34, 89, 56)
+mean(x)   # 46.57
+median(x) # 45
+sd(x)     # 26.16
+quantile(x, probs = c(.25, .5, .75))
+table(cut(x, breaks = 3))  # frequency table</code></pre><h3>▶ dplyr Data Wrangling</h3><pre><code>library(dplyr)
+
+mtcars |>
+  filter(cyl %in% c(4, 6)) |>
+  group_by(cyl, am) |>
+  summarise(
+    n       = n(),
+    avg_mpg = mean(mpg),
+    sd_mpg  = sd(mpg),
+    .groups = 'drop'
+  ) |>
+  arrange(desc(avg_mpg))</code></pre><h3>▶ ggplot2 Visualization</h3><pre><code>library(ggplot2)
+
+ggplot(mtcars, aes(x = wt, y = mpg,
+                   color = factor(cyl),
+                   size  = hp)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = 'lm', se = FALSE) +
+  scale_color_viridis_d() +
+  labs(title  = 'Weight vs Fuel Efficiency',
+       x      = 'Weight (1000 lbs)',
+       y      = 'Miles per Gallon',
+       color  = 'Cylinders') +
+  theme_minimal(base_size = 14)</code></pre>
+<h3>The Verdict</h3><p>For statistics and academic research, R has no equal. Its tidyverse ecosystem (dplyr, ggplot2, tidyr) makes complex analyses readable and reproducible.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">🖥️</span>
+<div><span class="lang-badge" style="border-color:#4eaa25;color:#4eaa25">Bash</span><h2 class="lt">Bash</h2></div>
+</div>
+<div class="intro">The Bourne Again SHell (Bash) was created by Brian Fox for the GNU Project in 1989. Shell scripting is the glue of Unix/Linux systems — from CI/CD pipelines to server configuration to automation.</div>
+<h3>Where Bash is Used</h3><div class="uses"><span class="use">DevOps Automation</span><span class="use">CI/CD Pipelines</span><span class="use">System Administration</span><span class="use">Build Scripts</span><span class="use">Cron Jobs</span></div>
+<div class="stats">
+<div class="stat"><div class="v">1989</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">Every Linux/Mac</div><div class="l">Runs on</div></div>
+<div class="stat"><div class="v">All DevOps pipelines</div><div class="l">Powers</div></div>
+</div><h3>▶ Variables & Control Flow</h3><pre><code>#!/usr/bin/env bash
+set -euo pipefail  # exit on error, unbound vars
+
+APP_NAME="myapp"
+VERSION="1.0.0"
+
+if [[ -d "/var/log/${APP_NAME}" ]]; then
+    echo "Log dir exists"
+else
+    mkdir -p "/var/log/${APP_NAME}"
+fi
+
+for env in dev staging prod; do
+    echo "Deploying to ${env}..."
+done</code></pre><h3>▶ Functions & Error Handling</h3><pre><code>log()  { echo "[$(date '+%H:%M:%S')] $*"; }
+error(){ echo "[ERROR] $*" >&2; exit 1; }
+
+deploy() {
+    local env="${1:?env required}"
+    local tag="${2:-latest}"
+    log "Deploying ${tag} to ${env}"
+    docker pull "myapp:${tag}" || error "Pull failed"
+    docker-compose -f "docker-compose.${env}.yml" up -d
+}
+
+deploy production v1.2.3</code></pre><h3>▶ Process Management & Pipelines</h3><pre><code># Count lines in all log files, sorted
+find /var/log -name '*.log' -newer /tmp/last_check |
+  xargs wc -l 2>/dev/null |
+  sort -rn |
+  head -20
+
+# Parallel downloads
+urls=(url1 url2 url3 url4)
+for url in "${urls[@]}"; do
+    curl -sO "$url" &
+done
+wait && echo "All downloads complete"</code></pre>
+<h3>The Verdict</h3><p>Every DevOps engineer, sysadmin, and backend developer needs Bash fluency. It is the glue that holds Linux-based infrastructure together.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">🎨</span>
+<div><span class="lang-badge" style="border-color:#0175c2;color:#0175c2">Dart / Flutter</span><h2 class="lt">Dart / Flutter</h2></div>
+</div>
+<div class="intro">Google created Dart in 2011 and launched Flutter in 2018. Flutter allows a single Dart codebase to compile natively to iOS, Android, web, Windows, macOS, and Linux — making it one of the most versatile frameworks available today.</div>
+<h3>Where Dart / Flutter is Used</h3><div class="uses"><span class="use">Cross-platform Mobile (iOS+Android)</span><span class="use">Web Apps</span><span class="use">Desktop Apps</span><span class="use">Google Products</span></div>
+<div class="stats">
+<div class="stat"><div class="v">2011/2018</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">iOS+Android+Web+Desktop</div><div class="l">Platforms</div></div>
+<div class="stat"><div class="v">Google, BMW, eBay</div><div class="l">Used by</div></div>
+</div><h3>▶ Dart Basics</h3><pre><code>void main() {
+  const pi = 3.14159;
+  final msg = 'Hello from Dart';
+  
+  // Null safety
+  String? name;  // nullable
+  print(name?.toUpperCase() ?? 'No name');
+  
+  // Cascade notation
+  final nums = <int>[]
+    ..add(1)..add(2)..add(3);
+  print(nums.where((n) => n.isOdd).toList());
+}</code></pre><h3>▶ Flutter Stateful Widget</h3><pre><code>import 'package:flutter/material.dart';
+
+class Counter extends StatefulWidget {
+  const Counter({super.key});
+  @override State<Counter> createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  int _count = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Text('Count: $_count', style: Theme.of(context).textTheme.headlineLarge),
+      ElevatedButton(
+        onPressed: () => setState(() => _count++),
+        child: const Text('Increment'),
+      ),
+    ]);
+  }
+}</code></pre>
+<h3>The Verdict</h3><p>Flutter is remarkable: write once, deploy everywhere with near-native performance and a rich widget library. For startups shipping mobile apps fast, it is transformative.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">⚡</span>
+<div><span class="lang-badge" style="border-color:#dc322f;color:#dc322f">Scala</span><h2 class="lt">Scala</h2></div>
+</div>
+<div class="intro">Martin Odersky at EPFL created Scala in 2001 to unify object-oriented and functional programming on the JVM. Scala is the language of Apache Spark — the world's most widely used big data processing engine.</div>
+<h3>Where Scala is Used</h3><div class="uses"><span class="use">Apache Spark / Big Data</span><span class="use">Functional Programming</span><span class="use">Akka / Distributed Systems</span><span class="use">High-performance JVM</span></div>
+<div class="stats">
+<div class="stat"><div class="v">2003</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">Apache Spark</div><div class="l">Powers</div></div>
+<div class="stat"><div class="v">FP + OOP unified</div><div class="l">Style</div></div>
+</div><h3>▶ Functional Style</h3><pre><code>val numbers = (1 to 10).toList
+val result = numbers
+  .filter(_ % 2 == 0)
+  .map(n => n * n)
+  .reduce(_ + _)
+
+println(result) // 4+16+36+64+100 = 220
+
+// For-comprehension (monad syntax)
+val pairs = for {
+  x <- 1 to 3
+  y <- 1 to 3
+  if x != y
+} yield (x, y)</code></pre><h3>▶ Case Classes & Pattern Matching</h3><pre><code>sealed trait Shape
+case class Circle(radius: Double) extends Shape
+case class Rectangle(width: Double, height: Double) extends Shape
+case object Point extends Shape
+
+def area(s: Shape): Double = s match {
+  case Circle(r)        => math.Pi * r * r
+  case Rectangle(w, h)  => w * h
+  case Point            => 0.0
+}
+
+val shapes = List(Circle(5), Rectangle(3, 4), Point)
+shapes.map(area).foreach(println)</code></pre><h3>▶ Apache Spark (PySpark API concept)</h3><pre><code>// Spark in Scala
+val spark = SparkSession.builder.appName("Sales").getOrCreate()
+val df = spark.read.parquet("s3://data/sales")
+val monthly = df
+  .filter(col("status") === "completed")
+  .groupBy(month(col("date")).as("month"))
+  .agg(sum("amount").as("revenue"))
+  .orderBy("month")
+monthly.show()</code></pre>
+<h3>The Verdict</h3><p>If Python is for ML and Go is for cloud, Scala is for big data. Understanding Scala and Spark is essential for data engineers processing terabytes at scale.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">🌙</span>
+<div><span class="lang-badge" style="border-color:#000080;color:#000080">Lua</span><h2 class="lt">Lua</h2></div>
+</div>
+<div class="intro">Roberto Ierusalimschy and colleagues at PUC-Rio created Lua in Brazil in 1993. Lua's tiny footprint (under 300KB) and fast interpreter make it the scripting language of choice for games, embedded systems, and applications like Redis and Nginx.</div>
+<h3>Where Lua is Used</h3><div class="uses"><span class="use">Game Scripting (Roblox, WoW)</span><span class="use">NGINX/Redis Scripting</span><span class="use">Embedded Systems</span><span class="use">Application Plugins</span></div>
+<div class="stats">
+<div class="stat"><div class="v">1993</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">Roblox</div><div class="l">Powers</div></div>
+<div class="stat"><div class="v">< 300KB</div><div class="l">Runtime</div></div>
+</div><h3>▶ Tables (The Universal Structure)</h3><pre><code>local person = {
+  name = 'Alice',
+  age  = 30,
+  greet = function(self)
+    return string.format('Hi! I am %s', self.name)
+  end
+}
+person:greet() -- 'Hi! I am Alice'
+
+local fruits = {'apple', 'banana', 'cherry'}
+for i, v in ipairs(fruits) do
+  print(i, v)
+end</code></pre><h3>▶ Closures & OOP</h3><pre><code>function class(base)
+  local cls = {}
+  cls.__index = cls
+  setmetatable(cls, {__index = base})
+  cls.new = function(self, ...)
+    local instance = setmetatable({}, self)
+    if instance.init then instance:init(...) end
+    return instance
+  end
+  return cls
+end
+
+local Animal = class()
+function Animal:init(name) self.name = name end
+function Animal:speak() return self.name .. ' speaks' end</code></pre>
+<h3>The Verdict</h3><p>Lua's simplicity and embeddability are unique. Roblox has 50 million daily active users writing Lua — that is a real opportunity, not a niche.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">λ</span>
+<div><span class="lang-badge" style="border-color:#5d4f85;color:#5d4f85">Haskell</span><h2 class="lt">Haskell</h2></div>
+</div>
+<div class="intro">Haskell (published 1990) is the most purely functional mainstream language. Designed by a committee of academics, it has immutable data by default, lazy evaluation, and a Hindley-Milner type system that can infer types without annotations.</div>
+<h3>Where Haskell is Used</h3><div class="uses"><span class="use">Compiler Development</span><span class="use">Formal Verification</span><span class="use">Financial Systems</span><span class="use">Academic Research</span></div>
+<div class="stats">
+<div class="stat"><div class="v">1990</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">Hindley-Milner</div><div class="l">Type system</div></div>
+<div class="stat"><div class="v">Rust, Scala, F#</div><div class="l">Influenced</div></div>
+</div><h3>▶ Pure Functions & Pattern Matching</h3><pre><code>-- Types inferred automatically
+double :: Int -> Int
+double x = x * 2
+
+factorial :: Integer -> Integer
+factorial 0 = 1
+factorial n = n * factorial (n - 1)
+
+fib :: Int -> Int
+fib 0 = 0
+fib 1 = 1
+fib n = fib (n-1) + fib (n-2)</code></pre><h3>▶ List Operations</h3><pre><code>-- Everything is a value — no loops, just recursion & maps
+evens   = filter even [1..100]
+squares = map (^2) [1..10]
+pairs   = [(x,y) | x <- [1..5], y <- [1..5], x /= y]
+
+-- Infinite lists (lazy evaluation)
+naturals  = [1..]
+fibs      = 0 : 1 : zipWith (+) fibs (tail fibs)
+first10   = take 10 fibs  -- [0,1,1,2,3,5,8,13,21,34]</code></pre><h3>▶ Monads</h3><pre><code>-- Maybe for safe computation
+safeDiv :: Int -> Int -> Maybe Int
+safeDiv _ 0 = Nothing
+safeDiv x y = Just (x `div` y)
+
+-- Do-notation (syntactic sugar for >>=)
+calculate :: Int -> Int -> Int -> Maybe Int
+calculate x y z = do
+  a <- safeDiv x y
+  b <- safeDiv a z
+  return (a + b)</code></pre>
+<h3>The Verdict</h3><p>Haskell will change how you think about programming permanently. Its type system is so powerful that 'if it compiles, it usually works.' Every serious programmer should spend time with Haskell.</p><hr>
+</div><div class="chapter">
+<div class="lang-header">
+<span style="font-size:3rem">💜</span>
+<div><span class="lang-badge" style="border-color:#4e2a8e;color:#4e2a8e">Elixir</span><h2 class="lt">Elixir</h2></div>
+</div>
+<div class="intro">José Valim created Elixir in 2011 on top of Erlang's battle-tested BEAM VM. Elixir inherits Erlang's legendary fault tolerance — WhatsApp served 2 billion users with Erlang. Phoenix LiveView has made Elixir compelling for real-time web.</div>
+<h3>Where Elixir is Used</h3><div class="uses"><span class="use">Real-time Web (Phoenix/LiveView)</span><span class="use">Distributed Systems</span><span class="use">Fault-tolerant Services</span><span class="use">Telecommunications</span></div>
+<div class="stats">
+<div class="stat"><div class="v">2011</div><div class="l">Created</div></div>
+<div class="stat"><div class="v">Erlang BEAM</div><div class="l">VM</div></div>
+<div class="stat"><div class="v">2B users on Erlang</div><div class="l">WhatsApp</div></div>
+</div><h3>▶ Pattern Matching</h3><pre><code>def process({:ok, value}),    do: "Success: #{value}"
+def process({:error, reason}), do: "Error: #{reason}"
+def process(_),                do: "Unknown"
+
+process({:ok, 42})          # => "Success: 42"
+process({:error, :timeout}) # => "Error: timeout"</code></pre><h3>▶ Processes & Message Passing</h3><pre><code># Spawn a lightweight process (millions possible!)
+pid = spawn(fn ->
+  receive do
+    {:hello, from} -> send(from, :world)
+  end
+end)
+
+send(pid, {:hello, self()})
+receive do
+  :world -> IO.puts("Got :world back!")
+end</code></pre><h3>▶ Pipe Operator & Streams</h3><pre><code>"hello world foo bar"
+|> String.split()
+|> Enum.map(&String.capitalize/1)
+|> Enum.join(" ")
+# => "Hello World Foo Bar"
+
+# Lazy streams for large data
+1..1_000_000
+|> Stream.filter(&Integer.is_odd/1)
+|> Stream.map(& &1 * &1)
+|> Enum.take(5)
+# => [1, 9, 25, 49, 81]</code></pre><h3>▶ GenServer (OTP)</h3><pre><code>defmodule Counter do
+  use GenServer
+
+  def start_link(init), do: GenServer.start_link(__MODULE__, init, name: __MODULE__)
+  def increment,        do: GenServer.cast(__MODULE__, :inc)
+  def value,            do: GenServer.call(__MODULE__, :get)
+
+  @impl true
+  def init(count),                     do: {:ok, count}
+  def handle_cast(:inc, count),         do: {:noreply, count + 1}
+  def handle_call(:get, _from, count), do: {:reply, count, count}
+end</code></pre>
+<h3>The Verdict</h3><p>Elixir's concurrency model is unlike anything else: millions of isolated processes, automatic restart on failure, and built-in distribution. For real-time and distributed systems, Elixir is elite.</p><hr>
+</div>
+<div class="final">
+<h2>🗺️ Which Language Should You Learn?</h2>
+<table>
+<tr><th>Your Goal</th><th>Start With</th><th>Then Add</th></tr>
+<tr><td>Web Development</td><td>JavaScript</td><td>TypeScript, Python</td></tr>
+<tr><td>Data Science / AI</td><td>Python</td><td>R, SQL, Scala</td></tr>
+<tr><td>iOS Apps</td><td>Swift</td><td>Objective-C (legacy)</td></tr>
+<tr><td>Android Apps</td><td>Kotlin</td><td>Java</td></tr>
+<tr><td>Cross-platform Mobile</td><td>Flutter / Dart</td><td>React Native</td></tr>
+<tr><td>Systems / OS</td><td>C</td><td>C++, Rust</td></tr>
+<tr><td>Cloud / Microservices</td><td>Go</td><td>Rust, Python</td></tr>
+<tr><td>Enterprise / Finance</td><td>Java</td><td>Kotlin, Scala</td></tr>
+<tr><td>Game Development</td><td>C# (Unity)</td><td>C++ (Unreal), Lua</td></tr>
+<tr><td>Big Data / Spark</td><td>Python + SQL</td><td>Scala</td></tr>
+<tr><td>Functional Thinking</td><td>Haskell</td><td>Elixir, Scala</td></tr>
+<tr><td>DevOps Automation</td><td>Bash</td><td>Python, Go</td></tr>
+</table>
+<p style="margin-top:32px;color:#58a6ff;font-weight:700;font-size:1.1rem">The One Rule: Learn one language deeply. Then learn another. Each rewires how you think — and that rewiring IS the skill.</p>
+<p style="margin-top:16px;color:#3fb950;font-size:0.85rem">More ebooks at faneliabooks.com</p>
+</div>
+</body></html>
