@@ -231,6 +231,30 @@ function initTestimonialCarousel() {
     }, 5000);
   });
 
+  // Touch swipe support for mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  wrapper.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    clearInterval(autoAdvance);
+  }, { passive: true });
+
+  wrapper.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) { // minimum swipe distance
+      if (diff > 0) {
+        // swiped left → next slide
+        currentSlide = Math.min(currentSlide + 1, totalSlides - 1);
+      } else {
+        // swiped right → prev slide
+        currentSlide = Math.max(currentSlide - 1, 0);
+      }
+      goToSlide(currentSlide);
+    }
+  }, { passive: true });
+
   // Handle resize
   window.addEventListener('resize', () => {
     slidesPerView = getSlidesPerView();
