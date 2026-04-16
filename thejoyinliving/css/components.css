@@ -1096,6 +1096,11 @@
   display: block;
 }
 
+/* Hide text labels — logos speak for themselves */
+.insurance-grid__item span {
+  display: none;
+}
+
 /* ============================================================
    BLOG PREVIEW CARDS
    ============================================================ */
