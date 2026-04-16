@@ -3,6 +3,9 @@
    EN/ES bilingual support with localStorage persistence
    ============================================================ */
 
+// Base path for GitHub Pages subdirectory deployment
+const SITE_BASE = '/thejoyinliving';
+
 document.addEventListener('DOMContentLoaded', () => {
   initLanguageSwitcher();
 });
@@ -11,15 +14,13 @@ function initLanguageSwitcher() {
   const langBtns = document.querySelectorAll('.nav__lang-btn');
   if (!langBtns.length) return;
 
-  // Check stored preference
-  const stored = localStorage.getItem('joy-lang');
   const currentPage = window.location.pathname;
 
   // Determine current language from URL
-  const isSpanish = currentPage.startsWith('/es/') || currentPage.includes('/es/');
+  const isSpanish = currentPage.includes('/es/');
   const currentLang = isSpanish ? 'es' : 'en';
 
-  // Set active state
+  // Set active state on buttons
   langBtns.forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === currentLang);
   });
@@ -32,46 +33,40 @@ function initLanguageSwitcher() {
 
       localStorage.setItem('joy-lang', targetLang);
 
-      // Navigate to equivalent page
       if (targetLang === 'es') {
-        // Going from EN to ES
-        const esPath = getSpanishPath(currentPage);
-        window.location.href = esPath;
+        window.location.href = getSpanishPath(currentPage);
       } else {
-        // Going from ES to EN
-        const enPath = getEnglishPath(currentPage);
-        window.location.href = enPath;
+        window.location.href = getEnglishPath(currentPage);
       }
     });
   });
 }
 
 function getSpanishPath(path) {
+  // Remove base, find relative path, return Spanish equivalent
+  const rel = path.replace(SITE_BASE, '') || '/';
   const map = {
-    '/': '/es/',
-    '/index.html': '/es/index.html',
-    '/who-we-are/': '/es/quienes-somos/',
-    '/about/': '/es/sobre-nosotros/',
-    '/services/': '/es/servicios/',
-    '/contact/': '/es/contacto/',
-    '/your-visit/': '/es/tu-visita/',
-    '/payments-insurance/': '/es/pagos-seguro/',
-    '/faq/': '/es/preguntas-frecuentes/',
+    '/':                    SITE_BASE + '/es/',
+    '/index.html':          SITE_BASE + '/es/',
+    '/who-we-are/':         SITE_BASE + '/es/',
+    '/about/':              SITE_BASE + '/es/',
+    '/services/':           SITE_BASE + '/es/',
+    '/contact/':            SITE_BASE + '/es/',
+    '/your-visit/':         SITE_BASE + '/es/',
+    '/payments-insurance/': SITE_BASE + '/es/',
+    '/faq/':                SITE_BASE + '/es/',
+    '/blog/':               SITE_BASE + '/es/',
+    '/resources/':          SITE_BASE + '/es/',
+    '/government/':         SITE_BASE + '/es/',
   };
-  return map[path] || '/es/';
+  return map[rel] || SITE_BASE + '/es/';
 }
 
 function getEnglishPath(path) {
+  const rel = path.replace(SITE_BASE, '') || '/';
   const map = {
-    '/es/': '/',
-    '/es/index.html': '/index.html',
-    '/es/quienes-somos/': '/who-we-are/',
-    '/es/sobre-nosotros/': '/about/',
-    '/es/servicios/': '/services/',
-    '/es/contacto/': '/contact/',
-    '/es/tu-visita/': '/your-visit/',
-    '/es/pagos-seguro/': '/payments-insurance/',
-    '/es/preguntas-frecuentes/': '/faq/',
+    '/es/':           SITE_BASE + '/',
+    '/es/index.html': SITE_BASE + '/',
   };
-  return map[path] || '/';
+  return map[rel] || SITE_BASE + '/';
 }
