@@ -1078,7 +1078,8 @@
   letter-spacing: var(--tracking-wide);
   text-align: center;
   transition: all var(--duration-normal) var(--ease-soft);
-  cursor: default;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .insurance-grid__item:hover {
