@@ -1054,11 +1054,11 @@
    ============================================================ */
 
 .insurance-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 160px);
+  gap: var(--space-5);
   justify-content: center;
-  gap: var(--space-6);
-  align-items: center;
+  align-items: stretch;
 }
 
 .insurance-grid__item {
@@ -1981,17 +1981,19 @@
 /* --- Insurance & payment grids: better small screen wrapping --- */
 @media (max-width: 640px) {
   .insurance-grid {
+    grid-template-columns: repeat(2, 140px);
     gap: var(--space-3);
   }
 
   .insurance-grid__item {
-    width: 120px;
+    width: 140px;
     padding: var(--space-3) var(--space-2);
   }
 
   .insurance-grid__item svg.insurance-logo,
   .insurance-grid__item img.insurance-logo {
-    width: 64px;
+    width: 80px;
+    height: 44px;
   }
 
   .payment-methods {
