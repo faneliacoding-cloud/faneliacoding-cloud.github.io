@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | The Joy In Living — Free 15-Minute Consultation</title>
+  <meta name="description" content="Schedule your free 15-minute consultation. Call (914) 686-2484 or email us. In-person therapy in Sleepy Hollow, NY and telehealth across New York State.">
+  <link rel="canonical" href="https://thejoyinliving.com/contact/">
+  <meta property="og:title" content="Contact The Joy In Living — Free Consultation">
+  <meta property="og:description" content="Schedule your free consultation. Call (914) 686-2484 or email. Sleepy Hollow & telehealth.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-12); align-items: start; }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-info-card { background: var(--white); border-radius: var(--radius-xl); padding: var(--space-8); border: 1px solid var(--color-border-light); }
+    .contact-info-item { display: flex; align-items: flex-start; gap: var(--space-4); padding: var(--space-5) 0; border-bottom: 1px solid var(--color-border-light); }
+    .contact-info-item:last-child { border-bottom: none; }
+    .contact-info-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--sage-lighter); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--sage-dark); }
+    .contact-info-icon svg { width: 22px; height: 22px; }
+    .contact-info-text h3 { font-family: var(--font-body); font-size: var(--text-md); font-weight: 600; margin-bottom: var(--space-1); }
+    .contact-info-text p, .contact-info-text a { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: var(--leading-relaxed); }
+    .contact-info-text a:hover { color: var(--sage-dark); }
+    .contact-form-wrapper { background: var(--white); border-radius: var(--radius-xl); padding: var(--space-10); border: 1px solid var(--color-border-light); box-shadow: var(--shadow-card); }
+    .contact-form-wrapper h2 { font-size: var(--text-2xl); margin-bottom: var(--space-2); }
+    .contact-form-wrapper > p { color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-8); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+    .map-wrapper { border-radius: var(--radius-xl); overflow: hidden; margin-top: var(--space-8); border: 1px solid var(--color-border-light); }
+    .map-wrapper iframe { width: 100%; height: 300px; border: 0; }
+    .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); font-size: var(--text-sm); color: var(--color-text-secondary); }
+    .hours-grid dt { font-weight: 500; color: var(--charcoal); }
+  </style>
+</head>
+<body>
+
+  <div class="crisis-banner" id="crisis-banner"><span>In crisis? Call <a href="tel:988">988</a> or <a href="tel:911">911</a></span><button class="crisis-banner__close" aria-label="Dismiss">&times;</button></div>
+
+  <nav class="nav has-banner" id="main-nav">
+    <div class="nav__inner">
+      <a href="/thejoyinliving/" class="nav__logo" aria-label="The Joy In Living - Home"><img src="../images/logo.png" alt="The Joy In Living — Counseling & Therapy" class="nav__logo-img"></a>
+      <div class="nav__menu" id="nav-menu">
+        <a href="/thejoyinliving/" class="nav__link">Home</a>
+        <div class="nav__dropdown"><a href="/thejoyinliving/who-we-are/" class="nav__link nav__dropdown-trigger">About <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/who-we-are/" class="nav__dropdown-item">Who We Are</a><a href="/thejoyinliving/about/" class="nav__dropdown-item">About the Practice</a><a href="/thejoyinliving/your-visit/" class="nav__dropdown-item">Your Visit</a></div></div>
+        <div class="nav__dropdown"><a href="/thejoyinliving/services/" class="nav__link nav__dropdown-trigger">Services <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/services/individual-therapy/" class="nav__dropdown-item">Individual Therapy</a><a href="/thejoyinliving/services/couples-family-therapy/" class="nav__dropdown-item">Couples & Family</a><a href="/thejoyinliving/services/group-therapy/" class="nav__dropdown-item">Group Therapy</a><a href="/thejoyinliving/services/immigration-evaluations/" class="nav__dropdown-item">Immigration Evaluations</a><a href="/thejoyinliving/services/clinical-supervision/" class="nav__dropdown-item">Clinical Supervision</a><a href="/thejoyinliving/services/telehealth/" class="nav__dropdown-item">Telehealth</a></div></div>
+        <a href="/thejoyinliving/payments-insurance/" class="nav__link">Insurance</a>
+        <a href="/thejoyinliving/blog/" class="nav__link">Blog</a>
+        <a href="/thejoyinliving/contact/" class="nav__link" aria-current="page">Contact</a>
+        <div class="nav__dropdown"><a href="#" class="nav__link nav__dropdown-trigger">Resources <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/resources/" class="nav__dropdown-item">Resources</a><a href="/thejoyinliving/faq/" class="nav__dropdown-item">FAQ</a><a href="https://www.therapyportal.com/p/thejoyinliving/" class="nav__dropdown-item" target="_blank">Patient Portal ↗</a></div></div>
+        <div class="nav__lang"><button class="nav__lang-btn active" data-lang="en">EN</button><button class="nav__lang-btn" data-lang="es">ES</button></div>
+        <div class="nav__cta"><a href="tel:9146862484" class="btn btn-accent btn-sm">Book Free Consult</a></div>
+      </div>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+    <div class="nav__overlay" id="nav-overlay"></div>
+  </nav>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="label">Get In Touch</span>
+        <h1 class="heading-2">Contact Us</h1>
+        <p>We'd love to hear from you. Reach out to begin your journey toward wellness.</p>
+      </div>
+    </section>
+
+    <nav class="breadcrumb"><div class="container"><a href="/thejoyinliving/">Home</a><span class="breadcrumb__separator">›</span><span>Contact</span></div></nav>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+
+          <!-- Contact Form -->
+          <div class="contact-form-wrapper fade-in">
+            <h2>Send Us a Message</h2>
+            <p>Fill out the form below and we'll get back to you within 24 hours. Or call us directly for a free 15-minute consultation.</p>
+
+            <form id="contact-form" action="#" method="POST">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="contact-name">Full Name *</label>
+                  <input type="text" class="form-input" id="contact-name" name="name" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="contact-phone">Phone Number</label>
+                  <input type="tel" class="form-input" id="contact-phone" name="phone" placeholder="(555) 123-4567">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-email">Email Address *</label>
+                <input type="email" class="form-input" id="contact-email" name="email" required placeholder="you@example.com">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="contact-service">Service of Interest</label>
+                  <select class="form-select" id="contact-service" name="service">
+                    <option value="">Select a service...</option>
+                    <option value="individual">Individual Therapy</option>
+                    <option value="couples">Couples & Family Therapy</option>
+                    <option value="group">Group Therapy</option>
+                    <option value="immigration">Immigration Evaluations</option>
+                    <option value="supervision">Clinical Supervision</option>
+                    <option value="telehealth">Telehealth</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="contact-lang">Preferred Language</label>
+                  <select class="form-select" id="contact-lang" name="language">
+                    <option value="english">English</option>
+                    <option value="spanish">Spanish / Español</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-message">Message *</label>
+                <textarea class="form-textarea" id="contact-message" name="message" required placeholder="Tell us a little about what you're looking for..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Send Message <span class="btn-arrow">→</span></button>
+              <p style="text-align: center; font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-3);">All communications are confidential.</p>
+            </form>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="fade-in">
+            <div class="contact-info-card" style="margin-bottom: var(--space-6);">
+              <h3 style="font-family: var(--font-heading); font-size: var(--text-xl); margin-bottom: var(--space-4);">Free 15-Minute Consultation</h3>
+              <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-6); line-height: var(--leading-relaxed);">Not sure if therapy is right for you? Start with a free, no-obligation phone consultation to discuss your needs and goals.</p>
+              <a href="tel:9146862484" class="btn btn-accent" style="width: 100%; justify-content: center;">Call (914) 686-2484</a>
+            </div>
+
+            <div class="contact-info-card">
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.574 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+                <div class="contact-info-text">
+                  <h3>Phone</h3>
+                  <p><a href="tel:9146862484">(914) 686-2484</a> — New Patients</p>
+                  <p><a href="tel:9147585286">(914) 758-5286</a> — Direct</p>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+                <div class="contact-info-text">
+                  <h3>Email</h3>
+                  <p><a href="mailto:reception@thejoyinliving.com">reception@thejoyinliving.com</a></p>
+                  <p><a href="mailto:csoddano@thejoyinliving.com">csoddano@thejoyinliving.com</a></p>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <div class="contact-info-text">
+                  <h3>Office Location</h3>
+                  <p>239 North Broadway, Suite LL 101<br>Sleepy Hollow, NY 10591</p>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
+                <div class="contact-info-text">
+                  <h3>Telehealth</h3>
+                  <p>Virtual sessions available throughout New York State. No app download required.</p>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+                <div class="contact-info-text">
+                  <h3>Languages</h3>
+                  <p>Services available in English & Spanish<br>Servicios disponibles en inglés y español</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Map -->
+            <div class="map-wrapper">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3009.7!2d-73.861!3d41.091!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s239+North+Broadway+Sleepy+Hollow+NY+10591!5e0!3m2!1sen!2sus!4v1" allowfullscreen loading="lazy" title="The Joy In Living office location map"></iframe>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand"><a href="/thejoyinliving/" class="nav__logo" aria-label="The Joy In Living - Home"><img src="../images/logo.png" alt="The Joy In Living — Counseling & Therapy" class="nav__logo-img"></a><p>A bilingual, minority woman-owned mental health and wellness practice in Sleepy Hollow, New York.</p></div>
+        <div><h4 class="footer__heading">Quick Links</h4><div class="footer__links"><a href="/thejoyinliving/services/" class="footer__link">Services</a><a href="/thejoyinliving/who-we-are/" class="footer__link">Who We Are</a><a href="/thejoyinliving/your-visit/" class="footer__link">Your Visit</a><a href="/thejoyinliving/payments-insurance/" class="footer__link">Insurance</a><a href="/thejoyinliving/blog/" class="footer__link">Blog</a><a href="/thejoyinliving/contact/" class="footer__link">Contact</a></div></div>
+        <div><h4 class="footer__heading">Resources</h4><div class="footer__links"><a href="/thejoyinliving/faq/" class="footer__link">FAQ</a><a href="/thejoyinliving/resources/" class="footer__link">Resources</a><a href="https://www.therapyportal.com/p/thejoyinliving/" class="footer__link" target="_blank">Patient Portal ↗</a></div></div>
+        <div><h4 class="footer__heading">Contact</h4><div class="footer__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.574 2.81.7A2 2 0 0122 16.92z"/></svg><a href="tel:9146862484" style="color:rgba(255,255,255,0.8);">(914) 686-2484</a></div><div class="footer__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:reception@thejoyinliving.com" style="color:rgba(255,255,255,0.8);">reception@thejoyinliving.com</a></div><div class="footer__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span style="color:rgba(255,255,255,0.8);">239 N Broadway, Ste LL 101<br>Sleepy Hollow, NY 10591</span></div></div>
+      </div>
+      <div class="footer__bottom"><p class="footer__copyright">&copy; 2026 The Joy In Living, LCSW, PLLC.</p><div class="footer__legal"><a href="/thejoyinliving/privacy-policy/">Privacy</a><a href="/thejoyinliving/es/">Español</a></div></div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/language.js"></script>
+  <script>
+    // Simple form submission handler
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button[type="submit"]');
+      btn.textContent = '✓ Message Sent!';
+      btn.style.background = 'var(--color-success)';
+      btn.style.borderColor = 'var(--color-success)';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = 'Send Message <span class="btn-arrow">→</span>';
+        btn.style.background = '';
+        btn.style.borderColor = '';
+        btn.disabled = false;
+        this.reset();
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

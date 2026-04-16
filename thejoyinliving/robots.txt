@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /chatbot/
+
+Sitemap: https://thejoyinliving.com/sitemap.xml
