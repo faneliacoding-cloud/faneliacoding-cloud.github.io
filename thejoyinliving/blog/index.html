@@ -3,91 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#3D4F3D">
-  <title>Blog | The Joy In Living — Mental Health & Wellness Articles</title>
-  <meta name="description" content="Mental health and wellness articles from The Joy In Living. Tips, reflections, and resources for your healing journey.">
-  <link rel="icon" type="image/svg+xml" href="/thejoyinliving/favicon.svg">
+  <title>Blog | Mental Health & Wellness Articles | The Joy In Living</title>
+  <meta name="description" content="Mental health and wellness articles from The Joy In Living — tips, reflections, and resources on anxiety, grief, self-care, immigration, and telehealth therapy.">
   <link rel="canonical" href="https://thejoyinliving.com/blog/">
+  <link rel="icon" type="image/svg+xml" href="/thejoyinliving/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/design-system.css">
   <link rel="stylesheet" href="../css/components.css">
   <style>
-    .blog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-8); }
-    @media (max-width: 640px) { .blog-grid { grid-template-columns: 1fr; } }
-    .blog-card__tag { display: inline-block; padding: var(--space-1) var(--space-3); background: var(--sage-lighter); color: var(--sage-dark); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; margin-bottom: var(--space-3); }
+    .blog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-8)}
+    @media(max-width:640px){.blog-grid{grid-template-columns:1fr}}
+    .blog-card__tag{display:inline-block;padding:var(--space-1) var(--space-3);background:var(--sage-lighter);color:var(--sage-dark);border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:600;margin-bottom:var(--space-3)}
+    .blog-card{transition:transform 0.2s ease,box-shadow 0.2s ease}
+    .blog-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
   </style>
 </head>
 <body>
   <div class="crisis-banner" id="crisis-banner"><span>In crisis? Call <a href="tel:988">988</a> or <a href="tel:911">911</a></span><button class="crisis-banner__close" aria-label="Dismiss">&times;</button></div>
-  <nav class="nav has-banner" id="main-nav"><div class="nav__inner"><a href="/thejoyinliving/" class="nav__logo" aria-label="The Joy In Living - Home"><img src="../images/logo.png" alt="The Joy In Living — Counseling & Therapy" class="nav__logo-img"></a><div class="nav__menu" id="nav-menu"><a href="/thejoyinliving/" class="nav__link">Home</a><a href="/thejoyinliving/services/" class="nav__link">Services</a><a href="/thejoyinliving/payments-insurance/" class="nav__link">Insurance</a><a href="/thejoyinliving/blog/" class="nav__link" aria-current="page">Blog</a><a href="/thejoyinliving/contact/" class="nav__link">Contact</a><div class="nav__lang"><button class="nav__lang-btn active" data-lang="en">EN</button><a href="/thejoyinliving/es/" class="nav__lang-btn" data-lang="es">ES</a></div><div class="nav__cta"><a href="tel:9146862484" class="btn btn-accent btn-sm">Book Free Consult</a></div></div><button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button></div><div class="nav__overlay" id="nav-overlay"></div></nav>
-
+  <nav class="nav has-banner" id="main-nav"><div class="nav__inner"><a href="/thejoyinliving/" class="nav__logo"><img src="../images/logo.png" alt="The Joy In Living" class="nav__logo-img"></a><div class="nav__menu" id="nav-menu"><a href="/thejoyinliving/" class="nav__link">Home</a><a href="/thejoyinliving/services/" class="nav__link">Services</a><a href="/thejoyinliving/payments-insurance/" class="nav__link">Insurance</a><a href="/thejoyinliving/blog/" class="nav__link" aria-current="page">Blog</a><a href="/thejoyinliving/contact/" class="nav__link">Contact</a><div class="nav__lang"><button class="nav__lang-btn active" data-lang="en">EN</button><a href="/thejoyinliving/es/" class="nav__lang-btn" data-lang="es">ES</a></div><div class="nav__cta"><a href="tel:9146862484" class="btn btn-accent btn-sm">Book Free Consult</a></div></div><button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button></div><div class="nav__overlay" id="nav-overlay"></div></nav>
   <main>
     <section class="page-hero"><div class="container"><span class="label">Insights & Resources</span><h1 class="heading-2">Blog</h1><p>Reflections, tools, and insights for your mental health and wellness journey.</p></div></section>
     <nav class="breadcrumb"><div class="container"><a href="/thejoyinliving/">Home</a><span class="breadcrumb__separator">›</span><span>Blog</span></div></nav>
-
     <section class="section">
       <div class="container">
         <div class="blog-grid">
-
           <article class="blog-card fade-in">
-            <div class="blog-card__image" style="background: linear-gradient(135deg, var(--sage-lighter), var(--blush-light)); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--sage)" stroke-width="1.5"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="9" r="1" fill="var(--sage)"/><circle cx="15" cy="9" r="1" fill="var(--sage)"/></svg>
-            </div>
-            <div class="blog-card__content">
-              <span class="blog-card__tag">Wellness</span>
-              <span class="blog-card__date">Workshop</span>
-              <h2 class="blog-card__title">Virtual Workshop: Mind-Body Techniques for Stress Management</h2>
-              <p class="blog-card__excerpt">Join us for an interactive workshop exploring breathwork, mindfulness, and gentle movement techniques to help you manage daily stress and find more calm in your life.</p>
-            </div>
+            <a href="/thejoyinliving/blog/immigration-psychological-evaluations/" style="text-decoration:none;color:inherit;display:block;">
+              <div class="blog-card__image" style="background:linear-gradient(135deg,var(--sage-lighter),var(--blush-light));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--sage)" stroke-width="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div class="blog-card__content">
+                <span class="blog-card__tag">Immigration</span>
+                <span class="blog-card__date">Sep 2024</span>
+                <h2 class="blog-card__title">Immigration Psychological Evaluations: What to Expect</h2>
+                <p class="blog-card__excerpt">A comprehensive guide for immigrants, families, and attorneys navigating the psychological evaluation process for asylum, hardship waivers, and VAWA cases.</p>
+                <span style="color:var(--sage-dark);font-weight:600;font-size:var(--text-sm);margin-top:var(--space-2);display:inline-block;">Read article →</span>
+              </div>
+            </a>
           </article>
-
           <article class="blog-card fade-in">
-            <div class="blog-card__image" style="background: linear-gradient(135deg, var(--terra-light), var(--sand)); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--terra-dark)" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
-            </div>
-            <div class="blog-card__content">
-              <span class="blog-card__tag">Reflection</span>
-              <span class="blog-card__date">December 2024</span>
-              <h2 class="blog-card__title">End of Year Reflection: Honoring Your Growth</h2>
-              <p class="blog-card__excerpt">As the year comes to a close, take a moment to honor how far you've come. Reflection isn't just looking back — it's gathering the wisdom to move forward with intention.</p>
-            </div>
+            <a href="/thejoyinliving/blog/understanding-anxiety/" style="text-decoration:none;color:inherit;display:block;">
+              <div class="blog-card__image" style="background:linear-gradient(135deg,var(--lavender-light),var(--blush));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--lavender)" stroke-width="1.5"><path d="M12 22s8-4.5 8-11.8A8 8 0 0012 2a8 8 0 00-8 8.2c0 7.3 8 11.8 8 11.8z"/></svg>
+              </div>
+              <div class="blog-card__content">
+                <span class="blog-card__tag">Anxiety</span>
+                <span class="blog-card__date">2025</span>
+                <h2 class="blog-card__title">Understanding Anxiety: Signs, Causes & How Therapy Helps</h2>
+                <p class="blog-card__excerpt">Learn to recognize anxiety symptoms, understand what causes it, and discover how evidence-based therapy can bring lasting relief.</p>
+                <span style="color:var(--sage-dark);font-weight:600;font-size:var(--text-sm);margin-top:var(--space-2);display:inline-block;">Read article →</span>
+              </div>
+            </a>
           </article>
-
           <article class="blog-card fade-in">
-            <div class="blog-card__image" style="background: linear-gradient(135deg, var(--lavender-light), var(--blush)); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--lavender)" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            </div>
-            <div class="blog-card__content">
-              <span class="blog-card__tag">Self-Care</span>
-              <span class="blog-card__date">2024</span>
-              <h2 class="blog-card__title">Buy Yourself Some Flowers 🌸</h2>
-              <p class="blog-card__excerpt">A gentle reminder about the importance of self-compassion and small acts of self-care. You deserve the kindness you so freely give to others.</p>
-            </div>
+            <a href="/thejoyinliving/blog/grief-and-loss/" style="text-decoration:none;color:inherit;display:block;">
+              <div class="blog-card__image" style="background:linear-gradient(135deg,var(--ocean-light),var(--sage-lighter));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--ocean)" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </div>
+              <div class="blog-card__content">
+                <span class="blog-card__tag">Grief</span>
+                <span class="blog-card__date">2025</span>
+                <h2 class="blog-card__title">Grief and Loss: Understanding Your Journey</h2>
+                <p class="blog-card__excerpt">Grief doesn't follow rules or timelines. Learn about the stages of grief, how it shows up in the body and mind, and how therapy helps.</p>
+                <span style="color:var(--sage-dark);font-weight:600;font-size:var(--text-sm);margin-top:var(--space-2);display:inline-block;">Read article →</span>
+              </div>
+            </a>
           </article>
-
           <article class="blog-card fade-in">
-            <div class="blog-card__image" style="background: linear-gradient(135deg, var(--ocean-light), var(--sage-lighter)); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--ocean)" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            </div>
-            <div class="blog-card__content">
-              <span class="blog-card__tag" style="background: var(--ocean-light); color: var(--charcoal);">En Español</span>
-              <span class="blog-card__date">2024</span>
-              <h2 class="blog-card__title">¡Cómprate Flores! 🌺</h2>
-              <p class="blog-card__excerpt">Un recordatorio gentil sobre la importancia de la autocompasión y los pequeños actos de autocuidado. Mereces la amabilidad que tan libremente das a los demás.</p>
-            </div>
+            <a href="/thejoyinliving/blog/telehealth-therapy-guide/" style="text-decoration:none;color:inherit;display:block;">
+              <div class="blog-card__image" style="background:linear-gradient(135deg,var(--cream),var(--sage-mist));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--sage)" stroke-width="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div class="blog-card__content">
+                <span class="blog-card__tag">Telehealth</span>
+                <span class="blog-card__date">2025</span>
+                <h2 class="blog-card__title">Telehealth Therapy: A Complete Guide for First-Timers</h2>
+                <p class="blog-card__excerpt">New to online therapy? Everything you need to know before your first virtual session — setup tips, what to expect, and why it works.</p>
+                <span style="color:var(--sage-dark);font-weight:600;font-size:var(--text-sm);margin-top:var(--space-2);display:inline-block;">Read article →</span>
+              </div>
+            </a>
           </article>
-
+          <article class="blog-card fade-in">
+            <a href="/thejoyinliving/blog/virtual-workshop-mind-body-techniques/" style="text-decoration:none;color:inherit;display:block;">
+              <div class="blog-card__image" style="background:linear-gradient(135deg,var(--sage-lighter),var(--blush-light));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--sage)" stroke-width="1.5"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+              </div>
+              <div class="blog-card__content">
+                <span class="blog-card__tag">Wellness</span>
+                <span class="blog-card__date">2024</span>
+                <h2 class="blog-card__title">Virtual Workshop: Mind-Body Techniques for Stress</h2>
+                <p class="blog-card__excerpt">Explore breathwork, body scan meditation, grounding, and gentle movement — practical tools to manage daily stress and restore calm.</p>
+                <span style="color:var(--sage-dark);font-weight:600;font-size:var(--text-sm);margin-top:var(--space-2);display:inline-block;">Read article →</span>
+              </div>
+            </a>
+          </article>
+          <article class="blog-card fade-in">
+            <a href="/thejoyinliving/blog/end-of-year-reflection/" style="text-decoration:none;color:inherit;display:block;">
+              <div class="blog-card__image" style="background:linear-gradient(135deg,var(--terra-light),var(--sand));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--terra-dark)" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg>
+              </div>
+              <div class="blog-card__content">
+                <span class="blog-card__tag">Reflection</span>
+                <span class="blog-card__date">Dec 2024</span>
+                <h2 class="blog-card__title">End of Year Reflection: Honoring Your Growth</h2>
+                <p class="blog-card__excerpt">Reflection isn't just looking back — it's gathering the wisdom to move forward with intention. A compassionate guide to year-end reflection.</p>
+                <span style="color:var(--sage-dark);font-weight:600;font-size:var(--text-sm);margin-top:var(--space-2);display:inline-block;">Read article →</span>
+              </div>
+            </a>
+          </article>
+          <article class="blog-card fade-in">
+            <a href="/thejoyinliving/blog/buy-yourself-some-flowers/" style="text-decoration:none;color:inherit;display:block;">
+              <div class="blog-card__image" style="background:linear-gradient(135deg,var(--lavender-light),var(--blush));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--lavender)" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="blog-card__content">
+                <span class="blog-card__tag">Self-Care</span>
+                <span class="blog-card__date">2024</span>
+                <h2 class="blog-card__title">Buy Yourself Some Flowers 🌸</h2>
+                <p class="blog-card__excerpt">A gentle reminder about self-compassion and small acts of self-care. You deserve the kindness you so freely give to others.</p>
+                <span style="color:var(--sage-dark);font-weight:600;font-size:var(--text-sm);margin-top:var(--space-2);display:inline-block;">Read article →</span>
+              </div>
+            </a>
+          </article>
+          <article class="blog-card fade-in">
+            <a href="/thejoyinliving/blog/comprate-flores/" style="text-decoration:none;color:inherit;display:block;">
+              <div class="blog-card__image" style="background:linear-gradient(135deg,var(--ocean-light),var(--sage-lighter));aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="var(--sage)" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="blog-card__content">
+                <span class="blog-card__tag" style="background:var(--ocean-light);color:var(--charcoal)">En Español</span>
+                <span class="blog-card__date">2024</span>
+                <h2 class="blog-card__title">¡Cómprate Flores! 🌺</h2>
+                <p class="blog-card__excerpt">Un recordatorio gentil sobre la importancia de la autocompasión y los pequeños actos de autocuidado. Mereces la amabilidad que das a los demás.</p>
+                <span style="color:var(--sage-dark);font-weight:600;font-size:var(--text-sm);margin-top:var(--space-2);display:inline-block;">Read article →</span>
+              </div>
+            </a>
+          </article>
         </div>
       </div>
     </section>
   </main>
-
   <footer class="footer"><div class="container"><div class="footer__bottom"><p class="footer__copyright">&copy; 2026 The Joy In Living, LCSW, PLLC.</p><div class="footer__legal"><a href="/thejoyinliving/privacy-policy/">Privacy</a><a href="/thejoyinliving/es/">Español</a></div></div></div></footer>
-  <script src="../js/main.js"></script><script src="../js/language.js"></script>
-<script src="../js/chatbot.js"></script>
+  <script src="../js/main.js"></script><script src="../js/language.js"></script><script src="../js/chatbot.js"></script>
 </body>
 </html>
