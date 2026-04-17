@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#3D4F3D">
+  <title>Citas | The Joy In Living</title>
+  <link rel="icon" type="image/svg+xml" href="/thejoyinliving/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/thejoyinliving/css/design-system.css">
+  <link rel="stylesheet" href="/thejoyinliving/css/components.css">
+  <link rel="stylesheet" href="/thejoyinliving/css/portal.css">
+</head>
+<body>
+  <div class="crisis-banner" id="crisis-banner">
+    <span>¿En crisis? Llame al <a href="tel:988">988</a> o <a href="tel:911">911</a></span>
+    <button class="crisis-banner__close" aria-label="Cerrar">&times;</button>
+  </div>
+  <nav class="nav has-banner" id="main-nav"><div class="nav__inner"><a href="/thejoyinliving/es/" class="nav__logo" aria-label="The Joy In Living - Inicio"><img src="/thejoyinliving/images/logo.png" alt="The Joy In Living" class="nav__logo-img"></a><div class="nav__menu" id="nav-menu"><a href="/thejoyinliving/es/" class="nav__link">Inicio</a><div class="nav__dropdown"><a href="/thejoyinliving/es/quienes-somos/" class="nav__link nav__dropdown-trigger">Nosotros <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/es/quienes-somos/" class="nav__dropdown-item">Quiénes Somos</a><a href="/thejoyinliving/your-visit/" class="nav__dropdown-item">Su Visita</a></div></div><div class="nav__dropdown"><a href="/thejoyinliving/es/servicios/" class="nav__link nav__dropdown-trigger">Servicios <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/es/servicios/#individual" class="nav__dropdown-item">Terapia Individual</a><a href="/thejoyinliving/es/servicios/#parejas" class="nav__dropdown-item">Parejas y Familia</a><a href="/thejoyinliving/es/servicios/#grupo" class="nav__dropdown-item">Terapia de Grupo</a><a href="/thejoyinliving/es/servicios/#inmigracion" class="nav__dropdown-item">Evaluaciones de Inmigración</a><a href="/thejoyinliving/es/servicios/#supervision" class="nav__dropdown-item">Supervisión Clínica</a><a href="/thejoyinliving/es/servicios/#telesalud" class="nav__dropdown-item">Telesalud</a></div></div><a href="/thejoyinliving/es/seguros-pagos/" class="nav__link">Seguros</a><a href="/thejoyinliving/blog/" class="nav__link">Blog</a><a href="/thejoyinliving/es/contacto/" class="nav__link">Contacto</a><div class="nav__dropdown"><a href="#" class="nav__link nav__dropdown-trigger">Recursos <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/resources/" class="nav__dropdown-item">Recursos</a><a href="/thejoyinliving/es/preguntas/" class="nav__dropdown-item">Preguntas</a><a href="/thejoyinliving/local-hospitals/" class="nav__dropdown-item">Hospitales</a><a href="/thejoyinliving/linea-de-ayuda/" class="nav__dropdown-item">Línea de Ayuda</a><a href="/thejoyinliving/es/portal-del-paciente/" class="nav__dropdown-item">Portal del Paciente</a></div></div><div class="nav__lang"><a href="/thejoyinliving/" class="nav__lang-btn" data-lang="en">EN</a><button class="nav__lang-btn active" data-lang="es">ES</button></div><div class="nav__cta"><a href="/thejoyinliving/es/portal-del-paciente/citas/" class="btn btn-accent btn-sm">Hacer una Cita</a></div></div><button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button></div><div class="nav__overlay" id="nav-overlay"></div></nav>
+  <nav class="portal-tabs">
+    <div class="container portal-tabs__inner">
+      <a href="/thejoyinliving/es/portal-del-paciente/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Inicio del Portal
+      </a>
+      <a href="/thejoyinliving/es/portal-del-paciente/citas/" class="portal-tab active">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Citas
+      </a>
+      <a href="/thejoyinliving/es/portal-del-paciente/telesalud/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg>
+        Telesalud
+      </a>
+      <a href="/thejoyinliving/es/portal-del-paciente/prueba-av/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        Prueba AV
+      </a>
+      <a href="/thejoyinliving/es/portal-del-paciente/notificaciones/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Notificaciones
+      </a>
+      <a href="/thejoyinliving/es/portal-del-paciente/iniciar-sesion/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Iniciar Sesión
+      </a>
+    </div>
+  </nav>
+  <section class="portal-hero">
+    <div class="container">
+      <div class="portal-hero__badge">📅 Citas</div>
+      <h1>Verificar Disponibilidad</h1>
+      <p>Seleccione sus datos para ver los horarios disponibles con Claudia Soddano, LCSW.</p>
+    </div>
+  </section>
+
+  <div class="portal-content">
+    <div class="container" style="max-width:760px;">
+      <div style="background:var(--sage-lighter);border:1px solid rgba(107,140,107,0.3);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:var(--sage-dark);margin-bottom:var(--space-6);">
+        <strong>Clientes nuevos:</strong> Recomendamos una llamada gratuita de 15 minutos primero. Llame al <a href="tel:9146862484" style="color:var(--sage-dark);font-weight:700;">(914) 686-2484</a>.
+      </div>
+
+      <div class="portal-card" id="step-filters" style="margin-bottom:var(--space-6);">
+        <div class="p-group">
+          <label class="p-label">Soy...</label>
+          <div class="p-radio-group">
+            <label class="p-radio-pill checked" id="pill-new" onclick="selectPill('new')">
+              <input type="radio" name="clientType" value="new" checked>
+              <span class="p-radio-dot"></span> Cliente Nuevo/a
+            </label>
+            <label class="p-radio-pill" id="pill-existing" onclick="selectPill('existing')">
+              <input type="radio" name="clientType" value="existing">
+              <span class="p-radio-dot"></span> Cliente Existente
+            </label>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+          <div class="p-group">
+            <label class="p-label">Tipo de Servicio</label>
+            <select class="p-select" id="service">
+              <option value="intake">Evaluación Inicial</option>
+              <option value="individual">Terapia Individual</option>
+              <option value="couples">Terapia de Pareja / Familia</option>
+              <option value="immigration">Evaluación de Inmigración</option>
+              <option value="group">Terapia de Grupo</option>
+              <option value="telehealth">Sesión de Telesalud</option>
+              <option value="supervision">Supervisión Clínica</option>
+            </select>
+          </div>
+          <div class="p-group">
+            <label class="p-label">Ubicación</label>
+            <select class="p-select" id="location">
+              <option value="office">Oficina — Sleepy Hollow, NY</option>
+              <option value="telehealth">Telesalud (Virtual)</option>
+            </select>
+          </div>
+        </div>
+        <div class="p-group">
+          <label class="p-label">Clínico/a</label>
+          <select class="p-select" id="clinician">
+            <option>Claudia Christina Soddano, LCSW</option>
+          </select>
+        </div>
+        <button onclick="viewTimes()" class="btn btn-primary">Ver Horarios Disponibles →</button>
+      </div>
+
+      <div id="step-calendar" style="display:none;">
+        <div class="portal-card" style="margin-bottom:var(--space-4);">
+          <div class="p-cal-header">
+            <button class="p-cal-nav" onclick="prevMonth()">‹</button>
+            <span class="p-cal-month" id="cal-month-label"></span>
+            <button class="p-cal-nav" onclick="nextMonth()">›</button>
+          </div>
+          <div class="p-cal-grid" id="cal-grid"></div>
+        </div>
+        <div id="slots-section" style="display:none;" class="portal-card" style="margin-bottom:var(--space-4);">
+          <div class="p-slots-header" id="slots-date-label"></div>
+          <div class="p-slots" id="slots-grid"></div>
+        </div>
+        <div class="p-confirm" id="confirm-card" style="display:none;">
+          <h3>Confirme su Solicitud de Cita</h3>
+          <div class="p-confirm-row"><strong>Clínico/a:</strong><span>Claudia Christina Soddano, LCSW</span></div>
+          <div class="p-confirm-row"><strong>Servicio:</strong><span id="conf-service"></span></div>
+          <div class="p-confirm-row"><strong>Ubicación:</strong><span id="conf-location"></span></div>
+          <div class="p-confirm-row"><strong>Fecha y Hora:</strong><span id="conf-datetime"></span></div>
+          <div style="display:flex;gap:var(--space-3);margin-top:var(--space-5);flex-wrap:wrap;">
+            <button onclick="confirmAppt()" class="btn btn-primary btn-sm">Solicitar Este Horario</button>
+            <button onclick="cancelSelection()" class="btn btn-outline btn-sm">Cancelar</button>
+          </div>
+        </div>
+        <div id="appt-success" class="p-alert p-alert--success">
+          ✅ ¡Solicitud enviada! Confirmaremos dentro de 1 día hábil.
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-3);">
+          ¿No encuentra un horario? Llame al <a href="tel:9146862484" style="color:var(--sage-dark);font-weight:700;">(914) 686-2484</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="/thejoyinliving/es/" class="nav__logo"><img src="/thejoyinliving/images/logo.png" alt="The Joy In Living" class="nav__logo-img"></a>
+          <p>Práctica de salud mental bilingüe en Sleepy Hollow, NY.</p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Portal del Paciente</h4>
+          <div class="footer__links">
+            <a href="/thejoyinliving/es/portal-del-paciente/" class="footer__link">Inicio del Portal</a>
+            <a href="/thejoyinliving/es/portal-del-paciente/citas/" class="footer__link">Citas</a>
+            <a href="/thejoyinliving/es/portal-del-paciente/telesalud/" class="footer__link">Telesalud</a>
+            <a href="/thejoyinliving/es/portal-del-paciente/notificaciones/" class="footer__link">Notificaciones</a>
+            <a href="/thejoyinliving/es/portal-del-paciente/iniciar-sesion/" class="footer__link">Iniciar Sesión</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Sitio Principal</h4>
+          <div class="footer__links">
+            <a href="/thejoyinliving/es/servicios/" class="footer__link">Servicios</a>
+            <a href="/thejoyinliving/es/seguros-pagos/" class="footer__link">Seguros</a>
+            <a href="/thejoyinliving/es/contacto/" class="footer__link">Contacto</a>
+            <a href="/thejoyinliving/es/preguntas/" class="footer__link">Preguntas</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contacto</h4>
+          <div class="footer__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.574 2.81.7A2 2 0 0122 16.92z"/></svg><a href="tel:9146862484" style="color:rgba(255,255,255,0.8);">(914) 686-2484</a></div>
+          <div class="footer__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:reception@thejoyinliving.com" style="color:rgba(255,255,255,0.8);">reception@thejoyinliving.com</a></div>
+        </div>
+      </div>
+      <div class="footer__bottom"><p class="footer__copyright">&copy; 2026 The Joy In Living, LCSW, PLLC.</p><div class="footer__legal"><a href="/thejoyinliving/privacy-policy/">Privacidad</a><a href="/thejoyinliving/">English</a></div></div>
+    </div>
+  </footer>
+  <script src="/thejoyinliving/js/main.js"></script>
+  <script src="/thejoyinliving/js/language.js"></script>
+  <script src="/thejoyinliving/js/portal.js"></script>
+  <script src="/thejoyinliving/js/chatbot.js"></script>
+<script>
+    // ── Calendar state ──────────────────────────────────────
+    const today = new Date();
+    let currentYear  = today.getFullYear();
+    let currentMonth = today.getMonth();
+    let selectedDate = null;
+    let selectedSlot = null;
+
+    // Simulated available dates (every weekday except past)
+    const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    const DAYS_EN   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const DAYS_ES   = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+
+    // Sample slots for weekdays (randomised to appear realistic)
+    const SLOT_POOLS = ['9:00 AM','9:30 AM','10:00 AM','11:00 AM','12:30 PM','1:00 PM','2:00 PM','3:00 PM','3:30 PM','4:00 PM','5:00 PM'];
+    function slotsForDate(d) {
+      if (d.getDay() === 0 || d.getDay() === 6) return [];
+      // pseudo-random: use date number as seed
+      const seed = d.getDate() + d.getMonth() * 31;
+      return SLOT_POOLS.filter((_, i) => ((seed + i) % 3) !== 0);
+    }
+
+    function selectPill(val) {
+      document.getElementById('pill-new').classList.toggle('checked', val === 'new');
+      document.getElementById('pill-existing').classList.toggle('checked', val === 'existing');
+    }
+
+    function viewTimes() {
+      document.getElementById('step-calendar').style.display = '';
+      renderCalendar();
+      document.getElementById('step-calendar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function renderCalendar() {
+      const lang = localStorage.getItem('joy-lang') || 'en';
+      document.getElementById('cal-month-label').textContent =
+        (lang === 'es' ? MONTHS_ES : MONTHS_EN)[currentMonth] + ' ' + currentYear;
+
+      const days = document.getElementById('cal-grid');
+      days.innerHTML = '';
+
+      // Day labels
+      const dayLabels = lang === 'es' ? DAYS_ES : DAYS_EN;
+      dayLabels.forEach(d => {
+        const lbl = document.createElement('div');
+        lbl.className = 'cal-day-label';
+        lbl.textContent = d;
+        days.appendChild(lbl);
+      });
+
+      const first = new Date(currentYear, currentMonth, 1).getDay();
+      const total = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+      // Empty cells
+      for (let i = 0; i < first; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'cal-day cal-day--empty';
+        days.appendChild(empty);
+      }
+
+      // Day cells
+      for (let d = 1; d <= total; d++) {
+        const date = new Date(currentYear, currentMonth, d);
+        const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const isToday = d === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
+        const slots = slotsForDate(date);
+        const isSelected = selectedDate && selectedDate.getDate() === d && selectedDate.getMonth() === currentMonth && selectedDate.getFullYear() === currentYear;
+
+        const cell = document.createElement('div');
+        cell.className = 'cal-day';
+        if (isPast) cell.classList.add('cal-day--past');
+        if (isToday) cell.classList.add('cal-day--today');
+        if (slots.length > 0 && !isPast) cell.classList.add('cal-day--has-slots');
+        if (isSelected) cell.classList.add('cal-day--selected');
+        cell.textContent = d;
+
+        if (!isPast && slots.length > 0) {
+          cell.onclick = () => selectDate(new Date(currentYear, currentMonth, d));
+        }
+        days.appendChild(cell);
+      }
+    }
+
+    function prevMonth() {
+      currentMonth--;
+      if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+      renderCalendar();
+    }
+
+    function nextMonth() {
+      currentMonth++;
+      if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+      renderCalendar();
+    }
+
+    function selectDate(date) {
+      selectedDate = date;
+      selectedSlot = null;
+      document.getElementById('confirm-card').style.display = 'none';
+      renderCalendar();
+      renderSlots(date);
+    }
+
+    function renderSlots(date) {
+      const lang = localStorage.getItem('joy-lang') || 'en';
+      const slots = slotsForDate(date);
+      const section = document.getElementById('slots-section');
+      const grid = document.getElementById('slots-grid');
+      const label = document.getElementById('slots-date-label');
+
+      const opts = { weekday:'long', month:'long', day:'numeric' };
+      label.textContent = date.toLocaleDateString(lang === 'es' ? 'es-US' : 'es-US', opts);
+
+      grid.innerHTML = '';
+      if (slots.length === 0) {
+        grid.innerHTML = `<p class="slots-empty">${lang === 'es' ? 'No hay horarios disponibles este día.' : 'No available times on this day.'}</p>`;
+      } else {
+        slots.forEach(slot => {
+          const btn = document.createElement('button');
+          btn.className = 'slot-btn';
+          btn.textContent = slot;
+          btn.onclick = () => selectSlot(slot, btn);
+          grid.appendChild(btn);
+        });
+      }
+      section.style.display = '';
+    }
+
+    function selectSlot(slot, btn) {
+      document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedSlot = slot;
+
+      const lang = localStorage.getItem('joy-lang') || 'en';
+      const serviceEl = document.getElementById('service');
+      const locationEl = document.getElementById('location');
+      const serviceText = serviceEl.options[serviceEl.selectedIndex].textContent;
+      const locationText = locationEl.options[locationEl.selectedIndex].textContent;
+      const dateText = selectedDate.toLocaleDateString(lang === 'es' ? 'es-US' : 'es-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+
+      document.getElementById('conf-service').textContent = serviceText;
+      document.getElementById('conf-location').textContent = locationText;
+      document.getElementById('conf-datetime').textContent = dateText + ' at ' + slot;
+      document.getElementById('confirm-card').style.display = '';
+      document.getElementById('confirm-card').scrollIntoView({ behavior:'smooth', block:'center' });
+    }
+
+    function confirmAppt() {
+      const lang = localStorage.getItem('joy-lang') || 'en';
+      const serviceEl = document.getElementById('service');
+      const serviceText = serviceEl.options[serviceEl.selectedIndex].textContent;
+      const dateText = selectedDate.toLocaleDateString('es-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+      const subject = encodeURIComponent('Appointment Request — ' + dateText + ' at ' + selectedSlot);
+      const body = encodeURIComponent(
+        'Requested Date & Time: ' + dateText + ' at ' + selectedSlot + '\n' +
+        'Service: ' + serviceText + '\n' +
+        'Location: ' + document.getElementById('location').options[document.getElementById('location').selectedIndex].textContent
+      );
+      window.location.href = 'mailto:reception@thejoyinliving.com?subject=' + subject + '&body=' + body;
+      document.getElementById('appt-success').style.display = 'block';
+      document.getElementById('confirm-card').style.display = 'none';
+    }
+
+    function cancelSelection() {
+      selectedSlot = null;
+      document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('confirm-card').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
