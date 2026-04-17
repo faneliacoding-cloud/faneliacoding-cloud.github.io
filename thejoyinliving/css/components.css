@@ -1120,6 +1120,13 @@ a[aria-label="Cigna"] img.insurance-logo {
   max-width: 120px;
 }
 
+/* Oxford logo is square — scale to fit card like Optum/Oscar */
+a[aria-label="Oxford Health Plans"] img.insurance-logo {
+  width: auto;
+  height: 72px;
+  max-width: 120px;
+}
+
 /* ============================================================
    BLOG PREVIEW CARDS
    ============================================================ */
