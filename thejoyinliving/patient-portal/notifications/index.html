@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications | Patient Portal | The Joy In Living</title>
+  <link rel="icon" type="image/svg+xml" href="/thejoyinliving/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/thejoyinliving/css/portal.css">
+</head>
+<body class="portal-body">
+  <div class="portal-lang-bar">
+    <button class="plang-btn active" onclick="setLang('en')">English</button>
+    <button class="plang-btn" onclick="setLang('es')">Español</button>
+  </div>
+  <div class="portal-wrap">
+    <aside class="portal-sidebar">
+      <a href="/thejoyinliving/patient-portal/" class="portal-logo"><img src="/thejoyinliving/images/logo.png" alt="The Joy In Living"></a>
+      <nav class="portal-nav">
+        <a href="/thejoyinliving/patient-portal/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
+        <a href="/thejoyinliving/patient-portal/appointments/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Appointments</span></a>
+        <a href="/thejoyinliving/patient-portal/telehealth/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg><span>Telehealth</span></a>
+        <a href="/thejoyinliving/patient-portal/notifications/" class="portal-nav__item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span>Notifications</span></a>
+        <a href="/thejoyinliving/patient-portal/login/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg><span>Log In</span></a>
+      </nav>
+      <div class="portal-sidebar__footer">
+        <p class="portal-sidebar__contact">Need help?</p>
+        <a href="tel:9146862484" class="portal-sidebar__phone">(914) 686-2484</a>
+        <a href="/thejoyinliving/" class="portal-sidebar__back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg><span>Back to main site</span></a>
+      </div>
+    </aside>
+    <main class="portal-main">
+      <div class="portal-page-header">
+        <span class="portal-badge">🔔 <span data-en="Notifications" data-es="Notificaciones">Notifications</span></span>
+        <h1 class="portal-page-title" data-en="Notification Preferences" data-es="Preferencias de Notificación">Notification Preferences</h1>
+        <p class="portal-page-sub" data-en="Manage how you receive appointment reminders and updates." data-es="Administre cómo recibe recordatorios de citas y actualizaciones.">Manage how you receive appointment reminders and updates.</p>
+      </div>
+
+      <div style="max-width:600px;">
+        <h2 style="font-size:16px;font-weight:700;margin-bottom:16px;" data-en="Email Notifications" data-es="Notificaciones por Correo">Email Notifications</h2>
+
+        <div class="portal-toggle-row">
+          <div>
+            <div class="portal-toggle-label" data-en="Appointment Reminders" data-es="Recordatorios de Cita">Appointment Reminders</div>
+            <div class="portal-toggle-desc" data-en="Receive email reminders before upcoming appointments" data-es="Recibir recordatorios por correo antes de sus citas">Receive email reminders before upcoming appointments</div>
+          </div>
+          <label class="portal-toggle"><input type="checkbox" checked><span class="portal-toggle-slider"></span></label>
+        </div>
+        <div class="portal-toggle-row">
+          <div>
+            <div class="portal-toggle-label" data-en="Appointment Confirmations" data-es="Confirmaciones de Cita">Appointment Confirmations</div>
+            <div class="portal-toggle-desc" data-en="Receive email when a new appointment is confirmed" data-es="Recibir correo cuando se confirme una nueva cita">Receive email when a new appointment is confirmed</div>
+          </div>
+          <label class="portal-toggle"><input type="checkbox" checked><span class="portal-toggle-slider"></span></label>
+        </div>
+        <div class="portal-toggle-row">
+          <div>
+            <div class="portal-toggle-label" data-en="Appointment Changes" data-es="Cambios de Cita">Appointment Changes</div>
+            <div class="portal-toggle-desc" data-en="Receive email when an appointment is rescheduled or cancelled" data-es="Recibir correo cuando se reprograme o cancele una cita">Receive email when an appointment is rescheduled or cancelled</div>
+          </div>
+          <label class="portal-toggle"><input type="checkbox" checked><span class="portal-toggle-slider"></span></label>
+        </div>
+
+        <h2 style="font-size:16px;font-weight:700;margin:28px 0 16px;" data-en="SMS / Text Notifications" data-es="Notificaciones por Mensaje de Texto">SMS / Text Notifications</h2>
+
+        <div class="portal-avail-note" style="margin-bottom:16px;">
+          <strong data-en="SMS number:" data-es="Número de SMS:">SMS number:</strong> (929) 295-5984<br>
+          <span class="en-text">Text <strong>STOP</strong> to this number to unsubscribe. Text <strong>START</strong> to re-enable.</span>
+          <span class="es-text" style="display:none">Envíe <strong>STOP</strong> a este número para cancelar. Envíe <strong>START</strong> para volver a activar.</span>
+        </div>
+
+        <div class="portal-toggle-row">
+          <div>
+            <div class="portal-toggle-label" data-en="SMS Appointment Reminders" data-es="Recordatorios de Cita por SMS">SMS Appointment Reminders</div>
+            <div class="portal-toggle-desc" data-en="Receive text messages before upcoming appointments" data-es="Recibir mensajes de texto antes de sus citas">Receive text messages before upcoming appointments</div>
+          </div>
+          <label class="portal-toggle"><input type="checkbox"><span class="portal-toggle-slider"></span></label>
+        </div>
+        <div class="portal-toggle-row">
+          <div>
+            <div class="portal-toggle-label" data-en="SMS Confirmations & Changes" data-es="Confirmaciones y Cambios por SMS">SMS Confirmations & Changes</div>
+            <div class="portal-toggle-desc" data-en="Receive texts for appointment confirmations and cancellations" data-es="Recibir textos para confirmaciones y cancelaciones de citas">Receive texts for appointment confirmations and cancellations</div>
+          </div>
+          <label class="portal-toggle"><input type="checkbox"><span class="portal-toggle-slider"></span></label>
+        </div>
+
+        <div style="margin-top:28px;padding:20px;background:#F4F7F4;border-radius:10px;font-size:13px;color:#4A5A4A;line-height:1.7;">
+          <p class="en-text"><strong>To manage your full notification settings</strong>, log into your patient portal account. If you need assistance, contact us at <a href="tel:9146862484" style="color:#3D4F3D;font-weight:700;">(914) 686-2484</a> or <a href="mailto:reception@thejoyinliving.com" style="color:#3D4F3D;font-weight:700;">reception@thejoyinliving.com</a>.</p>
+          <p class="es-text" style="display:none"><strong>Para administrar sus preferencias completas</strong>, inicie sesión en su cuenta del portal del paciente. Si necesita ayuda, llame al <a href="tel:9146862484" style="color:#3D4F3D;font-weight:700;">(914) 686-2484</a> o escriba a <a href="mailto:reception@thejoyinliving.com" style="color:#3D4F3D;font-weight:700;">reception@thejoyinliving.com</a>.</p>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
+          <a href="https://www.therapyportal.com/p/joyliving/" target="_blank" class="portal-btn portal-btn--sm" style="width:auto;" data-en="Manage in Full Portal" data-es="Administrar en el Portal">Manage in Full Portal</a>
+          <a href="/thejoyinliving/patient-portal/" class="portal-btn portal-btn--outline portal-btn--sm" data-en="Back to Home" data-es="Volver al Inicio">Back to Home</a>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="/thejoyinliving/js/portal.js"></script>
+</body>
+</html>
