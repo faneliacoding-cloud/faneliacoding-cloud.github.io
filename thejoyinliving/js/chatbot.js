@@ -101,7 +101,8 @@ const KB = {
     about: `**The Joy In Living, LCSW, PLLC** is a minority woman-owned mental health practice in Sleepy Hollow, NY.\n\n**Claudia Christina Soddano, LCSW** — Founder\n• 20+ years of clinical experience\n• MSW from Fordham University\n• NY State LCSW License #074899\n• WBENC Certified\n• Trained by Physicians for Human Rights & Columbia CHRIA\n• Fully bilingual: English & Spanish\n\nHer approach combines **CBT, DBT, Psychodynamic therapy, Motivational Interviewing** with holistic tools like breathwork, mindfulness, trauma-informed yoga, and journaling.\n\nIs there something specific about the practice you'd like to know?`,
     portal: `The **Patient Portal** is at:\n🔗 therapyportal.com/p/joyliving/\n\nThrough the portal you can:\n📅 View appointment availability\n📝 Complete intake paperwork\n💻 Join telehealth sessions\n📋 Request appointments\n\nYou'll get access details in your welcome email. Need help? Call (914) 686-2484.`,
     hours: `For current office hours, please call (914) 686-2484 or email reception@thejoyinliving.com.\n\nWe accommodate as many schedule needs as possible, including some **evening and weekend slots**.`,
-    spanish: `¡Por supuesto! All of our services are available in **English and Spanish**.\n\nClaudia Soddano, LCSW is fully bilingual and provides culturally sensitive care.\n\n📞 Call (914) 686-2484 for a free Spanish-language consultation.\n\nYou can also switch to Spanish using the EN/ES button at the top of any page.`,
+    spanish: `¡Por supuesto! All of our services are available in **English and Spanish**.\n\nClaudia Soddano, LCSW is fully bilingual and provides culturally sensitive care.\n\n📞 Call (914) 686-2484 for a consultation in Spanish.\n\nYou can also switch to Spanish using the EN/ES button at the top of any page.`,
+    appointment: `I'd love to help you book! Here's how to **Make an Appointment**:\n\n📅 **Online:** Use our appointment request form:\n👉 [thejoyinliving.com/patient-portal/appointments/](/thejoyinliving/patient-portal/appointments/)\n\n📞 **By phone:** Call us at **(914) 686-2484**\n✉️ **By email:** reception@thejoyinliving.com\n\n🆓 **New clients** — we recommend starting with a free 15-minute phone consultation so we can make sure we're the right fit for you.\n\nWould you like to know what to expect at your first session?`,
     anxiety: `Anxiety is one of the most common reasons people seek therapy — and one of the most treatable.\n\nSymptoms like worry, racing thoughts, panic attacks, or physical tension are your nervous system asking for support.\n\nAt The Joy In Living, we use **CBT and mindfulness-based approaches** to help you:\n• Understand what's driving your anxiety\n• Challenge the thought patterns that amplify it\n• Build practical coping tools that work\n\nMost clients see meaningful improvement within 8–12 sessions.\n\nWould you like to learn about scheduling a consultation?`,
     depression: `Depression can feel like a heavy fog — exhausting, isolating, and hard to explain.\n\nTherapy — especially **CBT and psychodynamic approaches** — is one of the most effective treatments for depression.\n\nWe work with clients experiencing:\n• Low or flat mood\n• Loss of interest and motivation\n• Difficulty concentrating\n• Sleep and appetite changes\n• Feelings of hopelessness or worthlessness\n\nYou don't have to feel this way forever. Would you like to talk about taking a first step?`,
     grief: `Grief doesn't follow rules or timelines. Whether you've lost a person, a relationship, a home, or a version of yourself — your grief is real and it deserves space.\n\nOur therapists use **grief-informed, narrative, and somatic approaches** to help you:\n• Process your loss at your own pace\n• Find meaning without erasing pain\n• Reconnect with life while honoring what you've lost\n\nIs this something you're going through right now?`,
@@ -114,10 +115,11 @@ const KB = {
       immigration: `**Evaluaciones Psicológicas de Inmigración** — Informes completos para cortes de inmigración y USCIS.\n\nEvaluaciones para:\n📋 **Asilo** — documentación de trauma\n📋 **Hardship Extremo (I-601/601A)**\n📋 **Peticiones VAWA**\n\nDisponible en **inglés y español**, presencial o por teleconferencia.\n\n📞 (914) 758-5286 | csoddano@thejoyinliving.com`
     },
     insurance: `Aceptamos estos seguros:\n\n✅ Aetna ✅ BlueCross BlueShield ✅ Cigna\n✅ MVP ✅ Optum ✅ Oscar ✅ Oxford ✅ UnitedHealthcare\n\n**Tarifas sin seguro:**\n• Individual: $150/sesión\n• Parejas: $250/sesión\n\n¿Tiene algún seguro específico que quiera consultar?`,
-    contact: `Puede contactarnos:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n📍 239 North Broadway, Suite LL 101, Sleepy Hollow, NY 10591\n\n🆓 **Consulta telefónica gratuita de 15 minutos** para nuevos clientes.`,
+    contact: `Puede contactarnos:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n📍 239 North Broadway, Suite LL 101, Sleepy Hollow, NY 10591\n\n🆓 **Hacer una Cita** para clientes nuevos.`,
+    appointment: `¡Con gusto le ayudo a hacer una cita!\n\n📅 **En línea:** Use nuestro formulario:\n👉 [thejoyinliving.com/patient-portal/appointments/](/thejoyinliving/patient-portal/appointments/)\n\n📞 **Por teléfono:** **(914) 686-2484**\n✉️ **Por correo:** reception@thejoyinliving.com\n\n🆓 **Clientes nuevos** — le recomendamos comenzar con una llamada gratuita de 15 minutos para asegurarnos de que somos la opción correcta para usted.\n\n¿Le gustaría saber qué esperar en su primera sesión?`,
     start: `Comenzar es sencillo:\n\n1️⃣ **Hacer una Cita** — Llame al (914) 686-2484\n2️⃣ **Evaluación Inicial** — Entendemos su situación y metas\n3️⃣ **Comience su Camino** — Presencial o telesalud, en español\n\n¿Hay algo que le impide dar ese primer paso?`,
     about: `**The Joy In Living, LCSW, PLLC** es una práctica de salud mental de propiedad de una mujer en Sleepy Hollow, NY.\n\n**Claudia Christina Soddano, LCSW:**\n• 20+ años de experiencia clínica\n• MSW de la Universidad Fordham\n• Licencia LCSW #074899 en NY\n• Certificada WBENC\n• Entrenada por Physicians for Human Rights\n• Completamente bilingüe`,
-    fallback: `Gracias por su pregunta. Para la respuesta más precisa:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n\nO programe una **hacer una cita de 15 minutos**. ¡Estamos aquí para ayudarle! 💚`
+    fallback: `Gracias por su pregunta. Para la respuesta más precisa:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n\nO programe una **cita gratuita de 15 minutos**. ¡Estamos aquí para ayudarle! 💚`
   }
 };
 
@@ -157,16 +159,16 @@ const STATE = {
 
 const QUICK_CHIPS = {
   intro: {
-    en: ['😟 Anxiety / Depression','💔 Grief / Trauma','👫 Couples Therapy','📋 Immigration Eval','💬 Just Exploring'],
-    es: ['😟 Ansiedad / Depresión','💔 Duelo / Trauma','👫 Terapia de Pareja','📋 Evaluación de Inmigración','💬 Solo Explorando']
+    en: ['😟 Anxiety / Depression','💔 Grief / Trauma','👫 Couples Therapy','📋 Immigration Eval','📅 Make an Appointment','💬 Just Exploring'],
+    es: ['😟 Ansiedad / Depresión','💔 Duelo / Trauma','👫 Terapia de Pareja','📋 Evaluación de Inmigración','📅 Hacer una Cita','💬 Solo Explorando']
   },
   services: {
     en: ['🧠 Individual Therapy','👫 Couples Therapy','💻 Telehealth','📋 Immigration Evals','💰 Insurance & Fees'],
     es: ['🧠 Terapia Individual','👫 Terapia de Pareja','💻 Telesalud','📋 Evaluaciones','💰 Seguros y Tarifas']
   },
   schedule: {
-    en: ['📞 Call Now','📧 Send Email','🔗 Patient Portal','❓ More Questions'],
-    es: ['📞 Llamar Ahora','📧 Enviar Correo','🔗 Portal del Paciente','❓ Más Preguntas']
+    en: ['📅 Make an Appointment','📞 Call Now','📧 Send Email','🔗 Patient Portal','❓ More Questions'],
+    es: ['📅 Hacer una Cita','📞 Llamar Ahora','📧 Enviar Correo','🔗 Portal del Paciente','❓ Más Preguntas']
   }
 };
 
@@ -190,6 +192,7 @@ const INTENT_MAP = {
     { kw: ['insurance','coverage','aetna','cigna','united','bcbs','blue cross','optum','oscar','mvp'], key: 'insurance' },
     { kw: ['cost','fee','price','pay','afford','rate','how much'],     key: 'insurance' },
     { kw: ['contact','phone','call','email','address','location','where','office'], key: 'contact' },
+    { kw: ['make an appointment','book an appointment','schedule an appointment','make appointment','book appointment','request appointment'], key: 'appointment' },
     { kw: ['start','begin','first time','new','appointment','schedule','book','consult','sign up'], key: 'start' },
     { kw: ['about','who','claudia','founder','background','credential','experience','training'], key: 'about' },
     { kw: ['portal','login','log in','sign in','therapyportal'],       key: 'portal' },
@@ -207,6 +210,7 @@ const INTENT_MAP = {
     { kw: ['telesalud','virtual','en línea'],                          key: 'services.telehealth' },
     { kw: ['seguro','cobertura','costo','precio','pago'],              key: 'insurance' },
     { kw: ['contacto','teléfono','correo','dónde','dirección'],        key: 'contact' },
+    { kw: ['hacer una cita','pedir una cita','reservar','agendar'],    key: 'appointment' },
     { kw: ['comenzar','empezar','primera','cita','consulta'],          key: 'start' },
     { kw: ['servicio','terapia','ayuda','ofrece'],                     key: 'services.overview' },
   ]
@@ -352,6 +356,8 @@ function initChatbot() {
         const chipMap = {
           'just exploring': 'services',
           'solo explorando': 'services',
+          '📅 make an appointment': 'appointment',
+          '📅 hacer una cita': 'appointment',
           '📞 call now': '__call__',
           '📞 llamar ahora': '__call__',
           '📧 send email': '__email__',
@@ -511,6 +517,7 @@ function initChatbot() {
 
   function fmt(text) {
     return text
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#3D4F3D;font-weight:600;text-decoration:underline;">$1</a>')
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\n/g, '<br>');
   }
