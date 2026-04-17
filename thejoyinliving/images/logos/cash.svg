@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 48">
+  <!-- Cash App green pill background -->
+  <rect x="0" y="4" width="48" height="40" rx="12" fill="#00D632"/>
+  <!-- Dollar sign -->
+  <text x="24" y="32" font-family="'SF Pro', 'Helvetica Neue', Arial, sans-serif" font-size="26" font-weight="700" fill="white" text-anchor="middle">$</text>
+  <!-- "Cash" wordmark -->
+  <text x="60" y="31" font-family="'SF Pro', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#1A1A1A" text-anchor="middle">Cash</text>
+</svg>
