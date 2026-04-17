@@ -1114,6 +1114,27 @@ a[aria-label="UnitedHealthcare"] img.insurance-logo {
   max-height: 150px;
 }
 
+/* Aetna: very wide logo (185x36) — give full width */
+a[aria-label="Aetna"] img.insurance-logo {
+  width: 120px;
+  height: auto;
+  max-width: 130px;
+}
+
+/* BCBS: landscape PNG — fit width */
+a[aria-label="Blue Cross Blue Shield"] img.insurance-logo {
+  width: 120px;
+  height: auto;
+  max-width: 130px;
+}
+
+/* MVP: square-ish SVG (150x70) */
+a[aria-label="MVP Health Care"] img.insurance-logo {
+  width: 110px;
+  height: auto;
+  max-width: 120px;
+}
+
 /* Cigna logo is near-square — scale to fit full card height */
 a[aria-label="Cigna"] img.insurance-logo {
   width: auto;

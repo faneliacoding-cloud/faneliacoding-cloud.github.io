@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
-  <!-- Blue cross -->
-  <rect x="2" y="18" width="14" height="38" rx="2" fill="#00539B"/>
-  <rect x="0" y="28" width="18" height="14" rx="2" fill="#00539B"/>
-  <!-- BCBS text -->
-  <text x="24" y="48" font-family="'Arial Narrow', 'Arial', sans-serif" font-size="26" font-weight="700" fill="#00539B" letter-spacing="0.5">Blue Cross</text>
-  <text x="24" y="60" font-family="'Arial Narrow', 'Arial', sans-serif" font-size="14" font-weight="600" fill="#00539B" letter-spacing="0.3">Blue Shield</text>
-</svg>
