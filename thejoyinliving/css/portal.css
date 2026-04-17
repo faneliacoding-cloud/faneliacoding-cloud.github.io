@@ -401,3 +401,22 @@
   width: 16px; height: 16px; margin-top: 2px; accent-color: var(--sage); flex-shrink: 0;
 }
 .p-checkbox-row label { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: 1.5; }
+
+/* ── Lang button visibility on portal pages ─────────────── */
+/* Ensure both EN and ES buttons are always clearly visible  */
+.portal-hero ~ * .nav__lang-btn,
+.portal-content ~ * .nav__lang-btn,
+.portal-login-wrap ~ * .nav__lang-btn {
+  color: rgba(255,255,255,0.85);
+}
+/* Simpler: just always show both clearly in portal context  */
+body .nav__lang-btn {
+  opacity: 1;
+}
+body .nav__lang-btn:not(.active) {
+  color: rgba(255,255,255,0.75);
+}
+body.scrolled .nav__lang-btn:not(.active),
+body .nav.scrolled .nav__lang-btn:not(.active) {
+  color: var(--stone);
+}
