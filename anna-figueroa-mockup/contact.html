@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Anna Figueroa | Start a Creative Project</title>
+  <meta name="description" content="Start a conversation with Anna Figueroa — creative director and production leader. Inquire about fashion campaigns, editorial work, brand strategy, and production leadership." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f2f0ec; --surface: #eceae4; --black: #1a1a18; --mid: #5a5a56; --light: #9a9a94;
+      --gold: #c9a84c; --gold-soft: #e8d8a0; --gold-pale: #f5efda; --white: #faf9f6;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+      --nav-h: 72px; --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--black); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
+    @media (max-width: 768px) { body { cursor: auto; } }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(242,240,236,0.85); backdrop-filter: blur(20px) saturate(1.4); border-bottom: 1px solid rgba(201,168,76,0.18); height: var(--nav-h); display: flex; align-items: center; justify-content: center; }
+    .nav-inner { width: 100%; max-width: 1200px; padding: 0 40px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 40px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .sun-icon { width: 32px; height: 32px; animation: slowspin 40s linear infinite; }
+    @keyframes slowspin { to { transform: rotate(360deg); } }
+    .nav-name { font-family: var(--serif); font-size: 18px; font-weight: 500; color: var(--black); }
+    .nav-links { display: flex; gap: 36px; list-style: none; justify-content: center; }
+    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--mid); position: relative; padding-bottom: 3px; transition: color 0.25s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px; background: var(--gold); transition: width 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--black); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-social { display: flex; justify-content: flex-end; gap: 20px; }
+    .nav-social a { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--light); transition: color 0.25s; }
+    .nav-social a:hover { color: var(--gold); }
+
+    main { padding-top: var(--nav-h); }
+
+    /* HERO */
+    .contact-hero { background: var(--black); padding: 100px 40px; position: relative; overflow: hidden; }
+    .contact-hero canvas { position: absolute; inset: 0; z-index: 0; }
+    .contact-hero-inner { max-width: 680px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+    .contact-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .contact-heading { font-family: var(--serif); font-size: clamp(40px, 6vw, 72px); font-weight: 300; font-style: italic; color: var(--white); margin-bottom: 16px; line-height: 1.08; }
+    .contact-sub { font-size: 15px; line-height: 1.7; color: rgba(250,249,246,0.5); }
+
+    /* LAYOUT */
+    .contact-body { max-width: 1200px; margin: 0 auto; padding: 80px 40px; display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: start; }
+
+    /* SIDEBAR */
+    .contact-info { position: sticky; top: calc(var(--nav-h) + 40px); }
+    .info-label { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+    .info-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold); }
+    .info-heading { font-family: var(--serif); font-size: 28px; font-weight: 300; line-height: 1.3; margin-bottom: 24px; }
+    .info-body { font-size: 14px; line-height: 1.8; color: var(--mid); margin-bottom: 32px; }
+    .info-detail { display: flex; flex-direction: column; gap: 20px; padding-top: 32px; border-top: 1px solid rgba(201,168,76,0.2); }
+    .info-row { display: flex; flex-direction: column; gap: 4px; }
+    .info-row-label { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light); }
+    .info-row-value { font-size: 14px; color: var(--black); }
+    .info-row-value a { color: var(--black); text-decoration: none; transition: color 0.25s; }
+    .info-row-value a:hover { color: var(--gold); }
+
+    /* NYC MAP INDICATOR */
+    .nyc-indicator { margin-top: 32px; padding: 20px; background: var(--gold-pale); border-left: 3px solid var(--gold); display: flex; align-items: center; gap: 14px; }
+    .nyc-indicator svg { width: 24px; height: 24px; flex-shrink: 0; color: var(--gold); }
+    .nyc-indicator span { font-size: 13px; color: var(--mid); line-height: 1.5; }
+
+    /* FORM */
+    .contact-form-wrap { background: var(--white); padding: 52px 48px; border: 1px solid rgba(201,168,76,0.12); box-shadow: 0 12px 48px rgba(26,26,24,0.06); }
+    .form-title { font-family: var(--serif); font-size: 28px; font-weight: 300; margin-bottom: 32px; }
+    .contact-form { display: flex; flex-direction: column; gap: 24px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-field { display: flex; flex-direction: column; gap: 8px; position: relative; }
+    .form-field label { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); transition: color 0.25s; }
+    .form-field:focus-within label { color: var(--gold); }
+    .form-field input, .form-field textarea, .form-field select { background: var(--bg); border: 1px solid rgba(201,168,76,0.2); color: var(--black); font-family: var(--sans); font-size: 14px; padding: 16px 18px; outline: none; transition: border-color 0.25s, box-shadow 0.25s; resize: none; -webkit-appearance: none; appearance: none; border-radius: 0; }
+    .form-field input::placeholder, .form-field textarea::placeholder { color: var(--light); }
+    .form-field input:focus, .form-field textarea:focus, .form-field select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.08); }
+    .form-field select option { background: var(--white); color: var(--black); }
+    .form-field textarea { min-height: 160px; }
+
+    /* VALIDATION STATES */
+    .form-field input:valid:not(:placeholder-shown) { border-color: rgba(74,168,100,0.4); }
+    .form-field input:invalid:not(:placeholder-shown):not(:focus) { border-color: rgba(220,100,100,0.3); }
+
+    .form-submit { width: 100%; padding: 20px 32px; background: var(--black); color: var(--white); font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; border: 1.5px solid var(--black); cursor: pointer; transition: all 0.35s var(--ease); margin-top: 8px; }
+    .form-submit:hover { background: var(--gold); border-color: var(--gold); color: var(--black); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.2); }
+    .form-submit.sent { background: #4a7c59; border-color: #4a7c59; pointer-events: none; }
+    .form-note { text-align: center; font-size: 12px; color: var(--light); margin-top: 16px; font-style: italic; font-family: var(--serif); }
+
+    /* FOOTER */
+    footer { background: var(--bg); border-top: 1px solid rgba(201,168,76,0.15); padding: 36px 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-tagline { font-size: 12px; color: var(--light); }
+    .footer-tagline strong { color: var(--mid); font-weight: 500; }
+    .footer-copy { font-size: 11px; color: var(--light); }
+    .footer-social { display: flex; gap: 20px; }
+    .footer-social a { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--light); transition: color 0.25s; }
+    .footer-social a:hover { color: var(--gold); }
+
+    @media (max-width: 960px) {
+      .nav-inner { grid-template-columns: auto 1fr; } .nav-social { display: none; }
+      .contact-body { grid-template-columns: 1fr; gap: 48px; }
+      .contact-info { position: static; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { gap: 18px; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-wrap { padding: 32px 24px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg class="sun-icon" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="16" fill="#c9a84c"/><g stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round"><line x1="40" y1="8" x2="40" y2="18"/><line x1="40" y1="62" x2="40" y2="72"/><line x1="8" y1="40" x2="18" y2="40"/><line x1="62" y1="40" x2="72" y2="40"/><line x1="17" y1="17" x2="24" y2="24"/><line x1="56" y1="56" x2="63" y2="63"/><line x1="63" y1="17" x2="56" y2="24"/><line x1="24" y1="56" x2="17" y2="63"/></g></svg>
+      <span class="nav-name">Anna Figueroa</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="work/index.html">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <div class="nav-social">
+      <a href="https://www.linkedin.com/in/annafigueroa" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://www.instagram.com/annalfigueroa/" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- HERO -->
+  <div class="contact-hero">
+    <canvas id="hero-particles"></canvas>
+    <div class="contact-hero-inner" data-animate="fade-up">
+      <p class="contact-eyebrow">✦ Let's Create Something</p>
+      <h1 class="contact-heading">Ready to Make<br>Something Memorable?</h1>
+      <p class="contact-sub">I take on a limited number of projects each season — which means every partnership gets my full focus. Share your brief below and let's see if we're a fit.</p>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="contact-body">
+    <!-- SIDEBAR -->
+    <div class="contact-info" data-animate="fade-right">
+      <div class="info-label">Get in Touch</div>
+      <h2 class="info-heading">Tell me about your project</h2>
+      <p class="info-body">Whether you're building a campaign from scratch, need production leadership on an upcoming shoot, or want to redefine your visual identity — I'd love to hear what you're working on.</p>
+      <div class="info-detail">
+        <div class="info-row">
+          <span class="info-row-label">Email</span>
+          <span class="info-row-value"><a href="mailto:annalfigueroa1@gmail.com">annalfigueroa1@gmail.com</a></span>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label">Response Time</span>
+          <span class="info-row-value">Within 2 business days</span>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label">Based In</span>
+          <span class="info-row-value">New York City</span>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label">Projects start at</span>
+          <span class="info-row-value">$5,000</span>
+        </div>
+      </div>
+
+      <!-- NYC INDICATOR -->
+      <div class="nyc-indicator">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <span>Based in <strong>New York City</strong>. Available for projects nationally and internationally.</span>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="contact-form-wrap" data-animate="fade-left">
+      <p class="form-title">Start a Conversation</p>
+      <form class="contact-form" id="contact-form" action="mailto:annalfigueroa1@gmail.com" method="POST" enctype="text/plain">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="fname">Your Name</label>
+            <input type="text" id="fname" name="name" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-field">
+            <label for="femail">Email Address</label>
+            <input type="email" id="femail" name="email" placeholder="jane@brand.com" required />
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="fcompany">Company / Brand</label>
+          <input type="text" id="fcompany" name="company" placeholder="Your brand or agency name" />
+        </div>
+        <div class="form-field">
+          <label for="ftype">Project Type</label>
+          <select id="ftype" name="project_type">
+            <option value="" disabled selected>What are you working on?</option>
+            <option>Fashion Campaign</option>
+            <option>Editorial / Lookbook</option>
+            <option>Brand Strategy & Visual Systems</option>
+            <option>Production Leadership</option>
+            <option>Content Strategy</option>
+            <option>Creative Operations</option>
+            <option>Fractional Creative Leadership</option>
+            <option>Other / Not Sure Yet</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="fbudget">Approximate Budget</label>
+          <select id="fbudget" name="budget">
+            <option value="" disabled selected>What's your range?</option>
+            <option>$5,000 – $15,000</option>
+            <option>$15,000 – $30,000</option>
+            <option>$30,000 – $60,000</option>
+            <option>$60,000+</option>
+            <option>Let's discuss</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="fmessage">Tell Me About Your Project</label>
+          <textarea id="fmessage" name="message" placeholder="Share your vision, timeline, and what you're hoping to achieve..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="submit-btn">Send My Brief →</button>
+        <p class="form-note">I respond within 2 business days. All inquiries are kept confidential.</p>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-tagline"><strong>Anna Figueroa</strong> — Creative Direction · Production · Brand Strategy</p>
+    <p class="footer-copy">© 2025 Anna Figueroa. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/annafigueroa" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://www.instagram.com/annalfigueroa/" target="_blank" rel="noopener">Instagram ↗</a>
+      <a href="https://anna-figueroa.format.com" target="_blank" rel="noopener">Format Site ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="chatbot-knowledge.js"></script>
+<script src="shared-components.js"></script>
+<script>
+  // Particle constellation in hero
+  window.addEventListener('load', () => {
+    new ParticleConstellation('hero-particles', { count: 50, color: '201, 168, 76', maxDist: 130, speed: 0.2 });
+  });
+
+  // Form submission animation
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = '✓ Message Sent — I\'ll be in touch!';
+    btn.classList.add('sent');
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work | Anna Figueroa – Creative Direction & Production</title>
+  <meta name="description" content="Creative direction, casting, and production work across fashion, lifestyle, and founder-led brands—campaigns, editorial, and content systems from concept through execution." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f2f0ec; --surface: #eceae4; --black: #1a1a18; --mid: #5a5a56; --light: #9a9a94;
+      --gold: #c9a84c; --gold-soft: #e8d8a0; --gold-pale: #f5efda; --white: #faf9f6;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+      --nav-h: 72px; --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--black); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
+    @media (max-width: 768px) { body { cursor: auto; } }
+    img { display: block; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(242,240,236,0.85); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); border-bottom: 1px solid rgba(201,168,76,0.18); height: var(--nav-h); display: flex; align-items: center; justify-content: center; }
+    .nav-inner { width: 100%; max-width: 1200px; padding: 0 40px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 40px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .sun-icon { width: 32px; height: 32px; animation: slowspin 40s linear infinite; }
+    @keyframes slowspin { to { transform: rotate(360deg); } }
+    .nav-name { font-family: var(--serif); font-size: 18px; font-weight: 500; color: var(--black); white-space: nowrap; }
+    .nav-links { display: flex; gap: 36px; list-style: none; justify-content: center; }
+    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--mid); position: relative; padding-bottom: 3px; transition: color 0.25s var(--ease); }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px; background: var(--gold); transition: width 0.3s var(--ease); }
+    .nav-links a:hover, .nav-links a.active { color: var(--black); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-social { display: flex; justify-content: flex-end; gap: 20px; }
+    .nav-social a { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--light); transition: color 0.25s; }
+    .nav-social a:hover { color: var(--gold); }
+
+    main { padding-top: var(--nav-h); }
+
+    /* PAGE HERO */
+    .page-hero { background: var(--black); padding: 100px 40px 80px; text-align: center; position: relative; overflow: hidden; }
+    .page-hero-orb { position: absolute; width: 500px; height: 500px; border-radius: 50%; filter: blur(120px); pointer-events: none; background: rgba(201,168,76,0.06); top: -100px; right: -100px; }
+    .page-hero-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; position: relative; z-index: 1; }
+    .page-hero h1 { font-family: var(--serif); font-size: clamp(44px, 7vw, 80px); font-weight: 300; color: var(--white); line-height: 1.08; position: relative; z-index: 1; margin-bottom: 16px; }
+    .page-hero-sub { font-size: 15px; color: rgba(250,249,246,0.5); line-height: 1.7; max-width: 560px; margin: 0 auto; position: relative; z-index: 1; }
+
+    /* FILTER TABS */
+    .filter-bar { max-width: 1200px; margin: 0 auto; padding: 40px 40px 0; display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-tab { padding: 8px 20px; border: 1px solid rgba(201,168,76,0.25); background: transparent; font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); cursor: pointer; transition: all 0.25s var(--ease); }
+    .filter-tab:hover, .filter-tab.active { background: var(--gold); color: var(--black); border-color: var(--gold); }
+
+    /* WORK GRID */
+    .work-grid { max-width: 1200px; margin: 0 auto; padding: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+    .work-item { position: relative; overflow: hidden; aspect-ratio: 3/4; background: var(--surface); text-decoration: none; }
+    .work-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
+    .work-item:hover img { transform: scale(1.06); }
+    .work-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,26,24,0.85) 0%, rgba(26,26,24,0.2) 40%, transparent 60%); opacity: 0; transition: opacity 0.4s var(--ease); display: flex; align-items: flex-end; padding: 32px; }
+    .work-item:hover .work-overlay { opacity: 1; }
+    .tilt-glare { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.3s; z-index: 2; }
+    .work-client { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .work-title { font-family: var(--serif); font-size: 22px; font-weight: 400; color: white; line-height: 1.2; }
+    .work-role { font-size: 12px; color: rgba(250,249,246,0.5); margin-top: 8px; }
+    .work-arrow { font-size: 12px; color: var(--gold); letter-spacing: 0.1em; margin-top: 14px; display: flex; align-items: center; gap: 6px; }
+
+    /* CTA */
+    .cta-section { background: var(--black); padding: 120px 40px; text-align: center; position: relative; overflow: hidden; }
+    .cta-inner { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .cta-title { font-family: var(--serif); font-size: clamp(36px, 5vw, 64px); font-weight: 300; font-style: italic; color: var(--white); margin-bottom: 20px; line-height: 1.08; }
+    .cta-sub { font-size: 15px; line-height: 1.75; color: rgba(250,249,246,0.5); margin-bottom: 44px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 16px 36px; background: var(--gold); color: var(--black); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; border: 1.5px solid var(--gold); transition: all 0.35s var(--ease); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+
+    /* FOOTER */
+    footer { background: var(--bg); border-top: 1px solid rgba(201,168,76,0.15); padding: 36px 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-tagline { font-size: 12px; color: var(--light); }
+    .footer-tagline strong { color: var(--mid); font-weight: 500; }
+    .footer-copy { font-size: 11px; color: var(--light); }
+    .footer-social { display: flex; gap: 20px; }
+    .footer-social a { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--light); transition: color 0.25s; }
+    .footer-social a:hover { color: var(--gold); }
+
+    @media (max-width: 960px) {
+      .nav-inner { grid-template-columns: auto 1fr; }
+      .nav-social { display: none; }
+      .work-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .nav-links { gap: 18px; }
+      .work-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <svg class="sun-icon" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="16" fill="#c9a84c"/><g stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round"><line x1="40" y1="8" x2="40" y2="18"/><line x1="40" y1="62" x2="40" y2="72"/><line x1="8" y1="40" x2="18" y2="40"/><line x1="62" y1="40" x2="72" y2="40"/><line x1="17" y1="17" x2="24" y2="24"/><line x1="56" y1="56" x2="63" y2="63"/><line x1="63" y1="17" x2="56" y2="24"/><line x1="24" y1="56" x2="17" y2="63"/></g></svg>
+      <span class="nav-name">Anna Figueroa</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="index.html" class="active">Work</a></li>
+      <li><a href="../services.html">Services</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-social">
+      <a href="https://www.linkedin.com/in/annafigueroa" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://www.instagram.com/annalfigueroa/" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="page-hero">
+    <div class="page-hero-orb"></div>
+    <p class="page-hero-eyebrow" data-animate="fade-up">Portfolio</p>
+    <h1 data-animate="fade-up" data-delay="0.1">Selected Work</h1>
+    <p class="page-hero-sub" data-animate="fade-up" data-delay="0.2">Campaigns, editorial, and visual storytelling across fashion and purpose-driven brands.</p>
+  </div>
+
+  <div class="filter-bar" data-animate="fade-up">
+    <button class="filter-tab active">All</button>
+    <button class="filter-tab">Campaigns</button>
+    <button class="filter-tab">Editorial</button>
+    <button class="filter-tab">Brand</button>
+  </div>
+
+  <div class="work-grid" data-stagger>
+    <a href="spring-2024-campaign.html" class="work-item" data-tilt data-tilt-intensity="6">
+      <div class="tilt-glare"></div>
+      <img src="../images/work_spring.jpeg" alt="Spring 2024 Campaign" />
+      <div class="work-overlay">
+        <div>
+          <div class="work-client">M.M.LaFleur</div>
+          <div class="work-title">Spring 2024 Campaign</div>
+          <div class="work-role">Senior Creative Producer</div>
+          <div class="work-arrow">View Case Study →</div>
+        </div>
+      </div>
+    </a>
+    <a href="padma-lakshmi-editorial.html" class="work-item" data-tilt data-tilt-intensity="6">
+      <div class="tilt-glare"></div>
+      <img src="../images/work_padma.jpeg" alt="Padma Lakshmi Editorial" />
+      <div class="work-overlay">
+        <div>
+          <div class="work-client">M-Dash · M.M.LaFleur</div>
+          <div class="work-title">Padma Lakshmi Editorial</div>
+          <div class="work-role">Senior Creative Producer</div>
+          <div class="work-arrow">View Case Study →</div>
+        </div>
+      </div>
+    </a>
+    <a href="ready-to-run.html" class="work-item" data-tilt data-tilt-intensity="6">
+      <div class="tilt-glare"></div>
+      <img src="../images/work_run.jpeg" alt="Ready to Run Campaign" />
+      <div class="work-overlay">
+        <div>
+          <div class="work-client">M.M.LaFleur</div>
+          <div class="work-title">Ready to Run</div>
+          <div class="work-role">Senior Creative Producer</div>
+          <div class="work-arrow">View Case Study →</div>
+        </div>
+      </div>
+    </a>
+  </div>
+</main>
+
+<div class="cta-section">
+  <canvas id="cta-particles" style="position:absolute;inset:0;z-index:0;"></canvas>
+  <div class="cta-inner" data-animate="scale-in">
+    <p class="cta-eyebrow">✦ Let's Create Something</p>
+    <h2 class="cta-title">Have a Project in Mind?</h2>
+    <p class="cta-sub">I take on a limited number of projects each season — which means every partnership gets my full attention.</p>
+    <a href="../contact.html" class="btn-primary">Start a Conversation →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-tagline"><strong>Anna Figueroa</strong> — Creative Direction · Production · Brand Strategy</p>
+    <p class="footer-copy">© 2025 Anna Figueroa. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/annafigueroa" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://www.instagram.com/annalfigueroa/" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="../chatbot-knowledge.js"></script>
+<script src="../shared-components.js"></script>
+<script>
+  window.addEventListener('load', () => {
+    new ParticleConstellation('cta-particles', { count: 40, color: '201, 168, 76', maxDist: 120, speed: 0.25 });
+  });
+</script>
+</body>
+</html>

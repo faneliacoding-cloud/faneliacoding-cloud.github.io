@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative Direction, Casting & Production Services — Anna Figueroa</title>
+  <meta name="description" content="Creative direction, production leadership, brand strategy, and casting services from Senior Creative Producer Anna Figueroa." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f2f0ec; --surface: #eceae4; --black: #1a1a18; --mid: #5a5a56; --light: #9a9a94;
+      --gold: #c9a84c; --gold-soft: #e8d8a0; --gold-pale: #f5efda; --white: #faf9f6;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+      --nav-h: 72px; --ease: cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--black); font-family: var(--sans); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; cursor: none; }
+    @media (max-width: 768px) { body { cursor: auto; } }
+    img { display: block; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(242,240,236,0.85); backdrop-filter: blur(20px) saturate(1.4); border-bottom: 1px solid rgba(201,168,76,0.18); height: var(--nav-h); display: flex; align-items: center; justify-content: center; }
+    .nav-inner { width: 100%; max-width: 1200px; padding: 0 40px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 40px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .sun-icon { width: 32px; height: 32px; animation: slowspin 40s linear infinite; }
+    @keyframes slowspin { to { transform: rotate(360deg); } }
+    .nav-name { font-family: var(--serif); font-size: 18px; font-weight: 500; color: var(--black); }
+    .nav-links { display: flex; gap: 36px; list-style: none; justify-content: center; }
+    .nav-links a { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--mid); position: relative; padding-bottom: 3px; transition: color 0.25s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px; background: var(--gold); transition: width 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--black); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-social { display: flex; justify-content: flex-end; gap: 20px; }
+    .nav-social a { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--light); transition: color 0.25s; }
+    .nav-social a:hover { color: var(--gold); }
+
+    main { padding-top: var(--nav-h); }
+
+    /* HERO */
+    .hero { position: relative; overflow: hidden; }
+    .hero img { width: 100%; max-height: 620px; object-fit: cover; object-position: center; }
+    .hero-overlay { position: absolute; inset: 0; background: rgba(26,26,24,0.42); display: flex; align-items: center; justify-content: center; }
+    .hero-title { font-family: var(--serif); font-size: clamp(40px, 6.5vw, 84px); font-weight: 300; color: white; text-align: center; line-height: 1.08; }
+
+    /* HOW I WORK */
+    .how-section { max-width: 760px; margin: 0 auto; padding: 100px 40px; text-align: center; }
+    .section-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 14px; }
+    .section-eyebrow::before, .section-eyebrow::after { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
+    .how-title { font-family: var(--serif); font-size: clamp(34px, 4vw, 54px); font-weight: 300; line-height: 1.15; margin-bottom: 32px; }
+    .how-body { font-size: 15px; line-height: 1.9; color: var(--mid); margin-bottom: 20px; }
+
+    /* SERVICES GRID */
+    .services-section { background: var(--white); padding: 100px 40px; }
+    .services-inner { max-width: 1200px; margin: 0 auto; }
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid rgba(201,168,76,0.15); border-left: 1px solid rgba(201,168,76,0.15); }
+    .service-card { padding: 52px 48px; border-right: 1px solid rgba(201,168,76,0.15); border-bottom: 1px solid rgba(201,168,76,0.15); transition: all 0.35s var(--ease); position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transition: transform 0.4s var(--ease); transform-origin: left; }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { background: rgba(201,168,76,0.04); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(26,26,24,0.06); }
+    .service-num { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; color: var(--gold); margin-bottom: 20px; }
+    .service-name { font-family: var(--serif); font-size: 22px; font-weight: 400; margin-bottom: 16px; line-height: 1.2; }
+    .service-desc { font-size: 14px; line-height: 1.8; color: var(--mid); }
+
+    /* ON SET GALLERY — Horizontal scroll */
+    .onset-section { padding: 100px 0 60px; }
+    .onset-header { max-width: 760px; margin: 0 auto 60px; padding: 0 40px; text-align: center; }
+    .onset-title { font-family: var(--serif); font-size: clamp(30px, 3.5vw, 48px); font-weight: 300; margin-bottom: 16px; }
+    .onset-sub { font-size: 14px; color: var(--mid); line-height: 1.7; }
+    .onset-strip { display: flex; gap: 3px; overflow-x: auto; padding: 0 40px; scrollbar-width: none; scroll-behavior: smooth; }
+    .onset-strip::-webkit-scrollbar { display: none; }
+    .onset-strip img { height: 480px; width: auto; object-fit: cover; flex-shrink: 0; transition: filter 0.3s var(--ease); filter: saturate(0.85); cursor: zoom-in; }
+    .onset-strip img:hover { filter: saturate(1); }
+
+    /* CASTING */
+    .casting-section { padding: 80px 40px 100px; }
+    .casting-inner { max-width: 1200px; margin: 0 auto; }
+    .casting-header { text-align: center; margin-bottom: 60px; }
+    .casting-title { font-family: var(--serif); font-size: clamp(30px, 3.5vw, 48px); font-weight: 300; margin-bottom: 16px; }
+    .casting-sub { font-size: 14px; color: var(--mid); line-height: 1.7; }
+    .casting-main { margin-bottom: 4px; overflow: hidden; }
+    .casting-main img { width: 100%; max-height: 560px; object-fit: cover; object-position: top; cursor: zoom-in; transition: transform 0.5s var(--ease); }
+    .casting-main:hover img { transform: scale(1.02); }
+    .casting-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 4px; margin-bottom: 4px; }
+    .casting-grid-4 img { width: 100%; aspect-ratio: 2/3; object-fit: cover; object-position: top; cursor: zoom-in; transition: transform 0.4s var(--ease); }
+    .casting-grid-4 img:hover { transform: scale(1.03); }
+    .casting-grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 4px; }
+    .casting-grid-3 img { width: 100%; aspect-ratio: 4/3; object-fit: cover; cursor: zoom-in; transition: transform 0.4s var(--ease); }
+    .casting-grid-3 img:hover { transform: scale(1.03); }
+
+    /* CTA */
+    .cta-section { background: var(--black); padding: 120px 40px; text-align: center; position: relative; overflow: hidden; }
+    .cta-inner { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+    .cta-title { font-family: var(--serif); font-size: clamp(36px, 5vw, 64px); font-weight: 300; color: white; line-height: 1.08; margin-bottom: 24px; }
+    .cta-body { font-size: 15px; line-height: 1.8; color: rgba(250,249,246,0.5); margin-bottom: 48px; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: var(--black); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; padding: 18px 40px; transition: all 0.35s var(--ease); border: 1.5px solid var(--gold); }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+    .cta-email { margin-top: 32px; font-size: 13px; color: rgba(250,249,246,0.35); }
+    .cta-email a { color: rgba(250,249,246,0.55); text-decoration: none; transition: color 0.25s; }
+    .cta-email a:hover { color: var(--gold); }
+
+    footer { background: var(--black); border-top: 1px solid rgba(201,168,76,0.1); padding: 30px 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 11px; color: rgba(250,249,246,0.3); }
+    .footer-social { display: flex; gap: 20px; }
+    .footer-social a { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: rgba(250,249,246,0.4); transition: color 0.25s; }
+    .footer-social a:hover { color: var(--gold); }
+
+    @media (max-width: 960px) { .nav-inner { grid-template-columns: auto 1fr; } .nav-social { display: none; } .services-grid { grid-template-columns: 1fr; } .casting-grid-4 { grid-template-columns: repeat(2,1fr); } .onset-strip img { height: 360px; } }
+    @media (max-width: 600px) { .nav-links { gap: 18px; } .casting-grid-4, .casting-grid-3 { grid-template-columns: 1fr 1fr; } .onset-strip { padding: 0 20px; } .footer-inner { flex-direction: column; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg class="sun-icon" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="16" fill="#c9a84c"/><g stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round"><line x1="40" y1="8" x2="40" y2="18"/><line x1="40" y1="62" x2="40" y2="72"/><line x1="8" y1="40" x2="18" y2="40"/><line x1="62" y1="40" x2="72" y2="40"/><line x1="17" y1="17" x2="24" y2="24"/><line x1="56" y1="56" x2="63" y2="63"/><line x1="63" y1="17" x2="56" y2="24"/><line x1="24" y1="56" x2="17" y2="63"/></g></svg>
+      <span class="nav-name">Anna Figueroa</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="work/index.html">Work</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-social">
+      <a href="https://www.linkedin.com/in/annafigueroa" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://www.instagram.com/annalfigueroa/" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- HERO -->
+  <div class="hero">
+    <img src="images/services_hero.jpeg" alt="Clear Direction. Thoughtful Execution." />
+    <div class="hero-overlay">
+      <h1 class="hero-title">Clear Direction.<br>Thoughtful Execution.</h1>
+    </div>
+  </div>
+
+  <!-- HOW I WORK -->
+  <div class="how-section" data-animate="fade-up">
+    <div class="section-eyebrow">How I Work</div>
+    <h2 class="how-title">Bringing clarity to ideas, and leading work from concept through delivery.</h2>
+    <p class="how-body">I partner with teams across brands, studios, and agencies to bring clarity to ideas, and lead work from concept through delivery.</p>
+    <p class="how-body">With a background spanning editorial, campaigns, and production, I shape direction, align stakeholders, and guide execution — bringing the right people, processes, and structure together to deliver work that is thoughtful, effective, and scalable.</p>
+  </div>
+
+  <!-- SERVICES GRID -->
+  <div class="services-section">
+    <div class="services-inner">
+      <div class="services-grid" data-stagger>
+        <div class="service-card">
+          <div class="service-num">01</div>
+          <div class="service-name">Visual Systems & Brand Strategy</div>
+          <p class="service-desc">A high-touch audit and rebuild of your visual ecosystem across campaign, editorial, and e-commerce. Bringing clarity, cohesion, and stronger storytelling.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">02</div>
+          <div class="service-name">Production Leadership</div>
+          <p class="service-desc">End-to-end leadership of photo and video productions, from budgets and briefs through crews, locations, and on-set execution.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">03</div>
+          <div class="service-name">Brand & Content Strategy</div>
+          <p class="service-desc">Clear, compelling narratives rooted in your brand's DNA. Developed for campaigns, social, and evolving content ecosystems.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">04</div>
+          <div class="service-name">Creative Operations</div>
+          <p class="service-desc">Scalable systems and workflows aligning creative, marketing, and production — so ideas move efficiently from concept to launch.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">05</div>
+          <div class="service-name">Casting & Creative Direction</div>
+          <p class="service-desc">Thoughtful talent casting and visual direction that bring authenticity, representation, and alignment to every frame.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">06</div>
+          <div class="service-name">Fractional Creative Leadership</div>
+          <p class="service-desc">Flexible, creative, and production leadership for founder-led and growing brands — designed to integrate with your team and scale as you grow.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ON SET & IN MOTION -->
+  <div class="onset-section">
+    <div class="onset-header" data-animate="fade-up">
+      <div class="section-eyebrow">Behind the Work</div>
+      <h2 class="onset-title">On Set and in Motion</h2>
+      <p class="onset-sub">Direction, collaboration, and the moments that bring the work to life.</p>
+    </div>
+    <div class="onset-strip">
+      <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,2576,3435,2576,1200/0-0-0/0f276179-0403-4d07-86d0-cd8ce783d734/1/1/AF-GuccixBonDuke-Saks_BTS.jpeg" alt="On set BTS — Gucci × Bon Duke" data-lightbox />
+      <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,2000,2500,2000,1200/0-0-0/dd27c4f4-25f5-4c98-b4e3-d001ec193b57/1/1/AF-services-pg-bts.1.jpeg" alt="Direction on set" data-lightbox />
+      <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,2000,2500,2000,1200/0-0-0/2f978de4-0275-4c24-a8fb-54aa000d67f2/1/1/AF-services-pg-bts.2.jpeg" alt="Street shoot" data-lightbox />
+      <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,2576,3435,2576,1200/0-0-0/ffd40eea-d07b-41da-ac6e-92313430f738/1/1/AF-GuccixBonDuke-Saks_BTS2.jpeg" alt="BTS laptop review" data-lightbox />
+      <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,2576,3435,2576,1200/0-0-0/e5d59ac1-cf71-43a3-af90-5ba98e7816a6/1/1/AF-services-pg-bts.3.jpeg" alt="Studio set styling" data-lightbox />
+      <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,2301,3270,2301,1200/0-0-0/0cd602cf-79e4-4eba-aaa1-7479f883e21b/1/1/AF-services-pg-bts.4.jpeg" alt="On set review" data-lightbox />
+      <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,945,1181,945,1200/0-0-0/5b1778e0-d4cb-41dc-b32f-726e23fe3b5a/1/1/AF-SP2025-bts.jpeg" alt="SP2025 BTS" data-lightbox />
+      <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,1290,1719,1290,1200/0-0-0/ac407833-c8c7-47af-b328-2e40f2be05a3/1/1/AF-service-page-bts-north-fork.jpg" alt="North Fork BTS" data-lightbox />
+      <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,2000,2500,2000,1200/0-0-0/4ef3303b-20f8-4f89-a92c-ac446def1b02/1/1/AF-services-pg-bts.5.jpg" alt="Casting BTS" data-lightbox />
+      <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,2000,2500,2000,1200/0-0-0/7eadedb5-9e90-42fd-a3be-c21d0501c8b6/1/1/AF-services-pg-bts.6.jpg" alt="Crew on set" data-lightbox />
+    </div>
+  </div>
+
+  <!-- CASTING & VISUAL DIRECTION -->
+  <div class="casting-section">
+    <div class="casting-inner">
+      <div class="casting-header" data-animate="fade-up">
+        <div class="section-eyebrow">Casting</div>
+        <h2 class="casting-title">Casting and Visual Direction</h2>
+        <p class="casting-sub">Building the right cast to carry the story — aligned with brand, energy, and intention.</p>
+      </div>
+      <div class="casting-main" data-animate="fade-up">
+        <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,3434,2576,1200,2576/0-0-0/cd2e3da1-c4e0-4689-91bc-8df3106a8ad1/1/1/AF-casting-direction.jpeg" alt="Casting direction" data-lightbox />
+      </div>
+      <div class="casting-grid-4" data-stagger>
+        <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,643,964,2500,964/0-0-0/4f823c22-13cd-4247-b80d-a35c88a915c0/1/1/1.jpg" alt="Casting polaroid 1" data-lightbox />
+        <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,643,964,2500,964/0-0-0/41310ef5-0328-497b-8d30-960b6a968c00/1/1/2.jpg" alt="Casting polaroid 2" data-lightbox />
+        <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,643,964,2500,964/0-0-0/6074684c-14d4-4032-bbb9-9074181cfa88/1/1/3.jpg" alt="Casting polaroid 3" data-lightbox />
+        <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,643,964,2500,964/0-0-0/93acebd4-4d51-4c64-8349-dcdb0ce4b928/1/1/4.jpg" alt="Casting polaroid 4" data-lightbox />
+      </div>
+      <div class="casting-grid-3" data-stagger>
+        <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,642,448,2500,448/0-0-0/0811813f-acc4-4030-a42c-b309e74ea224/1/1/AF-service-page-castings.3.jpeg" alt="Casting 3" data-lightbox />
+        <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,1413,989,1200,989/0-0-0/ec029e6e-f048-4d79-ba04-c59995fa4737/1/1/AF-service-page-castings.2.jpg" alt="Casting 2" data-lightbox />
+        <img src="https://format.creatorcdn.com/eed43701-c09f-47f0-b668-c3c2dccfb6fd/0/0/0/0,0,1417,949,1200,949/0-0-0/d8dd315f-7577-4d64-9aad-52c63a6012ab/1/1/AF-service-page-castings-3b.jpg" alt="Casting 3b" data-lightbox />
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- CTA -->
+<div class="cta-section">
+  <canvas id="cta-particles" style="position:absolute;inset:0;z-index:0;"></canvas>
+  <div class="cta-inner" data-animate="scale-in">
+    <div class="cta-eyebrow">Let's Work Together</div>
+    <h2 class="cta-title">Let's Build Something Thoughtful Together</h2>
+    <p class="cta-body">Creative direction and production for brands ready to evolve their visual story.</p>
+    <a href="contact.html" class="cta-btn">Start a Conversation →</a>
+    <p class="cta-email">Or reach out directly: <a href="mailto:annalfigueroa1@gmail.com">annalfigueroa1@gmail.com</a></p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-copy">© 2025 Anna Figueroa. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/annafigueroa" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://www.instagram.com/annalfigueroa/" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="chatbot-knowledge.js"></script>
+<script src="shared-components.js"></script>
+<script>
+  window.addEventListener('load', () => {
+    new ParticleConstellation('cta-particles', { count: 40, color: '201, 168, 76', maxDist: 120, speed: 0.25 });
+  });
+</script>
+</body>
+</html>
