@@ -1080,6 +1080,7 @@
   transition: all var(--duration-normal) var(--ease-soft);
   cursor: pointer;
   text-decoration: none;
+  min-height: 100px;
 }
 
 .insurance-grid__item:hover {
@@ -1108,8 +1109,8 @@
 /* UHC logo is square — let height drive sizing */
 a[aria-label="UnitedHealthcare"] img.insurance-logo {
   width: auto;
-  height: 48px;
-  max-width: 110px;
+  height: 80px;
+  max-width: 130px;
 }
 
 /* ============================================================
