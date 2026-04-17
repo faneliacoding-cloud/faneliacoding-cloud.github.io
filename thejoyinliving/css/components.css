@@ -1113,6 +1113,13 @@ a[aria-label="UnitedHealthcare"] img.insurance-logo {
   max-width: 130px;
 }
 
+/* Cigna logo is near-square — scale to fit full card height */
+a[aria-label="Cigna"] img.insurance-logo {
+  width: auto;
+  height: 72px;
+  max-width: 120px;
+}
+
 /* ============================================================
    BLOG PREVIEW CARDS
    ============================================================ */
