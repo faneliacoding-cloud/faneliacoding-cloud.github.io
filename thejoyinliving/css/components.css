@@ -1992,7 +1992,6 @@ a[aria-label="Oxford Health Plans"] img.insurance-logo {
 /* --- Touch target minimums: 44x44px per Apple / Google guidelines --- */
 .nav__link,
 .nav__dropdown-trigger,
-.nav__dropdown-item,
 .nav__lang-btn,
 .nav__toggle,
 .footer__link,
@@ -2001,6 +2000,20 @@ a[aria-label="Oxford Health Plans"] img.insurance-logo {
   min-height: 44px;
   display: flex;
   align-items: center;
+}
+
+/* nav__dropdown-item stays display:block to avoid breaking dropdown layout */
+.nav__dropdown-item {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 1025px) {
+  .nav__dropdown-item {
+    min-height: unset;
+    display: block;
+  }
 }
 
 .nav__toggle {
@@ -2096,11 +2109,18 @@ a, button, [role="button"] {
 }
 
 /* --- Smooth momentum scrolling on iOS --- */
-.nav__menu,
 .chatbot__messages,
 .chatbot__panel {
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
+}
+
+/* nav__menu only gets scroll on mobile — never clip dropdowns on desktop */
+@media (max-width: 1024px) {
+  .nav__menu {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+  }
 }
 
 /* --- Fix font sizing on iOS rotation --- */
