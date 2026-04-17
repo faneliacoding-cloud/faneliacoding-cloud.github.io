@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#3D4F3D">
+  <title>Patient Portal | The Joy In Living</title>
+  <meta name="description" content="Access your patient portal to book appointments, join telehealth sessions, manage paperwork, and control notification preferences.">
+  <link rel="canonical" href="https://thejoyinliving.com/patient-portal/">
+  <link rel="icon" type="image/svg+xml" href="/thejoyinliving/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+
+  <style>
+    /* ── Portal-specific styles ───────────────────────────── */
+    :root {
+      --portal-url: "https://www.therapyportal.com/p/joyliving/";
+    }
+
+    .portal-hero {
+      background: linear-gradient(150deg, #2A3A2A 0%, #3D4F3D 45%, #5C7A5C 100%);
+      padding: var(--space-20) 0 var(--space-16);
+      position: relative;
+      overflow: hidden;
+    }
+    .portal-hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(107,140,107,0.18) 0%, transparent 70%);
+      top: -150px; right: -100px;
+      border-radius: 50%;
+    }
+    .portal-hero__label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.9);
+      border-radius: var(--radius-full);
+      padding: var(--space-2) var(--space-4);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-6);
+      backdrop-filter: blur(8px);
+    }
+    .portal-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: var(--space-5);
+    }
+    .portal-hero p {
+      font-size: var(--text-lg);
+      color: rgba(255,255,255,0.8);
+      max-width: 580px;
+      line-height: 1.7;
+      margin-bottom: var(--space-8);
+    }
+    .portal-hero__actions {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .portal-hero__pill {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-xl);
+      padding: var(--space-3) var(--space-5);
+      color: rgba(255,255,255,0.85);
+      font-size: var(--text-sm);
+      backdrop-filter: blur(8px);
+    }
+
+    /* ── Action cards ─────────────────────────────────────── */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+      margin-top: calc(-60px);
+      position: relative;
+      z-index: 10;
+    }
+    @media (max-width: 768px) { .action-grid { grid-template-columns: 1fr; margin-top: calc(-40px); } }
+
+    .action-card {
+      background: var(--white);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.12);
+      border: 1px solid var(--color-border-light);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .action-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 64px rgba(0,0,0,0.16);
+    }
+    .action-card--primary {
+      background: linear-gradient(135deg, #3D4F3D, #5C7A5C);
+      color: white;
+      border: none;
+      grid-column: span 2;
+    }
+    @media (max-width: 768px) { .action-card--primary { grid-column: span 1; } }
+
+    .action-card__icon {
+      width: 56px; height: 56px;
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .action-card__icon--sage    { background: var(--sage-lighter); }
+    .action-card__icon--blush   { background: #fce4ec; }
+    .action-card__icon--ocean   { background: #e3f2fd; }
+    .action-card__icon--gold    { background: #fff8e1; }
+    .action-card__icon--white   { background: rgba(255,255,255,0.2); }
+
+    .action-card__body { flex: 1; }
+    .action-card__title {
+      font-weight: 700;
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-2);
+      color: var(--charcoal);
+    }
+    .action-card--primary .action-card__title { color: white; }
+    .action-card__desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+    .action-card--primary .action-card__desc { color: rgba(255,255,255,0.8); }
+
+    .action-card__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .action-card__btn--dark {
+      background: var(--charcoal);
+      color: white;
+    }
+    .action-card__btn--dark:hover { background: #111; }
+    .action-card__btn--sage {
+      background: var(--sage);
+      color: white;
+    }
+    .action-card__btn--sage:hover { background: var(--sage-deep); }
+    .action-card__btn--white {
+      background: white;
+      color: var(--sage-deep);
+    }
+    .action-card__btn--white:hover { background: var(--cream); }
+    .action-card__btn--outline {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .action-card__btn--outline:hover { background: rgba(255,255,255,0.1); }
+
+    .action-card__row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    /* ── Steps section ────────────────────────────────────── */
+    .steps-section { background: var(--cream); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8);
+    }
+    @media (max-width: 768px) { .steps-grid { grid-template-columns: 1fr; } }
+    .step-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      border: 1px solid var(--color-border-light);
+      position: relative;
+    }
+    .step-card__num {
+      width: 40px; height: 40px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--sage), var(--sage-deep));
+      color: white;
+      font-weight: 700;
+      font-size: var(--text-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-5);
+    }
+    .step-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-3); color: var(--charcoal); }
+    .step-card p { font-size: var(--text-sm); color: var(--color-text-secondary); line-height: 1.7; }
+
+    /* ── Info section ─────────────────────────────────────── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+    @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; } }
+    .info-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      border: 1px solid var(--color-border-light);
+    }
+    .info-card h3 {
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-5);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .info-card ul { list-style: none; padding: 0; }
+    .info-card li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border-light);
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+    .info-card li:last-child { border-bottom: none; }
+    .info-card li::before { content: '✓'; color: var(--sage); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Telehealth tips ──────────────────────────────────── */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-5);
+    }
+    @media (max-width: 768px) { .tips-grid { grid-template-columns: repeat(2, 1fr); } }
+    .tip-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      border: 1px solid var(--color-border-light);
+      text-align: center;
+    }
+    .tip-card__icon { font-size: 2rem; margin-bottom: var(--space-3); }
+    .tip-card h4 { font-size: var(--text-sm); font-weight: 700; color: var(--charcoal); margin-bottom: var(--space-2); }
+    .tip-card p { font-size: var(--text-xs); color: var(--color-text-secondary); line-height: 1.6; }
+
+    /* ── Contact bar ──────────────────────────────────────── */
+    .contact-bar {
+      background: linear-gradient(135deg, var(--sage-deep), #2A3A2A);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-10) var(--space-12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-8);
+      flex-wrap: wrap;
+    }
+    .contact-bar h2 { color: white; font-size: var(--text-2xl); margin-bottom: var(--space-2); }
+    .contact-bar p { color: rgba(255,255,255,0.8); font-size: var(--text-sm); }
+    .contact-bar__btns { display: flex; gap: var(--space-3); flex-wrap: wrap; flex-shrink: 0; }
+
+    /* ── Badge ────────────────────────────────────────────── */
+    .secure-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: var(--sage-lighter);
+      color: var(--sage-dark);
+      border-radius: var(--radius-full);
+      padding: var(--space-1) var(--space-3);
+      font-size: var(--text-xs);
+      font-weight: 600;
+    }
+
+    .portal-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin: var(--space-6) 0;
+    }
+    .portal-divider::before, .portal-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--color-border-light);
+    }
+    .portal-divider span { font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; }
+
+    /* Primary card layout on full width */
+    .action-card--primary .action-card__inner {
+      display: flex;
+      align-items: center;
+      gap: var(--space-10);
+      flex-wrap: wrap;
+    }
+    .action-card--primary .action-card__left { flex: 1; min-width: 200px; }
+    .action-card--primary .action-card__right { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <div class="crisis-banner" id="crisis-banner">
+    <span>In crisis? Call <a href="tel:988">988</a> or <a href="tel:911">911</a></span>
+    <button class="crisis-banner__close" aria-label="Dismiss">&times;</button>
+  </div>
+
+  <nav class="nav has-banner" id="main-nav"><div class="nav__inner"><a href="/thejoyinliving/" class="nav__logo" aria-label="The Joy In Living - Home"><img src="../images/logo.png" alt="The Joy In Living — Counseling &amp; Therapy" class="nav__logo-img"></a><div class="nav__menu" id="nav-menu"><a href="/thejoyinliving/" class="nav__link">Home</a><div class="nav__dropdown"><a href="/thejoyinliving/who-we-are/" class="nav__link nav__dropdown-trigger">About <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/who-we-are/" class="nav__dropdown-item">Who We Are</a><a href="/thejoyinliving/about/" class="nav__dropdown-item">About the Practice</a><a href="/thejoyinliving/your-visit/" class="nav__dropdown-item">Your Visit</a></div></div><div class="nav__dropdown"><a href="/thejoyinliving/services/" class="nav__link nav__dropdown-trigger">Services <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/services/#individual" class="nav__dropdown-item">Individual Therapy</a><a href="/thejoyinliving/services/#couples" class="nav__dropdown-item">Couples &amp; Family</a><a href="/thejoyinliving/services/#group" class="nav__dropdown-item">Group Therapy</a><a href="/thejoyinliving/services/#immigration" class="nav__dropdown-item">Immigration Evaluations</a><a href="/thejoyinliving/services/#supervision" class="nav__dropdown-item">Clinical Supervision</a><a href="/thejoyinliving/services/#telehealth" class="nav__dropdown-item">Telehealth</a></div></div><a href="/thejoyinliving/payments-insurance/" class="nav__link">Insurance</a><a href="/thejoyinliving/blog/" class="nav__link">Blog</a><a href="/thejoyinliving/contact/" class="nav__link">Contact</a><div class="nav__dropdown"><a href="#" class="nav__link nav__dropdown-trigger">Resources <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/resources/" class="nav__dropdown-item">Resources</a><a href="/thejoyinliving/faq/" class="nav__dropdown-item">FAQ</a><a href="/thejoyinliving/local-hospitals/" class="nav__dropdown-item">Local Hospitals</a><a href="/thejoyinliving/help-lines/" class="nav__dropdown-item">Help Lines</a><a href="https://www.therapyportal.com/p/joyliving/" class="nav__dropdown-item" target="_blank" rel="noopener">Patient Portal ↗</a></div></div><div class="nav__lang"><button class="nav__lang-btn active" data-lang="en">EN</button><a href="/thejoyinliving/es/" class="nav__lang-btn" data-lang="es">ES</a></div><div class="nav__cta"><a href="tel:9146862484" class="btn btn-accent btn-sm">Book Free Consult</a></div></div><button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button></div><div class="nav__overlay" id="nav-overlay"></div></nav>
+
+  <main>
+
+    <!-- ── HERO ─────────────────────────────────────────── -->
+    <section class="portal-hero">
+      <div class="container">
+        <div class="portal-hero__label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Secure HIPAA-Compliant Portal
+        </div>
+        <h1>Your Care,<br>At Your Fingertips</h1>
+        <p>Book appointments, join telehealth sessions, complete paperwork, and manage your care — all in one secure, private space.</p>
+        <div class="portal-hero__actions">
+          <div class="portal-hero__pill">
+            <span>🔒</span> 256-bit encrypted
+          </div>
+          <div class="portal-hero__pill">
+            <span>📱</span> Works on any device
+          </div>
+          <div class="portal-hero__pill">
+            <span>🌐</span> English & Español
+          </div>
+          <div class="portal-hero__pill">
+            <span>💻</span> No download needed
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ACTION CARDS ─────────────────────────────────── -->
+    <section class="section" style="padding-top: var(--space-6);">
+      <div class="container">
+        <div class="action-grid">
+
+          <!-- LOGIN — Primary wide card -->
+          <a href="https://www.therapyportal.com/p/joyliving/" target="_blank" rel="noopener" class="action-card action-card--primary">
+            <div class="action-card__inner">
+              <div class="action-card__left">
+                <div class="action-card__icon action-card__icon--white" style="margin-bottom:var(--space-5);">🔓</div>
+                <div class="action-card__title" style="font-size:var(--text-2xl);">Existing Client? Log In</div>
+                <div class="action-card__desc" style="margin-bottom:var(--space-5);">Access your full dashboard to view upcoming appointments, join telehealth sessions, complete paperwork, and manage your care.</div>
+                <div class="secure-badge" style="background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  HIPAA-compliant · Encrypted · Private
+                </div>
+              </div>
+              <div class="action-card__right">
+                <span class="action-card__btn action-card__btn--white" style="font-size:1rem;padding:var(--space-4) var(--space-8);">
+                  Log In to Portal
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- BOOK APPOINTMENT -->
+          <a href="https://www.therapyportal.com/p/joyliving/#/public/request-appointment" target="_blank" rel="noopener" class="action-card">
+            <div class="action-card__icon action-card__icon--sage">📅</div>
+            <div class="action-card__body">
+              <div class="action-card__title">Request an Appointment</div>
+              <div class="action-card__desc">New or returning client? Browse Claudia's availability and request your preferred time online.</div>
+              <div class="portal-divider"><span>Available service types</span></div>
+              <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:var(--space-2);">
+                <li style="font-size:var(--text-sm);color:var(--color-text-secondary);display:flex;align-items:center;gap:var(--space-2);">
+                  <span style="color:var(--sage);font-weight:700;">→</span> Therapy Intake (first session)
+                </li>
+                <li style="font-size:var(--text-sm);color:var(--color-text-secondary);display:flex;align-items:center;gap:var(--space-2);">
+                  <span style="color:var(--sage);font-weight:700;">→</span> Individual Session
+                </li>
+                <li style="font-size:var(--text-sm);color:var(--color-text-secondary);display:flex;align-items:center;gap:var(--space-2);">
+                  <span style="color:var(--sage);font-weight:700;">→</span> Telehealth Session
+                </li>
+              </ul>
+            </div>
+            <div class="action-card__row">
+              <span class="action-card__btn action-card__btn--sage">
+                Book Now
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+              </span>
+              <span style="font-size:var(--text-xs);color:var(--color-text-muted);">Or call (914) 686-2484</span>
+            </div>
+          </a>
+
+          <!-- TELEHEALTH -->
+          <a href="https://www.therapyportal.com/p/joyliving/#/public/telehealth" target="_blank" rel="noopener" class="action-card">
+            <div class="action-card__icon action-card__icon--ocean">💻</div>
+            <div class="action-card__body">
+              <div class="action-card__title">Join Telehealth Session</div>
+              <div class="action-card__desc">Ready for your virtual session? Click below. The link is also sent to you in your appointment reminder.</div>
+              <div class="portal-divider"><span>Before you start</span></div>
+              <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:var(--space-2);">
+                <li style="font-size:var(--text-sm);color:var(--color-text-secondary);display:flex;align-items:center;gap:var(--space-2);">
+                  <span style="color:var(--sage);font-weight:700;">✓</span> Test your camera & microphone
+                </li>
+                <li style="font-size:var(--text-sm);color:var(--color-text-secondary);display:flex;align-items:center;gap:var(--space-2);">
+                  <span style="color:var(--sage);font-weight:700;">✓</span> Find a private, quiet space
+                </li>
+                <li style="font-size:var(--text-sm);color:var(--color-text-secondary);display:flex;align-items:center;gap:var(--space-2);">
+                  <span style="color:var(--sage);font-weight:700;">✓</span> Connect via Wi-Fi or ethernet
+                </li>
+              </ul>
+            </div>
+            <div class="action-card__row">
+              <span class="action-card__btn action-card__btn--dark">
+                Enter Telehealth
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg>
+              </span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── GETTING STARTED STEPS ───────────────────────── -->
+    <section class="section steps-section">
+      <div class="container">
+        <div style="text-align:center;margin-bottom:var(--space-12);">
+          <span class="label">For New Clients</span>
+          <h2 class="heading-2" style="margin-top:var(--space-3);">How to Get Started</h2>
+          <p style="color:var(--color-text-secondary);max-width:520px;margin:var(--space-4) auto 0;">Your first therapy experience should feel warm and simple — not complicated. Here's how easy it is to begin.</p>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card fade-in">
+            <div class="step-card__num">1</div>
+            <h3>Free Phone Consultation</h3>
+            <p>Call <strong>(914) 686-2484</strong> or email <strong>reception@thejoyinliving.com</strong> for a free 15-minute call. We'll discuss your needs, answer questions, and ensure we're a good fit.</p>
+          </div>
+          <div class="step-card fade-in">
+            <div class="step-card__num">2</div>
+            <h3>Complete Your Intake Paperwork</h3>
+            <p>Once scheduled, you'll receive a secure link to your patient portal. Complete your intake forms online at your own pace — before your first session.</p>
+          </div>
+          <div class="step-card fade-in">
+            <div class="step-card__num">3</div>
+            <h3>Attend Your First Session</h3>
+            <p>Join us in person at our Sleepy Hollow office (239 North Broadway, Suite LL 101) or via telehealth. Your first session is a chance to share your story and begin your healing journey.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PORTAL FEATURES INFO ────────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <div style="text-align:center;margin-bottom:var(--space-12);">
+          <span class="label">Portal Features</span>
+          <h2 class="heading-2" style="margin-top:var(--space-3);">Everything You Need, In One Place</h2>
+        </div>
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>📅 Appointments</h3>
+            <ul>
+              <li>Request appointments online — new and existing clients</li>
+              <li>View your upcoming and past sessions</li>
+              <li>Cancel or reschedule with 48-hour notice</li>
+              <li>Week-view calendar with available time slots</li>
+              <li>Receive email and SMS appointment reminders</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>💻 Telehealth</h3>
+            <ul>
+              <li>Join your virtual session directly from the portal</li>
+              <li>No app download required — works in any browser</li>
+              <li>Test your audio and video before sessions</li>
+              <li>HIPAA-compliant, end-to-end encrypted video</li>
+              <li>Available statewide across New York</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>📝 Paperwork</h3>
+            <ul>
+              <li>Complete intake and consent forms securely online</li>
+              <li>Review and sign documents electronically</li>
+              <li>Submit forms before your first session</li>
+              <li>Access your documents at any time</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>🔔 Notifications</h3>
+            <ul>
+              <li>Email reminders for upcoming appointments</li>
+              <li>SMS text reminders — opt in or out anytime</li>
+              <li>Text STOP to (929) 295-5984 to unsubscribe</li>
+              <li>Text START to re-enable SMS reminders</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TELEHEALTH TIPS ─────────────────────────────── -->
+    <section class="section" style="background:var(--cream);">
+      <div class="container">
+        <div style="text-align:center;margin-bottom:var(--space-10);">
+          <span class="label">Telehealth Tips</span>
+          <h2 class="heading-2" style="margin-top:var(--space-3);">Get the Most from Your Virtual Session</h2>
+        </div>
+        <div class="tips-grid">
+          <div class="tip-card fade-in">
+            <div class="tip-card__icon">🔇</div>
+            <h4>Find Privacy</h4>
+            <p>Choose a quiet space where you won't be interrupted or overheard. Headphones help.</p>
+          </div>
+          <div class="tip-card fade-in">
+            <div class="tip-card__icon">📶</div>
+            <h4>Strong Connection</h4>
+            <p>Wi-Fi or ethernet is preferred. Close unnecessary tabs and apps for best video quality.</p>
+          </div>
+          <div class="tip-card fade-in">
+            <div class="tip-card__icon">🎙️</div>
+            <h4>Test First</h4>
+            <p>Use the "Test Audio & Video" button in the portal before every session.</p>
+          </div>
+          <div class="tip-card fade-in">
+            <div class="tip-card__icon">🚫</div>
+            <h4>No Recording</h4>
+            <p>Sessions are confidential. Recording of any kind is not permitted by either party.</p>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:var(--space-10);">
+          <a href="https://www.therapyportal.com/p/joyliving/" target="_blank" rel="noopener" class="btn btn-primary">
+            Test Your Setup Now ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT BOTTOM BAR ─────────────────────────── -->
+    <section class="section">
+      <div class="container">
+        <div class="contact-bar">
+          <div>
+            <h2>Need Help with the Portal?</h2>
+            <p>Technical issues, questions, or prefer to speak with someone — we're here for you.</p>
+          </div>
+          <div class="contact-bar__btns">
+            <a href="tel:9146862484" class="action-card__btn action-card__btn--white" style="padding:var(--space-4) var(--space-6);">
+              📞 (914) 686-2484
+            </a>
+            <a href="mailto:reception@thejoyinliving.com" class="action-card__btn action-card__btn--outline" style="padding:var(--space-4) var(--space-6);">
+              ✉️ Email Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <p class="footer__copyright">&copy; 2026 The Joy In Living, LCSW, PLLC.</p>
+        <div class="footer__legal">
+          <a href="/thejoyinliving/privacy-policy/">Privacy Policy</a>
+          <a href="https://www.therapyportal.com/terms" target="_blank">Portal Terms</a>
+          <a href="/thejoyinliving/es/">Español</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/language.js"></script>
+  <script src="../js/chatbot.js"></script>
+</body>
+</html>
