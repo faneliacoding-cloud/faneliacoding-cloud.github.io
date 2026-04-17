@@ -115,9 +115,9 @@ const KB = {
     },
     insurance: `Aceptamos estos seguros:\n\n✅ Aetna ✅ BlueCross BlueShield ✅ Cigna\n✅ MVP ✅ Optum ✅ Oscar ✅ Oxford ✅ UnitedHealthcare\n\n**Tarifas sin seguro:**\n• Individual: $150/sesión\n• Parejas: $250/sesión\n\n¿Tiene algún seguro específico que quiera consultar?`,
     contact: `Puede contactarnos:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n📍 239 North Broadway, Suite LL 101, Sleepy Hollow, NY 10591\n\n🆓 **Consulta telefónica gratuita de 15 minutos** para nuevos clientes.`,
-    start: `Comenzar es sencillo:\n\n1️⃣ **Consulta Gratuita** — Llame al (914) 686-2484\n2️⃣ **Evaluación Inicial** — Entendemos su situación y metas\n3️⃣ **Comience su Camino** — Presencial o telesalud, en español\n\n¿Hay algo que le impide dar ese primer paso?`,
+    start: `Comenzar es sencillo:\n\n1️⃣ **Hacer una Cita** — Llame al (914) 686-2484\n2️⃣ **Evaluación Inicial** — Entendemos su situación y metas\n3️⃣ **Comience su Camino** — Presencial o telesalud, en español\n\n¿Hay algo que le impide dar ese primer paso?`,
     about: `**The Joy In Living, LCSW, PLLC** es una práctica de salud mental de propiedad de una mujer en Sleepy Hollow, NY.\n\n**Claudia Christina Soddano, LCSW:**\n• 20+ años de experiencia clínica\n• MSW de la Universidad Fordham\n• Licencia LCSW #074899 en NY\n• Certificada WBENC\n• Entrenada por Physicians for Human Rights\n• Completamente bilingüe`,
-    fallback: `Gracias por su pregunta. Para la respuesta más precisa:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n\nO programe una **consulta gratuita de 15 minutos**. ¡Estamos aquí para ayudarle! 💚`
+    fallback: `Gracias por su pregunta. Para la respuesta más precisa:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n\nO programe una **hacer una cita de 15 minutos**. ¡Estamos aquí para ayudarle! 💚`
   }
 };
 
