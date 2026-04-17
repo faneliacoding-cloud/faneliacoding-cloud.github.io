@@ -18,8 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function injectChatbotIfMissing() {
   if (document.querySelector('.chatbot')) return; // already on page
 
-  const lang = document.documentElement.lang || localStorage.getItem('joy-lang') || 'en';
-  const isEs = lang === 'es';
+  // URL always wins — don't trust localStorage for display language
+  const isEs = window.location.pathname.includes('/es/');
+  const lang = isEs ? 'es' : 'en';
 
   const html = `
   <div class="chatbot" id="chatbot">
@@ -196,9 +197,8 @@ function initChatbot() {
   const sendBtn = chatbot.querySelector('.chatbot__send');
   const quickActions = chatbot.querySelectorAll('.chatbot__quick-btn');
 
-  // Detect language from page or localStorage
-  let currentLang = localStorage.getItem('joy-lang') || document.documentElement.lang || 'en';
-  if (currentLang !== 'en' && currentLang !== 'es') currentLang = 'en';
+  // URL always wins — don't trust localStorage for display language
+  let currentLang = window.location.pathname.includes('/es/') ? 'es' : 'en';
 
   let isOpen = false;
   let hasGreeted = false;
