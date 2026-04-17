@@ -1291,28 +1291,54 @@ a[aria-label="Oxford Health Plans"] img.insurance-logo {
 }
 
 .chatbot__toggle {
-  width: 60px;
-  height: 60px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--sage), var(--sage-dark));
+  background: linear-gradient(135deg, #3D4F3D, #6B8C6B);
   color: var(--white);
   border: none;
   cursor: pointer;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 4px 24px rgba(61,79,61,0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all var(--duration-normal) var(--ease-soft);
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0;
+}
+
+.chatbot__toggle::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(107,140,107,0.4);
+  animation: joy-ring 2.5s ease-in-out infinite;
+}
+
+@keyframes joy-ring {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.12); opacity: 0; }
 }
 
 .chatbot__toggle:hover {
   transform: scale(1.08);
-  box-shadow: var(--shadow-xl);
+  box-shadow: 0 6px 32px rgba(61,79,61,0.55);
 }
 
 .chatbot__toggle svg {
   width: 28px;
   height: 28px;
+}
+
+/* Joy header name styling */
+.chatbot__header-name {
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--white);
 }
 
 .chatbot__panel {
