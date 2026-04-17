@@ -1093,13 +1093,23 @@
 .insurance-grid__item svg.insurance-logo {
   width: 110px;
   height: 52px;
+  max-width: 110px;
+  max-height: 52px;
   object-fit: contain;
   display: block;
+  overflow: hidden;
 }
 
 /* Hide text labels — logos speak for themselves */
 .insurance-grid__item span {
   display: none;
+}
+
+/* UHC logo is square — let height drive sizing */
+a[aria-label="UnitedHealthcare"] img.insurance-logo {
+  width: auto;
+  height: 48px;
+  max-width: 110px;
 }
 
 /* ============================================================
