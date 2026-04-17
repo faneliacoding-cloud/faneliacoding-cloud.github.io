@@ -1,317 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Request Appointment | Patient Portal | The Joy In Living</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#3D4F3D">
+  <title>Appointments | The Joy In Living</title>
   <link rel="icon" type="image/svg+xml" href="/thejoyinliving/favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/thejoyinliving/css/design-system.css">
+  <link rel="stylesheet" href="/thejoyinliving/css/components.css">
   <link rel="stylesheet" href="/thejoyinliving/css/portal.css">
-  <style>
-    /* ── Calendar grid ─────────────────────────────────────── */
-    .cal-wrap { margin-top: 28px; }
-    .cal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-    .cal-nav {
-      background: none;
-      border: 1.5px solid var(--portal-border);
-      border-radius: 8px;
-      width: 36px; height: 36px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--portal-text);
-      font-size: 16px;
-      transition: all 0.2s;
-    }
-    .cal-nav:hover { background: var(--portal-green-light); border-color: var(--portal-green-mid); }
-    .cal-month { font-weight: 700; font-size: 16px; }
-
-    .cal-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-      margin-bottom: 8px;
-    }
-    .cal-day-label {
-      text-align: center;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--portal-muted);
-      padding: 6px 0;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .cal-day {
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.15s;
-      position: relative;
-      font-weight: 500;
-    }
-    .cal-day:hover:not(.cal-day--empty):not(.cal-day--past) {
-      background: var(--portal-green-light);
-    }
-    .cal-day--today {
-      border: 2px solid var(--portal-green-mid);
-      font-weight: 700;
-    }
-    .cal-day--has-slots {
-      cursor: pointer;
-    }
-    .cal-day--has-slots::after {
-      content: '';
-      position: absolute;
-      bottom: 5px;
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--portal-green-mid);
-    }
-    .cal-day--selected {
-      background: var(--portal-green) !important;
-      color: white;
-    }
-    .cal-day--past { color: #C8D0C8; cursor: default; }
-    .cal-day--empty { cursor: default; }
-
-    /* ── Time slots ──────────────────────────────────────────── */
-    .slots-section { margin-top: 24px; }
-    .slots-date-label {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--portal-text);
-      margin-bottom: 12px;
-    }
-    .slots-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .slot-btn {
-      padding: 9px 18px;
-      border-radius: 8px;
-      border: 1.5px solid var(--portal-green-mid);
-      background: var(--portal-green-light);
-      color: var(--portal-green);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
-      font-family: var(--portal-font);
-    }
-    .slot-btn:hover, .slot-btn.selected {
-      background: var(--portal-green);
-      color: white;
-      border-color: var(--portal-green);
-    }
-    .slots-empty {
-      font-size: 13px;
-      color: var(--portal-muted);
-      padding: 16px 0;
-    }
-
-    /* ── Confirmation step ───────────────────────────────────── */
-    .confirm-card {
-      background: var(--portal-green-light);
-      border: 1px solid rgba(92,122,92,0.3);
-      border-radius: var(--portal-radius);
-      padding: 24px 28px;
-      margin-top: 24px;
-    }
-    .confirm-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
-    .confirm-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 8px;
-      font-size: 14px;
-    }
-    .confirm-row strong { min-width: 80px; flex-shrink: 0; color: var(--portal-text); }
-    .confirm-row span { color: var(--portal-muted); }
-
-    /* ── Radio toggle ────────────────────────────────────────── */
-    .radio-group {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .radio-pill {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 18px;
-      border: 1.5px solid var(--portal-border);
-      border-radius: var(--portal-radius-sm);
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.15s;
-    }
-    .radio-pill input { display: none; }
-    .radio-pill.checked {
-      border-color: var(--portal-green);
-      background: var(--portal-green-light);
-      color: var(--portal-green);
-      font-weight: 600;
-    }
-    .radio-pill .dot {
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      border: 2px solid var(--portal-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .radio-pill.checked .dot {
-      border-color: var(--portal-green);
-      background: var(--portal-green);
-    }
-    .radio-pill.checked .dot::after {
-      content: '';
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: white;
-    }
-  </style>
 </head>
-<body class="portal-body">
-  <div class="portal-lang-bar">
-    <button class="plang-btn active" onclick="setLang('en')">English</button>
-    <button class="plang-btn" onclick="setLang('es')">Español</button>
+<body>
+  <div class="crisis-banner" id="crisis-banner">
+    <span>In crisis? Call <a href="tel:988">988</a> or <a href="tel:911">911</a></span>
+    <button class="crisis-banner__close" aria-label="Dismiss">&times;</button>
   </div>
-  <div class="portal-wrap">
+  <nav class="nav has-banner" id="main-nav"><div class="nav__inner"><a href="/thejoyinliving/" class="nav__logo" aria-label="The Joy In Living - Home"><img src="/thejoyinliving/images/logo.png" alt="The Joy In Living" class="nav__logo-img"></a><div class="nav__menu" id="nav-menu"><a href="/thejoyinliving/" class="nav__link">Home</a><div class="nav__dropdown"><a href="/thejoyinliving/who-we-are/" class="nav__link nav__dropdown-trigger">About <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/who-we-are/" class="nav__dropdown-item">Who We Are</a><a href="/thejoyinliving/about/" class="nav__dropdown-item">About the Practice</a><a href="/thejoyinliving/your-visit/" class="nav__dropdown-item">Your Visit</a></div></div><div class="nav__dropdown"><a href="/thejoyinliving/services/" class="nav__link nav__dropdown-trigger">Services <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/services/#individual" class="nav__dropdown-item">Individual Therapy</a><a href="/thejoyinliving/services/#couples" class="nav__dropdown-item">Couples &amp; Family</a><a href="/thejoyinliving/services/#group" class="nav__dropdown-item">Group Therapy</a><a href="/thejoyinliving/services/#immigration" class="nav__dropdown-item">Immigration Evaluations</a><a href="/thejoyinliving/services/#supervision" class="nav__dropdown-item">Clinical Supervision</a><a href="/thejoyinliving/services/#telehealth" class="nav__dropdown-item">Telehealth</a></div></div><a href="/thejoyinliving/payments-insurance/" class="nav__link">Insurance</a><a href="/thejoyinliving/blog/" class="nav__link">Blog</a><a href="/thejoyinliving/contact/" class="nav__link">Contact</a><div class="nav__dropdown"><a href="#" class="nav__link nav__dropdown-trigger">Resources <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/resources/" class="nav__dropdown-item">Resources</a><a href="/thejoyinliving/faq/" class="nav__dropdown-item">FAQ</a><a href="/thejoyinliving/local-hospitals/" class="nav__dropdown-item">Local Hospitals</a><a href="/thejoyinliving/help-lines/" class="nav__dropdown-item">Help Lines</a><a href="/thejoyinliving/patient-portal/" class="nav__dropdown-item">Patient Portal</a></div></div><div class="nav__lang"><button class="nav__lang-btn active" data-lang="en">EN</button><a href="/thejoyinliving/es/" class="nav__lang-btn" data-lang="es">ES</a></div><div class="nav__cta"><a href="/thejoyinliving/patient-portal/appointments/" class="btn btn-accent btn-sm">Make An Appointment</a></div></div><button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button></div><div class="nav__overlay" id="nav-overlay"></div></nav>
+  <nav class="portal-tabs">
+    <div class="container portal-tabs__inner">
+      <a href="/thejoyinliving/patient-portal/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Portal Home
+      </a>
+      <a href="/thejoyinliving/patient-portal/appointments/" class="portal-tab active">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Appointments
+      </a>
+      <a href="/thejoyinliving/patient-portal/telehealth/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg>
+        Telehealth
+      </a>
+      <a href="/thejoyinliving/patient-portal/av-test/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        AV Test
+      </a>
+      <a href="/thejoyinliving/patient-portal/notifications/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Notifications
+      </a>
+      <a href="/thejoyinliving/patient-portal/login/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Log In
+      </a>
+    </div>
+  </nav>
+  <section class="portal-hero">
+    <div class="container">
+      <div class="portal-hero__badge">📅 Appointments</div>
+      <h1>Check Availability</h1>
+      <p>Select your details to view available times with Claudia Soddano, LCSW.</p>
+    </div>
+  </section>
 
-    <!-- Sidebar -->
-    <aside class="portal-sidebar">
-      <a href="/thejoyinliving/patient-portal/" class="portal-logo"><img src="/thejoyinliving/images/logo.png" alt="The Joy In Living"></a>
-      <nav class="portal-nav">
-        <a href="/thejoyinliving/patient-portal/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
-        <a href="/thejoyinliving/patient-portal/appointments/" class="portal-nav__item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Appointments</span></a>
-        <a href="/thejoyinliving/patient-portal/telehealth/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg><span>Telehealth</span></a>
-        <a href="/thejoyinliving/patient-portal/notifications/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span>Notifications</span></a>
-        <a href="/thejoyinliving/patient-portal/login/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg><span>Log In</span></a>
-      </nav>
-      <div class="portal-sidebar__footer">
-        <p class="portal-sidebar__contact">Need help?</p>
-        <a href="tel:9146862484" class="portal-sidebar__phone">(914) 686-2484</a>
-        <a href="/thejoyinliving/" class="portal-sidebar__back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg><span>Back to main site</span></a>
+  <div class="portal-content">
+    <div class="container" style="max-width:760px;">
+
+      <div style="background:var(--sage-lighter);border:1px solid rgba(107,140,107,0.3);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:var(--sage-dark);margin-bottom:var(--space-6);">
+        <strong>New clients:</strong> We recommend a free 15-minute phone call first. Call <a href="tel:9146862484" style="color:var(--sage-dark);font-weight:700;">(914) 686-2484</a>.
       </div>
-    </aside>
 
-    <main class="portal-main">
-      <div class="portal-page-header">
-        <span class="portal-badge">📅 <span data-en="Appointments" data-es="Citas">Appointments</span></span>
-        <h1 class="portal-page-title" data-en="Check Appointment Availability" data-es="Verificar Disponibilidad de Citas">Check Appointment Availability</h1>
-        <p class="portal-page-sub" data-en="Select your details to view available times with Claudia Soddano, LCSW." data-es="Seleccione sus datos para ver los horarios disponibles con Claudia Soddano, LCSW.">Select your details to view available times with Claudia Soddano, LCSW.</p>
-      </div>
-
-      <!-- Step 1: Filters -->
-      <div class="portal-form-card" style="max-width:700px;" id="step-filters">
-
-        <!-- Client type radio -->
-        <div class="portal-form-group">
-          <label class="portal-label" data-en="I am a..." data-es="Soy...">I am a...</label>
-          <div class="radio-group">
-            <label class="radio-pill checked" id="pill-new" onclick="selectPill('new')">
+      <!-- Filters -->
+      <div class="portal-card" id="step-filters" style="margin-bottom:var(--space-6);">
+        <div class="p-group">
+          <label class="p-label">I am a...</label>
+          <div class="p-radio-group">
+            <label class="p-radio-pill checked" id="pill-new" onclick="selectPill('new')">
               <input type="radio" name="clientType" value="new" checked>
-              <span class="dot"><span></span></span>
-              <span data-en="New Client" data-es="Cliente Nuevo/a">New Client</span>
+              <span class="p-radio-dot"></span> New Client
             </label>
-            <label class="radio-pill" id="pill-existing" onclick="selectPill('existing')">
+            <label class="p-radio-pill" id="pill-existing" onclick="selectPill('existing')">
               <input type="radio" name="clientType" value="existing">
-              <span class="dot"><span></span></span>
-              <span data-en="Existing Client" data-es="Cliente Existente">Existing Client</span>
+              <span class="p-radio-dot"></span> Existing Client
             </label>
           </div>
         </div>
-
-        <!-- Service dropdown -->
-        <div class="portal-form-group">
-          <label class="portal-label" data-en="Service" data-es="Servicio">Service</label>
-          <select class="portal-select" id="service">
-            <option value="intake" data-en="Therapy Intake" data-es="Evaluación Inicial">Therapy Intake</option>
-            <option value="individual" data-en="Individual Therapy" data-es="Terapia Individual">Individual Therapy</option>
-            <option value="couples" data-en="Couples / Family Therapy" data-es="Terapia de Pareja / Familia">Couples / Family Therapy</option>
-            <option value="immigration" data-en="Immigration Evaluation" data-es="Evaluación de Inmigración">Immigration Evaluation</option>
-            <option value="group" data-en="Group Therapy" data-es="Terapia de Grupo">Group Therapy</option>
-            <option value="telehealth" data-en="Telehealth Session" data-es="Sesión de Telesalud">Telehealth Session</option>
-            <option value="supervision" data-en="Clinical Supervision" data-es="Supervisión Clínica">Clinical Supervision</option>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+          <div class="p-group">
+            <label class="p-label">Service</label>
+            <select class="p-select" id="service">
+              <option value="intake">Therapy Intake</option>
+              <option value="individual">Individual Therapy</option>
+              <option value="couples">Couples / Family Therapy</option>
+              <option value="immigration">Immigration Evaluation</option>
+              <option value="group">Group Therapy</option>
+              <option value="telehealth">Telehealth Session</option>
+              <option value="supervision">Clinical Supervision</option>
+            </select>
+          </div>
+          <div class="p-group">
+            <label class="p-label">Location</label>
+            <select class="p-select" id="location">
+              <option value="office">Office — Sleepy Hollow, NY</option>
+              <option value="telehealth">Telehealth (Virtual)</option>
+            </select>
+          </div>
+        </div>
+        <div class="p-group">
+          <label class="p-label">Clinician</label>
+          <select class="p-select" id="clinician">
+            <option>Claudia Christina Soddano, LCSW</option>
           </select>
         </div>
-
-        <!-- Location -->
-        <div class="portal-form-group">
-          <label class="portal-label" data-en="Location" data-es="Ubicación">Location</label>
-          <select class="portal-select" id="location">
-            <option value="office" data-en="Office — 239 N Broadway, Sleepy Hollow, NY" data-es="Oficina — 239 N Broadway, Sleepy Hollow, NY">Office — 239 N Broadway, Sleepy Hollow, NY</option>
-            <option value="telehealth" data-en="Telehealth (Virtual)" data-es="Telesalud (Virtual)">Telehealth (Virtual)</option>
-          </select>
-        </div>
-
-        <!-- Clinician -->
-        <div class="portal-form-group">
-          <label class="portal-label" data-en="Clinician" data-es="Clínico/a">Clinician</label>
-          <select class="portal-select" id="clinician">
-            <option value="claudia">Claudia Christina Soddano, LCSW</option>
-          </select>
-        </div>
-
-        <button onclick="viewTimes()" class="portal-btn" id="view-btn" data-en="View Available Times" data-es="Ver Horarios Disponibles">View Available Times</button>
+        <button onclick="viewTimes()" class="btn btn-primary">View Available Times →</button>
       </div>
 
-      <!-- Step 2: Calendar + slots -->
-      <div id="step-calendar" style="display:none;max-width:700px;margin-top:28px;">
-        <div class="portal-form-card">
-          <div class="cal-wrap">
-            <div class="cal-header">
-              <button class="cal-nav" onclick="prevMonth()">‹</button>
-              <span class="cal-month" id="cal-month-label"></span>
-              <button class="cal-nav" onclick="nextMonth()">›</button>
-            </div>
-            <div class="cal-grid" id="cal-grid"></div>
+      <!-- Calendar -->
+      <div id="step-calendar" style="display:none;">
+        <div class="portal-card" style="margin-bottom:var(--space-4);">
+          <div class="p-cal-header">
+            <button class="p-cal-nav" onclick="prevMonth()">‹</button>
+            <span class="p-cal-month" id="cal-month-label"></span>
+            <button class="p-cal-nav" onclick="nextMonth()">›</button>
           </div>
+          <div class="p-cal-grid" id="cal-grid"></div>
+        </div>
 
-          <div class="slots-section" id="slots-section" style="display:none;">
-            <div class="slots-date-label" id="slots-date-label"></div>
-            <div class="slots-grid" id="slots-grid"></div>
-          </div>
+        <div id="slots-section" style="display:none;" class="portal-card" style="margin-bottom:var(--space-4);">
+          <div class="p-slots-header" id="slots-date-label"></div>
+          <div class="p-slots" id="slots-grid"></div>
+        </div>
 
-          <!-- Confirm card (hidden until slot picked) -->
-          <div class="confirm-card" id="confirm-card" style="display:none;">
-            <h3 data-en="Confirm Your Appointment Request" data-es="Confirme su Solicitud de Cita">Confirm Your Appointment Request</h3>
-            <div class="confirm-row"><strong data-en="Clinician:" data-es="Clínico/a:">Clinician:</strong><span>Claudia Christina Soddano, LCSW</span></div>
-            <div class="confirm-row"><strong data-en="Service:" data-es="Servicio:">Service:</strong><span id="conf-service"></span></div>
-            <div class="confirm-row"><strong data-en="Location:" data-es="Ubicación:">Location:</strong><span id="conf-location"></span></div>
-            <div class="confirm-row"><strong data-en="Date & Time:" data-es="Fecha y Hora:">Date & Time:</strong><span id="conf-datetime"></span></div>
-            <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
-              <button onclick="confirmAppt()" class="portal-btn portal-btn--sm" style="width:auto;" data-en="Request This Time" data-es="Solicitar Esta Hora">Request This Time</button>
-              <button onclick="cancelSelection()" class="portal-btn portal-btn--outline portal-btn--sm" data-en="Cancel" data-es="Cancelar">Cancel</button>
-            </div>
+        <div class="p-confirm" id="confirm-card" style="display:none;">
+          <h3>Confirm Your Appointment Request</h3>
+          <div class="p-confirm-row"><strong>Clinician:</strong><span>Claudia Christina Soddano, LCSW</span></div>
+          <div class="p-confirm-row"><strong>Service:</strong><span id="conf-service"></span></div>
+          <div class="p-confirm-row"><strong>Location:</strong><span id="conf-location"></span></div>
+          <div class="p-confirm-row"><strong>Date &amp; Time:</strong><span id="conf-datetime"></span></div>
+          <div style="display:flex;gap:var(--space-3);margin-top:var(--space-5);flex-wrap:wrap;">
+            <button onclick="confirmAppt()" class="btn btn-primary btn-sm">Request This Time</button>
+            <button onclick="cancelSelection()" class="btn btn-outline btn-sm">Cancel</button>
           </div>
         </div>
 
-        <!-- Success state -->
-        <div id="appt-success" class="portal-alert portal-alert--success" style="margin-top:16px;">
-          ✅ <span data-en="Your appointment request has been sent! We'll confirm within 1 business day." data-es="¡Su solicitud de cita ha sido enviada! Confirmaremos dentro de 1 día hábil.">Your appointment request has been sent! We'll confirm within 1 business day.</span>
+        <div id="appt-success" class="p-alert p-alert--success">
+          ✅ Request sent! We'll confirm within 1 business day.
         </div>
 
-        <p style="font-size:12px;color:var(--portal-muted);margin-top:12px;" class="en-text">Can't find a time that works? Call <a href="tel:9146862484" style="color:var(--portal-green);font-weight:600;">(914) 686-2484</a></p>
-        <p style="font-size:12px;color:var(--portal-muted);margin-top:12px;" class="es-text" style="display:none">¿No encuentra un horario? Llame al <a href="tel:9146862484" style="color:var(--portal-green);font-weight:600;">(914) 686-2484</a></p>
+        <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-3);">
+          Can't find a time? Call <a href="tel:9146862484" style="color:var(--sage-dark);font-weight:700;">(914) 686-2484</a>
+        </p>
       </div>
-    </main>
+    </div>
   </div>
 
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="/thejoyinliving/" class="nav__logo"><img src="/thejoyinliving/images/logo.png" alt="The Joy In Living" class="nav__logo-img"></a>
+          <p>Bilingual mental health practice in Sleepy Hollow, NY.</p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Patient Portal</h4>
+          <div class="footer__links">
+            <a href="/thejoyinliving/patient-portal/" class="footer__link">Portal Home</a>
+            <a href="/thejoyinliving/patient-portal/appointments/" class="footer__link">Appointments</a>
+            <a href="/thejoyinliving/patient-portal/telehealth/" class="footer__link">Telehealth</a>
+            <a href="/thejoyinliving/patient-portal/notifications/" class="footer__link">Notifications</a>
+            <a href="/thejoyinliving/patient-portal/login/" class="footer__link">Log In</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Main Site</h4>
+          <div class="footer__links">
+            <a href="/thejoyinliving/services/" class="footer__link">Services</a>
+            <a href="/thejoyinliving/payments-insurance/" class="footer__link">Insurance</a>
+            <a href="/thejoyinliving/contact/" class="footer__link">Contact</a>
+            <a href="/thejoyinliving/faq/" class="footer__link">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.574 2.81.7A2 2 0 0122 16.92z"/></svg><a href="tel:9146862484" style="color:rgba(255,255,255,0.8);">(914) 686-2484</a></div>
+          <div class="footer__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:reception@thejoyinliving.com" style="color:rgba(255,255,255,0.8);">reception@thejoyinliving.com</a></div>
+        </div>
+      </div>
+      <div class="footer__bottom"><p class="footer__copyright">&copy; 2026 The Joy In Living, LCSW, PLLC.</p><div class="footer__legal"><a href="/thejoyinliving/privacy-policy/">Privacy Policy</a></div></div>
+    </div>
+  </footer>
+  <script src="/thejoyinliving/js/main.js"></script>
+  <script src="/thejoyinliving/js/language.js"></script>
   <script src="/thejoyinliving/js/portal.js"></script>
-  <script>
+  <script src="/thejoyinliving/js/chatbot.js"></script>
+<script>
     // ── Calendar state ──────────────────────────────────────
     const today = new Date();
     let currentYear  = today.getFullYear();

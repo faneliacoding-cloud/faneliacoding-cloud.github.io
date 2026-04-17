@@ -1,292 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test Audio & Video | Patient Portal | The Joy In Living</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#3D4F3D">
+  <title>Audio & Video Test | The Joy In Living</title>
   <link rel="icon" type="image/svg+xml" href="/thejoyinliving/favicon.svg">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/thejoyinliving/css/design-system.css">
+  <link rel="stylesheet" href="/thejoyinliving/css/components.css">
   <link rel="stylesheet" href="/thejoyinliving/css/portal.css">
-  <style>
-    .av-test-card {
-      background: var(--portal-white);
-      border: 1px solid var(--portal-border);
-      border-radius: var(--portal-radius);
-      padding: 28px 32px;
-      margin-bottom: 20px;
-      box-shadow: var(--portal-shadow);
-    }
-    .av-test-card h3 {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .av-test-card p {
-      font-size: 13px;
-      color: var(--portal-muted);
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-
-    /* Video preview */
-    #video-preview {
-      width: 100%;
-      max-width: 480px;
-      aspect-ratio: 4/3;
-      background: #1A2B1A;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.4);
-      font-size: 13px;
-      overflow: hidden;
-      margin-bottom: 14px;
-    }
-    #video-preview video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-      display: none;
-    }
-    #video-preview .placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      font-size: 2rem;
-    }
-    #video-preview .placeholder p { font-size: 13px; color: rgba(255,255,255,0.4); margin: 0; }
-
-    /* Mic meter */
-    .mic-meter {
-      display: flex;
-      gap: 4px;
-      align-items: flex-end;
-      height: 40px;
-      margin-bottom: 14px;
-    }
-    .mic-bar {
-      width: 8px;
-      border-radius: 4px;
-      background: #D1DAD1;
-      transition: height 0.1s ease;
-      min-height: 4px;
-    }
-    .mic-bar.active { background: var(--portal-green-mid); }
-
-    /* Status badge */
-    .av-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 12px;
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .av-status--waiting { background: #FFF3CD; color: #856404; }
-    .av-status--ok      { background: #D1F2D1; color: #1A5E1A; }
-    .av-status--error   { background: #FDE8E8; color: #991B1B; }
-    .av-status .dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: currentColor;
-    }
-
-    .av-btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
-  </style>
 </head>
-<body class="portal-body">
-  <div class="portal-lang-bar">
-    <button class="plang-btn active" onclick="setLang('en')">English</button>
-    <button class="plang-btn" onclick="setLang('es')">Español</button>
+<body>
+  <div class="crisis-banner" id="crisis-banner">
+    <span>In crisis? Call <a href="tel:988">988</a> or <a href="tel:911">911</a></span>
+    <button class="crisis-banner__close" aria-label="Dismiss">&times;</button>
   </div>
-  <div class="portal-wrap">
-    <aside class="portal-sidebar">
-      <a href="/thejoyinliving/patient-portal/" class="portal-logo"><img src="/thejoyinliving/images/logo.png" alt="The Joy In Living"></a>
-      <nav class="portal-nav">
-        <a href="/thejoyinliving/patient-portal/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
-        <a href="/thejoyinliving/patient-portal/appointments/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Appointments</span></a>
-        <a href="/thejoyinliving/patient-portal/telehealth/" class="portal-nav__item active"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg><span>Telehealth</span></a>
-        <a href="/thejoyinliving/patient-portal/notifications/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span>Notifications</span></a>
-        <a href="/thejoyinliving/patient-portal/login/" class="portal-nav__item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg><span>Log In</span></a>
-      </nav>
-      <div class="portal-sidebar__footer">
-        <p class="portal-sidebar__contact">Need help?</p>
-        <a href="tel:9146862484" class="portal-sidebar__phone">(914) 686-2484</a>
-        <a href="/thejoyinliving/" class="portal-sidebar__back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg><span>Back to main site</span></a>
-      </div>
-    </aside>
+  <nav class="nav has-banner" id="main-nav"><div class="nav__inner"><a href="/thejoyinliving/" class="nav__logo" aria-label="The Joy In Living - Home"><img src="/thejoyinliving/images/logo.png" alt="The Joy In Living" class="nav__logo-img"></a><div class="nav__menu" id="nav-menu"><a href="/thejoyinliving/" class="nav__link">Home</a><div class="nav__dropdown"><a href="/thejoyinliving/who-we-are/" class="nav__link nav__dropdown-trigger">About <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/who-we-are/" class="nav__dropdown-item">Who We Are</a><a href="/thejoyinliving/about/" class="nav__dropdown-item">About the Practice</a><a href="/thejoyinliving/your-visit/" class="nav__dropdown-item">Your Visit</a></div></div><div class="nav__dropdown"><a href="/thejoyinliving/services/" class="nav__link nav__dropdown-trigger">Services <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/services/#individual" class="nav__dropdown-item">Individual Therapy</a><a href="/thejoyinliving/services/#couples" class="nav__dropdown-item">Couples &amp; Family</a><a href="/thejoyinliving/services/#group" class="nav__dropdown-item">Group Therapy</a><a href="/thejoyinliving/services/#immigration" class="nav__dropdown-item">Immigration Evaluations</a><a href="/thejoyinliving/services/#supervision" class="nav__dropdown-item">Clinical Supervision</a><a href="/thejoyinliving/services/#telehealth" class="nav__dropdown-item">Telehealth</a></div></div><a href="/thejoyinliving/payments-insurance/" class="nav__link">Insurance</a><a href="/thejoyinliving/blog/" class="nav__link">Blog</a><a href="/thejoyinliving/contact/" class="nav__link">Contact</a><div class="nav__dropdown"><a href="#" class="nav__link nav__dropdown-trigger">Resources <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/resources/" class="nav__dropdown-item">Resources</a><a href="/thejoyinliving/faq/" class="nav__dropdown-item">FAQ</a><a href="/thejoyinliving/local-hospitals/" class="nav__dropdown-item">Local Hospitals</a><a href="/thejoyinliving/help-lines/" class="nav__dropdown-item">Help Lines</a><a href="/thejoyinliving/patient-portal/" class="nav__dropdown-item">Patient Portal</a></div></div><div class="nav__lang"><button class="nav__lang-btn active" data-lang="en">EN</button><a href="/thejoyinliving/es/" class="nav__lang-btn" data-lang="es">ES</a></div><div class="nav__cta"><a href="/thejoyinliving/patient-portal/appointments/" class="btn btn-accent btn-sm">Make An Appointment</a></div></div><button class="nav__toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button></div><div class="nav__overlay" id="nav-overlay"></div></nav>
+  <nav class="portal-tabs">
+    <div class="container portal-tabs__inner">
+      <a href="/thejoyinliving/patient-portal/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Portal Home
+      </a>
+      <a href="/thejoyinliving/patient-portal/appointments/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Appointments
+      </a>
+      <a href="/thejoyinliving/patient-portal/telehealth/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/></svg>
+        Telehealth
+      </a>
+      <a href="/thejoyinliving/patient-portal/av-test/" class="portal-tab active">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        AV Test
+      </a>
+      <a href="/thejoyinliving/patient-portal/notifications/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Notifications
+      </a>
+      <a href="/thejoyinliving/patient-portal/login/" class="portal-tab ">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Log In
+      </a>
+    </div>
+  </nav>
+  <section class="portal-hero">
+    <div class="container">
+      <div class="portal-hero__badge">🎙️ Pre-Session Check</div>
+      <h1>Test Audio &amp; Video</h1>
+      <p>Make sure your camera and microphone are working before your telehealth session.</p>
+    </div>
+  </section>
 
-    <main class="portal-main">
-      <div class="portal-page-header">
-        <a href="/thejoyinliving/patient-portal/telehealth/" style="font-size:13px;color:var(--portal-muted);text-decoration:none;display:flex;align-items:center;gap:4px;margin-bottom:12px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-          <span data-en="Back to Telehealth" data-es="Volver a Telesalud">Back to Telehealth</span>
-        </a>
-        <span class="portal-badge">🎙️ <span data-en="Pre-Session Check" data-es="Verificación Previa">Pre-Session Check</span></span>
-        <h1 class="portal-page-title" data-en="Test Your Audio & Video" data-es="Pruebe su Audio y Video">Test Your Audio & Video</h1>
-        <p class="portal-page-sub" data-en="Make sure your camera and microphone are working before your telehealth session." data-es="Asegúrese de que su cámara y micrófono funcionen antes de su sesión de telesalud.">Make sure your camera and microphone are working before your telehealth session.</p>
-      </div>
+  <div class="portal-content">
+    <div class="container" style="max-width:640px;">
 
-      <div style="max-width: 640px;">
-
-        <!-- Camera test -->
-        <div class="av-test-card">
-          <h3>
-            📷 <span data-en="Camera Test" data-es="Prueba de Cámara">Camera Test</span>
-            <span id="cam-status" class="av-status av-status--waiting"><span class="dot"></span><span data-en="Not started" data-es="No iniciado">Not started</span></span>
-          </h3>
-          <p data-en="Click the button below to start your camera. You should see yourself in the preview." data-es="Haga clic en el botón para iniciar su cámara. Debería verse en la vista previa.">Click the button below to start your camera. You should see yourself in the preview.</p>
-          <div id="video-preview">
-            <video id="webcam" autoplay muted playsinline></video>
-            <div class="placeholder">
-              <span>📷</span>
-              <p data-en="Camera preview will appear here" data-es="La vista previa de la cámara aparecerá aquí">Camera preview will appear here</p>
-            </div>
-          </div>
-          <div class="av-btn-row">
-            <button onclick="startCamera()" class="portal-btn portal-btn--sm" style="width:auto;" data-en="Start Camera" data-es="Iniciar Cámara">Start Camera</button>
-            <button onclick="stopCamera()" class="portal-btn portal-btn--outline portal-btn--sm" style="display:none;" id="stop-cam-btn" data-en="Stop Camera" data-es="Detener Cámara">Stop Camera</button>
-          </div>
+      <!-- Camera -->
+      <div class="portal-card" style="margin-bottom:var(--space-5);">
+        <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);">
+          <h3 style="font-size:var(--text-base);font-weight:700;">📷 Camera Test</h3>
+          <span id="cam-status" class="p-av-status p-av-status--waiting"><span class="dot"></span>Not started</span>
         </div>
-
-        <!-- Microphone test -->
-        <div class="av-test-card">
-          <h3>
-            🎙️ <span data-en="Microphone Test" data-es="Prueba de Micrófono">Microphone Test</span>
-            <span id="mic-status" class="av-status av-status--waiting"><span class="dot"></span><span data-en="Not started" data-es="No iniciado">Not started</span></span>
-          </h3>
-          <p data-en="Click to test your microphone. The bars below will move when your microphone detects sound." data-es="Haga clic para probar su micrófono. Las barras se moverán cuando el micrófono detecte sonido.">Click to test your microphone. The bars below will move when your microphone detects sound.</p>
-          <div class="mic-meter" id="mic-meter">
-            <div class="mic-bar"></div><div class="mic-bar"></div><div class="mic-bar"></div>
-            <div class="mic-bar"></div><div class="mic-bar"></div><div class="mic-bar"></div>
-            <div class="mic-bar"></div><div class="mic-bar"></div><div class="mic-bar"></div>
-            <div class="mic-bar"></div><div class="mic-bar"></div><div class="mic-bar"></div>
-            <div class="mic-bar"></div><div class="mic-bar"></div><div class="mic-bar"></div>
-          </div>
-          <div class="av-btn-row">
-            <button onclick="startMic()" class="portal-btn portal-btn--sm" style="width:auto;" data-en="Test Microphone" data-es="Probar Micrófono">Test Microphone</button>
-            <button onclick="stopMic()" class="portal-btn portal-btn--outline portal-btn--sm" style="display:none;" id="stop-mic-btn" data-en="Stop Test" data-es="Detener Prueba">Stop Test</button>
-          </div>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-4);line-height:1.6;">Click below to start your camera. You should see yourself in the preview.</p>
+        <div id="video-preview">
+          <video id="webcam" autoplay muted playsinline></video>
+          <div class="placeholder"><span>📷</span><p>Camera preview will appear here</p></div>
         </div>
-
-        <!-- Speaker test -->
-        <div class="av-test-card">
-          <h3>🔊 <span data-en="Speaker Test" data-es="Prueba de Altavoz">Speaker Test</span></h3>
-          <p data-en="Click to play a test tone. Make sure you can hear it through your speakers or headphones." data-es="Haga clic para reproducir un tono de prueba. Asegúrese de escucharlo a través de sus altavoces o auriculares.">Click to play a test tone. Make sure you can hear it through your speakers or headphones.</p>
-          <button onclick="playTone()" class="portal-btn portal-btn--sm" style="width:auto;" data-en="▶ Play Test Tone" data-es="▶ Reproducir Tono">▶ Play Test Tone</button>
-        </div>
-
-        <!-- Tips -->
-        <div style="background:var(--portal-green-light);border:1px solid rgba(92,122,92,0.25);border-radius:var(--portal-radius-sm);padding:18px 22px;font-size:13px;color:#2A4A2A;line-height:1.7;margin-bottom:24px;">
-          <strong data-en="🛑 Browser permission required:" data-es="🛑 Se requiere permiso del navegador:">🛑 Browser permission required:</strong>
-          <span class="en-text"> When prompted, click <strong>"Allow"</strong> to grant access to your camera and microphone. If you accidentally clicked "Block," you can reset it in your browser settings.</span>
-          <span class="es-text" style="display:none"> Cuando se le solicite, haga clic en <strong>"Permitir"</strong> para dar acceso a su cámara y micrófono. Si accidentalmente hizo clic en "Bloquear," puede restablecerlo en la configuración de su navegador.</span>
-        </div>
-
-        <!-- CTA -->
-        <div style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="https://www.therapyportal.com/p/joyliving/" target="_blank" class="portal-btn portal-btn--sm" style="width:auto;" data-en="Join Telehealth Session →" data-es="Entrar a la Sesión →">Join Telehealth Session →</a>
-          <a href="/thejoyinliving/patient-portal/telehealth/" class="portal-btn portal-btn--outline portal-btn--sm" data-en="Back to Telehealth" data-es="Volver a Telesalud">Back to Telehealth</a>
+        <div style="display:flex;gap:var(--space-3);">
+          <button onclick="startCamera()" class="btn btn-primary btn-sm">Start Camera</button>
+          <button onclick="stopCamera()" class="btn btn-outline btn-sm" style="display:none;" id="stop-cam-btn">Stop Camera</button>
         </div>
       </div>
-    </main>
+
+      <!-- Mic -->
+      <div class="portal-card" style="margin-bottom:var(--space-5);">
+        <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);">
+          <h3 style="font-size:var(--text-base);font-weight:700;">🎙️ Microphone Test</h3>
+          <span id="mic-status" class="p-av-status p-av-status--waiting"><span class="dot"></span>Not started</span>
+        </div>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-4);line-height:1.6;">The bars below will move when your microphone detects sound.</p>
+        <div class="p-mic-meter" id="mic-meter">
+          <div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div><div class="p-mic-bar"></div>
+        </div>
+        <div style="display:flex;gap:var(--space-3);">
+          <button onclick="startMic()" class="btn btn-primary btn-sm">Test Microphone</button>
+          <button onclick="stopMic()" class="btn btn-outline btn-sm" style="display:none;" id="stop-mic-btn">Stop Test</button>
+        </div>
+      </div>
+
+      <!-- Speaker -->
+      <div class="portal-card" style="margin-bottom:var(--space-5);">
+        <h3 style="font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-3);">🔊 Speaker Test</h3>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary);margin-bottom:var(--space-4);line-height:1.6;">Play a test tone to confirm your speakers or headphones are working.</p>
+        <button onclick="playTone()" class="btn btn-primary btn-sm">▶ Play Test Tone</button>
+      </div>
+
+      <div style="background:var(--sage-lighter);border:1px solid rgba(107,140,107,0.3);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:var(--sage-dark);margin-bottom:var(--space-6);">
+        <strong>🛑 Browser permission required:</strong> When prompted, click <strong>"Allow"</strong> to grant camera and microphone access.
+      </div>
+
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
+        <a href="https://www.therapyportal.com/p/joyliving/#/public/telehealth" target="_blank" class="btn btn-primary btn-sm">Join Telehealth Session →</a>
+        <a href="/thejoyinliving/patient-portal/telehealth/" class="btn btn-outline btn-sm">Back to Telehealth</a>
+      </div>
+    </div>
   </div>
-
-  <script src="/thejoyinliving/js/portal.js"></script>
   <script>
-    let camStream = null;
-    let micStream = null;
-    let audioCtx = null;
-    let analyser = null;
-    let rafId = null;
-
-    function setStatus(id, type, textEn, textEs) {
-      const el = document.getElementById(id);
-      const lang = localStorage.getItem('joy-lang') || 'en';
-      el.className = `av-status av-status--${type}`;
-      el.innerHTML = `<span class="dot"></span>${lang === 'es' ? textEs : textEn}`;
-    }
-
-    async function startCamera() {
-      try {
-        camStream = await navigator.mediaDevices.getUserMedia({ video: true });
-        const video = document.getElementById('webcam');
-        video.srcObject = camStream;
-        video.style.display = 'block';
-        document.querySelector('#video-preview .placeholder').style.display = 'none';
-        document.getElementById('stop-cam-btn').style.display = '';
-        setStatus('cam-status', 'ok', '✓ Camera working', '✓ Cámara funcionando');
-      } catch(e) {
-        setStatus('cam-status', 'error', '✗ Permission denied', '✗ Permiso denegado');
-      }
-    }
-
-    function stopCamera() {
-      if (camStream) { camStream.getTracks().forEach(t => t.stop()); camStream = null; }
-      const video = document.getElementById('webcam');
-      video.style.display = 'none';
-      video.srcObject = null;
-      document.querySelector('#video-preview .placeholder').style.display = '';
-      document.getElementById('stop-cam-btn').style.display = 'none';
-      setStatus('cam-status', 'waiting', 'Not started', 'No iniciado');
-    }
-
-    async function startMic() {
-      try {
-        micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        analyser = audioCtx.createAnalyser();
-        analyser.fftSize = 64;
-        const source = audioCtx.createMediaStreamSource(micStream);
-        source.connect(analyser);
-        document.getElementById('stop-mic-btn').style.display = '';
-        setStatus('mic-status', 'ok', '✓ Microphone working', '✓ Micrófono funcionando');
-        drawMeter();
-      } catch(e) {
-        setStatus('mic-status', 'error', '✗ Permission denied', '✗ Permiso denegado');
-      }
-    }
-
-    function drawMeter() {
-      const bars = document.querySelectorAll('.mic-bar');
-      const data = new Uint8Array(analyser.frequencyBinCount);
-      function update() {
-        analyser.getByteFrequencyData(data);
-        bars.forEach((bar, i) => {
-          const val = (data[i] || 0) / 255;
-          bar.style.height = Math.max(4, val * 40) + 'px';
-          bar.classList.toggle('active', val > 0.05);
-        });
-        rafId = requestAnimationFrame(update);
-      }
-      update();
-    }
-
-    function stopMic() {
-      if (rafId) cancelAnimationFrame(rafId);
-      if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
-      if (audioCtx) { audioCtx.close(); audioCtx = null; }
-      document.querySelectorAll('.mic-bar').forEach(b => { b.style.height = '4px'; b.classList.remove('active'); });
-      document.getElementById('stop-mic-btn').style.display = 'none';
-      setStatus('mic-status', 'waiting', 'Not started', 'No iniciado');
-    }
-
-    function playTone() {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain); gain.connect(ctx.destination);
-      osc.frequency.value = 440;
-      gain.gain.setValueAtTime(0.3, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
-      osc.start(); osc.stop(ctx.currentTime + 1.5);
-    }
+    let camStream=null,micStream=null,audioCtx=null,analyser=null,rafId=null;
+    function setStatus(id,type,text){const el=document.getElementById(id);el.className=`p-av-status p-av-status--${type}`;el.innerHTML=`<span class="dot"></span>${text}`;}
+    async function startCamera(){try{camStream=await navigator.mediaDevices.getUserMedia({video:true});const v=document.getElementById('webcam');v.srcObject=camStream;v.style.display='block';document.querySelector('#video-preview .placeholder').style.display='none';document.getElementById('stop-cam-btn').style.display='';setStatus('cam-status','ok','✓ Camera working');}catch(e){setStatus('cam-status','error','✗ Permission denied');}}
+    function stopCamera(){if(camStream){camStream.getTracks().forEach(t=>t.stop());camStream=null;}const v=document.getElementById('webcam');v.style.display='none';v.srcObject=null;document.querySelector('#video-preview .placeholder').style.display='';document.getElementById('stop-cam-btn').style.display='none';setStatus('cam-status','waiting','Not started');}
+    async function startMic(){try{micStream=await navigator.mediaDevices.getUserMedia({audio:true});audioCtx=new(window.AudioContext||window.webkitAudioContext)();analyser=audioCtx.createAnalyser();analyser.fftSize=64;const src=audioCtx.createMediaStreamSource(micStream);src.connect(analyser);document.getElementById('stop-mic-btn').style.display='';setStatus('mic-status','ok','✓ Mic working');drawMeter();}catch(e){setStatus('mic-status','error','✗ Permission denied');}}
+    function drawMeter(){const bars=document.querySelectorAll('.p-mic-bar'),data=new Uint8Array(analyser.frequencyBinCount);function u(){analyser.getByteFrequencyData(data);bars.forEach((b,i)=>{const v=(data[i]||0)/255;b.style.height=Math.max(4,v*40)+'px';b.classList.toggle('active',v>0.05)});rafId=requestAnimationFrame(u);}u();}
+    function stopMic(){if(rafId)cancelAnimationFrame(rafId);if(micStream){micStream.getTracks().forEach(t=>t.stop());micStream=null;}if(audioCtx){audioCtx.close();audioCtx=null;}document.querySelectorAll('.p-mic-bar').forEach(b=>{b.style.height='4px';b.classList.remove('active')});document.getElementById('stop-mic-btn').style.display='none';setStatus('mic-status','waiting','Not started');}
+    function playTone(){const ctx=new(window.AudioContext||window.webkitAudioContext)(),osc=ctx.createOscillator(),g=ctx.createGain();osc.connect(g);g.connect(ctx.destination);osc.frequency.value=440;g.gain.setValueAtTime(0.3,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+1.5);osc.start();osc.stop(ctx.currentTime+1.5);}
   </script>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="/thejoyinliving/" class="nav__logo"><img src="/thejoyinliving/images/logo.png" alt="The Joy In Living" class="nav__logo-img"></a>
+          <p>Bilingual mental health practice in Sleepy Hollow, NY.</p>
+        </div>
+        <div>
+          <h4 class="footer__heading">Patient Portal</h4>
+          <div class="footer__links">
+            <a href="/thejoyinliving/patient-portal/" class="footer__link">Portal Home</a>
+            <a href="/thejoyinliving/patient-portal/appointments/" class="footer__link">Appointments</a>
+            <a href="/thejoyinliving/patient-portal/telehealth/" class="footer__link">Telehealth</a>
+            <a href="/thejoyinliving/patient-portal/notifications/" class="footer__link">Notifications</a>
+            <a href="/thejoyinliving/patient-portal/login/" class="footer__link">Log In</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Main Site</h4>
+          <div class="footer__links">
+            <a href="/thejoyinliving/services/" class="footer__link">Services</a>
+            <a href="/thejoyinliving/payments-insurance/" class="footer__link">Insurance</a>
+            <a href="/thejoyinliving/contact/" class="footer__link">Contact</a>
+            <a href="/thejoyinliving/faq/" class="footer__link">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Contact</h4>
+          <div class="footer__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.574 2.81.7A2 2 0 0122 16.92z"/></svg><a href="tel:9146862484" style="color:rgba(255,255,255,0.8);">(914) 686-2484</a></div>
+          <div class="footer__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:reception@thejoyinliving.com" style="color:rgba(255,255,255,0.8);">reception@thejoyinliving.com</a></div>
+        </div>
+      </div>
+      <div class="footer__bottom"><p class="footer__copyright">&copy; 2026 The Joy In Living, LCSW, PLLC.</p><div class="footer__legal"><a href="/thejoyinliving/privacy-policy/">Privacy Policy</a></div></div>
+    </div>
+  </footer>
+  <script src="/thejoyinliving/js/main.js"></script>
+  <script src="/thejoyinliving/js/language.js"></script>
+  <script src="/thejoyinliving/js/portal.js"></script>
+  <script src="/thejoyinliving/js/chatbot.js"></script>
 </body>
 </html>
