@@ -420,3 +420,41 @@ body.scrolled .nav__lang-btn:not(.active),
 body .nav.scrolled .nav__lang-btn:not(.active) {
   color: var(--stone);
 }
+
+/* ── Portal: make both EN/ES buttons always visible ──────── */
+/* The transparent nav at top hides the inactive button —    */
+/* give the whole pill group a visible background always     */
+.portal-hero ~ nav .nav__lang,
+.portal-hero + nav .nav__lang,
+nav + nav .nav__lang,
+.portal-tabs ~ * .nav__lang {
+  background: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Force both buttons visible regardless of page scroll state */
+body .nav__lang {
+  background: rgba(255,255,255,0.2) !important;
+  border: 1px solid rgba(255,255,255,0.28) !important;
+}
+body .nav__lang-btn {
+  color: rgba(255,255,255,0.9) !important;
+  font-weight: 700 !important;
+}
+body .nav__lang-btn.active {
+  background: white !important;
+  color: var(--sage-dark) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+/* Scrolled state — keep dark version readable too */
+body .nav.scrolled .nav__lang {
+  background: var(--cream-dark) !important;
+  border-color: var(--color-border-light) !important;
+}
+body .nav.scrolled .nav__lang-btn {
+  color: var(--stone) !important;
+}
+body .nav.scrolled .nav__lang-btn.active {
+  background: white !important;
+  color: var(--sage-dark) !important;
+}
