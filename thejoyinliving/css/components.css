@@ -1080,7 +1080,7 @@
   transition: all var(--duration-normal) var(--ease-soft);
   cursor: pointer;
   text-decoration: none;
-  min-height: 100px;
+  min-height: 150px;
 }
 
 .insurance-grid__item:hover {
@@ -1106,11 +1106,12 @@
   display: none;
 }
 
-/* UHC logo is square — let height drive sizing */
+/* UHC logo is square — zoom in to fill card */
 a[aria-label="UnitedHealthcare"] img.insurance-logo {
-  width: auto;
-  height: 80px;
-  max-width: 130px;
+  width: 130px;
+  height: 130px;
+  max-width: 150px;
+  max-height: 150px;
 }
 
 /* Cigna logo is near-square — scale to fit full card height */
@@ -1120,11 +1121,12 @@ a[aria-label="Cigna"] img.insurance-logo {
   max-width: 120px;
 }
 
-/* Oxford logo is square — scale to fit card like Optum/Oscar */
+/* Oxford logo is square — zoom in to fill card */
 a[aria-label="Oxford Health Plans"] img.insurance-logo {
-  width: auto;
-  height: 72px;
-  max-width: 120px;
+  width: 130px;
+  height: 130px;
+  max-width: 150px;
+  max-height: 150px;
 }
 
 /* ============================================================
