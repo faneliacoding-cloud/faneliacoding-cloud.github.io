@@ -203,6 +203,41 @@ function initChatbot() {
   let isOpen = false;
   let hasGreeted = false;
 
+  // ── Live language switch detection ──────────────────────────
+  document.addEventListener('joy:langchange', (e) => {
+    const newLang = e.detail?.lang;
+    if (!newLang || newLang === currentLang) return;
+    currentLang = newLang;
+    const isEs = currentLang === 'es';
+
+    // Update input placeholder
+    input.placeholder = isEs ? 'Escribe tu mensaje...' : 'Type a message...';
+
+    // Update quick-action button labels & queries
+    const quickLabels = isEs
+      ? [{ q: 'servicios', l: '🧠 Servicios' }, { q: 'seguro', l: '✅ Seguros' }, { q: 'cita', l: '📅 Cita' }, { q: 'contacto', l: '📞 Contacto' }]
+      : [{ q: 'services', l: '🧠 Services' }, { q: 'insurance', l: '✅ Insurance' }, { q: 'appointment', l: '📅 Book' }, { q: 'contact', l: '📞 Contact' }];
+    quickActions.forEach((btn, i) => {
+      if (quickLabels[i]) {
+        btn.dataset.query = quickLabels[i].q;
+        btn.textContent = quickLabels[i].l;
+      }
+    });
+
+    // Update toggle aria-label
+    toggle.setAttribute('aria-label', isEs ? 'Abrir chat' : 'Open chat');
+
+    // If panel is open and already greeted, send a language-switch greeting
+    if (isOpen) {
+      const kb = KNOWLEDGE[currentLang] || KNOWLEDGE.en;
+      addBotMessage(isEs
+        ? '🌐 Cambié al español. ¿En qué puedo ayudarte?'
+        : '🌐 Switched to English. How can I help you?');
+    }
+    // Reset greet flag so next open gets fresh greeting in new language
+    hasGreeted = false;
+  });
+
   // Toggle panel
   toggle.addEventListener('click', () => {
     isOpen = !isOpen;

@@ -31,7 +31,11 @@ function initLanguageSwitcher() {
       const targetLang = btn.dataset.lang;
       if (targetLang === currentLang) return;
 
+      // Persist immediately
       localStorage.setItem('joy-lang', targetLang);
+
+      // Notify other components (chatbot, etc.) before navigating
+      document.dispatchEvent(new CustomEvent('joy:langchange', { detail: { lang: targetLang } }));
 
       if (targetLang === 'es') {
         window.location.href = getSpanishPath(currentPage);
