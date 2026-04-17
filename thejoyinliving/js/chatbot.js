@@ -6,8 +6,93 @@
    ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  injectChatbotIfMissing();
   initChatbot();
+  initChatbotFade();
 });
+
+/* ============================================================
+   AUTO-INJECT CHATBOT HTML ON PAGES THAT DON'T HAVE IT
+   ============================================================ */
+
+function injectChatbotIfMissing() {
+  if (document.querySelector('.chatbot')) return; // already on page
+
+  const lang = document.documentElement.lang || localStorage.getItem('joy-lang') || 'en';
+  const isEs = lang === 'es';
+
+  const html = `
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot__panel" id="chatbot-panel">
+      <div class="chatbot__header">
+        <div class="chatbot__header-info">
+          <div class="chatbot__header-avatar">💚</div>
+          <div>
+            <div class="chatbot__header-name">${isEs ? 'Asistente Joy' : 'Joy Assistant'}</div>
+            <div class="chatbot__header-status">${isEs ? 'En línea' : 'Online'}</div>
+          </div>
+        </div>
+        <button class="chatbot__close" aria-label="${isEs ? 'Cerrar chat' : 'Close chat'}">✕</button>
+      </div>
+      <div class="chatbot__messages" id="chatbot-messages"></div>
+      <div class="chatbot__quick-actions">
+        <button class="chatbot__quick-btn" data-query="${isEs ? 'servicios' : 'services'}">${isEs ? '🧠 Servicios' : '🧠 Services'}</button>
+        <button class="chatbot__quick-btn" data-query="${isEs ? 'seguro' : 'insurance'}">${isEs ? '✅ Seguros' : '✅ Insurance'}</button>
+        <button class="chatbot__quick-btn" data-query="${isEs ? 'cita' : 'appointment'}">${isEs ? '📅 Cita' : '📅 Book'}</button>
+        <button class="chatbot__quick-btn" data-query="${isEs ? 'contacto' : 'contact'}">${isEs ? '📞 Contacto' : '📞 Contact'}</button>
+      </div>
+      <div class="chatbot__input-wrap">
+        <input class="chatbot__input" type="text" placeholder="${isEs ? 'Escribe tu mensaje...' : 'Type a message...'}" autocomplete="off">
+        <button class="chatbot__send" aria-label="Send">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+    <button class="chatbot__toggle" id="chatbot-toggle" aria-label="${isEs ? 'Abrir chat' : 'Open chat'}">
+      <svg class="chatbot__icon-chat" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg class="chatbot__icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>`;
+
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+/* ============================================================
+   MOUSE-IDLE FADE — fades out after 3s, reappears on move
+   ============================================================ */
+
+function initChatbotFade() {
+  const chatbot = document.querySelector('.chatbot');
+  if (!chatbot) return;
+
+  let idleTimer = null;
+  const IDLE_MS = 3000; // fade after 3 seconds of no movement
+
+  function onMouseMove() {
+    // Immediately show
+    chatbot.classList.remove('chatbot--hidden');
+
+    // Reset idle timer
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      // Only fade if panel is not open
+      if (!chatbot.classList.contains('panel-open')) {
+        chatbot.classList.add('chatbot--hidden');
+      }
+    }, IDLE_MS);
+  }
+
+  // Start listening
+  document.addEventListener('mousemove', onMouseMove, { passive: true });
+  document.addEventListener('touchstart', onMouseMove, { passive: true });
+
+  // Kick off initial fade after 3s of no activity
+  idleTimer = setTimeout(() => {
+    if (!chatbot.classList.contains('panel-open')) {
+      chatbot.classList.add('chatbot--hidden');
+    }
+  }, IDLE_MS);
+}
 
 /* --- Knowledge Base --- */
 const KNOWLEDGE = {
@@ -122,6 +207,7 @@ function initChatbot() {
   toggle.addEventListener('click', () => {
     isOpen = !isOpen;
     panel.classList.toggle('open', isOpen);
+    chatbot.classList.toggle('panel-open', isOpen);
     toggle.querySelector('.chatbot__icon-chat').style.display = isOpen ? 'none' : 'block';
     toggle.querySelector('.chatbot__icon-close').style.display = isOpen ? 'block' : 'none';
 
@@ -141,6 +227,7 @@ function initChatbot() {
     closeBtn.addEventListener('click', () => {
       isOpen = false;
       panel.classList.remove('open');
+      chatbot.classList.remove('panel-open');
       toggle.querySelector('.chatbot__icon-chat').style.display = 'block';
       toggle.querySelector('.chatbot__icon-close').style.display = 'none';
     });

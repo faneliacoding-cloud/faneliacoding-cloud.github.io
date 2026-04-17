@@ -1274,6 +1274,20 @@ a[aria-label="Oxford Health Plans"] img.insurance-logo {
   bottom: var(--space-6);
   right: var(--space-6);
   z-index: var(--z-chatbot);
+  opacity: 1;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Faded state — triggered when mouse is idle */
+.chatbot--hidden {
+  opacity: 0.15;
+  transform: scale(0.92);
+}
+
+/* Never fully hide when panel is open */
+.chatbot.panel-open {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 .chatbot__toggle {
