@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
-Disallow: /chatbot/
+
+# Block portal backend paths
+Disallow: /patient-portal/recover/
+Disallow: /es/portal-del-paciente/recuperar/
 
 Sitemap: https://thejoyinliving.com/sitemap.xml
