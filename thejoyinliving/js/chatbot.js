@@ -111,15 +111,21 @@ const KB = {
   es: {
     services: {
       overview: `En **The Joy In Living** ofrecemos:\n\n🧠 **Terapia Individual** — Ansiedad, depresión, trauma, duelo ($150/sesión)\n👫 **Terapia de Pareja y Familia** — Comunicación, confianza, conexión ($250/sesión)\n👥 **Terapia de Grupo** — Sanación en comunidad\n📋 **Evaluaciones de Inmigración** — Asilo, hardship, VAWA\n📚 **Supervisión Clínica** — Para candidatos a LCSW\n💻 **Telesalud** — Sesiones virtuales seguras en todo NY\n\n¿Cuál de estos servicios le resulta más relevante?`,
-      individual: `**Terapia Individual** ($150/sesión) ayuda a adultos a trabajar:\n\n• Ansiedad y ataques de pánico\n• Depresión\n• Trauma y TEPT\n• Duelo y pérdida\n• Transiciones de vida\n• Agotamiento y estrés\n\nUsamos un enfoque integrativo con **TCC, TDC, terapia psicodinámica** y herramientas holísticas como mindfulness y respiración consciente.\n\n¿Le gustaría saber cómo comenzar?`,
-      immigration: `**Evaluaciones Psicológicas de Inmigración** — Informes completos para cortes de inmigración y USCIS.\n\nEvaluaciones para:\n📋 **Asilo** — documentación de trauma\n📋 **Hardship Extremo (I-601/601A)**\n📋 **Peticiones VAWA**\n\nDisponible en **inglés y español**, presencial o por teleconferencia.\n\n📞 (914) 758-5286 | csoddano@thejoyinliving.com`
+      individual: `**Terapia Individual** ($150/sesión) ayuda a adultos a trabajar:\n\n• Ansiedad y ataques de pánico\n• Depresión\n• Trauma y TEPT\n• Duelo y pérdida\n• Transiciones de vida\n• Agotamiento y estrés\n• Identidad y autoestima\n\nUsamos un enfoque integrativo con **TCC, TDC, terapia psicodinámica** y herramientas holísticas como mindfulness y respiración consciente.\n\nSesiones disponibles **en persona** (Sleepy Hollow, NY) o por **telesalud**.\n\n¿Le gustaría saber cómo comenzar?`,
+      couples: `**Terapia de Pareja y Familia** ($250/sesión) crea un espacio seguro para:\n\n• Mejorar la comunicación\n• Reconstruir la confianza después de una traición\n• Navegar desafíos de crianza\n• Preparación prematrimonial\n• Dinámicas de familias mixtas\n• Diferencias culturales y generacionales\n\nAmbas personas asisten juntas. Algunas parejas también se benefician de sesiones individuales junto con la terapia de pareja.\n\n¿Le gustaría programar una consulta?`,
+      immigration: `**Evaluaciones Psicológicas de Inmigración** — Informes completos para cortes de inmigración y USCIS.\n\nEvaluaciones para:\n📋 **Asilo** — documentación de trauma y persecución\n📋 **Hardship Extremo (I-601/601A)**\n📋 **Peticiones VAWA** — impacto de violencia doméstica\n\nNuestra fundadora Claudia Soddano, LCSW tiene formación especializada de **Physicians for Human Rights (PHR)** y **Columbia Human Rights Initiative (CHRIA)**.\n\nDisponible en **inglés y español**, presencial o por teleconferencia.\n\n📞 (914) 758-5286 | csoddano@thejoyinliving.com`,
+      telehealth: `**Telesalud** hace posible la terapia desde cualquier lugar del Estado de Nueva York.\n\n✅ Sin descarga de aplicación — funciona en cualquier navegador\n✅ Cumple con HIPAA y está cifrada\n✅ Teléfono, tablet o computadora\n✅ En inglés y español\n✅ Cubierta por la mayoría de los seguros\n\n🔗 Portal del Paciente: therapyportal.com/p/joyliving/\n\n¿Le gustaría saber cómo es una primera sesión virtual?`,
+      group: `**Terapia de Grupo** ofrece sanación a través de la experiencia compartida y la conexión comunitaria.\n\nLláme al (914) 686-2484 para preguntar sobre los grupos actuales y disponibilidad.`,
+      supervision: `**Supervisión Clínica** disponible para terapeutas que trabajan hacia la licencia LCSW.\n\nEspecializaciones incluyen casos de inmigración, trauma y práctica culturalmente sensible.\n\n📧 Correo: csoddano@thejoyinliving.com`
     },
-    insurance: `Aceptamos estos seguros:\n\n✅ Aetna ✅ BlueCross BlueShield ✅ Cigna\n✅ MVP ✅ Optum ✅ Oscar ✅ Oxford ✅ UnitedHealthcare\n\n**Tarifas sin seguro:**\n• Individual: $150/sesión\n• Parejas: $250/sesión\n\n¿Tiene algún seguro específico que quiera consultar?`,
-    contact: `Puede contactarnos:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n📍 239 North Broadway, Suite LL 101, Sleepy Hollow, NY 10591\n\n🆓 **Hacer una Cita** para clientes nuevos.`,
-    appointment: `¡Con gusto le ayudo a hacer una cita!\n\n📅 **En línea:** Use nuestro formulario:\n👉 [thejoyinliving.com/patient-portal/appointments/](/thejoyinliving/patient-portal/appointments/)\n\n📞 **Por teléfono:** **(914) 686-2484**\n✉️ **Por correo:** reception@thejoyinliving.com\n\n🆓 **Clientes nuevos** — le recomendamos comenzar con una llamada gratuita de 15 minutos para asegurarnos de que somos la opción correcta para usted.\n\n¿Le gustaría saber qué esperar en su primera sesión?`,
-    start: `Comenzar es sencillo:\n\n1️⃣ **Hacer una Cita** — Llame al (914) 686-2484\n2️⃣ **Evaluación Inicial** — Entendemos su situación y metas\n3️⃣ **Comience su Camino** — Presencial o telesalud, en español\n\n¿Hay algo que le impide dar ese primer paso?`,
-    about: `**The Joy In Living, LCSW, PLLC** es una práctica de salud mental de propiedad de una mujer en Sleepy Hollow, NY.\n\n**Claudia Christina Soddano, LCSW:**\n• 20+ años de experiencia clínica\n• MSW de la Universidad Fordham\n• Licencia LCSW #074899 en NY\n• Certificada WBENC\n• Entrenada por Physicians for Human Rights\n• Completamente bilingüe`,
-    fallback: `Gracias por su pregunta. Para la respuesta más precisa:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n\nO programe una **cita gratuita de 15 minutos**. ¡Estamos aquí para ayudarle! 💚`
+    insurance: `Aceptamos estos seguros:\n\n✅ Aetna\n✅ BlueCross BlueShield\n✅ Cigna\n✅ MVP Health Care\n✅ Optum\n✅ Oscar Health\n✅ Oxford\n✅ UnitedHealthcare\n\nTrabajamos con **Headway** para simplificar la facturación.\n\n**Tarifas sin seguro:**\n• Individual: $150/sesión\n• Parejas: $250/sesión\n\n**Métodos de pago:** Efectivo, Mastercard, Visa, Venmo, Zelle, Apple Pay, Google Pay\n\n¿Tiene algún seguro específico que quiera consultar?`,
+    contact: `Puede contactarnos:\n\n📞 **(914) 686-2484** — línea general\n📞 **(914) 758-5286** — directa\n✉️ reception@thejoyinliving.com\n📍 239 North Broadway, Suite LL 101\n   Sleepy Hollow, NY 10591\n\n¿Le gustaría saber qué preguntar durante esa primera llamada?`,
+    start: `Comenzar es sencillo:\n\n1️⃣ **Consulta gratuita** — Llame al (914) 686-2484\n2️⃣ **Evaluación Inicial** — Entendemos su situación y metas\n3️⃣ **Comience su Camino** — Presencial o telesalud, en español\n\nLa mayoría de los clientes sienten alivio con solo hacer esa primera llamada. 🌿\n\n¿Hay algo que le impide dar ese primer paso?`,
+    about: `**The Joy In Living, LCSW, PLLC** es una práctica de salud mental de propiedad de una mujer en Sleepy Hollow, NY.\n\n**Claudia Christina Soddano, LCSW** — Fundadora\n• 20+ años de experiencia clínica\n• MSW de la Universidad Fordham\n• Licencia LCSW de NY #074899\n• Certificada WBENC\n• Entrenada por Physicians for Human Rights y Columbia CHRIA\n• Completamente bilingüe: inglés y español\n\nSu enfoque combina **TCC, TDC, terapia psicodinámica, Entrevista Motivacional** con herramientas holísticas como respiración consciente, mindfulness y yoga informado por trauma.\n\n¿Hay algo específico sobre la práctica que le gustaría saber?`,
+    portal: `El **Portal del Paciente** está en:\n🔗 therapyportal.com/p/joyliving/\n\nA través del portal puede:\n📅 Ver disponibilidad de citas\n📝 Completar formularios de ingreso\n💻 Unirse a sesiones de telesalud\n📋 Solicitar citas\n\nRecibirá los detalles de acceso en su correo de bienvenida. ¿Necesita ayuda? Llame al (914) 686-2484.`,
+    hours: `Para conocer el horario actual, llame al (914) 686-2484 o escriba a reception@thejoyinliving.com.\n\nAcomodamos la mayor cantidad de horarios posible, incluyendo algunos **espacios por las tardes y los fines de semana**.`,
+    appointment: `¡Con gusto le ayudo a hacer una cita!\n\n📅 **En línea:** Use nuestro formulario:\n👉 [thejoyinliving.com/portal-del-paciente/citas/](/thejoyinliving/es/portal-del-paciente/citas/)\n\n📞 **Por teléfono:** **(914) 686-2484**\n✉️ **Por correo:** reception@thejoyinliving.com\n\n🆓 **Clientes nuevos** — le recomendamos comenzar con una llamada gratuita de 15 minutos para asegurarnos de que somos la opción correcta para usted.\n\n¿Le gustaría saber qué esperar en su primera sesión?`,
+    fallback: `Gracias por su pregunta. Para la respuesta más precisa:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n\nO programe su consulta. ¡Estamos aquí para ayudarle! 💚`
   }
 };
 
@@ -201,18 +207,24 @@ const INTENT_MAP = {
     { kw: ['service','therapy','what do you','what can you','help with','offer'], key: 'services.overview' },
   ],
   es: [
-    { kw: ['ansiedad','ansioso','pánico','nervios','preocupación'],    key: 'services.individual' },
-    { kw: ['depresión','triste','vacío','sin esperanza'],              key: 'services.individual' },
-    { kw: ['duelo','pérdida','muerte','luto'],                         key: 'grief' },
-    { kw: ['trauma','abuso','sobreviví'],                              key: 'services.individual' },
-    { kw: ['pareja','matrimonio','relación'],                          key: 'services.couples' },
-    { kw: ['inmigración','asilo','dificultad','vawa','visa'],          key: 'services.immigration' },
-    { kw: ['telesalud','virtual','en línea'],                          key: 'services.telehealth' },
-    { kw: ['seguro','cobertura','costo','precio','pago'],              key: 'insurance' },
-    { kw: ['contacto','teléfono','correo','dónde','dirección'],        key: 'contact' },
-    { kw: ['hacer una cita','pedir una cita','reservar','agendar'],    key: 'appointment' },
-    { kw: ['comenzar','empezar','primera','cita','consulta'],          key: 'start' },
-    { kw: ['servicio','terapia','ayuda','ofrece'],                     key: 'services.overview' },
+    { kw: ['ansiedad','ansioso','pánico','nervios','preocupación'],          key: 'services.individual' },
+    { kw: ['depresión','triste','vacío','sin esperanza','deprimido'],        key: 'services.individual' },
+    { kw: ['duelo','pérdida','muerte','luto','perdí'],                       key: 'grief' },
+    { kw: ['trauma','abuso','sobreviví','tept'],                             key: 'services.individual' },
+    { kw: ['pareja','matrimonio','relación','familia','hijos','hijo'],        key: 'services.couples' },
+    { kw: ['inmigración','asilo','dificultad','vawa','visa','waiver'],        key: 'services.immigration' },
+    { kw: ['telesalud','virtual','en línea','remoto','video'],               key: 'services.telehealth' },
+    { kw: ['grupo','terapia grupal','comunidad'],                            key: 'services.group' },
+    { kw: ['supervisión','supervisor','lcsw','licencia'],                    key: 'services.supervision' },
+    { kw: ['seguro','cobertura','aetna','cigna','united','blue cross','optum','oscar','mvp'], key: 'insurance' },
+    { kw: ['costo','precio','pago','tarifa','cuánto','cuanto'],              key: 'insurance' },
+    { kw: ['contacto','teléfono','llamar','correo','dónde','dirección','oficina'], key: 'contact' },
+    { kw: ['hacer una cita','pedir una cita','reservar','agendar','cita'],   key: 'appointment' },
+    { kw: ['comenzar','empezar','primera vez','nuevo','consulta'],           key: 'start' },
+    { kw: ['quién es','claudia','fundadora','experiencia','credencial'],     key: 'about' },
+    { kw: ['portal','iniciar sesión','acceder','therapyportal'],             key: 'portal' },
+    { kw: ['horario','hora','disponible','cuándo','cuando','abierto'],       key: 'hours' },
+    { kw: ['servicio','terapia','ayuda','ofrecen','qué hacen'],              key: 'services.overview' },
   ]
 };
 
