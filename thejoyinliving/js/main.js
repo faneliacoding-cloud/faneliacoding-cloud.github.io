@@ -34,7 +34,8 @@ function initNav() {
 
   // Auto-apply scrolled state on pages without a dark hero
   const hasHero = document.querySelector('.hero, .portal-hero, .page-hero');
-  if (!hasHero) {
+  const hasLightHero = document.querySelector('.article-hero');
+  if (!hasHero || hasLightHero) {
     nav.classList.add('scrolled');
   }
 
@@ -43,7 +44,7 @@ function initNav() {
   window.addEventListener('scroll', () => {
     const current = window.scrollY;
 
-    if (current > 80 || !hasHero) {
+    if (current > 80 || !hasHero || hasLightHero) {
       nav.classList.add('scrolled');
     } else {
       nav.classList.remove('scrolled');
