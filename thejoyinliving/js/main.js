@@ -149,6 +149,7 @@ function initCrisisBanner() {
   if (sessionStorage.getItem('crisis-banner-dismissed')) {
     banner.classList.add('hidden');
     banner.style.display = 'none';
+    document.body.classList.add('banner-hidden');
     const nav = document.querySelector('.nav');
     if (nav) nav.classList.remove('has-banner');
     return;
@@ -157,6 +158,7 @@ function initCrisisBanner() {
   closeBtn.addEventListener('click', () => {
     banner.style.display = 'none';
     banner.classList.add('hidden');
+    document.body.classList.add('banner-hidden');
     sessionStorage.setItem('crisis-banner-dismissed', 'true');
     const nav = document.querySelector('.nav');
     if (nav) nav.classList.remove('has-banner');

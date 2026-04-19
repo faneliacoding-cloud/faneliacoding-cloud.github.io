@@ -53,8 +53,12 @@
   background: var(--white);
   border-bottom: 1px solid var(--color-border-light);
   position: sticky;
-  top: 72px;
-  z-index: 40;
+  top: 104px; /* nav (64px) + crisis banner (40px) */
+  z-index: 39;
+}
+/* When banner is dismissed, nav shrinks back to 64px */
+.banner-hidden .portal-tabs {
+  top: 64px;
 }
 .portal-tabs__inner {
   display: flex;
