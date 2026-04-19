@@ -125,7 +125,11 @@ const KB = {
     portal: `El **Portal del Paciente** está en:\n🔗 therapyportal.com/p/joyliving/\n\nA través del portal puede:\n📅 Ver disponibilidad de citas\n📝 Completar formularios de ingreso\n💻 Unirse a sesiones de telesalud\n📋 Solicitar citas\n\nRecibirá los detalles de acceso en su correo de bienvenida. ¿Necesita ayuda? Llame al (914) 686-2484.`,
     hours: `Para conocer el horario actual, llame al (914) 686-2484 o escriba a reception@thejoyinliving.com.\n\nAcomodamos la mayor cantidad de horarios posible, incluyendo algunos **espacios por las tardes y los fines de semana**.`,
     appointment: `¡Con gusto le ayudo a hacer una cita!\n\n📅 **En línea:** Use nuestro formulario:\n👉 [thejoyinliving.com/portal-del-paciente/citas/](/thejoyinliving/es/portal-del-paciente/citas/)\n\n📞 **Por teléfono:** **(914) 686-2484**\n✉️ **Por correo:** reception@thejoyinliving.com\n\n🆓 **Clientes nuevos** — le recomendamos comenzar con una llamada gratuita de 15 minutos para asegurarnos de que somos la opción correcta para usted.\n\n¿Le gustaría saber qué esperar en su primera sesión?`,
-    fallback: `Gracias por su pregunta. Para la respuesta más precisa:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n\nO programe su consulta. ¡Estamos aquí para ayudarle! 💚`
+    fallback: `Gracias por su pregunta. Para la respuesta más precisa:\n\n📞 **(914) 686-2484**\n✉️ reception@thejoyinliving.com\n\nO programe su consulta. ¡Estamos aquí para ayudarle! 💚`,
+    anxiety: `La ansiedad es una de las razones más comunes por las que las personas buscan terapia — y una de las más tratables.\n\nSíntomas como preocupación constante, pensamientos acelerados, ataques de pánico o tensión física son señales de que su sistema nervioso necesita apoyo.\n\nEn The Joy In Living usamos **TCC y enfoques basados en mindfulness** para ayudarle a:\n• Entender qué está generando su ansiedad\n• Cuestionar los patrones de pensamiento que la amplifican\n• Desarrollar herramientas prácticas que funcionen\n\nLa mayoría de los clientes ven mejoras significativas en 8–12 sesiones.\n\n¿Le gustaría saber cómo programar una consulta?`,
+    depression: `La depresión puede sentirse como una niebla pesada — agotadora, aislante y difícil de explicar.\n\nLa terapia — especialmente con **TCC y enfoques psicodinámicos** — es uno de los tratamientos más efectivos para la depresión.\n\nTrabajamos con clientes que experimentan:\n• Estado de ánimo bajo o plano\n• Pérdida de interés y motivación\n• Dificultad para concentrarse\n• Cambios en el sueño y el apetito\n• Sentimientos de desesperanza o falta de valor\n\nNo tiene que sentirse así para siempre. ¿Le gustaría hablar sobre dar un primer paso?`,
+    grief: `El duelo no sigue reglas ni plazos. Ya sea que haya perdido a una persona, una relación, un hogar o una versión de sí mismo — su duelo es real y merece espacio.\n\nNuestros terapeutas usan **enfoques de duelo informado, narrativo y somático** para ayudarle a:\n• Procesar su pérdida a su propio ritmo\n• Encontrar significado sin borrar el dolor\n• Reconectarse con la vida mientras honra lo que ha perdido\n\n¿Es esto algo por lo que está pasando ahora?`,
+    spanish: `¡Por supuesto! Todos nuestros servicios están disponibles en **inglés y español**.\n\nClaudia Soddano, LCSW es completamente bilingüe y brinda atención culturalmente sensible.\n\n📞 Llame al (914) 686-2484 para una consulta en español.`
   }
 };
 
@@ -207,24 +211,25 @@ const INTENT_MAP = {
     { kw: ['service','therapy','what do you','what can you','help with','offer'], key: 'services.overview' },
   ],
   es: [
-    { kw: ['ansiedad','ansioso','pánico','nervios','preocupación'],          key: 'services.individual' },
-    { kw: ['depresión','triste','vacío','sin esperanza','deprimido'],        key: 'services.individual' },
-    { kw: ['duelo','pérdida','muerte','luto','perdí'],                       key: 'grief' },
-    { kw: ['trauma','abuso','sobreviví','tept'],                             key: 'services.individual' },
-    { kw: ['pareja','matrimonio','relación','familia','hijos','hijo'],        key: 'services.couples' },
-    { kw: ['inmigración','asilo','dificultad','vawa','visa','waiver'],        key: 'services.immigration' },
-    { kw: ['telesalud','virtual','en línea','remoto','video'],               key: 'services.telehealth' },
-    { kw: ['grupo','terapia grupal','comunidad'],                            key: 'services.group' },
-    { kw: ['supervisión','supervisor','lcsw','licencia'],                    key: 'services.supervision' },
+    { kw: ['ansiedad','ansioso','pánico','nervios','preocupación','worry'],      key: 'anxiety' },
+    { kw: ['depresión','triste','vacío','sin esperanza','deprimido','sad'],      key: 'depression' },
+    { kw: ['duelo','pérdida','muerte','luto','perdí','grief'],                   key: 'grief' },
+    { kw: ['trauma','abuso','sobreviví','tept'],                                 key: 'services.individual' },
+    { kw: ['pareja','matrimonio','relación','familia','hijos','hijo'],            key: 'services.couples' },
+    { kw: ['inmigración','asilo','dificultad','vawa','visa','waiver'],            key: 'services.immigration' },
+    { kw: ['telesalud','virtual','en línea','remoto','video'],                   key: 'services.telehealth' },
+    { kw: ['grupo','terapia grupal','comunidad'],                                key: 'services.group' },
+    { kw: ['supervisión','supervisor','lcsw','licencia'],                        key: 'services.supervision' },
     { kw: ['seguro','cobertura','aetna','cigna','united','blue cross','optum','oscar','mvp'], key: 'insurance' },
-    { kw: ['costo','precio','pago','tarifa','cuánto','cuanto'],              key: 'insurance' },
+    { kw: ['costo','precio','pago','tarifa','cuánto','cuanto'],                  key: 'insurance' },
     { kw: ['contacto','teléfono','llamar','correo','dónde','dirección','oficina'], key: 'contact' },
-    { kw: ['hacer una cita','pedir una cita','reservar','agendar','cita'],   key: 'appointment' },
-    { kw: ['comenzar','empezar','primera vez','nuevo','consulta'],           key: 'start' },
-    { kw: ['quién es','claudia','fundadora','experiencia','credencial'],     key: 'about' },
-    { kw: ['portal','iniciar sesión','acceder','therapyportal'],             key: 'portal' },
-    { kw: ['horario','hora','disponible','cuándo','cuando','abierto'],       key: 'hours' },
-    { kw: ['servicio','terapia','ayuda','ofrecen','qué hacen'],              key: 'services.overview' },
+    { kw: ['hacer una cita','pedir una cita','reservar','agendar','cita'],       key: 'appointment' },
+    { kw: ['comenzar','empezar','primera vez','nuevo','consulta'],               key: 'start' },
+    { kw: ['quién es','claudia','fundadora','experiencia','credencial'],         key: 'about' },
+    { kw: ['portal','iniciar sesión','acceder','therapyportal'],                 key: 'portal' },
+    { kw: ['horario','hora','disponible','cuándo','cuando','abierto'],           key: 'hours' },
+    { kw: ['español','bilingüe','hablan','idioma','spanish'],                    key: 'spanish' },
+    { kw: ['servicio','terapia','ayuda','ofrecen','qué hacen'],                  key: 'services.overview' },
   ]
 };
 
