@@ -596,3 +596,124 @@
 #mnav-debug .mdb-on  { color: #4ade80; }
 #mnav-debug .mdb-off { color: #475569; }
 #mnav-debug .mdb-warn{ color: #fb923c; }
+
+/* ================================================================
+   NAV BADGE SYSTEM — Mobile Drawer
+   Each nav item becomes a sage-tinted card-badge (icon + label row).
+   Matches the .trust-bar__item visual language at mobile scale.
+   ================================================================ */
+@media (max-width: 768px) {
+
+  /* ── Card-badge rows — override the separator-line style ────── */
+  .nav__menu a.nav__link {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+    padding: 0.8rem 1rem !important;
+    margin-bottom: 0.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(74, 103, 65, 0.14) !important;
+    border-bottom: 1px solid rgba(74, 103, 65, 0.14) !important;
+    background: rgba(74, 103, 65, 0.055) !important;
+    color: var(--charcoal, #2d3028);
+    font-size: 1rem !important;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(74, 103, 65, 0.05);
+    transition:
+      background   0.18s ease,
+      border-color 0.18s ease,
+      color        0.18s ease,
+      box-shadow   0.18s ease;
+    /* Preserve stagger opacity/transform from parent rule */
+    padding-left: 1rem !important;
+  }
+
+  /* Icon in drawer — larger, sage-colored */
+  .nav__menu a.nav__link .nav-badge__icon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .nav__menu a.nav__link .nav-badge__icon svg {
+    width: 18px;
+    height: 18px;
+    color: var(--sage, #6a8f5f);
+    flex-shrink: 0;
+  }
+
+  /* Label */
+  .nav__menu a.nav__link .nav-badge__label {
+    flex: 1;
+    display: block;
+  }
+
+  /* Chevron pushed to right — dropdown triggers only */
+  .nav__menu a.nav__link.nav__dropdown-trigger {
+    justify-content: flex-start;
+  }
+  .nav__menu a.nav__link.nav__dropdown-trigger .nav-badge__label {
+    flex: 1;
+  }
+  /* Chevron (12×12 SVG) sits at the right */
+  .nav__menu a.nav__link.nav__dropdown-trigger > svg:last-child {
+    margin-left: auto;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  /* ── Hover state ─────────────────────────────────────────────── */
+  .nav__menu a.nav__link:hover,
+  .nav__menu a.nav__link:focus-visible {
+    background: rgba(74, 103, 65, 0.12) !important;
+    border-color: rgba(74, 103, 65, 0.28) !important;
+    color: var(--sage-dark, #4a6741) !important;
+    padding-left: 1rem !important; /* override the slide-in hover from base CSS */
+    box-shadow: 0 2px 8px rgba(74, 103, 65, 0.1);
+    transform: none !important; /* suppress desktop lift */
+  }
+
+  .nav__menu a.nav__link:hover .nav-badge__icon svg {
+    color: var(--sage-dark, #4a6741);
+  }
+
+  /* ── Active current-page ─────────────────────────────────────── */
+  .nav__menu a.nav__link.nav-badge--active {
+    background: rgba(74, 103, 65, 0.14) !important;
+    border-color: rgba(74, 103, 65, 0.32) !important;
+    color: var(--sage-dark, #4a6741) !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(74, 103, 65, 0.1);
+  }
+
+  .nav__menu a.nav__link.nav-badge--active .nav-badge__icon svg {
+    color: var(--sage-dark, #4a6741);
+  }
+
+  /* ── Focus ring ─────────────────────────────────────────────── */
+  .nav__menu a.nav__link:focus-visible {
+    outline: 2px solid var(--sage-dark, #4a6741);
+    outline-offset: 2px;
+    border-radius: 12px;
+  }
+}
+
+/* ── Landscape: compact card-badges ───────────────────────────── */
+@media (max-width: 768px) and (orientation: landscape) {
+
+  .nav__menu a.nav__link {
+    padding: 0.6rem 0.85rem !important;
+    padding-left: 0.85rem !important;
+    font-size: 0.9rem !important;
+    margin-bottom: 0.35rem;
+    border-radius: 10px;
+    gap: 8px;
+  }
+
+  .nav__menu a.nav__link .nav-badge__icon svg {
+    width: 15px;
+    height: 15px;
+  }
+}

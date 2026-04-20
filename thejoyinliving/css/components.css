@@ -2454,3 +2454,162 @@ html.is-android [data-maps-link]::after {
   letter-spacing: 0.05em;
 }
 
+
+/* ================================================================
+   NAV BADGE SYSTEM — Desktop
+   Matches the visual language of .trust-bar__item (icon + label chip).
+   Works in two nav states: transparent dark-hero and .nav.scrolled.
+   ================================================================ */
+
+/* ── Badge icon container ─────────────────────────────────────── */
+.nav-badge__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-badge__icon svg {
+  width: 13px;
+  height: 13px;
+  display: block;
+  /* Inherit stroke-width from SVG attribute */
+  flex-shrink: 0;
+}
+
+/* ── Badge label ──────────────────────────────────────────────── */
+.nav-badge__label {
+  display: inline;
+}
+
+/* ── Base badge pill — transparent nav (dark hero) ───────────── */
+@media (min-width: 769px) {
+
+  a.nav__link {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 5px;
+    padding: 0.32em 0.72em;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px) saturate(1.2);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.012em;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+      background    0.22s ease,
+      border-color  0.22s ease,
+      box-shadow    0.22s ease,
+      transform     0.15s ease,
+      color         0.22s ease;
+    will-change: transform;
+  }
+
+  a.nav__link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.42);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.14);
+    color: var(--white, #fff);
+  }
+
+  a.nav__link:active {
+    transform: translateY(0px);
+    box-shadow: none;
+  }
+
+  /* Active current-page badge */
+  a.nav__link.nav-badge--active {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+  }
+
+  /* Focus visible: accessible keyboard ring */
+  a.nav__link:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.7);
+    outline-offset: 2px;
+  }
+
+  /* ── Scrolled nav — sage-tinted badge (light background) ───── */
+
+  .nav.scrolled a.nav__link {
+    background: rgba(74, 103, 65, 0.07);
+    border-color: rgba(74, 103, 65, 0.2);
+    color: var(--charcoal, #2d3028);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .nav.scrolled a.nav__link:hover {
+    background: rgba(74, 103, 65, 0.15);
+    border-color: rgba(74, 103, 65, 0.38);
+    color: var(--sage-dark, #4a6741);
+    box-shadow: 0 2px 12px rgba(74, 103, 65, 0.12);
+  }
+
+  .nav.scrolled a.nav__link.nav-badge--active {
+    background: rgba(74, 103, 65, 0.15);
+    border-color: rgba(74, 103, 65, 0.45);
+    color: var(--sage-dark, #4a6741);
+    font-weight: 600;
+    box-shadow: 0 1px 6px rgba(74, 103, 65, 0.1);
+  }
+
+  .nav.scrolled a.nav__link:focus-visible {
+    outline-color: var(--sage-dark, #4a6741);
+  }
+
+  /* ── Chevron inside badge (dropdown trigger) ────────────────── */
+  a.nav__link svg:not(.nav-badge__icon svg) {
+    /* The 12×12 chevron – keep consistent sizing */
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    opacity: 0.7;
+    margin-left: 1px;
+  }
+
+  a.nav__link.nav-badge--active svg:not(.nav-badge__icon svg) { opacity: 1; }
+
+  /* ── Icon color ─────────────────────────────────────────────── */
+  /* Dark hero: icon inherits white text color */
+  .nav-badge__icon svg { color: inherit; }
+
+  /* Scrolled: icon is sage-colored (mirrors trust-bar__icon) */
+  .nav.scrolled a.nav__link .nav-badge__icon svg {
+    color: var(--sage, #6a8f5f);
+  }
+  .nav.scrolled a.nav__link:hover .nav-badge__icon svg,
+  .nav.scrolled a.nav__link.nav-badge--active .nav-badge__icon svg {
+    color: var(--sage-dark, #4a6741);
+  }
+
+  /* ── Compact sizing for mid-range viewports (1000–1100px) ───── */
+  @media (max-width: 1100px) and (min-width: 769px) {
+    a.nav__link {
+      padding: 0.28em 0.6em;
+      gap: 4px;
+      font-size: 0.76rem;
+    }
+    .nav-badge__icon svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  /* ── Icon-only mode for very tight viewports (769–950px) ────── */
+  @media (max-width: 950px) and (min-width: 769px) {
+    .nav-badge__label { display: none; }
+    a.nav__link {
+      padding: 0.35em 0.55em;
+      gap: 0;
+    }
+    /* Tooltip via title attribute — readable at icon-only scale */
+    a.nav__link[title] { position: relative; }
+  }
+}
