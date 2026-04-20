@@ -2471,8 +2471,8 @@ html.is-android [data-maps-link]::after {
 }
 
 .nav-badge__icon svg {
-  width: 13px;
-  height: 13px;
+  width: 16px;
+  height: 16px;
   display: block;
   flex-shrink: 0;
 }
@@ -2488,7 +2488,7 @@ html.is-android [data-maps-link]::after {
   a.nav__link {
     display: inline-flex !important;
     align-items: center;
-    gap: 5px;
+    gap: 9px;
     padding: 0.25em 0;
     border: none;
     border-radius: 0;
@@ -2577,16 +2577,16 @@ html.is-android [data-maps-link]::after {
   /* ── Compact sizing for 769–1100px ──────────────────────────── */
   @media (max-width: 1100px) and (min-width: 769px) {
     a.nav__link {
-      gap: 4px;
+      gap: 7px;
       font-size: 0.78rem;
     }
-    .nav-badge__icon svg { width: 12px; height: 12px; }
+    .nav-badge__icon svg { width: 14px; height: 14px; }
   }
 
   /* ── Icon-only for very tight viewports (769–950px) ──────────── */
   @media (max-width: 950px) and (min-width: 769px) {
     .nav-badge__label { display: none; }
-    a.nav__link { gap: 0; }
+    a.nav__link { gap: 0; padding: 0.3em 0.25em; }
     a.nav__link[title] { position: relative; }
   }
 }
