@@ -259,6 +259,26 @@
   gap: var(--space-1);
 }
 
+/* Explicitly hide hamburger on desktop — must override any inherited state */
+@media (min-width: 769px) {
+  .nav__toggle { display: none !important; }
+  .nav__menu {
+    position: static !important;
+    height: auto !important;
+    width: auto !important;
+    max-width: none !important;
+    flex-direction: row !important;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 .nav__link {
   color: var(--white);
   font-size: var(--text-sm);
