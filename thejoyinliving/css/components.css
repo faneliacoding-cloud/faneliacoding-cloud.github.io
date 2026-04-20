@@ -259,7 +259,7 @@
   gap: var(--space-1);
 }
 
-/* Explicitly hide hamburger on desktop — must override any inherited state */
+/* Desktop nav — hamburger hidden, links centered, lang+CTA right */
 @media (min-width: 769px) {
   .nav__toggle { display: none !important; }
   .nav__menu {
@@ -276,6 +276,12 @@
     top: auto !important;
     transform: none !important;
     transition: none !important;
+    flex: 1;
+    justify-content: center;
+  }
+  /* Push the language toggle and CTA button to the far right */
+  .nav__menu .nav__lang {
+    margin-left: auto;
   }
 }
 
