@@ -45,6 +45,16 @@
     .app-item__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
     .cta-card { background: linear-gradient(135deg, var(--cream), var(--sage-mist)); border-radius: var(--radius-xl); padding: var(--space-10); text-align: center; }
     @media (max-width: 640px) { .tool-grid { grid-template-columns: 1fr; } .app-grid { grid-template-columns: 1fr 1fr; } .meditation-grid { grid-template-columns: repeat(3, 1fr); } }
+    /* Video Modal */
+    .yt-modal-overlay { display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.85); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:var(--space-6); }
+    .yt-modal-overlay.open { display:flex; }
+    .yt-modal { position:relative; width:100%; max-width:860px; background:#000; border-radius:var(--radius-xl); overflow:hidden; box-shadow:0 32px 80px rgba(0,0,0,0.6); animation:modalIn 0.25s var(--ease-soft); }
+    @keyframes modalIn { from { transform:scale(0.92); opacity:0; } to { transform:scale(1); opacity:1; } }
+    .yt-modal__ratio { position:relative; padding-bottom:56.25%; height:0; }
+    .yt-modal__ratio iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+    .yt-modal__close { position:absolute; top:-48px; right:0; background:rgba(255,255,255,0.15); border:none; color:white; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
+    .yt-modal__close:hover { background:rgba(255,255,255,0.3); }
+    .yt-modal__title { position:absolute; top:-48px; left:0; color:white; font-size:var(--text-sm); font-weight:600; line-height:36px; max-width:calc(100% - 48px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   </style>
 </head>
 <body>
@@ -91,9 +101,9 @@
               <p>The foundation of all breathing techniques. Breathing from the diaphragm activates the body's relaxation response and lowers cortisol levels.</p>
               <p style="margin-top:var(--space-3);font-weight:600;color:var(--charcoal);">Watch on YouTube:</p>
               <ul>
-                <li>🧒 <strong>Children:</strong> <a href="https://youtu.be/RiMb2Bw4Ae8?si=fmm1k3w8AG0Sq99y" target="_blank" rel="noopener" class="yt-link">Watch video →</a></li>
-                <li>🧑 <strong>Adults (Option 1):</strong> <a href="https://youtu.be/7Ep5mKuRmAA?si=Au0dP9z8w8rtCyTj" target="_blank" rel="noopener" class="yt-link">Watch video →</a></li>
-                <li>🧑 <strong>Adults (Option 2):</strong> <a href="https://youtu.be/OXjlR4mXxSk?si=I_IIWzSqCqBYLz4H" target="_blank" rel="noopener" class="yt-link">Watch video →</a></li>
+                <li>🧒 <strong>Children:</strong> <a data-yt="https://youtu.be/RiMb2Bw4Ae8?si=fmm1k3w8AG0Sq99y" class="yt-link" href="#">Watch video →</a></li>
+                <li>🧑 <strong>Adults (Option 1):</strong> <a data-yt="https://youtu.be/7Ep5mKuRmAA?si=Au0dP9z8w8rtCyTj" class="yt-link" href="#">Watch video →</a></li>
+                <li>🧑 <strong>Adults (Option 2):</strong> <a data-yt="https://youtu.be/OXjlR4mXxSk?si=I_IIWzSqCqBYLz4H" class="yt-link" href="#">Watch video →</a></li>
               </ul>
               <div class="tool-card__tip">💡 <strong>Best for:</strong> Anxiety, panic, stress, trouble sleeping</div>
             </div>
@@ -107,9 +117,9 @@
               <p>Inhale → Hold → Exhale → Hold — each for 4 counts. Creates a rhythmic, calming loop used by athletes, Navy SEALs, and therapists worldwide.</p>
               <p style="margin-top:var(--space-3);font-weight:600;color:var(--charcoal);">Watch on YouTube:</p>
               <ul>
-                <li>🧒 <strong>Children:</strong> <a href="https://youtu.be/tqqe9lbgVRk?si=bShXEbUOf5vG2eA5" target="_blank" rel="noopener" class="yt-link">Watch video →</a></li>
-                <li>🧑 <strong>Adults:</strong> <a href="https://youtu.be/tEmt1Znux58?si=K6qMdgIKFynj8M-d" target="_blank" rel="noopener" class="yt-link">Watch video →</a></li>
-                <li>⭐ <strong>Christina's Fave:</strong> <a href="https://youtu.be/n6RbW2LtdFs?si=B8gHA2vjgglUGSOG" target="_blank" rel="noopener" class="yt-link yt-fave">Watch video →</a></li>
+                <li>🧒 <strong>Children:</strong> <a data-yt="https://youtu.be/tqqe9lbgVRk?si=bShXEbUOf5vG2eA5" class="yt-link" href="#">Watch video →</a></li>
+                <li>🧑 <strong>Adults:</strong> <a data-yt="https://youtu.be/tEmt1Znux58?si=K6qMdgIKFynj8M-d" class="yt-link" href="#">Watch video →</a></li>
+                <li>⭐ <strong>Christina's Fave:</strong> <a data-yt="https://youtu.be/n6RbW2LtdFs?si=B8gHA2vjgglUGSOG" class="yt-link yt-fave" href="#">Watch video →</a></li>
               </ul>
               <div class="tool-card__tip">💡 <strong>Best for:</strong> Stress, difficult conversations, presentations, emotional moments</div>
             </div>
@@ -123,8 +133,8 @@
               <p>A yogic technique (Nadi Shodhana) that balances the left and right hemispheres of the brain, promoting calm and mental clarity.</p>
               <p style="margin-top:var(--space-3);font-weight:600;color:var(--charcoal);">Watch on YouTube:</p>
               <ul>
-                <li>🧒 <strong>Children:</strong> <a href="https://youtu.be/ub7JEN1V7JE?si=TqIvPjAfoKTtTshw" target="_blank" rel="noopener" class="yt-link">Watch video →</a></li>
-                <li>🧑 <strong>Adults:</strong> <a href="https://youtu.be/l11qFpRqhIQ?si=2xZ38yLOh2BLtHKW" target="_blank" rel="noopener" class="yt-link">Watch video →</a></li>
+                <li>🧒 <strong>Children:</strong> <a data-yt="https://youtu.be/ub7JEN1V7JE?si=TqIvPjAfoKTtTshw" class="yt-link" href="#">Watch video →</a></li>
+                <li>🧑 <strong>Adults:</strong> <a data-yt="https://youtu.be/l11qFpRqhIQ?si=2xZ38yLOh2BLtHKW" class="yt-link" href="#">Watch video →</a></li>
               </ul>
               <div class="tool-card__tip">💡 <strong>Best for:</strong> Anxiety, mental fog, focus, pre-sleep wind-down</div>
             </div>
@@ -144,12 +154,12 @@
           <div class="tool-card__body">
             <p>Start with whatever feels manageable. Even 2 minutes a day builds a powerful practice over time. Click any option below to begin:</p>
             <div class="meditation-grid">
-              <a href="https://youtu.be/wNlVwQsDo44?si=_6wYhHtoY2-iAq-Z" target="_blank" rel="noopener" class="med-btn">▶ 2 min<span>Quick reset</span></a>
-              <a href="https://youtu.be/9cALID7cqG4?si=F9uvo_FTCndFNnMc" target="_blank" rel="noopener" class="med-btn">▶ 5 min<span>Morning start</span></a>
-              <a href="https://youtu.be/goqqLfrXzhI?si=kBq0YChdilc_xVQY" target="_blank" rel="noopener" class="med-btn">▶ 10 min<span>Daily practice</span></a>
-              <a href="https://youtu.be/e2_4xrVt4hs?si=kF85eIZ0JG3OWfaL" target="_blank" rel="noopener" class="med-btn">▶ 15 min<span>Deeper calm</span></a>
-              <a href="https://youtu.be/z6tzReRYiBg?si=uKDVgpaWHwN5Dobg" target="_blank" rel="noopener" class="med-btn">▶ 20 min<span>Full session</span></a>
-              <a href="https://youtu.be/2DXqMBXmP8Q?si=rgDqIlxGLzQutwN9" target="_blank" rel="noopener" class="med-btn">▶ 30 min<span>Extended</span></a>
+              <a data-yt="https://youtu.be/wNlVwQsDo44?si=_6wYhHtoY2-iAq-Z" class="med-btn" href="#">▶ 2 min<span>Quick reset</span></a>
+              <a data-yt="https://youtu.be/9cALID7cqG4?si=F9uvo_FTCndFNnMc" class="med-btn" href="#">▶ 5 min<span>Morning start</span></a>
+              <a data-yt="https://youtu.be/goqqLfrXzhI?si=kBq0YChdilc_xVQY" class="med-btn" href="#">▶ 10 min<span>Daily practice</span></a>
+              <a data-yt="https://youtu.be/e2_4xrVt4hs?si=kF85eIZ0JG3OWfaL" class="med-btn" href="#">▶ 15 min<span>Deeper calm</span></a>
+              <a data-yt="https://youtu.be/z6tzReRYiBg?si=uKDVgpaWHwN5Dobg" class="med-btn" href="#">▶ 20 min<span>Full session</span></a>
+              <a data-yt="https://youtu.be/2DXqMBXmP8Q?si=rgDqIlxGLzQutwN9" class="med-btn" href="#">▶ 30 min<span>Extended</span></a>
             </div>
             <div class="tool-card__tip" style="margin-top:var(--space-5);">💡 <strong>Tip:</strong> Consistency matters more than length. A short daily practice rewires the brain over time — start small and build.</div>
           </div>
@@ -170,7 +180,7 @@
               <p>Hannah Uri's <em>"Back In My Body"</em> — a gentle practice to help you reconnect with your body without the critical thoughts in your brain.</p>
               <p style="margin-top:var(--space-2);color:var(--color-text-muted);font-size:var(--text-xs);">Safe for trauma survivors. Move at your own pace — rest whenever you need.</p>
               <div style="margin-top:var(--space-4);">
-                <a href="https://youtu.be/3Iy5o_OBwtw?si=_XcMQ06KhGAS1rn" target="_blank" rel="noopener" class="yt-link" style="font-size:var(--text-sm);">▶️ Watch on YouTube →</a>
+                <a data-yt="https://youtu.be/3Iy5o_OBwtw?si=_XcMQ06KhGAS1rn" class="yt-link" href="#" style="font-size:var(--text-sm);">▶️ Watch on YouTube →</a>
               </div>
               <div class="tool-card__tip">💡 <strong>Best for:</strong> Trauma, body disconnection, PTSD, anxiety, self-criticism</div>
             </div>
@@ -184,7 +194,7 @@
               <p>A gentle, mood-lifting yoga flow specifically designed for depression, low energy, or emotional heaviness.</p>
               <p style="margin-top:var(--space-2);color:var(--color-text-muted);font-size:var(--text-xs);">Even on the hardest days, 10 minutes of movement can shift your nervous system. You don't have to feel ready to start.</p>
               <div style="margin-top:var(--space-4);">
-                <a href="https://youtu.be/buZ-A3HtdeI?si=tvQyW54yLLGlbw5u" target="_blank" rel="noopener" class="yt-link" style="font-size:var(--text-sm);">▶️ Watch on YouTube →</a>
+                <a data-yt="https://youtu.be/buZ-A3HtdeI?si=tvQyW54yLLGlbw5u" class="yt-link" href="#" style="font-size:var(--text-sm);">▶️ Watch on YouTube →</a>
               </div>
               <div class="tool-card__tip">💡 <strong>Best for:</strong> Depression, low motivation, heavy mood, feeling stuck</div>
             </div>
@@ -396,8 +406,72 @@
 
   <footer class="footer"><div class="container"><div class="footer__bottom"><p class="footer__copyright">&copy; 2026 The Joy In Living, LCSW, PLLC.</p><div class="footer__legal"><a href="/thejoyinliving/privacy-policy/">Privacy</a><a href="/thejoyinliving/es/">Español</a></div></div></div></footer>
 
+  <!-- YouTube Video Modal -->
+  <div class="yt-modal-overlay" id="yt-modal-overlay" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="yt-modal" id="yt-modal">
+      <div class="yt-modal__title" id="yt-modal-title"></div>
+      <button class="yt-modal__close" id="yt-modal-close" aria-label="Close video">&times;</button>
+      <div class="yt-modal__ratio">
+        <iframe id="yt-modal-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
   <script src="/thejoyinliving/js/main.js"></script>
   <script src="/thejoyinliving/js/language.js"></script>
   <script src="/thejoyinliving/js/chatbot.js"></script>
+  <script>
+    (function() {
+      const overlay  = document.getElementById('yt-modal-overlay');
+      const iframe   = document.getElementById('yt-modal-iframe');
+      const closeBtn = document.getElementById('yt-modal-close');
+      const titleEl  = document.getElementById('yt-modal-title');
+
+      function getEmbedUrl(url) {
+        // Convert youtu.be/ID or youtube.com/watch?v=ID to embed URL
+        let id = '';
+        try {
+          const u = new URL(url);
+          if (u.hostname === 'youtu.be') {
+            id = u.pathname.slice(1).split('?')[0];
+          } else {
+            id = u.searchParams.get('v') || '';
+          }
+        } catch(e) {}
+        return id ? 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0' : '';
+      }
+
+      function openModal(url, title) {
+        const embedUrl = getEmbedUrl(url);
+        if (!embedUrl) { window.open(url, '_blank'); return; }
+        iframe.src = embedUrl;
+        titleEl.textContent = title || '';
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        overlay.classList.remove('open');
+        iframe.src = '';
+        document.body.style.overflow = '';
+      }
+
+      closeBtn.addEventListener('click', closeModal);
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeModal();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+      });
+
+      // Intercept all yt-link and med-btn clicks
+      document.addEventListener('click', function(e) {
+        const link = e.target.closest('[data-yt]');
+        if (!link) return;
+        e.preventDefault();
+        openModal(link.dataset.yt, link.dataset.ytTitle || link.textContent.trim());
+      });
+    })();
+  </script>
 </body>
 </html>
