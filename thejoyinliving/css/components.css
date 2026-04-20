@@ -259,48 +259,41 @@
   gap: var(--space-1);
 }
 
-/* Desktop nav — Logo left | Links + Actions fill space | hamburger hidden */
+/* Desktop nav — Logo left | Links CENTERED | EN/ES + CTA right */
 @media (min-width: 769px) {
   .nav__toggle { display: none !important; }
 
   .nav__inner {
     display: flex !important;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start; /* auto-margins handle centering */
   }
 
+  /*
+   * display:contents "unwraps" nav__menu so its children (links, dropdowns,
+   * lang, cta) become direct flex items of nav__inner.
+   * This lets us use margin-left:auto on the first link AND nav__lang to
+   * split free space equally — centering the links between logo and actions.
+   */
   .nav__menu {
-    position: static !important;
-    height: auto !important;
-    width: auto !important;
-    max-width: none !important;
-    flex-direction: row !important;
-    background: transparent !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    overflow: visible !important;
-    right: auto !important;
-    top: auto !important;
-    transform: none !important;
-    transition: none !important;
-    display: flex !important;
-    align-items: center !important;
-    flex: 1;
-    /* Space the links on left, lang+CTA on right */
-    justify-content: flex-end !important;
-    gap: var(--space-1);
+    display: contents !important;
   }
 
-  /* The nav links sit between logo and the lang/CTA group */
-  /* First nav link gets auto left margin to push from logo */
+  /* Auto-margin on first nav item pushes the link group away from the logo */
   .nav__menu > .nav__link:first-child,
   .nav__menu > .nav__dropdown:first-child {
     margin-left: auto;
   }
 
-  /* Separate the lang pill from the nav links */
-  .nav__menu .nav__lang {
-    margin-left: var(--space-4);
+  /* Auto-margin on nav__lang pushes lang+CTA away from the links */
+  /* Free space is now split: [logo][SPACE][links][SPACE][lang cta] */
+  .nav__lang {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .nav__cta {
+    margin-left: var(--space-3);
   }
 }
 
