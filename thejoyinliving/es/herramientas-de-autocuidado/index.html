@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#3D4F3D">
+  <title>Herramientas de Autocuidado | The Joy In Living — Técnicas para el Bienestar Mental</title>
+  <meta name="description" content="Herramientas de autocuidado de The Joy In Living — ejercicios de respiración, meditaciones, yoga informado por trauma, técnicas de anclaje y más. Curadas por Claudia Soddano, LCSW.">
+  <link rel="icon" type="image/svg+xml" href="/thejoyinliving/favicon.svg">
+  <link rel="canonical" href="https://thejoyinliving.com/es/herramientas-de-autocuidado/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/thejoyinliving/css/design-system.css">
+  <link rel="stylesheet" href="/thejoyinliving/css/components.css">
+  <style>
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-6); }
+    .tool-card { background: var(--white); border-radius: var(--radius-xl); padding: var(--space-8); border: 1px solid var(--color-border-light); transition: box-shadow var(--duration-normal) var(--ease-soft), transform var(--duration-normal) var(--ease-soft); }
+    .tool-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .tool-card__icon { width: 48px; height: 48px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4); font-size: 1.5rem; }
+    .tool-card__title { font-family: var(--font-heading); font-size: var(--text-xl); margin-bottom: var(--space-2); color: var(--charcoal); }
+    .tool-card__subtitle { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage); margin-bottom: var(--space-3); }
+    .tool-card__body { color: var(--color-text-secondary); font-size: var(--text-sm); line-height: var(--leading-relaxed); }
+    .tool-card__body ol, .tool-card__body ul { padding-left: var(--space-5); margin-top: var(--space-3); }
+    .tool-card__body li { margin-bottom: var(--space-2); }
+    .tool-card__body strong { color: var(--charcoal); }
+    .tool-card__tip { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); background: var(--sage-lighter); border-radius: var(--radius-md); font-size: var(--text-xs); color: var(--sage-deep); }
+    .tool-card__tip strong { color: var(--sage-deep); }
+    .yt-link { display: inline-flex; align-items: center; gap: 6px; color: var(--sage-dark); font-weight: 600; font-size: var(--text-sm); text-decoration: none; padding: 4px 0; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+    .yt-link:hover { border-bottom-color: var(--sage); }
+    .yt-fave { color: var(--terra) !important; font-weight: 700 !important; }
+    .meditation-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--space-3); margin-top: var(--space-4); }
+    .med-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--space-4); background: var(--sage-lighter); border-radius: var(--radius-lg); color: var(--sage-deep); text-decoration: none; font-weight: 700; font-size: var(--text-base); transition: background 0.2s, transform 0.15s; text-align: center; gap: var(--space-1); }
+    .med-btn span { font-size: var(--text-xs); font-weight: 400; color: var(--sage); }
+    .med-btn:hover { background: var(--sage-light); transform: translateY(-2px); }
+    .category-label { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-6); margin-top: var(--space-2); }
+    .category-label__line { flex: 1; height: 1px; background: var(--color-border-light); }
+    .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .app-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-4); background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--color-border-light); }
+    .app-item__icon { font-size: 1.75rem; flex-shrink: 0; }
+    .app-item__name { font-weight: 600; font-size: var(--text-sm); color: var(--charcoal); margin-bottom: var(--space-1); }
+    .app-item__desc { font-size: var(--text-xs); color: var(--color-text-muted); }
+    .cta-card { background: linear-gradient(135deg, var(--cream), var(--sage-mist)); border-radius: var(--radius-xl); padding: var(--space-10); text-align: center; }
+    /* Video Modal */
+    .yt-modal-overlay { display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.85); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:var(--space-6); }
+    .yt-modal-overlay.open { display:flex; }
+    .yt-modal { position:relative; width:100%; max-width:860px; background:#000; border-radius:var(--radius-xl); overflow:hidden; box-shadow:0 32px 80px rgba(0,0,0,0.6); animation:modalIn 0.25s var(--ease-soft); }
+    @keyframes modalIn { from { transform:scale(0.92); opacity:0; } to { transform:scale(1); opacity:1; } }
+    .yt-modal__ratio { position:relative; padding-bottom:56.25%; height:0; }
+    .yt-modal__ratio iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+    .yt-modal__close { position:absolute; top:-48px; right:0; background:rgba(255,255,255,0.15); border:none; color:white; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
+    .yt-modal__close:hover { background:rgba(255,255,255,0.3); }
+    .yt-modal__title { position:absolute; top:-48px; left:0; color:white; font-size:var(--text-sm); font-weight:600; line-height:36px; max-width:calc(100% - 48px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    @media (max-width: 640px) { .tool-grid { grid-template-columns: 1fr; } .app-grid { grid-template-columns: 1fr 1fr; } .meditation-grid { grid-template-columns: repeat(3, 1fr); } }
+  </style>
+</head>
+<body>
+
+  <div class="crisis-banner" id="crisis-banner">
+    <span>¿En crisis? Llame al <a href="tel:988">988</a> o al <a href="tel:911">911</a></span>
+    <button class="crisis-banner__close" aria-label="Cerrar">&times;</button>
+  </div>
+
+  <nav class="nav has-banner" id="main-nav"><div class="nav__inner"><a href="/thejoyinliving/es/" class="nav__logo" aria-label="The Joy In Living - Inicio"><img src="/thejoyinliving/images/logo.png" alt="The Joy In Living — Consejería y Terapia" class="nav__logo-img"></a><div class="nav__menu" id="nav-menu"><a href="/thejoyinliving/es/" class="nav__link">Inicio</a><div class="nav__dropdown"><a href="/thejoyinliving/es/quienes-somos/" class="nav__link nav__dropdown-trigger">Nosotros <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/es/quienes-somos/" class="nav__dropdown-item">Quiénes Somos</a><a href="/thejoyinliving/es/su-visita/" class="nav__dropdown-item">Su Visita</a></div></div><div class="nav__dropdown"><a href="/thejoyinliving/es/servicios/" class="nav__link nav__dropdown-trigger">Servicios <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/es/servicios/#individual" class="nav__dropdown-item">Terapia Individual</a><a href="/thejoyinliving/es/servicios/#parejas" class="nav__dropdown-item">Parejas y Familia</a><a href="/thejoyinliving/es/servicios/#grupo" class="nav__dropdown-item">Terapia de Grupo</a><a href="/thejoyinliving/es/servicios/#inmigracion" class="nav__dropdown-item">Evaluaciones de Inmigración</a><a href="/thejoyinliving/es/servicios/#supervision" class="nav__dropdown-item">Supervisión Clínica</a><a href="/thejoyinliving/es/servicios/#telesalud" class="nav__dropdown-item">Telesalud</a></div></div><a href="/thejoyinliving/es/seguros-pagos/" class="nav__link">Seguros</a><a href="/thejoyinliving/es/contacto/" class="nav__link">Contacto</a><div class="nav__dropdown"><a href="#" class="nav__link nav__dropdown-trigger">Recursos <svg viewBox="0 0 12 12" fill="none"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a><div class="nav__dropdown-menu"><a href="/thejoyinliving/es/recursos/" class="nav__dropdown-item">Recursos</a><a href="/thejoyinliving/es/preguntas/" class="nav__dropdown-item">Preguntas</a><a href="/thejoyinliving/es/hospitales-locales/" class="nav__dropdown-item">Hospitales Locales</a><a href="/thejoyinliving/linea-de-ayuda/" class="nav__dropdown-item">Línea de Ayuda</a><a href="/thejoyinliving/es/herramientas-de-autocuidado/" class="nav__dropdown-item">Herramientas de Autocuidado</a><a href="/thejoyinliving/es/portal-del-paciente/" class="nav__dropdown-item">Portal del Paciente</a></div></div><div class="nav__lang"><a href="/thejoyinliving/self-care-tools/" class="nav__lang-btn" data-lang="en">EN</a><button class="nav__lang-btn active" data-lang="es">ES</button></div><div class="nav__cta"><a href="tel:9146862484" class="btn btn-accent btn-sm">Hacer una Cita</a></div></div><button class="nav__toggle" id="nav-toggle" aria-label="Abrir menú"><span></span><span></span><span></span></button></div><div class="nav__overlay" id="nav-overlay"></div></nav>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="label">Herramientas de Bienestar</span>
+        <h1 class="heading-2">Herramientas de Autocuidado</h1>
+        <p>Técnicas prácticas y basadas en evidencia que hemos practicado en sesión — para apoyarle entre citas.</p>
+      </div>
+    </section>
+    <nav class="breadcrumb"><div class="container"><a href="/thejoyinliving/es/">Inicio</a><span class="breadcrumb__separator">›</span><a href="/thejoyinliving/es/recursos/">Recursos</a><span class="breadcrumb__separator">›</span><span>Herramientas de Autocuidado</span></div></nav>
+
+    <section class="section">
+      <div class="container">
+
+        <!-- Carta de Christina -->
+        <div class="fade-in" style="background:linear-gradient(135deg,var(--cream),var(--sage-mist));border-radius:var(--radius-xl);padding:var(--space-8) var(--space-10);margin-bottom:var(--space-12);border-left:4px solid var(--sage);">
+          <p style="font-family:var(--font-heading);font-size:var(--text-xl);color:var(--charcoal);margin-bottom:var(--space-3);font-style:italic;">Querida alma hermosa,</p>
+          <p style="color:var(--color-text-secondary);font-size:var(--text-base);line-height:var(--leading-relaxed);margin-bottom:var(--space-3);">Aquí hay una lista de herramientas que hemos practicado en sesión. Sé curiosa y elige lo que se sienta bien para <strong style="color:var(--charcoal);">TI.</strong></p>
+          <p style="color:var(--sage-dark);font-weight:600;font-size:var(--text-sm);margin:0;">Cuídate mucho, Christina.</p>
+        </div>
+
+        <!-- ════════════ RESPIRACIÓN ════════════ -->
+        <div class="category-label fade-in" id="respiracion">
+          <span class="label">🌬️ Ejercicios de Respiración</span>
+          <span class="category-label__line"></span>
+        </div>
+        <div class="tool-grid" style="margin-bottom:var(--space-12);">
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--blush-light);">🌬️</div>
+            <div class="tool-card__subtitle">Respiración Diafragmática</div>
+            <h2 class="tool-card__title">Respiración Abdominal</h2>
+            <div class="tool-card__body">
+              <p>La base de todas las técnicas de respiración. Respirar desde el diafragma activa la respuesta de relajación del cuerpo y reduce los niveles de cortisol.</p>
+              <p style="margin-top:var(--space-3);font-weight:600;color:var(--charcoal);">Ver en YouTube:</p>
+              <ul>
+                <li>🧒 <strong>Niños:</strong> <a data-yt="https://youtu.be/RiMb2Bw4Ae8?si=fmm1k3w8AG0Sq99y" class="yt-link" href="#">Ver video →</a></li>
+                <li>🧑 <strong>Adultos (Opción 1):</strong> <a data-yt="https://youtu.be/7Ep5mKuRmAA?si=Au0dP9z8w8rtCyTj" class="yt-link" href="#">Ver video →</a></li>
+                <li>🧑 <strong>Adultos (Opción 2):</strong> <a data-yt="https://youtu.be/OXjlR4mXxSk?si=I_IIWzSqCqBYLz4H" class="yt-link" href="#">Ver video →</a></li>
+              </ul>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Ansiedad, pánico, estrés, dificultad para dormir</div>
+            </div>
+          </div>
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--sage-lighter);">🟦</div>
+            <div class="tool-card__subtitle">Estrés y Enfoque</div>
+            <h2 class="tool-card__title">Respiración en Caja</h2>
+            <div class="tool-card__body">
+              <p>Inhalar → Retener → Exhalar → Retener — cada uno por 4 tiempos. Crea un ritmo calmante que regula el sistema nervioso.</p>
+              <p style="margin-top:var(--space-3);font-weight:600;color:var(--charcoal);">Ver en YouTube:</p>
+              <ul>
+                <li>🧒 <strong>Niños:</strong> <a data-yt="https://youtu.be/tqqe9lbgVRk?si=bShXEbUOf5vG2eA5" class="yt-link" href="#">Ver video →</a></li>
+                <li>🧑 <strong>Adultos:</strong> <a data-yt="https://youtu.be/tEmt1Znux58?si=K6qMdgIKFynj8M-d" class="yt-link" href="#">Ver video →</a></li>
+                <li>⭐ <strong>¡El favorito de Christina!:</strong> <a data-yt="https://youtu.be/n6RbW2LtdFs?si=B8gHA2vjgglUGSOG" class="yt-link yt-fave" href="#">Ver video →</a></li>
+              </ul>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Estrés, conversaciones difíciles, momentos de ansiedad</div>
+            </div>
+          </div>
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--lavender-light);">👃</div>
+            <div class="tool-card__subtitle">Equilibrio y Calma</div>
+            <h2 class="tool-card__title">Respiración Alterna por Nariz</h2>
+            <div class="tool-card__body">
+              <p>Una técnica de yoga (Nadi Shodhana) que equilibra los hemisferios izquierdo y derecho del cerebro, promoviendo la calma y la claridad mental.</p>
+              <p style="margin-top:var(--space-3);font-weight:600;color:var(--charcoal);">Ver en YouTube:</p>
+              <ul>
+                <li>🧒 <strong>Niños:</strong> <a data-yt="https://youtu.be/ub7JEN1V7JE?si=TqIvPjAfoKTtTshw" class="yt-link" href="#">Ver video →</a></li>
+                <li>🧑 <strong>Adultos:</strong> <a data-yt="https://youtu.be/l11qFpRqhIQ?si=2xZ38yLOh2BLtHKW" class="yt-link" href="#">Ver video →</a></li>
+              </ul>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Ansiedad, niebla mental, concentración, antes de dormir</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ════════════ MEDITACIÓN ════════════ -->
+        <div class="category-label fade-in" id="meditacion">
+          <span class="label">🧘 Meditación</span>
+          <span class="category-label__line"></span>
+        </div>
+        <div class="tool-card fade-in" style="margin-bottom:var(--space-12);">
+          <div class="tool-card__icon" style="background:var(--ocean-light);">🧘</div>
+          <div class="tool-card__subtitle">Sesiones Guiadas — Elige Tu Duración</div>
+          <h2 class="tool-card__title">Meditación Guiada</h2>
+          <div class="tool-card__body">
+            <p>Empieza con lo que se sienta manejable. Incluso 2 minutos al día construyen una práctica poderosa con el tiempo. Haz clic en cualquier opción para comenzar:</p>
+            <div class="meditation-grid">
+              <a data-yt="https://youtu.be/wNlVwQsDo44?si=_6wYhHtoY2-iAq-Z" class="med-btn" href="#">▶ 2 min<span>Pausa rápida</span></a>
+              <a data-yt="https://youtu.be/9cALID7cqG4?si=F9uvo_FTCndFNnMc" class="med-btn" href="#">▶ 5 min<span>Inicio del día</span></a>
+              <a data-yt="https://youtu.be/goqqLfrXzhI?si=kBq0YChdilc_xVQY" class="med-btn" href="#">▶ 10 min<span>Práctica diaria</span></a>
+              <a data-yt="https://youtu.be/e2_4xrVt4hs?si=kF85eIZ0JG3OWfaL" class="med-btn" href="#">▶ 15 min<span>Calma profunda</span></a>
+              <a data-yt="https://youtu.be/z6tzReRYiBg?si=uKDVgpaWHwN5Dobg" class="med-btn" href="#">▶ 20 min<span>Sesión completa</span></a>
+              <a data-yt="https://youtu.be/2DXqMBXmP8Q?si=rgDqIlxGLzQutwN9" class="med-btn" href="#">▶ 30 min<span>Práctica extendida</span></a>
+            </div>
+            <div class="tool-card__tip" style="margin-top:var(--space-5);">💡 <strong>Consejo:</strong> La constancia importa más que la duración. Una práctica corta diaria reconfigura el cerebro con el tiempo — empieza pequeño y ve creciendo.</div>
+          </div>
+        </div>
+
+        <!-- ════════════ YOGA Y MOVIMIENTO ════════════ -->
+        <div class="category-label fade-in" id="yoga">
+          <span class="label">🌿 Yoga y Movimiento</span>
+          <span class="category-label__line"></span>
+        </div>
+        <div class="tool-grid" style="margin-bottom:var(--space-12);">
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--blush-light);">🌿</div>
+            <div class="tool-card__subtitle">Sanación Somática</div>
+            <h2 class="tool-card__title">Yoga Informado por Trauma</h2>
+            <div class="tool-card__body">
+              <p>Hannah Uri: <em>"Back In My Body"</em> — una práctica suave para ayudarle a reconectarse con su cuerpo sin los pensamientos críticos en su mente.</p>
+              <p style="margin-top:var(--space-2);color:var(--color-text-muted);font-size:var(--text-xs);">Seguro para sobrevivientes de trauma. Muévase a su propio ritmo — descanse cuando lo necesite.</p>
+              <div style="margin-top:var(--space-4);">
+                <a data-yt="https://youtu.be/3Iy5o_OBwtw?si=_XcMQ06KhGAS1rn" class="yt-link" href="#" style="font-size:var(--text-sm);">▶️ Ver en YouTube →</a>
+              </div>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Trauma, desconexión del cuerpo, TEPT, ansiedad, autocrítica</div>
+            </div>
+          </div>
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--lavender-light);">☀️</div>
+            <div class="tool-card__subtitle">Estado de Ánimo y Energía</div>
+            <h2 class="tool-card__title">Yoga para la Depresión</h2>
+            <div class="tool-card__body">
+              <p>Un flujo de yoga suave y reconfortante diseñado específicamente para la depresión, baja energía o pesadez emocional.</p>
+              <p style="margin-top:var(--space-2);color:var(--color-text-muted);font-size:var(--text-xs);">Incluso en los días más difíciles, 10 minutos de movimiento pueden cambiar su sistema nervioso. No tiene que sentirse lista para comenzar.</p>
+              <div style="margin-top:var(--space-4);">
+                <a data-yt="https://youtu.be/buZ-A3HtdeI?si=tvQyW54yLLGlbw5u" class="yt-link" href="#" style="font-size:var(--text-sm);">▶️ Ver en YouTube →</a>
+              </div>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Depresión, baja motivación, estado de ánimo pesado, bloqueo</div>
+            </div>
+          </div>
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--sage-lighter);">💪</div>
+            <div class="tool-card__subtitle">Liberación del Estrés</div>
+            <h2 class="tool-card__title">Relajación Muscular Progresiva</h2>
+            <div class="tool-card__body">
+              <p>Tense y suelte cada grupo muscular para liberar el estrés físico almacenado en su cuerpo. Toma entre 10–15 minutos.</p>
+              <ol>
+                <li>Comience con los pies — apriete 5 segundos, suelte</li>
+                <li>Suba: pantorrillas, muslos, abdomen, manos, brazos, hombros, cara</li>
+                <li>Note el contraste entre la tensión y la relajación</li>
+                <li>Respire lentamente durante todo el proceso</li>
+              </ol>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Tensión física, estrés crónico, insomnio</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ════════════ ANCLAJE ════════════ -->
+        <div class="category-label fade-in" id="anclaje">
+          <span class="label">🌿 Técnicas de Anclaje</span>
+          <span class="category-label__line"></span>
+        </div>
+        <div class="tool-grid" style="margin-bottom:var(--space-12);">
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--ocean-light);">✋</div>
+            <div class="tool-card__subtitle">Ansiedad y Disociación</div>
+            <h2 class="tool-card__title">Técnica 5-4-3-2-1</h2>
+            <div class="tool-card__body">
+              <p>Involucra los cinco sentidos para anclarse al momento presente. Especialmente efectiva durante ansiedad, recuerdos traumáticos o pánico.</p>
+              <ul>
+                <li><strong>5</strong> cosas que puede <em>ver</em></li>
+                <li><strong>4</strong> cosas que puede <em>tocar</em> — note su textura</li>
+                <li><strong>3</strong> cosas que puede <em>escuchar</em></li>
+                <li><strong>2</strong> cosas que puede <em>oler</em></li>
+                <li><strong>1</strong> cosa que puede <em>saborear</em></li>
+              </ul>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Ataques de pánico, respuestas traumáticas, sentirse "ausente"</div>
+            </div>
+          </div>
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--blush-light);">🧊</div>
+            <div class="tool-card__subtitle">Emociones Intensas — Habilidad TIPP</div>
+            <h2 class="tool-card__title">Anclaje por Temperatura</h2>
+            <div class="tool-card__body">
+              <p>Las sensaciones físicas de temperatura interrumpen rápidamente los ciclos de angustia. Basado en la habilidad TIPP de TDC.</p>
+              <ul>
+                <li>Sostenga un cubo de hielo en la mano</li>
+                <li>Salpique agua fría en su cara</li>
+                <li>Sostenga una taza caliente y respire el vapor</li>
+                <li>Salga a tomar aire fresco</li>
+              </ul>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Emociones abrumadoras, impulsos, bucles de rumiación</div>
+            </div>
+          </div>
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--cream);">🦶</div>
+            <div class="tool-card__subtitle">Atención Plena al Momento Presente</div>
+            <h2 class="tool-card__title">Pies en el Suelo</h2>
+            <div class="tool-card__body">
+              <p>Una práctica sencilla de conciencia corporal que le ancla a través de la sensación física.</p>
+              <ol>
+                <li>Siéntese con los pies planos en el suelo</li>
+                <li>Presione sus pies firmemente contra el suelo</li>
+                <li>Note la presión, textura y temperatura</li>
+                <li>Tome 3 respiraciones lentas y profundas</li>
+                <li>Nombre 3 cosas que puede ver en la habitación</li>
+              </ol>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Agobio, disociación, transiciones entre actividades</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ════════════ JOURNALING ════════════ -->
+        <div class="category-label fade-in" id="diario">
+          <span class="label">📓 Escritura Terapéutica</span>
+          <span class="category-label__line"></span>
+        </div>
+        <div class="tool-grid" style="margin-bottom:var(--space-12);">
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--lavender-light);">🌱</div>
+            <div class="tool-card__subtitle">Preguntas de Reflexión</div>
+            <h2 class="tool-card__title">Cómo Empezar a Escribir</h2>
+            <div class="tool-card__body">
+              <p>Use estas preguntas cuando no sepa por dónde comenzar:</p>
+              <ul>
+                <li>¿Qué emoción estoy cargando ahora mismo, y dónde la siento en mi cuerpo?</li>
+                <li>¿Qué hice hoy de lo que estoy orgullosa, aunque sea algo pequeño?</li>
+                <li>¿Qué estoy evitando, y qué me está costando?</li>
+                <li>¿Qué le diría a una amiga que se sintiera exactamente como yo me siento?</li>
+                <li>¿Cómo se ve y se siente mi versión de "estar bien"?</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--cream);">🙏</div>
+            <div class="tool-card__subtitle">Mentalidad Positiva</div>
+            <h2 class="tool-card__title">Práctica de Gratitud</h2>
+            <div class="tool-card__body">
+              <p>La investigación muestra que llevar un diario de gratitud de forma constante reconfigura el cerebro hacia patrones de atención positiva.</p>
+              <ul>
+                <li>Escriba 3 cosas <em>específicas</em> por las que está agradecida cada día</li>
+                <li>Sea específica: no "mi familia" sino "mi hermana me escribió para preguntar cómo estaba"</li>
+                <li>Incluya <em>por qué</em> le importa</li>
+                <li>Añada algo sobre <em>usted misma</em> que aprecia</li>
+              </ul>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Depresión, baja motivación, sesgo negativo</div>
+            </div>
+          </div>
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--sage-lighter);">✍️</div>
+            <div class="tool-card__subtitle">Práctica Diaria</div>
+            <h2 class="tool-card__title">Páginas Matutinas</h2>
+            <div class="tool-card__body">
+              <p>Escriba 3 páginas de pensamientos seguidos cada mañana — antes de que despierte su crítico interior. Sin editar, sin juicios.</p>
+              <ul>
+                <li>Configure un temporizador: 15–20 minutos</li>
+                <li>Escriba sin parar ni releer</li>
+                <li>Incluya frustraciones, sueños, pensamientos aleatorios — todo vale</li>
+              </ul>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Despejar la mente, bloqueos creativos, procesar sentimientos</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ════════════ SUEÑO ════════════ -->
+        <div class="category-label fade-in" id="sueno">
+          <span class="label">🌙 Higiene del Sueño</span>
+          <span class="category-label__line"></span>
+        </div>
+        <div class="tool-grid" style="margin-bottom:var(--space-12);">
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--lavender-light);">🌙</div>
+            <div class="tool-card__subtitle">Rutina para Dormir</div>
+            <h2 class="tool-card__title">La Regla 10-3-2-1-0</h2>
+            <div class="tool-card__body">
+              <ul>
+                <li><strong>10 horas antes de dormir:</strong> No más cafeína</li>
+                <li><strong>3 horas antes:</strong> No más comida ni alcohol</li>
+                <li><strong>2 horas antes:</strong> No más trabajo</li>
+                <li><strong>1 hora antes:</strong> No más pantallas</li>
+                <li><strong>0:</strong> Las veces que presiona "posponer"</li>
+              </ul>
+              <div class="tool-card__tip">💡 <strong>Mejor para:</strong> Insomnio, ansiedad nocturna, despertar agotada</div>
+            </div>
+          </div>
+
+          <div class="tool-card fade-in">
+            <div class="tool-card__icon" style="background:var(--cream);">📵</div>
+            <div class="tool-card__subtitle">Bienestar Digital</div>
+            <h2 class="tool-card__title">Noche Sin Teléfono</h2>
+            <div class="tool-card__body">
+              <p>La luz azul suprime la melatonina. El scroll nocturno activa su respuesta al estrés justo en el momento equivocado.</p>
+              <ul>
+                <li>Cargue su teléfono fuera del dormitorio</li>
+                <li>Use un despertador real</li>
+                <li>Reemplace el scroll con lectura, estiramientos o escritura</li>
+                <li>Pruebe un "atardecer digital" 60–90 min antes de dormir</li>
+              </ul>
+              <div class="tool-card__tip">💡 Inténtelo 2 semanas — la mayoría nota una gran mejora en el sueño</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ════════════ APLICACIONES ════════════ -->
+        <div class="category-label fade-in" id="aplicaciones">
+          <span class="label">📱 Aplicaciones Útiles</span>
+          <span class="category-label__line"></span>
+        </div>
+        <div class="app-grid fade-in" style="margin-bottom:var(--space-12);">
+          <div class="app-item"><div class="app-item__icon">🧘</div><div><div class="app-item__name">Calm</div><div class="app-item__desc">Meditaciones guiadas, historias para dormir, respiración</div></div></div>
+          <div class="app-item"><div class="app-item__icon">🌿</div><div><div class="app-item__name">Headspace</div><div class="app-item__desc">Mindfulness y meditación para principiantes</div></div></div>
+          <div class="app-item"><div class="app-item__icon">📓</div><div><div class="app-item__name">Daylio</div><div class="app-item__desc">Seguimiento del estado de ánimo — no requiere escribir</div></div></div>
+          <div class="app-item"><div class="app-item__icon">😤</div><div><div class="app-item__name">Breathwrk</div><div class="app-item__desc">Respiración guiada con señales visuales</div></div></div>
+          <div class="app-item"><div class="app-item__icon">💤</div><div><div class="app-item__name">Sleep Cycle</div><div class="app-item__desc">Monitorea el sueño y le despierta en el momento óptimo</div></div></div>
+          <div class="app-item"><div class="app-item__icon">🌊</div><div><div class="app-item__name">Insight Timer</div><div class="app-item__desc">Biblioteca gratuita de 100,000+ meditaciones guiadas</div></div></div>
+          <div class="app-item"><div class="app-item__icon">💬</div><div><div class="app-item__name">Woebot</div><div class="app-item__desc">Apoyo de TCC basado en IA entre sesiones</div></div></div>
+          <div class="app-item"><div class="app-item__icon">📊</div><div><div class="app-item__name">Moodfit</div><div class="app-item__desc">Herramientas de TCC, seguimiento del estado de ánimo</div></div></div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-card fade-in">
+          <h3 style="font-family:var(--font-heading);font-size:var(--text-2xl);margin-bottom:var(--space-3);">¿Lista para profundizar?</h3>
+          <p style="color:var(--color-text-secondary);max-width:500px;margin:0 auto var(--space-6);">Las herramientas de autocuidado funcionan mejor junto con apoyo profesional. Si está lista para dar el siguiente paso, estamos aquí para usted.</p>
+          <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap;">
+            <a href="/thejoyinliving/es/portal-del-paciente/citas/" class="btn btn-primary">Hacer una Cita <span class="btn-arrow">→</span></a>
+            <a href="/thejoyinliving/es/contacto/" class="btn btn-outline">Contáctenos</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer__bottom"><p class="footer__copyright">&copy; 2026 The Joy In Living, LCSW, PLLC.</p><div class="footer__legal"><a href="/thejoyinliving/privacy-policy/">Privacidad</a><a href="/thejoyinliving/">English</a></div></div></div></footer>
+
+  <!-- YouTube Video Modal -->
+  <div class="yt-modal-overlay" id="yt-modal-overlay" role="dialog" aria-modal="true" aria-label="Reproductor de video">
+    <div class="yt-modal" id="yt-modal">
+      <div class="yt-modal__title" id="yt-modal-title"></div>
+      <button class="yt-modal__close" id="yt-modal-close" aria-label="Cerrar video">&times;</button>
+      <div class="yt-modal__ratio">
+        <iframe id="yt-modal-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="/thejoyinliving/js/main.js"></script>
+  <script src="/thejoyinliving/js/language.js"></script>
+  <script src="/thejoyinliving/js/chatbot.js"></script>
+  <script>
+    (function() {
+      const overlay  = document.getElementById('yt-modal-overlay');
+      const iframe   = document.getElementById('yt-modal-iframe');
+      const closeBtn = document.getElementById('yt-modal-close');
+      const titleEl  = document.getElementById('yt-modal-title');
+
+      function getEmbedUrl(url) {
+        let id = '';
+        try {
+          const u = new URL(url);
+          if (u.hostname === 'youtu.be') {
+            id = u.pathname.slice(1).split('?')[0];
+          } else {
+            id = u.searchParams.get('v') || '';
+          }
+        } catch(e) {}
+        return id ? 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0' : '';
+      }
+
+      function openModal(url, title) {
+        const embedUrl = getEmbedUrl(url);
+        if (!embedUrl) { window.open(url, '_blank'); return; }
+        iframe.src = embedUrl;
+        titleEl.textContent = title || '';
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        overlay.classList.remove('open');
+        iframe.src = '';
+        document.body.style.overflow = '';
+      }
+
+      closeBtn.addEventListener('click', closeModal);
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeModal();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+      });
+
+      document.addEventListener('click', function(e) {
+        const link = e.target.closest('[data-yt]');
+        if (!link) return;
+        e.preventDefault();
+        openModal(link.dataset.yt, link.dataset.ytTitle || link.textContent.trim());
+      });
+    })();
+  </script>
+</body>
+</html>
