@@ -38,7 +38,9 @@
     .med-btn:hover { background: var(--sage-light); transform: translateY(-2px); }
     .category-label { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-6); margin-top: var(--space-2); }
     .category-label__line { flex: 1; height: 1px; background: var(--color-border-light); }
-    .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--space-4); }
+    .app-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+   .app-group { margin-bottom: var(--space-8); }
+   .app-group__label { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage-dark); margin-bottom: var(--space-3); }
     .app-item { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-4); background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--color-border-light); }
     .app-item__icon { font-size: 1.75rem; flex-shrink: 0; }
     .app-item__name { font-weight: 600; font-size: var(--text-sm); color: var(--charcoal); margin-bottom: var(--space-1); }
@@ -55,6 +57,7 @@
     .yt-modal__close:hover { background:rgba(255,255,255,0.3); }
     .yt-modal__title { position:absolute; top:-48px; left:0; color:white; font-size:var(--text-sm); font-weight:600; line-height:36px; max-width:calc(100% - 48px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     @media (max-width: 640px) { .tool-grid { grid-template-columns: 1fr; } .app-grid { grid-template-columns: 1fr 1fr; } .meditation-grid { grid-template-columns: repeat(3, 1fr); } }
+   @media (max-width: 900px) { .app-grid { grid-template-columns: repeat(2, 1fr); } }
   </style>
 </head>
 <body>
@@ -379,15 +382,27 @@
           <span class="label">📱 Aplicaciones Útiles</span>
           <span class="category-label__line"></span>
         </div>
-        <div class="app-grid fade-in" style="margin-bottom:var(--space-12);">
-          <div class="app-item"><div class="app-item__icon">🧘</div><div><div class="app-item__name">Calm</div><div class="app-item__desc">Meditaciones guiadas, historias para dormir, respiración</div></div></div>
-          <div class="app-item"><div class="app-item__icon">🌿</div><div><div class="app-item__name">Headspace</div><div class="app-item__desc">Mindfulness y meditación para principiantes</div></div></div>
-          <div class="app-item"><div class="app-item__icon">📓</div><div><div class="app-item__name">Daylio</div><div class="app-item__desc">Seguimiento del estado de ánimo — no requiere escribir</div></div></div>
-          <div class="app-item"><div class="app-item__icon">😤</div><div><div class="app-item__name">Breathwrk</div><div class="app-item__desc">Respiración guiada con señales visuales</div></div></div>
-          <div class="app-item"><div class="app-item__icon">💤</div><div><div class="app-item__name">Sleep Cycle</div><div class="app-item__desc">Monitorea el sueño y le despierta en el momento óptimo</div></div></div>
-          <div class="app-item"><div class="app-item__icon">🌊</div><div><div class="app-item__name">Insight Timer</div><div class="app-item__desc">Biblioteca gratuita de 100,000+ meditaciones guiadas</div></div></div>
-          <div class="app-item"><div class="app-item__icon">💬</div><div><div class="app-item__name">Woebot</div><div class="app-item__desc">Apoyo de TCC basado en IA entre sesiones</div></div></div>
-          <div class="app-item"><div class="app-item__icon">📊</div><div><div class="app-item__name">Moodfit</div><div class="app-item__desc">Herramientas de TCC, seguimiento del estado de ánimo</div></div></div>
+
+        <!-- Grupo 1: Mindfulness y Respiración -->
+        <div class="app-group fade-in">
+          <div class="app-group__label">🧘 Mindfulness y Respiración</div>
+          <div class="app-grid">
+            <div class="app-item"><div class="app-item__icon">🧘</div><div><div class="app-item__name">Calm</div><div class="app-item__desc">Meditaciones guiadas, historias para dormir, respiración</div></div></div>
+            <div class="app-item"><div class="app-item__icon">🌿</div><div><div class="app-item__name">Headspace</div><div class="app-item__desc">Mindfulness y meditación para principiantes</div></div></div>
+            <div class="app-item"><div class="app-item__icon">😤</div><div><div class="app-item__name">Breathwrk</div><div class="app-item__desc">Respiración guiada con señales visuales</div></div></div>
+            <div class="app-item"><div class="app-item__icon">🌊</div><div><div class="app-item__name">Insight Timer</div><div class="app-item__desc">Biblioteca gratuita de 100,000+ meditaciones guiadas</div></div></div>
+          </div>
+        </div>
+
+        <!-- Grupo 2: Estado de ánimo y Bienestar -->
+        <div class="app-group fade-in" style="margin-bottom:var(--space-12);">
+          <div class="app-group__label">📊 Estado de ánimo y Bienestar</div>
+          <div class="app-grid">
+            <div class="app-item"><div class="app-item__icon">📓</div><div><div class="app-item__name">Daylio</div><div class="app-item__desc">Seguimiento del estado de ánimo — no requiere escribir</div></div></div>
+            <div class="app-item"><div class="app-item__icon">💤</div><div><div class="app-item__name">Sleep Cycle</div><div class="app-item__desc">Monitorea el sueño y le despierta en el momento óptimo</div></div></div>
+            <div class="app-item"><div class="app-item__icon">💬</div><div><div class="app-item__name">Woebot</div><div class="app-item__desc">Apoyo de TCC basado en IA entre sesiones</div></div></div>
+            <div class="app-item"><div class="app-item__icon">📊</div><div><div class="app-item__name">Moodfit</div><div class="app-item__desc">Herramientas de TCC, seguimiento del estado de ánimo</div></div></div>
+          </div>
         </div>
 
         <!-- CTA -->
