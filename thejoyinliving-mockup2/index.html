@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Compassionate, bilingual therapy designed to help you heal, grow, and move forward with clarity. NY Licensed LCSW with 20+ years experience. Telehealth available." />
+  <meta name="keywords" content="bilingual therapy, LCSW, Westchester, anxiety, depression, life transitions, telehealth, Spanish therapy, Sleepy Hollow" />
+  <meta property="og:title" content="The Joy In Living | Bilingual Therapy & Wellness" />
+  <meta property="og:description" content="Compassionate bilingual therapy in Sleepy Hollow, NY. Anxiety, depression, life transitions & more. Free 15-min consultation." />
+  <meta property="og:type" content="website" />
+  <title>The Joy In Living | Bilingual Therapy & Wellness — Sleepy Hollow, NY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================
+       DESIGN SYSTEM — THE JOY IN LIVING MOCKUP 2
+       ========================================== */
+    :root {
+      --forest: #1F3D36;
+      --forest-dark: #152b26;
+      --forest-light: #2a5248;
+      --sage: #A8C3B0;
+      --sage-light: #c4d9cb;
+      --sage-pale: #e8f0ea;
+      --cream: #F7F4EF;
+      --cream-dark: #EDE9E2;
+      --gold: #C9A96E;
+      --gold-light: #e0c48a;
+      --gold-pale: #f5eddc;
+      --white: #ffffff;
+      --text-dark: #1a2e28;
+      --text-mid: #4a6358;
+      --text-light: #7a9b8a;
+      --text-muted: #9eb5a6;
+      --shadow-sm: 0 2px 12px rgba(31,61,54,0.06);
+      --shadow-md: 0 8px 32px rgba(31,61,54,0.10);
+      --shadow-lg: 0 20px 60px rgba(31,61,54,0.15);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+      --radius-pill: 100px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --nav-height: 80px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ==========================================
+       NAV
+       ========================================== */
+    #main-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      transition: background var(--transition), box-shadow var(--transition);
+      background: transparent;
+    }
+    #main-nav.scrolled {
+      background: rgba(247,244,239,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 42px; height: 42px;
+      background: var(--forest);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-logo-icon svg { width: 24px; height: 24px; fill: var(--gold); }
+    .nav-logo-text { display: flex; flex-direction: column; }
+    .nav-logo-text .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--forest);
+      line-height: 1.2;
+    }
+    .nav-logo-text .brand-sub {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid);
+      transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+      border: 1.5px solid transparent;
+    }
+    .nav-links a .nav-icon { font-size: 14px; opacity: 0.8; }
+    .nav-links a:hover {
+      background: var(--sage-pale);
+      color: var(--forest);
+      border-color: var(--sage-light);
+    }
+    .nav-links a.active {
+      background: var(--forest);
+      color: var(--white);
+      border-color: var(--forest);
+    }
+    .nav-links a.active .nav-icon { opacity: 1; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      background: transparent;
+      border: 1.5px solid var(--sage);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: all var(--transition);
+      letter-spacing: 0.05em;
+      font-family: inherit;
+    }
+    .lang-toggle:hover { background: var(--sage-pale); color: var(--forest); }
+
+    .btn-nav-cta {
+      padding: 10px 22px;
+      background: var(--forest);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex; align-items: center; gap: 6px;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-nav-cta:hover { background: var(--forest-light); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--forest);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile Nav Overlay */
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-20px);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .mobile-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    .mobile-overlay .mobile-nav-links { list-style: none; text-align: center; }
+    .mobile-overlay .mobile-nav-links li { margin: 8px 0; }
+    .mobile-overlay .mobile-nav-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: var(--radius-pill);
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--text-dark);
+      text-decoration: none;
+      border: 1.5px solid transparent;
+      transition: all var(--transition);
+    }
+    .mobile-overlay .mobile-nav-links a:hover {
+      background: var(--sage-pale);
+      color: var(--forest);
+      border-color: var(--sage-light);
+    }
+    .mobile-cta-group { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; align-items: center; }
+    .mobile-cta-group .btn-primary, .mobile-cta-group .btn-secondary { min-width: 220px; text-align: center; }
+
+    /* ==========================================
+       BUTTONS
+       ========================================== */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: var(--forest);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-pill);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      letter-spacing: 0.01em;
+    }
+    .btn-primary:hover {
+      background: var(--forest-light);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(31,61,54,0.25);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 15px 32px;
+      background: transparent;
+      color: var(--forest);
+      border: 2px solid var(--forest);
+      border-radius: var(--radius-pill);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .btn-secondary:hover {
+      background: var(--forest);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 36px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--forest-dark);
+      border: none;
+      border-radius: var(--radius-pill);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      box-shadow: 0 4px 20px rgba(201,169,110,0.35);
+    }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201,169,110,0.5);
+    }
+
+    /* ==========================================
+       HERO
+       ========================================== */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/hero-bg.png');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+    #hero.loaded .hero-bg { transform: scale(1); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(31,61,54,0.82) 0%,
+        rgba(31,61,54,0.55) 50%,
+        rgba(31,61,54,0.20) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      padding: 120px 60px 80px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(201,169,110,0.20);
+      border: 1px solid rgba(201,169,110,0.40);
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease 0.3s forwards;
+    }
+    .hero-h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease 0.5s forwards;
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold-light); }
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 520px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease 0.7s forwards;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s ease 0.9s forwards;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.5);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 2;
+      animation: float 2s ease-in-out infinite;
+    }
+    .hero-scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
+    }
+
+    /* ==========================================
+       TRUST BADGES
+       ========================================== */
+    #trust-badges {
+      background: var(--white);
+      padding: 40px 60px;
+      box-shadow: var(--shadow-sm);
+    }
+    .trust-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: var(--cream);
+      border: 1.5px solid var(--sage-light);
+      border-radius: var(--radius-pill);
+      transition: all var(--transition);
+      cursor: default;
+    }
+    .trust-badge:hover {
+      background: var(--sage-pale);
+      border-color: var(--sage);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .trust-badge-icon {
+      width: 38px; height: 38px;
+      background: var(--forest);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .trust-badge-text { display: flex; flex-direction: column; gap: 1px; }
+    .trust-badge-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1.2;
+    }
+    .trust-badge-sub {
+      font-size: 11px;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+
+    /* ==========================================
+       SECTION COMMONS
+       ========================================== */
+    .section { padding: 100px 60px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 3.5vw, 52px);
+      font-weight: 600;
+      color: var(--forest);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-title em { font-style: italic; color: var(--sage); }
+    .section-sub {
+      font-size: 17px;
+      color: var(--text-mid);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 60px;
+    }
+
+    /* Fade-in on scroll */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================
+       WHO THIS IS FOR
+       ========================================== */
+    #who-for { background: var(--cream); }
+    .who-for-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .who-card {
+      padding: 36px 28px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--cream-dark);
+      transition: all var(--transition);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .who-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--forest), var(--sage));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+    .who-card:hover::before { transform: scaleX(1); }
+    .who-card:hover {
+      border-color: var(--sage);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .who-icon {
+      font-size: 36px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .who-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--forest);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .who-card p { font-size: 14px; color: var(--text-mid); line-height: 1.65; }
+
+    /* ==========================================
+       SERVICES
+       ========================================== */
+    #services { background: var(--forest); }
+    #services .section-title { color: var(--white); }
+    #services .section-sub { color: rgba(255,255,255,0.65); }
+    #services .section-eyebrow { color: var(--gold-light); }
+    #services .section-eyebrow::before { background: var(--gold-light); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      padding: 40px 32px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-md);
+      transition: all var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,169,110,0.08), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .service-card:hover {
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(201,169,110,0.40);
+      transform: translateY(-4px);
+    }
+    .service-card:hover::after { opacity: 1; }
+    .service-card-icon {
+      width: 56px; height: 56px;
+      background: rgba(201,169,110,0.15);
+      border: 1px solid rgba(201,169,110,0.30);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      margin-bottom: 24px;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.60);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .service-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold-light);
+      text-decoration: none;
+      transition: gap var(--transition);
+    }
+    .service-card-link:hover { gap: 10px; }
+
+    /* ==========================================
+       HOW IT WORKS
+       ========================================== */
+    #how-it-works { background: var(--cream); }
+    .steps-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      position: relative;
+    }
+    .steps-row::after {
+      content: '';
+      position: absolute;
+      top: 44px;
+      left: calc(12.5% + 36px);
+      right: calc(12.5% + 36px);
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--sage-light), var(--sage), var(--sage-light));
+      z-index: 0;
+    }
+    .step {
+      flex: 1;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .step-number {
+      width: 72px; height: 72px;
+      background: var(--white);
+      border: 2px solid var(--sage);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--forest);
+      transition: all var(--transition);
+      position: relative;
+    }
+    .step:hover .step-number {
+      background: var(--forest);
+      color: var(--white);
+      border-color: var(--forest);
+      transform: scale(1.08);
+      box-shadow: var(--shadow-md);
+    }
+    .step h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--forest);
+      margin-bottom: 10px;
+    }
+    .step p { font-size: 13.5px; color: var(--text-mid); line-height: 1.6; }
+
+    /* ==========================================
+       THERAPIST
+       ========================================== */
+    #therapist { background: var(--white); }
+    .therapist-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .therapist-img-wrap {
+      position: relative;
+    }
+    .therapist-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      display: block;
+      box-shadow: var(--shadow-lg);
+    }
+    .therapist-badge {
+      position: absolute;
+      bottom: 32px;
+      right: -24px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .therapist-badge-icon { font-size: 28px; }
+    .therapist-badge-text .badge-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--forest);
+      line-height: 1;
+    }
+    .therapist-badge-text .badge-label {
+      font-size: 12px;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+    .therapist-content { padding-right: 20px; }
+    .therapist-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 2.2vw, 32px);
+      font-style: italic;
+      color: var(--forest);
+      line-height: 1.5;
+      margin-bottom: 28px;
+      position: relative;
+      padding-left: 28px;
+    }
+    .therapist-quote::before {
+      content: '"';
+      position: absolute;
+      left: 0; top: -8px;
+      font-size: 80px;
+      color: var(--sage-light);
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+      opacity: 0.7;
+    }
+    .therapist-bio { font-size: 15px; color: var(--text-mid); line-height: 1.8; margin-bottom: 20px; }
+    .therapist-creds {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+      margin-bottom: 36px;
+    }
+    .cred-pill {
+      padding: 6px 14px;
+      background: var(--sage-pale);
+      border: 1px solid var(--sage-light);
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--forest);
+    }
+
+    /* ==========================================
+       TESTIMONIALS
+       ========================================== */
+    #testimonials { background: var(--cream); }
+    .testimonials-carousel {
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 60px;
+    }
+    .testimonial-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .testimonial-slide {
+      min-width: 100%;
+      padding: 0 10%;
+      display: flex;
+      justify-content: center;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 52px 56px;
+      max-width: 780px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--cream-dark);
+    }
+    .testimonial-stars {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 28px;
+      font-size: 20px;
+    }
+    .testimonial-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2vw, 24px);
+      font-style: italic;
+      color: var(--forest);
+      line-height: 1.65;
+      margin-bottom: 32px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .testimonial-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage), var(--forest));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      color: white;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+    }
+    .testimonial-info .author-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--forest);
+    }
+    .testimonial-info .author-desc {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    .carousel-dots {
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 8px;
+    }
+    .carousel-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      padding: 0;
+    }
+    .carousel-dot.active {
+      background: var(--forest);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* ==========================================
+       FINAL CTA
+       ========================================== */
+    #final-cta { background: var(--forest); padding: 100px 60px; }
+    .final-cta-inner {
+      max-width: 740px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .cta-tagline {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(201,169,110,0.8);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .cta-h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .cta-h2 em { font-style: italic; color: var(--gold-light); }
+    .cta-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+    .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .cta-fine {
+      margin-top: 24px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.40);
+      letter-spacing: 0.02em;
+    }
+
+    /* ==========================================
+       FOOTER
+       ========================================== */
+    footer {
+      background: var(--forest-dark);
+      padding: 80px 60px 40px;
+      color: rgba(255,255,255,0.6);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+    .footer-brand .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .footer-brand p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.50);
+      margin-bottom: 24px;
+    }
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.60);
+    }
+    .footer-contact-item a { color: inherit; text-decoration: none; transition: color var(--transition); }
+    .footer-contact-item a:hover { color: var(--gold-light); }
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-col ul a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-bottom p { font-size: 13px; }
+    .footer-bottom-links { display: flex; gap: 24px; }
+    .footer-bottom-links a { font-size: 13px; color: rgba(255,255,255,0.40); text-decoration: none; transition: color var(--transition); }
+    .footer-bottom-links a:hover { color: rgba(255,255,255,0.80); }
+
+    /* ==========================================
+       STICKY MOBILE CTA
+       ========================================== */
+    .sticky-mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 800;
+      padding: 12px 20px;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+      background: var(--white);
+      box-shadow: 0 -4px 24px rgba(31,61,54,0.15);
+      gap: 10px;
+    }
+    .sticky-mobile-cta .btn-primary,
+    .sticky-mobile-cta .btn-secondary {
+      flex: 1;
+      padding: 14px 20px;
+      font-size: 14px;
+    }
+
+    /* ==========================================
+       CHATBOT
+       ========================================== */
+    #chatbot-toggle {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      z-index: 900;
+      width: 60px; height: 60px;
+      background: var(--forest);
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 32px rgba(31,61,54,0.35);
+      transition: all var(--transition);
+    }
+    #chatbot-toggle:hover { transform: scale(1.08); background: var(--forest-light); }
+    #chatbot-toggle svg { width: 28px; height: 28px; fill: var(--white); }
+    .chatbot-badge {
+      position: absolute;
+      top: -4px; right: -4px;
+      width: 18px; height: 18px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--forest-dark);
+    }
+
+    #chatbot-panel {
+      position: fixed;
+      bottom: 104px; right: 32px;
+      z-index: 901;
+      width: 360px;
+      max-width: calc(100vw - 48px);
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--cream-dark);
+      overflow: hidden;
+      transform: scale(0.95) translateY(20px);
+      transform-origin: bottom right;
+      opacity: 0;
+      pointer-events: none;
+      transition: all var(--transition);
+    }
+    #chatbot-panel.open {
+      opacity: 1;
+      pointer-events: all;
+      transform: scale(1) translateY(0);
+    }
+    .chatbot-header {
+      background: var(--forest);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .chatbot-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage), var(--sage-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .chatbot-header-text .chatbot-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .chatbot-header-text .chatbot-status {
+      font-size: 12px;
+      color: rgba(255,255,255,0.60);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .status-dot {
+      width: 7px; height: 7px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .chatbot-messages {
+      height: 240px;
+      overflow-y: auto;
+      padding: 20px 20px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .chat-message {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .chat-bubble {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .chat-bubble.bot {
+      background: var(--cream);
+      color: var(--text-dark);
+      border-bottom-left-radius: 4px;
+    }
+    .chat-bubble.user {
+      background: var(--forest);
+      color: var(--white);
+      border-bottom-right-radius: 4px;
+      margin-left: auto;
+    }
+    .chat-mini-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--sage-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .chatbot-quick-btns {
+      padding: 10px 20px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .quick-btn {
+      padding: 7px 14px;
+      background: var(--sage-pale);
+      border: 1px solid var(--sage-light);
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--forest);
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: inherit;
+    }
+    .quick-btn:hover { background: var(--sage-light); }
+    .chatbot-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--cream-dark);
+    }
+    .chatbot-input-row input {
+      flex: 1;
+      padding: 10px 14px;
+      background: var(--cream);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .chatbot-input-row input:focus { border-color: var(--sage); }
+    .chatbot-send {
+      width: 38px; height: 38px;
+      background: var(--forest);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition);
+    }
+    .chatbot-send:hover { background: var(--forest-light); }
+    .chatbot-send svg { width: 16px; height: 16px; fill: var(--white); }
+
+    /* ==========================================
+       DEBUG PANEL
+       ========================================== */
+    #debug-panel {
+      position: fixed;
+      top: 100px; left: 20px;
+      z-index: 9999;
+      background: rgba(0,0,0,0.88);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      color: #00ff88;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 2;
+      min-width: 240px;
+      display: none;
+      backdrop-filter: blur(8px);
+    }
+    #debug-panel .debug-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      letter-spacing: 0.1em;
+    }
+    #debug-panel .debug-row { display: flex; justify-content: space-between; gap: 20px; }
+    #debug-panel .debug-key { color: rgba(255,255,255,0.5); }
+
+    /* ==========================================
+       INSURANCE LOGOS STRIP
+       ========================================== */
+    #insurance { background: var(--white); padding: 60px; }
+    .insurance-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .insurance-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .insurance-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .insurance-pill {
+      padding: 10px 22px;
+      background: var(--cream);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-mid);
+      transition: all var(--transition);
+    }
+    .insurance-pill:hover {
+      background: var(--sage-pale);
+      border-color: var(--sage-light);
+      color: var(--forest);
+    }
+
+    /* ==========================================
+       RESPONSIVE
+       ========================================== */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .therapist-inner { gap: 50px; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --nav-height: 68px; }
+      .nav-links, .nav-actions .btn-nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      #main-nav { padding: 0 24px; }
+
+      .section { padding: 70px 24px; }
+      #trust-badges { padding: 32px 24px; }
+      .trust-grid { gap: 10px; }
+      .trust-badge { padding: 10px 16px; }
+      .trust-badge-sub { display: none; }
+
+      .hero-content { padding: 110px 28px 80px; }
+      .hero-h1 { font-size: 36px; }
+      .hero-sub { font-size: 16px; }
+
+      .who-for-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: 1fr; gap: 16px; }
+      .therapist-inner { grid-template-columns: 1fr; gap: 40px; }
+      .therapist-content { padding-right: 0; order: 1; }
+      .therapist-img-wrap { order: 2; }
+      .therapist-badge { right: 16px; }
+      .steps-row { flex-direction: column; gap: 32px; }
+      .steps-row::after { display: none; }
+      .testimonial-card { padding: 36px 28px; }
+      .testimonial-slide { padding: 0 4%; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      #chatbot-toggle { bottom: 90px; right: 20px; }
+      #chatbot-panel { bottom: 160px; right: 16px; width: calc(100vw - 32px); }
+      .sticky-mobile-cta { display: flex; }
+    }
+
+    @media (max-width: 480px) {
+      .who-for-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; gap: 12px; }
+      .hero-actions .btn-primary, .hero-actions .btn-secondary { width: 100%; }
+    }
+
+    /* Landscape mobile */
+    @media (max-width: 896px) and (orientation: landscape) {
+      :root { --nav-height: 56px; }
+      .hero-content { padding: 80px 40px 60px; }
+      .hero-h1 { font-size: clamp(28px, 5vw, 42px); }
+      .mobile-overlay { flex-direction: row; flex-wrap: wrap; padding: 20px; }
+      .mobile-overlay .mobile-nav-links a { font-size: 16px; padding: 10px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==========================================
+     NAVIGATION
+     ========================================== -->
+<nav id="main-nav" role="navigation" aria-label="Main navigation">
+  <a href="#" class="nav-logo" id="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1-5h2v2h-2v-2zm0-8h2v6h-2V7z" fill="none"/><path fill-rule="evenodd" d="M12 4C7.58 4 4 7.58 4 12s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm-1.5 11.5v-7l5.5 3.5-5.5 3.5z"/></svg>
+    </div>
+    <div class="nav-logo-text">
+      <span class="brand-name" data-en="The Joy In Living" data-es="La Alegría de Vivir">The Joy In Living</span>
+      <span class="brand-sub">Bilingual Therapy · Sleepy Hollow, NY</span>
+    </div>
+  </a>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#" class="active" id="nav-home"><span class="nav-icon">🏡</span> <span data-en="Home" data-es="Inicio">Home</span></a></li>
+    <li><a href="#therapist" id="nav-about"><span class="nav-icon">🌿</span> <span data-en="About" data-es="Sobre Nosotros">About</span></a></li>
+    <li><a href="#services" id="nav-services"><span class="nav-icon">💚</span> <span data-en="Services" data-es="Servicios">Services</span></a></li>
+    <li><a href="#insurance" id="nav-insurance"><span class="nav-icon">🛡️</span> <span data-en="Insurance" data-es="Seguro">Insurance</span></a></li>
+    <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/blog/" id="nav-blog"><span class="nav-icon">📖</span> <span data-en="Blog" data-es="Blog">Blog</span></a></li>
+    <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/contact/" id="nav-contact"><span class="nav-icon">✉️</span> <span data-en="Contact" data-es="Contacto">Contact</span></a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">
+      🌐 <span id="lang-label">ES</span>
+    </button>
+    <a href="tel:9146862484" class="btn-nav-cta" id="nav-cta">
+      📞 <span data-en="Call Now" data-es="Llamar Ahora">Call Now</span>
+    </a>
+  </div>
+
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Overlay -->
+<div class="mobile-overlay" id="mobile-overlay" role="dialog" aria-modal="true">
+  <ul class="mobile-nav-links">
+    <li><a href="#" onclick="closeMobile()"><span>🏡</span> <span data-en="Home" data-es="Inicio">Home</span></a></li>
+    <li><a href="#therapist" onclick="closeMobile()"><span>🌿</span> <span data-en="About" data-es="Sobre Nosotros">About</span></a></li>
+    <li><a href="#services" onclick="closeMobile()"><span>💚</span> <span data-en="Services" data-es="Servicios">Services</span></a></li>
+    <li><a href="#insurance" onclick="closeMobile()"><span>🛡️</span> <span data-en="Insurance" data-es="Seguro">Insurance</span></a></li>
+    <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/blog/" onclick="closeMobile()"><span>📖</span> <span data-en="Blog" data-es="Blog">Blog</span></a></li>
+    <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/contact/" onclick="closeMobile()"><span>✉️</span> <span data-en="Contact" data-es="Contacto">Contact</span></a></li>
+  </ul>
+  <div class="mobile-cta-group">
+    <a href="tel:9146862484" class="btn-primary" onclick="closeMobile()">📞 <span data-en="Call (914) 686-2484" data-es="Llamar (914) 686-2484">Call (914) 686-2484</span></a>
+    <a href="https://faneliacoding-cloud.github.io/thejoyinliving/patient-portal/appointments/" class="btn-secondary" onclick="closeMobile()"><span data-en="Book Consultation" data-es="Reservar Consulta">Book Consultation</span></a>
+    <button class="lang-toggle" onclick="toggleLang(); closeMobile();" style="font-size:14px;padding:12px 24px;">🌐 <span id="mobile-lang-label">Switch to Español</span></button>
+  </div>
+</div>
+
+<!-- ==========================================
+     HERO
+     ========================================== -->
+<section id="hero" aria-label="Hero section">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      🌿 <span data-en="Bilingual · Licensed · Compassionate" data-es="Bilingüe · Licenciada · Compasiva">Bilingual · Licensed · Compassionate</span>
+    </div>
+    <h1 class="hero-h1">
+      <span data-en="You don't have to go through <em>this alone.</em>" data-es="No tienes que pasar por <em>esto solo.</em>">You don't have to go through <em>this alone.</em></span>
+    </h1>
+    <p class="hero-sub" data-en="Compassionate, bilingual therapy designed to help you heal, grow, and move forward with clarity." data-es="Terapia compasiva y bilingüe diseñada para ayudarte a sanar, crecer y avanzar con claridad.">
+      Compassionate, bilingual therapy designed to help you heal, grow, and move forward with clarity.
+    </p>
+    <div class="hero-actions">
+      <a href="https://faneliacoding-cloud.github.io/thejoyinliving/patient-portal/appointments/" class="btn-gold" id="hero-book">
+        ✨ <span data-en="Book Free Consultation" data-es="Reservar Consulta Gratis">Book Free Consultation</span>
+      </a>
+      <a href="tel:9146862484" class="btn-secondary" style="border-color:rgba(255,255,255,0.5);color:#fff;" id="hero-call">
+        📞 <span data-en="Call Now" data-es="Llamar Ahora">Call Now</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ==========================================
+     TRUST BADGES
+     ========================================== -->
+<section id="trust-badges" aria-label="Trust indicators">
+  <div class="trust-grid">
+    <div class="trust-badge fade-in">
+      <div class="trust-badge-icon">🏛️</div>
+      <div class="trust-badge-text">
+        <span class="trust-badge-label" data-en="NY Licensed LCSW" data-es="LCSW con Licencia de NY">NY Licensed LCSW</span>
+        <span class="trust-badge-sub" data-en="State Certified" data-es="Certificada por el Estado">State Certified</span>
+      </div>
+    </div>
+    <div class="trust-badge fade-in">
+      <div class="trust-badge-icon">⭐</div>
+      <div class="trust-badge-text">
+        <span class="trust-badge-label" data-en="20+ Years Experience" data-es="20+ Años de Experiencia">20+ Years Experience</span>
+        <span class="trust-badge-sub" data-en="Mental Health Expertise" data-es="Experiencia en Salud Mental">Mental Health Expertise</span>
+      </div>
+    </div>
+    <div class="trust-badge fade-in">
+      <div class="trust-badge-icon">🌎</div>
+      <div class="trust-badge-text">
+        <span class="trust-badge-label" data-en="Bilingual EN / ES" data-es="Bilingüe EN / ES">Bilingual EN / ES</span>
+        <span class="trust-badge-sub" data-en="English & Spanish" data-es="Inglés y Español">English & Spanish</span>
+      </div>
+    </div>
+    <div class="trust-badge fade-in">
+      <div class="trust-badge-icon">💻</div>
+      <div class="trust-badge-text">
+        <span class="trust-badge-label" data-en="Telehealth Available" data-es="Telehealth Disponible">Telehealth Available</span>
+        <span class="trust-badge-sub" data-en="Anywhere in New York" data-es="En Todo Nueva York">Anywhere in New York</span>
+      </div>
+    </div>
+    <div class="trust-badge fade-in">
+      <div class="trust-badge-icon">🤝</div>
+      <div class="trust-badge-text">
+        <span class="trust-badge-label" data-en="Free Consultation" data-es="Consulta Gratis">Free Consultation</span>
+        <span class="trust-badge-sub" data-en="15-Min Call, No Obligation" data-es="Llamada de 15 Min">15-Min Call, No Obligation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     WHO THIS IS FOR
+     ========================================== -->
+<section id="who-for" class="section" aria-label="Who we help">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-eyebrow" data-en="Who We Help" data-es="A Quién Ayudamos">Who We Help</div>
+      <h2 class="section-title" data-en="You may be feeling…" data-es="Puedes estar sintiendo…">You may be feeling…</h2>
+      <p class="section-sub" data-en="Wherever you are in your journey, you deserve support. We provide compassionate care for a wide range of experiences." data-es="Dondequiera que estés en tu camino, mereces apoyo. Brindamos atención compasiva para una amplia gama de experiencias.">
+        Wherever you are in your journey, you deserve support. We provide compassionate care for a wide range of experiences.
+      </p>
+    </div>
+    <div class="who-for-grid">
+      <div class="who-card fade-in">
+        <span class="who-icon">😮‍💨</span>
+        <h3 data-en="Anxiety & Stress" data-es="Ansiedad y Estrés">Anxiety & Stress</h3>
+        <p data-en="Feeling overwhelmed, restless, or constantly on edge? You don't have to live in a state of worry." data-es="¿Te sientes abrumado o constantemente angustiado? No tienes que vivir en un estado de preocupación.">Feeling overwhelmed, restless, or constantly on edge? You don't have to live in a state of worry.</p>
+      </div>
+      <div class="who-card fade-in">
+        <span class="who-icon">🌧️</span>
+        <h3 data-en="Depression" data-es="Depresión">Depression</h3>
+        <p data-en="When joy feels distant and getting through each day feels like a mountain. You're not alone, and healing is possible." data-es="Cuando la alegría se siente lejana y cada día parece una montaña. No estás solo, y la sanación es posible.">When joy feels distant and getting through each day feels like a mountain. You're not alone, and healing is possible.</p>
+      </div>
+      <div class="who-card fade-in">
+        <span class="who-icon">🔄</span>
+        <h3 data-en="Life Transitions" data-es="Transiciones de Vida">Life Transitions</h3>
+        <p data-en="Divorce, career change, loss, immigration — major changes can leave us unmoored. We help you find your ground." data-es="Divorcio, cambio de carrera, pérdida, inmigración — los cambios importantes pueden dejarnos sin rumbo.">Divorce, career change, loss, immigration — major changes can leave us unmoored. We help you find your ground.</p>
+      </div>
+      <div class="who-card fade-in">
+        <span class="who-icon">💞</span>
+        <h3 data-en="Relationships" data-es="Relaciones">Relationships</h3>
+        <p data-en="Communication breakdowns, trust issues, or feeling disconnected from loved ones. We help rebuild connection." data-es="Rupturas de comunicación, problemas de confianza, o sentirse desconectado de seres queridos.">Communication breakdowns, trust issues, or feeling disconnected from loved ones. We help rebuild connection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     SERVICES
+     ========================================== -->
+<section id="services" class="section" aria-label="Our services">
+  <div class="section-inner">
+    <div class="fade-in">
+      <div class="section-eyebrow" data-en="What We Offer" data-es="Lo Que Ofrecemos">What We Offer</div>
+      <h2 class="section-title" data-en="Services built around <em>your</em> needs" data-es="Servicios diseñados <em>para ti</em>">Services built around <em>your</em> needs</h2>
+      <p class="section-sub" data-en="Evidence-based therapy with a holistic, whole-person approach. Available in English and Spanish, in-person or via telehealth." data-es="Terapia basada en evidencia con un enfoque holístico e integral. Disponible en inglés y español, en persona o por telehealth.">
+        Evidence-based therapy with a holistic, whole-person approach. Available in English and Spanish, in-person or via telehealth.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <div class="service-card-icon">🧘</div>
+        <h3 data-en="Individual Therapy" data-es="Terapia Individual">Individual Therapy</h3>
+        <p data-en="Personalized one-on-one support using CBT, DBT, and mindfulness to address anxiety, depression, trauma, and more." data-es="Apoyo personalizado uno a uno usando TCC, TDC y atención plena para abordar ansiedad, depresión, trauma y más.">Personalized one-on-one support using CBT, DBT, and mindfulness to address anxiety, depression, trauma, and more.</p>
+        <a href="https://faneliacoding-cloud.github.io/thejoyinliving/services/" class="service-card-link">
+          <span data-en="Learn More" data-es="Saber Más">Learn More</span> →
+        </a>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-card-icon">💑</div>
+        <h3 data-en="Couples & Family" data-es="Parejas y Familia">Couples & Family</h3>
+        <p data-en="Strengthen relationships through improved communication, conflict resolution, and emotional reconnection in a safe space." data-es="Fortalecer las relaciones mediante la mejora de la comunicación, la resolución de conflictos y la reconexión emocional.">Strengthen relationships through improved communication, conflict resolution, and emotional reconnection in a safe space.</p>
+        <a href="https://faneliacoding-cloud.github.io/thejoyinliving/services/" class="service-card-link">
+          <span data-en="Learn More" data-es="Saber Más">Learn More</span> →
+        </a>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-card-icon">👥</div>
+        <h3 data-en="Group Therapy" data-es="Terapia de Grupo">Group Therapy</h3>
+        <p data-en="Experience healing through shared journeys in supportive community settings. Build connections with others who truly understand." data-es="Experimenta la sanación a través de viajes compartidos en entornos comunitarios de apoyo.">Experience healing through shared journeys in supportive community settings. Build connections with others who truly understand.</p>
+        <a href="https://faneliacoding-cloud.github.io/thejoyinliving/services/" class="service-card-link">
+          <span data-en="Learn More" data-es="Saber Más">Learn More</span> →
+        </a>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-card-icon">📋</div>
+        <h3 data-en="Immigration Evaluations" data-es="Evaluaciones de Inmigración">Immigration Evaluations</h3>
+        <p data-en="Comprehensive psychological reports for asylum, extreme hardship waivers, and VAWA cases. PHR-trained. Bilingual." data-es="Informes psicológicos completos para asilo, exenciones por dificultades extremas y casos VAWA. Bilingüe.">Comprehensive psychological reports for asylum, extreme hardship waivers, and VAWA cases. PHR-trained. Bilingual.</p>
+        <a href="https://faneliacoding-cloud.github.io/thejoyinliving/services/" class="service-card-link">
+          <span data-en="Learn More" data-es="Saber Más">Learn More</span> →
+        </a>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-card-icon">🎓</div>
+        <h3 data-en="Clinical Supervision" data-es="Supervisión Clínica">Clinical Supervision</h3>
+        <p data-en="Expert supervision for therapists pursuing LCSW licensing. Guidance in trauma, immigration cases, and culturally responsive practice." data-es="Supervisión experta para terapeutas que buscan la licencia de LCSW. Orientación en trauma, casos de inmigración.">Expert supervision for therapists pursuing LCSW licensing. Guidance in trauma, immigration cases, and culturally responsive practice.</p>
+        <a href="https://faneliacoding-cloud.github.io/thejoyinliving/services/" class="service-card-link">
+          <span data-en="Learn More" data-es="Saber Más">Learn More</span> →
+        </a>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-card-icon">📱</div>
+        <h3 data-en="Telehealth" data-es="Telehealth">Telehealth</h3>
+        <p data-en="Secure, convenient virtual sessions from anywhere in New York. No app download needed — just internet and a private space." data-es="Sesiones virtuales seguras y convenientes desde cualquier lugar en Nueva York. Sin necesidad de descargar ninguna aplicación.">Secure, convenient virtual sessions from anywhere in New York. No app download needed — just internet and a private space.</p>
+        <a href="https://faneliacoding-cloud.github.io/thejoyinliving/services/" class="service-card-link">
+          <span data-en="Learn More" data-es="Saber Más">Learn More</span> →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     HOW IT WORKS
+     ========================================== -->
+<section id="how-it-works" class="section" aria-label="How it works">
+  <div class="section-inner">
+    <div class="fade-in" style="text-align:center;margin-bottom:64px;">
+      <div class="section-eyebrow" style="justify-content:center;" data-en="Your Journey" data-es="Tu Camino">Your Journey</div>
+      <h2 class="section-title" data-en="Simple steps to start <em>healing</em>" data-es="Pasos simples para comenzar a <em>sanar</em>">Simple steps to start <em>healing</em></h2>
+      <p class="section-sub" style="margin:0 auto;" data-en="Beginning therapy is a courageous step. We make it simple, supportive, and judgment-free." data-es="Comenzar la terapia es un paso valiente. Lo hacemos simple, de apoyo y sin juicios.">
+        Beginning therapy is a courageous step. We make it simple, supportive, and judgment-free.
+      </p>
+    </div>
+    <div class="steps-row">
+      <div class="step fade-in">
+        <div class="step-number">1</div>
+        <h3 data-en="Book Consultation" data-es="Reservar Consulta">Book Consultation</h3>
+        <p data-en="Call or fill out our form for a free 15-minute phone consultation. No obligation, no pressure." data-es="Llama o llena nuestro formulario para una consulta telefónica gratuita de 15 minutos. Sin obligación.">Call or fill out our form for a free 15-minute phone consultation. No obligation, no pressure.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-number">2</div>
+        <h3 data-en="Initial Assessment" data-es="Evaluación Inicial">Initial Assessment</h3>
+        <p data-en="We'll understand your needs, set goals together, and create a personalized treatment plan just for you." data-es="Entenderemos tus necesidades, estableceremos metas juntos y crearemos un plan de tratamiento personalizado.">We'll understand your needs, set goals together, and create a personalized treatment plan just for you.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-number">3</div>
+        <h3 data-en="Therapy Sessions" data-es="Sesiones de Terapia">Therapy Sessions</h3>
+        <p data-en="Begin your sessions — in person in Sleepy Hollow, or via secure telehealth from anywhere in New York." data-es="Comienza tus sesiones — en persona en Sleepy Hollow, o a través de telehealth seguro desde cualquier lugar en Nueva York.">Begin your sessions — in person in Sleepy Hollow, or via secure telehealth from anywhere in New York.</p>
+      </div>
+      <div class="step fade-in">
+        <div class="step-number">4</div>
+        <h3 data-en="Growth & Healing" data-es="Crecimiento y Sanación">Growth & Healing</h3>
+        <p data-en="Experience meaningful change. We walk alongside you every step of your healing journey with compassion and expertise." data-es="Experimenta un cambio significativo. Caminamos junto a ti en cada paso de tu viaje de sanación con compasión y experiencia.">Experience meaningful change. We walk alongside you every step of your healing journey with compassion and expertise.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:60px;" class="fade-in">
+      <a href="https://faneliacoding-cloud.github.io/thejoyinliving/patient-portal/appointments/" class="btn-primary" id="how-book-btn">
+        <span data-en="Start Your Journey Today" data-es="Comienza Tu Camino Hoy">Start Your Journey Today</span> ✨
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     THERAPIST
+     ========================================== -->
+<section id="therapist" class="section" aria-label="About the therapist">
+  <div class="section-inner">
+    <div class="therapist-inner">
+      <div class="therapist-img-wrap fade-in">
+        <img src="images/claudia-portrait.png" alt="Claudia Christina Soddano, LCSW - bilingual therapist" class="therapist-img" loading="lazy" />
+        <div class="therapist-badge">
+          <span class="therapist-badge-icon">🌿</span>
+          <div class="therapist-badge-text">
+            <div class="badge-num">20+</div>
+            <div class="badge-label" data-en="Years of Care" data-es="Años de Cuidado">Years of Care</div>
+          </div>
+        </div>
+      </div>
+      <div class="therapist-content fade-in">
+        <div class="section-eyebrow" data-en="Meet Your Therapist" data-es="Conoce a Tu Terapeuta">Meet Your Therapist</div>
+        <h2 class="section-title" data-en="Claudia Christina <em>Soddano</em>, LCSW" data-es="Claudia Christina <em>Soddano</em>, LCSW">Claudia Christina <em>Soddano</em>, LCSW</h2>
+        <blockquote class="therapist-quote" data-en='"I believe in meeting each person where they are — with compassion, cultural understanding, and a deep commitment to their healing."' data-es='"Creo en encontrar a cada persona donde está — con compasión, comprensión cultural y un profundo compromiso con su sanación."'>
+          "I believe in meeting each person where they are — with compassion, cultural understanding, and a deep commitment to their healing."
+        </blockquote>
+        <p class="therapist-bio" data-en="With over 20 years of experience in mental health, Claudia brings a warm, integrative approach that combines evidence-based psychotherapy with holistic wellness. A bilingual Latina clinician, she creates a culturally sensitive, safe space for clients of all backgrounds." data-es="Con más de 20 años de experiencia en salud mental, Claudia aporta un enfoque cálido e integrador que combina psicoterapia basada en evidencia con bienestar holístico. Como clínica latina bilingüe, crea un espacio seguro y culturalmente sensible para clientes de todos los orígenes.">
+          With over 20 years of experience in mental health, Claudia brings a warm, integrative approach that combines evidence-based psychotherapy with holistic wellness. A bilingual Latina clinician, she creates a culturally sensitive, safe space for clients of all backgrounds.
+        </p>
+        <p class="therapist-bio" data-en="Her approach integrates CBT, DBT, Psychodynamic therapy, and Motivational Interviewing — complemented by breathwork, trauma-informed yoga, meditation, and journaling." data-es="Su enfoque integra TCC, TDC, terapia psicodinámica y entrevista motivacional — complementados con respiración, yoga informada por trauma, meditación y escritura.">
+          Her approach integrates CBT, DBT, Psychodynamic therapy, and Motivational Interviewing — complemented by breathwork, trauma-informed yoga, meditation, and journaling.
+        </p>
+        <div class="therapist-creds">
+          <span class="cred-pill">NY Licensed LCSW</span>
+          <span class="cred-pill">CBT · DBT · Psychodynamic</span>
+          <span class="cred-pill">Bilingual EN/ES</span>
+          <span class="cred-pill">PHR Trained</span>
+          <span class="cred-pill">Trauma-Informed</span>
+          <span class="cred-pill">Minority Woman-Owned</span>
+        </div>
+        <a href="https://faneliacoding-cloud.github.io/thejoyinliving/who-we-are/" class="btn-primary">
+          <span data-en="Learn More About Claudia" data-es="Saber Más Sobre Claudia">Learn More About Claudia</span> →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     TESTIMONIALS
+     ========================================== -->
+<section id="testimonials" class="section" aria-label="Client testimonials">
+  <div class="section-inner">
+    <div class="fade-in" style="text-align:center;margin-bottom:56px;">
+      <div class="section-eyebrow" style="justify-content:center;" data-en="Words of Healing" data-es="Palabras de Sanación">Words of Healing</div>
+      <h2 class="section-title" data-en="Stories of <em>transformation</em>" data-es="Historias de <em>transformación</em>">Stories of <em>transformation</em></h2>
+    </div>
+    <div class="testimonials-carousel fade-in">
+      <div class="testimonial-track" id="testimonial-track">
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-text">"Finding The Joy In Living was a turning point for me. Claudia's warmth and understanding created a space where I could finally begin to heal. The bilingual support made all the difference for my family."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">M</div>
+              <div class="testimonial-info">
+                <div class="author-name">Maria R.</div>
+                <div class="author-desc" data-en="Individual Therapy Client" data-es="Cliente de Terapia Individual">Individual Therapy Client</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-text">"The integrative approach combining therapy with breathwork and mindfulness was exactly what I needed. I learned tools I use every day. I'm truly grateful for this practice and for Claudia."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">J</div>
+              <div class="testimonial-info">
+                <div class="author-name">James T.</div>
+                <div class="author-desc" data-en="Anxiety & Stress Client" data-es="Cliente de Ansiedad y Estrés">Anxiety & Stress Client</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+            <p class="testimonial-text">"Claudia helped my family through an incredibly difficult time with such care and professionalism. Her expertise in immigration evaluations was invaluable — she made the entire process feel manageable."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">S</div>
+              <div class="testimonial-info">
+                <div class="author-name">Sofia L.</div>
+                <div class="author-desc" data-en="Immigration Evaluation Client" data-es="Cliente de Evaluación de Inmigración">Immigration Evaluation Client</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-dots" id="carousel-dots">
+        <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+        <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
+        <button class="carousel-dot" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     INSURANCE
+     ========================================== -->
+<section id="insurance" aria-label="Insurance accepted">
+  <div class="insurance-inner fade-in">
+    <div class="insurance-title" data-en="We Accept Major Insurance Plans" data-es="Aceptamos Principales Planes de Seguro">We Accept Major Insurance Plans</div>
+    <div class="insurance-logos">
+      <div class="insurance-pill">Cigna</div>
+      <div class="insurance-pill">Aetna</div>
+      <div class="insurance-pill">UnitedHealth</div>
+      <div class="insurance-pill">BlueCross BlueShield</div>
+      <div class="insurance-pill">Optum</div>
+      <div class="insurance-pill">Headway</div>
+      <div class="insurance-pill">Out-of-Network</div>
+    </div>
+    <div style="margin-top:28px;">
+      <a href="https://faneliacoding-cloud.github.io/thejoyinliving/payments-insurance/" class="btn-secondary" style="margin:0 auto;display:inline-flex;" data-en="View Full Insurance Details →" data-es="Ver Detalles Completos del Seguro →">View Full Insurance Details →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     FINAL CTA
+     ========================================== -->
+<section id="final-cta" aria-label="Call to action">
+  <div class="final-cta-inner fade-in">
+    <div class="cta-tagline" data-en="Your Healing Is Waiting" data-es="Tu Sanación Te Espera">Your Healing Is Waiting</div>
+    <h2 class="cta-h2" data-en="Take the first <em>courageous</em> step." data-es="Da el primer <em>valiente</em> paso.">Take the first <em>courageous</em> step.</h2>
+    <p class="cta-sub" data-en="Your healing journey begins with a single conversation. We're here, ready to walk alongside you — in English or Spanish, in person or online." data-es="Tu viaje de sanación comienza con una sola conversación. Estamos aquí, listos para caminar junto a ti — en inglés o español, en persona o en línea.">
+      Your healing journey begins with a single conversation. We're here, ready to walk alongside you — in English or Spanish, in person or online.
+    </p>
+    <div class="cta-buttons">
+      <a href="https://faneliacoding-cloud.github.io/thejoyinliving/patient-portal/appointments/" class="btn-gold" id="cta-book">
+        ✨ <span data-en="Book Free Consultation" data-es="Reservar Consulta Gratis">Book Free Consultation</span>
+      </a>
+      <a href="tel:9146862484" class="btn-secondary" style="border-color:rgba(255,255,255,0.35);color:#fff;" id="cta-call">
+        📞 <span data-en="Call (914) 686-2484" data-es="Llamar (914) 686-2484">Call (914) 686-2484</span>
+      </a>
+    </div>
+    <p class="cta-fine" data-en="Free 15-minute consultation · No commitment · English & Spanish · Telehealth available" data-es="Consulta gratis de 15 minutos · Sin compromiso · Inglés y Español · Telehealth disponible">
+      Free 15-minute consultation · No commitment · English & Spanish · Telehealth available
+    </p>
+  </div>
+</section>
+
+<!-- ==========================================
+     FOOTER
+     ========================================== -->
+<footer aria-label="Site footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo" data-en="The Joy In Living" data-es="La Alegría de Vivir">The Joy In Living</div>
+        <p data-en="A bilingual, minority woman-owned mental health and wellness practice in Sleepy Hollow, New York. Integrative therapy for the whole person — mind, body, and spirit." data-es="Una práctica de salud mental y bienestar bilingüe, propiedad de una mujer minoritaria en Sleepy Hollow, Nueva York. Terapia integradora para la persona completa — mente, cuerpo y espíritu.">
+          A bilingual, minority woman-owned mental health and wellness practice in Sleepy Hollow, New York. Integrative therapy for the whole person — mind, body, and spirit.
+        </p>
+        <div class="footer-contact-item">📞 <a href="tel:9146862484">(914) 686-2484</a></div>
+        <div class="footer-contact-item">📞 <a href="tel:9147585286">(914) 758-5286</a></div>
+        <div class="footer-contact-item">✉️ <a href="mailto:reception@thejoyinliving.com">reception@thejoyinliving.com</a></div>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Quick Links" data-es="Enlaces Rápidos">Quick Links</h4>
+        <ul>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/services/" data-en="Services" data-es="Servicios">Services</a></li>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/who-we-are/" data-en="Who We Are" data-es="Quiénes Somos">Who We Are</a></li>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/your-visit/" data-en="Your Visit" data-es="Tu Visita">Your Visit</a></li>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/payments-insurance/" data-en="Insurance" data-es="Seguro">Insurance</a></li>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/blog/" data-en="Blog" data-es="Blog">Blog</a></li>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/contact/" data-en="Contact" data-es="Contacto">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Resources" data-es="Recursos">Resources</h4>
+        <ul>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/faq/" data-en="FAQ" data-es="Preguntas Frecuentes">FAQ</a></li>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/resources/" data-en="Resources" data-es="Recursos">Resources</a></li>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/self-care-tools/" data-en="Self-Care Tools" data-es="Herramientas de Autocuidado">Self-Care Tools</a></li>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/patient-portal/login/" data-en="Patient Portal" data-es="Portal del Paciente">Patient Portal</a></li>
+          <li><a href="https://www.psychologytoday.com/us/therapists/claudia-christina-soddano-sleepy-hollow-ny/578588" target="_blank" rel="noopener">Psychology Today ↗</a></li>
+          <li><a href="https://headway.co/providers/claudia-soddano" target="_blank" rel="noopener">Headway ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-en="Crisis Support" data-es="Apoyo en Crisis">Crisis Support</h4>
+        <ul>
+          <li><a href="tel:988" style="color:#f87171;">988 Suicide Lifeline</a></li>
+          <li><a href="tel:911" style="color:#f87171;">911 Emergency</a></li>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/help-lines/">Help Lines</a></li>
+          <li><a href="https://faneliacoding-cloud.github.io/thejoyinliving/local-hospitals/">Local Hospitals</a></li>
+        </ul>
+        <div style="margin-top:20px;">
+          <a href="https://faneliacoding-cloud.github.io/thejoyinliving/patient-portal/appointments/" class="btn-gold" style="font-size:13px;padding:12px 20px;" data-en="Book Now" data-es="Reservar Ahora">Book Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 The Joy In Living, LCSW, PLLC. <span data-en="All rights reserved." data-es="Todos los derechos reservados.">All rights reserved.</span></p>
+      <div class="footer-bottom-links">
+        <a href="https://faneliacoding-cloud.github.io/thejoyinliving/privacy-policy/" data-en="Privacy Policy" data-es="Política de Privacidad">Privacy Policy</a>
+        <a href="https://faneliacoding-cloud.github.io/thejoyinliving/faq/" data-en="FAQ" data-es="Preguntas Frecuentes">FAQ</a>
+        <a href="https://faneliacoding-cloud.github.io/thejoyinliving/es/" data-en="Español" data-es="English">Español</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ==========================================
+     STICKY MOBILE CTA
+     ========================================== -->
+<div class="sticky-mobile-cta" id="sticky-cta" aria-label="Quick contact">
+  <a href="tel:9146862484" class="btn-secondary" id="sticky-call">📞 <span data-en="Call Now" data-es="Llamar">Call Now</span></a>
+  <a href="https://faneliacoding-cloud.github.io/thejoyinliving/patient-portal/appointments/" class="btn-primary" id="sticky-book">✨ <span data-en="Book Session" data-es="Reservar">Book Session</span></a>
+</div>
+
+<!-- ==========================================
+     CHATBOT
+     ========================================== -->
+<button id="chatbot-toggle" aria-label="Open chat support">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+  <div class="chatbot-badge">1</div>
+</button>
+
+<div id="chatbot-panel" role="dialog" aria-modal="true" aria-label="Chat with us">
+  <div class="chatbot-header">
+    <div class="chatbot-avatar">🌿</div>
+    <div class="chatbot-header-text">
+      <div class="chatbot-name" data-en="Joy — Your Wellness Guide" data-es="Joy — Tu Guía de Bienestar">Joy — Your Wellness Guide</div>
+      <div class="chatbot-status">
+        <span class="status-dot"></span>
+        <span data-en="Here to help you" data-es="Aquí para ayudarte">Here to help you</span>
+      </div>
+    </div>
+  </div>
+  <div class="chatbot-messages" id="chatbot-messages">
+    <div class="chat-message">
+      <div class="chat-mini-avatar">🌿</div>
+      <div class="chat-bubble bot" data-en="Hi there 👋 I'm Joy. Reaching out takes courage, and I'm here to help. What brings you here today?" data-es="Hola 👋 Soy Joy. Pedir ayuda requiere valentía, y estoy aquí para ayudarte. ¿Qué te trae aquí hoy?">Hi there 👋 I'm Joy. Reaching out takes courage, and I'm here to help. What brings you here today?</div>
+    </div>
+  </div>
+  <div class="chatbot-quick-btns">
+    <button class="quick-btn" onclick="chatQuick('book')" data-en="📅 Book Consultation" data-es="📅 Reservar Consulta">📅 Book Consultation</button>
+    <button class="quick-btn" onclick="chatQuick('services')" data-en="💚 Our Services" data-es="💚 Nuestros Servicios">💚 Our Services</button>
+    <button class="quick-btn" onclick="chatQuick('insurance')" data-en="🛡️ Insurance" data-es="🛡️ Seguro">🛡️ Insurance</button>
+    <button class="quick-btn" onclick="chatQuick('contact')" data-en="✉️ Contact Us" data-es="✉️ Contáctenos">✉️ Contact Us</button>
+  </div>
+  <div class="chatbot-input-row">
+    <input type="text" id="chat-input" placeholder="Type your message..." aria-label="Chat message" />
+    <button class="chatbot-send" onclick="sendChatMessage()" aria-label="Send message">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ==========================================
+     DEBUG PANEL
+     ========================================== -->
+<div id="debug-panel" role="region" aria-label="Debug information">
+  <div class="debug-title">🛠 DEBUG MODE</div>
+  <div class="debug-row"><span class="debug-key">Device:</span><span id="dbg-device">—</span></div>
+  <div class="debug-row"><span class="debug-key">Browser:</span><span id="dbg-browser">—</span></div>
+  <div class="debug-row"><span class="debug-key">Orientation:</span><span id="dbg-orient">—</span></div>
+  <div class="debug-row"><span class="debug-key">Nav Mode:</span><span id="dbg-nav">—</span></div>
+  <div class="debug-row"><span class="debug-key">Language:</span><span id="dbg-lang">—</span></div>
+  <div class="debug-row"><span class="debug-key">Viewport:</span><span id="dbg-vp">—</span></div>
+</div>
+
+<!-- ==========================================
+     JAVASCRIPT
+     ========================================== -->
+<script>
+(function () {
+  'use strict';
+
+  /* ---- STATE ---- */
+  let currentLang = 'en';
+  let currentSlide = 0;
+  let chatOpen = false;
+  const totalSlides = 3;
+  let autoSlideTimer;
+
+  /* ---- DEBUG MODE ---- */
+  const urlParams = new URLSearchParams(window.location.search);
+  const debugMode = urlParams.get('debugMenu') === '1';
+  const debugPanel = document.getElementById('debug-panel');
+  if (debugMode) debugPanel.style.display = 'block';
+
+  function detectDevice() {
+    const ua = navigator.userAgent;
+    if (/iPad/.test(ua)) return 'iPad';
+    if (/iPhone/.test(ua)) return 'iPhone';
+    if (/Android/.test(ua) && /Mobile/.test(ua)) return 'Android Phone';
+    if (/Android/.test(ua)) return 'Android Tablet';
+    return 'Desktop';
+  }
+
+  function detectBrowser() {
+    const ua = navigator.userAgent;
+    if (/DuckDuckGo/.test(ua)) return 'DuckDuckGo';
+    if (/OPR|Opera/.test(ua)) return 'Opera';
+    if (/Edg/.test(ua)) return 'Edge';
+    if (/Firefox/.test(ua)) return 'Firefox';
+    if (/Safari/.test(ua) && !/Chrome/.test(ua)) return 'Safari';
+    if (/Chrome/.test(ua)) return 'Chrome';
+    return 'Unknown';
+  }
+
+  function getOrientation() {
+    if (window.screen && window.screen.orientation) {
+      return window.screen.orientation.type.includes('landscape') ? 'Landscape' : 'Portrait';
+    }
+    return window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait';
+  }
+
+  function getNavMode() {
+    return window.innerWidth <= 768 ? 'Mobile (Hamburger)' : 'Desktop (Badge Nav)';
+  }
+
+  function updateDebug() {
+    if (!debugMode) return;
+    document.getElementById('dbg-device').textContent = detectDevice();
+    document.getElementById('dbg-browser').textContent = detectBrowser();
+    document.getElementById('dbg-orient').textContent = getOrientation();
+    document.getElementById('dbg-nav').textContent = getNavMode();
+    document.getElementById('dbg-lang').textContent = currentLang.toUpperCase();
+    document.getElementById('dbg-vp').textContent = `${window.innerWidth}×${window.innerHeight}`;
+  }
+
+  window.addEventListener('resize', updateDebug);
+  window.addEventListener('orientationchange', updateDebug);
+  updateDebug();
+
+  /* ---- NAV SCROLL ---- */
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 60) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  /* ---- MOBILE NAV ---- */
+  const hamburger = document.getElementById('nav-hamburger');
+  const overlay = document.getElementById('mobile-overlay');
+
+  hamburger.addEventListener('click', function () {
+    const isOpen = overlay.classList.contains('open');
+    if (isOpen) {
+      closeMobile();
+    } else {
+      overlay.classList.add('open');
+      hamburger.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+
+  window.closeMobile = function () {
+    overlay.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+
+  /* ---- HERO ANIMATION ---- */
+  const heroSection = document.getElementById('hero');
+  setTimeout(() => heroSection.classList.add('loaded'), 100);
+
+  /* ---- FADE IN ON SCROLL ---- */
+  const fadeElements = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry, i) {
+      if (entry.isIntersecting) {
+        const delay = (i % 4) * 80;
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  fadeElements.forEach(function (el) { observer.observe(el); });
+
+  /* ---- LANGUAGE TOGGLE ---- */
+  window.toggleLang = function () {
+    currentLang = currentLang === 'en' ? 'es' : 'en';
+    applyLang();
+    updateDebug();
+  };
+
+  document.getElementById('lang-toggle').addEventListener('click', toggleLang);
+
+  function applyLang() {
+    const langLabel = document.getElementById('lang-label');
+    const mobileLangLabel = document.getElementById('mobile-lang-label');
+    langLabel.textContent = currentLang === 'en' ? 'ES' : 'EN';
+    mobileLangLabel.textContent = currentLang === 'en' ? 'Cambiar a English' : 'Switch to Español';
+
+    document.querySelectorAll('[data-en]').forEach(function (el) {
+      const text = el.getAttribute('data-' + currentLang);
+      if (!text) return;
+      if (el.tagName === 'INPUT') {
+        el.placeholder = text;
+      } else if (el.hasAttribute('data-html') || /[<>]/.test(text)) {
+        el.innerHTML = text;
+      } else {
+        el.textContent = text;
+      }
+    });
+
+    // Hero h1 has em tags — handle specially
+    const heroH1 = document.querySelector('.hero-h1 span[data-en]');
+    if (heroH1) heroH1.innerHTML = heroH1.getAttribute('data-' + currentLang);
+
+    // Chatbot placeholder
+    const chatInput = document.getElementById('chat-input');
+    chatInput.placeholder = currentLang === 'en' ? 'Type your message...' : 'Escribe tu mensaje...';
+
+    // Update html lang attr
+    document.documentElement.lang = currentLang;
+  }
+
+  /* ---- TESTIMONIALS CAROUSEL ---- */
+  const track = document.getElementById('testimonial-track');
+  const dots = document.querySelectorAll('.carousel-dot');
+
+  window.goToSlide = function (idx) {
+    currentSlide = idx;
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    resetAutoSlide();
+  };
+
+  function nextSlide() {
+    goToSlide((currentSlide + 1) % totalSlides);
+  }
+
+  function resetAutoSlide() {
+    clearInterval(autoSlideTimer);
+    autoSlideTimer = setInterval(nextSlide, 5000);
+  }
+
+  resetAutoSlide();
+
+  // Touch swipe support
+  let touchStartX = 0;
+  track.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', function (e) {
+    const delta = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 50) {
+      goToSlide(delta > 0 ? (currentSlide + 1) % totalSlides : (currentSlide - 1 + totalSlides) % totalSlides);
+    }
+  });
+
+  /* ---- CHATBOT ---- */
+  document.getElementById('chatbot-toggle').addEventListener('click', function () {
+    chatOpen = !chatOpen;
+    document.getElementById('chatbot-panel').classList.toggle('open', chatOpen);
+    // Remove badge once opened
+    const badge = document.querySelector('.chatbot-badge');
+    if (badge && chatOpen) badge.style.display = 'none';
+  });
+
+  const chatResponses = {
+    en: {
+      book: "Great! You can book a free 15-minute consultation by calling (914) 686-2484 or visiting our appointments page. Claudia would love to meet you! 💚",
+      services: "We offer Individual Therapy, Couples & Family, Group Therapy, Immigration Evaluations, Clinical Supervision, and Telehealth — all in English and Spanish. Which interests you most?",
+      insurance: "We accept Cigna, Aetna, UnitedHealth, BlueCross BlueShield, Optum, and work with Headway. Out-of-network superbills are also available. Visit our Insurance page for full details!",
+      contact: "You can reach us at:\n📞 (914) 686-2484\n✉️ reception@thejoyinliving.com\n\nWe're here for you. 💚",
+    },
+    es: {
+      book: "¡Genial! Puedes reservar una consulta gratuita de 15 minutos llamando al (914) 686-2484 o visitando nuestra página de citas. ¡A Claudia le encantaría conocerte! 💚",
+      services: "Ofrecemos Terapia Individual, Parejas y Familia, Terapia de Grupo, Evaluaciones de Inmigración, Supervisión Clínica y Telehealth — todo en inglés y español. ¿Cuál te interesa más?",
+      insurance: "Aceptamos Cigna, Aetna, UnitedHealth, BlueCross BlueShield, Optum y trabajamos con Headway. Las facturas fuera de la red también están disponibles. ¡Visita nuestra página de Seguro para más detalles!",
+      contact: "Puedes comunicarte con nosotros:\n📞 (914) 686-2484\n✉️ reception@thejoyinliving.com\n\nEstamos aquí para ti. 💚",
+    }
+  };
+
+  window.chatQuick = function (key) {
+    const response = chatResponses[currentLang][key];
+    addUserMessage(key === 'book' ? (currentLang === 'en' ? 'I'd like to book a consultation' : 'Quiero reservar una consulta') :
+      key === 'services' ? (currentLang === 'en' ? 'Tell me about your services' : 'Cuéntame sobre sus servicios') :
+      key === 'insurance' ? (currentLang === 'en' ? 'What insurance do you accept?' : '¿Qué seguros aceptan?') :
+      (currentLang === 'en' ? 'How can I contact you?' : '¿Cómo puedo contactarles?'));
+    setTimeout(function () { addBotMessage(response); }, 700);
+  };
+
+  window.sendChatMessage = function () {
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if (!msg) return;
+    addUserMessage(msg);
+    input.value = '';
+    const reply = currentLang === 'en'
+      ? "Thank you for reaching out. 💚 For the quickest response, please call us at (914) 686-2484 or email reception@thejoyinliving.com. Claudia's team is here to help!"
+      : "Gracias por comunicarte. 💚 Para una respuesta más rápida, llámenos al (914) 686-2484 o envíe un correo a reception@thejoyinliving.com. ¡El equipo de Claudia está aquí para ayudarte!";
+    setTimeout(function () { addBotMessage(reply); }, 800);
+  };
+
+  document.getElementById('chat-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') window.sendChatMessage();
+  });
+
+  function addUserMessage(text) {
+    const messages = document.getElementById('chatbot-messages');
+    messages.innerHTML += `<div class="chat-message" style="justify-content:flex-end;"><div class="chat-bubble user">${escapeHtml(text)}</div></div>`;
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addBotMessage(text) {
+    const messages = document.getElementById('chatbot-messages');
+    messages.innerHTML += `<div class="chat-message"><div class="chat-mini-avatar">🌿</div><div class="chat-bubble bot">${escapeHtml(text)}</div></div>`;
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  }
+
+  /* ---- HERO H1 INLINE HTML ---- */
+  // Already set in HTML; ensure it renders correctly after lang switch
+  document.querySelector('.hero-h1').innerHTML =
+    `<span data-en="You don't have to go through <em>this alone.</em>" data-es="No tienes que pasar por <em>esto solo.</em>">You don't have to go through <em>this alone.</em></span>`;
+
+})();
+</script>
+
+</body>
+</html>
