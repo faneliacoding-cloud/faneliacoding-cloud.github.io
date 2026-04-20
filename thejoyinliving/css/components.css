@@ -433,7 +433,12 @@
   cursor: pointer;
   background: none;
   border: none;
-  z-index: calc(var(--z-nav) + 2);
+  /* Must be above the overlay (z-overlay: 300) so iOS taps always register */
+  z-index: 400;
+  /* Prevent 300ms tap delay and blue flash on iOS */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
 }
 
 .nav__toggle span {
@@ -481,6 +486,8 @@
     transition: right var(--duration-slow) var(--ease-soft);
     box-shadow: var(--shadow-xl);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+    overscroll-behavior: contain;      /* stop scroll from leaking behind */
   }
 
   .nav__menu.open {
@@ -542,12 +549,15 @@
     opacity: 0;
     visibility: hidden;
     transition: all var(--duration-normal) var(--ease-soft);
-    z-index: var(--z-overlay);
+    z-index: 300;
+    /* Stay below the toggle so the X button is always tappable */
+    pointer-events: none;
   }
 
   .nav__overlay.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 }
 
