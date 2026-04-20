@@ -259,9 +259,16 @@
   gap: var(--space-1);
 }
 
-/* Desktop nav — hamburger hidden, links centered, lang+CTA right */
+/* Desktop nav — Logo left | Links + Actions fill space | hamburger hidden */
 @media (min-width: 769px) {
   .nav__toggle { display: none !important; }
+
+  .nav__inner {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .nav__menu {
     position: static !important;
     height: auto !important;
@@ -276,12 +283,24 @@
     top: auto !important;
     transform: none !important;
     transition: none !important;
+    display: flex !important;
+    align-items: center !important;
     flex: 1;
-    justify-content: center;
+    /* Space the links on left, lang+CTA on right */
+    justify-content: flex-end !important;
+    gap: var(--space-1);
   }
-  /* Push the language toggle and CTA button to the far right */
-  .nav__menu .nav__lang {
+
+  /* The nav links sit between logo and the lang/CTA group */
+  /* First nav link gets auto left margin to push from logo */
+  .nav__menu > .nav__link:first-child,
+  .nav__menu > .nav__dropdown:first-child {
     margin-left: auto;
+  }
+
+  /* Separate the lang pill from the nav links */
+  .nav__menu .nav__lang {
+    margin-left: var(--space-4);
   }
 }
 
