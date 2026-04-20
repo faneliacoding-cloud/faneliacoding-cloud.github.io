@@ -121,7 +121,12 @@
             <div class="contact-info-card" style="margin-bottom: var(--space-6);">
               <h3 style="font-family: var(--font-heading); font-size: var(--text-xl); margin-bottom: var(--space-4);">Free 15-Minute Consultation</h3>
               <p style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-6); line-height: var(--leading-relaxed);">Not sure if therapy is right for you? Start with a free, no-obligation phone consultation to discuss your needs and goals.</p>
-              <a href="tel:9146862484" class="btn btn-accent" style="width: 100%; justify-content: center;">Call (914) 686-2484</a>
+              <a href="tel:9146862484"
+                 class="btn btn-accent"
+                 style="width: 100%; justify-content: center;"
+                 data-cta-mobile="Call Now — It's Free"
+                 data-cta-desktop="Call (914) 686-2484"
+                 aria-label="Call us for a free consultation">Call (914) 686-2484</a>
             </div>
 
             <div class="contact-info-card">
@@ -148,6 +153,11 @@
                 <div class="contact-info-text">
                   <h3>Office Location</h3>
                   <p>239 North Broadway, Suite LL 101<br>Sleepy Hollow, NY 10591</p>
+                  <a href="https://maps.google.com/maps?q=239+North+Broadway+Suite+LL+101+Sleepy+Hollow+NY+10591"
+                     data-maps-link
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     style="display:inline-block;margin-top:0.5em;font-size:var(--text-xs);color:var(--sage-dark);font-weight:500;">Get Directions</a>
                 </div>
               </div>
 
@@ -191,7 +201,7 @@
     </div>
   </footer>
 
-  <script src="/thejoyinliving/js/main.js"></script>
+  <script src="/thejoyinliving/js/device.js"></script><script src="/thejoyinliving/js/main.js"></script>
   <script src="/thejoyinliving/js/language.js"></script>
   <script>
     // Simple form submission handler

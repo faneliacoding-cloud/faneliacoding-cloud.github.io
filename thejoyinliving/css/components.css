@@ -2299,3 +2299,158 @@ input, textarea, select {
     min-height: 100svh;
   }
 }
+
+/* ============================================================
+   DEVICE-ADAPTIVE STYLES  (driven by device.js html class flags)
+   ============================================================ */
+
+/* ── Visibility utilities ─────────────────────────────────── */
+html.is-desktop .mobile-only  { display: none !important; }
+html.is-mobile  .desktop-only { display: none !important; }
+html.is-tablet  .desktop-only { display: none !important; }
+
+/* ── Tap-to-call prominence ──────────────────────────────────
+   device.js adds .tap-to-call to all tel: links on phones.
+   The CSS hook is html.is-mobile for safety (no flash on desktop).
+   ─────────────────────────────────────────────────────────── */
+html.is-mobile a.tap-to-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-weight: 600;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Inside footer / contact blocks: pill button style */
+html.is-mobile .footer a.tap-to-call,
+html.is-mobile .contact-info a.tap-to-call,
+html.is-mobile [class*="contact"] a.tap-to-call {
+  background: var(--sage-light, #c5d4be);
+  color: var(--charcoal, #2d3028);
+  padding: 0.45em 1.1em;
+  border-radius: 999px;
+  font-size: var(--text-sm);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+html.is-mobile .footer a.tap-to-call:active,
+html.is-mobile .contact-info a.tap-to-call:active {
+  background: var(--sage-dark, #4a6741);
+  color: #fff;
+  transform: scale(0.97);
+}
+
+/* Phone icon prepended via CSS to avoid HTML duplication */
+html.is-mobile a.tap-to-call::before {
+  content: '📞';
+  font-size: 0.85em;
+  line-height: 1;
+}
+
+/* ── Map link indicator on mobile ───────────────────────────
+   [data-maps-link] elements get a small map pin icon on touch devices.
+   ─────────────────────────────────────────────────────────── */
+html.is-ios [data-maps-link]::after,
+html.is-android [data-maps-link]::after {
+  content: ' 📍';
+  font-size: 0.85em;
+}
+
+/* ============================================================
+   DEBUG BADGE  (#site-debug-badge)
+   Only rendered when ?debugDevice=1 is in the URL.
+   Zero performance cost in production — element never created.
+   ============================================================ */
+#site-debug-badge {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 99999;
+  width: 280px;
+  background: rgba(15, 17, 20, 0.96);
+  color: #e2e8f0;
+  border-radius: 12px;
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sdb-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px 8px;
+  background: rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sdb-icon { font-size: 14px; }
+
+.sdb-title {
+  flex: 1;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.sdb-close {
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  line-height: 1;
+  transition: background 0.15s;
+}
+.sdb-close:hover { background: rgba(239,68,68,0.3); color: #fca5a5; }
+
+.sdb-body {
+  padding: 8px 4px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.sdb-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 12px;
+  gap: 8px;
+}
+.sdb-row:nth-child(even) { background: rgba(255,255,255,0.03); }
+
+.sdb-key {
+  color: #64748b;
+  flex-shrink: 0;
+  min-width: 90px;
+}
+
+.sdb-val {
+  font-weight: 600;
+  color: #e2e8f0;
+  text-align: right;
+  word-break: break-all;
+}
+
+.sdb-yes { color: #4ade80; }   /* true  → green  */
+.sdb-no  { color: #f87171; }   /* false → red    */
+
+.sdb-footer {
+  padding: 6px 12px;
+  font-size: 10px;
+  color: #334155;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
