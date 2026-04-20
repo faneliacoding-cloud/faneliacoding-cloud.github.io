@@ -53,98 +53,91 @@ function initNav() {
     lastScroll = current;
   }, { passive: true });
 
-  // ── iOS-compatible body scroll lock ─────────────────────────────
-  // overflow:hidden on <body> does NOT work on iOS Safari.
-  // position:fixed is the only reliable cross-device method.
-  let _savedScrollY = 0;
+  // ── Mobile toggle, overlay, dropdowns, link-close ─────────────
+  // Handled by mobile-nav.js when present. Guard prevents double-binding.
+  if (!window.__useMobileNav) {
 
-  function lockScroll() {
-    _savedScrollY = window.scrollY;
-    document.body.style.position   = 'fixed';
-    document.body.style.top        = `-${_savedScrollY}px`;
-    document.body.style.left       = '0';
-    document.body.style.right      = '0';
-    document.body.style.overflowY  = 'scroll';
-  }
+    // iOS-compatible body scroll lock (fallback when mobile-nav.js not loaded)
+    let _savedScrollY = 0;
+    function lockScroll() {
+      _savedScrollY = window.scrollY;
+      document.body.style.position  = 'fixed';
+      document.body.style.top       = `-${_savedScrollY}px`;
+      document.body.style.left      = '0';
+      document.body.style.right     = '0';
+      document.body.style.overflowY = 'scroll';
+    }
+    function unlockScroll() {
+      document.body.style.position  = '';
+      document.body.style.top       = '';
+      document.body.style.left      = '';
+      document.body.style.right     = '';
+      document.body.style.overflowY = '';
+      window.scrollTo(0, _savedScrollY);
+    }
 
-  function unlockScroll() {
-    document.body.style.position  = '';
-    document.body.style.top       = '';
-    document.body.style.left      = '';
-    document.body.style.right     = '';
-    document.body.style.overflowY = '';
-    window.scrollTo(0, _savedScrollY);
-  }
+    function toggleMenu() {
+      const isOpen = menu.classList.contains('open');
+      toggle.classList.toggle('active');
+      menu.classList.toggle('open');
+      if (overlay) overlay.classList.toggle('active');
+      isOpen ? unlockScroll() : lockScroll();
+    }
 
-  // ── Mobile toggle ────────────────────────────────────────────────
-  function toggleMenu() {
-    const isOpen = menu.classList.contains('open');
-    toggle.classList.toggle('active');
-    menu.classList.toggle('open');
-    if (overlay) overlay.classList.toggle('active');
-    isOpen ? unlockScroll() : lockScroll();
-  }
-
-  if (toggle) {
-    // Use both touchstart (iOS) and click (desktop/Android) to avoid delay
-    let _touchHandled = false;
-
-    toggle.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      _touchHandled = true;
-      toggleMenu();
-    }, { passive: false });
-
-    toggle.addEventListener('click', () => {
-      if (_touchHandled) { _touchHandled = false; return; } // prevent double-fire
-      toggleMenu();
-    });
-  }
-
-  // Mobile overlay close
-  if (overlay) {
-    overlay.addEventListener('click', () => {
-      toggle.classList.remove('active');
-      menu.classList.remove('open');
-      overlay.classList.remove('active');
-      unlockScroll();
-    });
-
-    // iOS touchstart on overlay
-    overlay.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      toggle.classList.remove('active');
-      menu.classList.remove('open');
-      overlay.classList.remove('active');
-      unlockScroll();
-    }, { passive: false });
-  }
-
-  // Mobile dropdowns
-  dropdowns.forEach(dropdown => {
-    const trigger = dropdown.querySelector('.nav__dropdown-trigger');
-    if (!trigger) return;
-
-    trigger.addEventListener('click', (e) => {
-      if (window.innerWidth <= 1024) {
+    if (toggle) {
+      let _touchHandled = false;
+      toggle.addEventListener('touchstart', (e) => {
         e.preventDefault();
-        dropdown.classList.toggle('open');
-      }
-    });
-  });
+        _touchHandled = true;
+        toggleMenu();
+      }, { passive: false });
+      toggle.addEventListener('click', () => {
+        if (_touchHandled) { _touchHandled = false; return; }
+        toggleMenu();
+      });
+    }
 
-  // Close menu when clicking a link (mobile)
-  menu.querySelectorAll('.nav__link:not(.nav__dropdown-trigger)').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth <= 1024) {
+    if (overlay) {
+      overlay.addEventListener('click', () => {
         toggle.classList.remove('active');
         menu.classList.remove('open');
-        if (overlay) overlay.classList.remove('active');
+        overlay.classList.remove('active');
         unlockScroll();
-      }
+      });
+      overlay.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        toggle.classList.remove('active');
+        menu.classList.remove('open');
+        overlay.classList.remove('active');
+        unlockScroll();
+      }, { passive: false });
+    }
+
+    dropdowns.forEach(dropdown => {
+      const trigger = dropdown.querySelector('.nav__dropdown-trigger');
+      if (!trigger) return;
+      trigger.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1024) {
+          e.preventDefault();
+          dropdown.classList.toggle('open');
+        }
+      });
     });
-  });
+
+    menu.querySelectorAll('.nav__link:not(.nav__dropdown-trigger)').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          toggle.classList.remove('active');
+          menu.classList.remove('open');
+          if (overlay) overlay.classList.remove('active');
+          unlockScroll();
+        }
+      });
+    });
+
+  } // end !window.__useMobileNav
 }
+
 
 /* ============================================================
    SCROLL ANIMATIONS (Intersection Observer)

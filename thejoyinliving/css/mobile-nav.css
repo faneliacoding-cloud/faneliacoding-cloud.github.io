@@ -1,0 +1,598 @@
+/* ================================================================
+   MOBILE NAV — mobile-nav.css
+   Premium mobile navigation for The Joy In Living.
+   Loads after components.css and overrides mobile-specific rules.
+   All rules are scoped to max-width: 768px (mobile) unless noted.
+   ================================================================ */
+
+/* ── Custom easing tokens ─────────────────────────────────────── */
+:root {
+  --mnav-spring:     cubic-bezier(0.32, 0.72, 0, 1);   /* open: elastic in */
+  --mnav-retreat:    cubic-bezier(0.4, 0, 0.8, 1);     /* close: quick out */
+  --mnav-smooth:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --mnav-open-dur:   360ms;
+  --mnav-close-dur:  260ms;
+  --mnav-drawer-w:   min(420px, 88vw);
+  --mnav-item-base:  60ms;   /* base delay before stagger starts */
+  --mnav-item-step:  38ms;   /* stagger increment per item */
+}
+
+/* ================================================================
+   HAMBURGER BUTTON — Enhanced icon + animation
+   ================================================================ */
+@media (max-width: 768px) {
+
+  .nav__toggle {
+    /* Override: larger, better-positioned tap target */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    z-index: 400;
+    position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    /* Smooth background transition for hover/focus */
+    transition: background 0.2s ease, transform 0.12s ease;
+  }
+
+  /* Hover / focus ring */
+  .nav__toggle:focus-visible {
+    background: rgba(255, 255, 255, 0.15);
+    outline: 2px solid rgba(255, 255, 255, 0.4);
+    outline-offset: 2px;
+  }
+  .nav.scrolled .nav__toggle:focus-visible {
+    background: rgba(74, 103, 65, 0.12);
+    outline-color: var(--sage-dark, #4a6741);
+  }
+
+  /* Active / tap feedback */
+  .nav__toggle:active { transform: scale(0.90); }
+
+  /* ── Bars ─────────────────────────────────────────────────── */
+  .nav__toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 3px;
+    background: var(--white, #fff);
+    /* Override components.css transition to control each prop */
+    transition:
+      transform  var(--mnav-open-dur) var(--mnav-spring),
+      opacity    200ms ease,
+      width      260ms ease,
+      background 220ms ease;
+    transform-origin: center center;
+    pointer-events: none;
+  }
+
+  /* Gap: use margin-top instead of nth-child margin-bottom/top combo */
+  .nav__toggle span + span { margin-top: 5px; }
+
+  /* Reset components.css margin overrides */
+  .nav__toggle span:nth-child(1) { margin-bottom: 0; }
+  .nav__toggle span:nth-child(3) { margin-top: 0;    }
+
+  /* Dark background (scrolled state) */
+  .nav.scrolled .nav__toggle span { background: var(--charcoal, #2d3028); }
+
+  /* ── X animation ─────────────────────────────────────────────
+     3 bars × 2px + 2 gaps × 5px = 16px total height.
+     Bars centers relative to flex container (48px):
+       Bar 1 center: (48−16)/2 + 1  = 17px
+       Bar 2 center: 17 + 5 + 2     = 24px  ← target
+       Bar 3 center: 24 + 5 + 2 − 1 = 30px... wait let me recalculate
+     
+     Total group: 2+5+2+5+2 = 16px. Starts at (48-16)/2 = 16px from top.
+       Bar 1 center: 16 + 1        = 17px
+       Bar 2 center: 16 + 2+5+1    = 24px
+       Bar 3 center: 16 + 2+5+2+5+1= 31px
+     Center of group: (17+24+31)/3  ≈ 24px = bar 2 center.
+     Bar 1 → center: 24 − 17 =  7px down
+     Bar 3 → center: 24 − 31 = −7px up
+  ─────────────────────────────────────────────────────────────── */
+  .nav__toggle.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav__toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0.15);
+  }
+  .nav__toggle.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Subtle background tint when menu is open */
+  .nav__toggle.active {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .nav.scrolled .nav__toggle.active {
+    background: rgba(74, 103, 65, 0.1);
+  }
+}
+
+/* ================================================================
+   OVERLAY — frosted glass backdrop
+   ================================================================ */
+@media (max-width: 768px) {
+
+  .nav__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    /* Frosted glass overlay — more premium than plain dim */
+    background: rgba(16, 20, 16, 0.46);
+    backdrop-filter: blur(4px) saturate(0.8);
+    -webkit-backdrop-filter: blur(4px) saturate(0.8);
+    /* Closed state */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    /* Close transition: delay visibility so it hides after fade */
+    transition:
+      opacity    var(--mnav-close-dur) ease,
+      visibility 0s linear var(--mnav-close-dur);
+  }
+
+  .nav__overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    /* Open transition: instant visibility, then fade in */
+    transition:
+      opacity    220ms ease,
+      visibility 0s linear 0s;
+  }
+}
+
+/* ================================================================
+   MENU DRAWER — Portrait (primary experience)
+   ================================================================ */
+@media (max-width: 768px) {
+
+  .nav__menu {
+    /* ── Position & Size ────────────────────────────────────── */
+    position: fixed;
+    top: 0;
+    right: 0;                         /* anchor to right edge */
+    bottom: 0;
+    left: auto;
+    width: var(--mnav-drawer-w);
+    height: 100%;
+    height: 100dvh;                   /* dynamic viewport on mobile */
+    max-height: none;
+
+    /* ── Visual ─────────────────────────────────────────────── */
+    background: rgba(250, 247, 242, 0.97);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    box-shadow:
+      -6px 0 40px rgba(0, 0, 0, 0.12),
+      -1px 0 0   rgba(0, 0, 0, 0.05);
+
+    /* ── Layout ─────────────────────────────────────────────── */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    /* Top padding set dynamically by JS to clear nav bar + safe area */
+    padding-top: 100px;               /* fallback before JS computes */
+    padding-bottom: max(2rem, env(safe-area-inset-bottom, 1rem));
+    padding-left:  var(--space-8, 2rem);
+    padding-right: var(--space-8, 2rem);
+
+    /* ── Scroll ──────────────────────────────────────────────── */
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+
+    /* ── Closed state (GPU-accelerated, not right:-100%) ────── */
+    transform: translateX(100%);
+    visibility: hidden;
+
+    /* ── Close transition ────────────────────────────────────── */
+    transition:
+      transform  var(--mnav-close-dur) var(--mnav-retreat),
+      visibility 0s linear var(--mnav-close-dur);
+
+    will-change: transform;
+    z-index: 350;
+  }
+
+  /* Open state */
+  .nav__menu.open {
+    transform: translateX(0);
+    visibility: visible;
+    /* Open transition: springy entrance */
+    transition:
+      transform  var(--mnav-open-dur) var(--mnav-spring),
+      visibility 0s linear 0s;
+  }
+
+  /* Thin scrollbar when content overflows */
+  .nav__menu::-webkit-scrollbar        { width: 3px; }
+  .nav__menu::-webkit-scrollbar-track  { background: transparent; }
+  .nav__menu::-webkit-scrollbar-thumb  { background: rgba(74, 103, 65, 0.25); border-radius: 99px; }
+}
+
+/* ================================================================
+   DRAWER HEADER (injected by JS as .mnav-head)
+   ================================================================ */
+.mnav-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-5, 1.25rem);
+  margin-bottom: var(--space-2, 0.5rem);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  flex-shrink: 0;
+}
+.mnav-head__brand {
+  font-family: var(--font-heading, serif);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage-dark, #4a6741);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+/* ================================================================
+   NAV LINKS — Drawer styles (override components.css)
+   ================================================================ */
+@media (max-width: 768px) {
+
+  /* Direct children: links and dropdown wrappers */
+  .nav__menu > .nav__link,
+  .nav__menu > .nav__dropdown {
+    /* Geometric token applied by JS: --stagger-i */
+    /* Stagger appears only when menu is OPEN */
+    opacity: 0;
+    transform: translateX(20px);
+    transition:
+      opacity   0.32s var(--mnav-smooth),
+      transform 0.34s var(--mnav-smooth),
+      color     0.18s ease,
+      padding-left 0.18s ease,
+      background 0.18s ease;
+    /* Default delay = 0 (closed) */
+    transition-delay: 0ms;
+  }
+
+  .nav__menu.open > .nav__link,
+  .nav__menu.open > .nav__dropdown {
+    opacity: 1;
+    transform: translateX(0);
+    /* Stagger delay: base + (index × step) */
+    transition-delay: calc(
+      var(--mnav-item-base) + var(--stagger-i, 0) * var(--mnav-item-step)
+    );
+  }
+
+  /* Link itself */
+  .nav__menu .nav__link {
+    color: var(--charcoal, #2d3028);
+    font-size: 1.05rem;
+    font-weight: 450;
+    letter-spacing: 0.005em;
+    padding: 0.9rem 0;
+    width: 100%;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.055);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    background: transparent;
+  }
+
+  .nav__menu .nav__link:hover,
+  .nav__menu .nav__link:focus-visible {
+    color: var(--sage-dark, #4a6741);
+    background: transparent;
+    padding-left: 0.3rem;
+  }
+
+  .nav__menu .nav__link:focus-visible {
+    outline: 2px solid var(--sage-dark, #4a6741);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* ── Dropdowns in drawer ────────────────────────────────────── */
+  .nav__menu .nav__dropdown-trigger {
+    font-size: 1.05rem;
+    font-weight: 450;
+    color: var(--charcoal, #2d3028);
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.055);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 0;
+    background: transparent;
+    text-decoration: none;
+  }
+
+  .nav__menu .nav__dropdown-trigger:hover {
+    color: var(--sage-dark, #4a6741);
+    background: transparent;
+    padding-left: 0.3rem;
+  }
+
+  /* Chevron rotation */
+  .nav__dropdown-trigger > svg {
+    transition: transform 0.25s var(--mnav-smooth);
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+  .nav__dropdown.open .nav__dropdown-trigger > svg {
+    transform: rotate(180deg);
+    opacity: 0.9;
+  }
+
+  /* Sub-menu */
+  .nav__dropdown-menu {
+    position: static !important;
+    display: none;
+    transform: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: transparent !important;
+    padding: 0.2rem 0 0 1rem !important;
+    margin-bottom: 0.2rem;
+  }
+
+  .nav__dropdown.open .nav__dropdown-menu {
+    display: block;
+    animation: mnavReveal 0.22s var(--mnav-smooth) both;
+  }
+
+  @keyframes mnavReveal {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+
+  .nav__dropdown-item {
+    display: block;
+    padding: 0.7rem 0;
+    font-size: 0.92rem;
+    color: var(--color-text-secondary, #6b7280);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    text-decoration: none;
+    transition: color 0.18s ease, padding-left 0.18s ease;
+  }
+  .nav__dropdown-item:hover { color: var(--sage-dark, #4a6741); padding-left: 0.3rem; }
+  .nav__dropdown-item:last-child { border-bottom: none; }
+}
+
+/* ================================================================
+   LANGUAGE TOGGLE — Inside drawer
+   ================================================================ */
+@media (max-width: 768px) {
+
+  .nav__lang {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: auto 0 0;   /* push to bottom of flex column */
+    padding-top: var(--space-6, 1.5rem);
+    margin-top: var(--space-6, 1.5rem);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+    /* Stagger: lang toggle appears after all nav items */
+    opacity: 0;
+    transform: translateX(20px);
+    transition:
+      opacity   0.32s var(--mnav-smooth),
+      transform 0.34s var(--mnav-smooth);
+    transition-delay: 0ms;
+  }
+
+  .nav__menu.open .nav__lang {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: calc(var(--mnav-item-base) + 7 * var(--mnav-item-step));
+  }
+
+  .nav__lang-btn {
+    font-family: var(--font-body, sans-serif);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 0.35em 0.9em;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .nav__lang-btn.active {
+    color: var(--sage-dark, #4a6741);
+    background: var(--sage-lighter, #e8f0e5);
+    border: 1.5px solid var(--sage-light, #c5d4be);
+  }
+
+  .nav__lang-btn:not(.active) {
+    color: var(--stone, #8a8a82);
+    background: transparent;
+    border: 1.5px solid transparent;
+  }
+  .nav__lang-btn:not(.active):hover {
+    color: var(--charcoal, #2d3028);
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* ================================================================
+   CTA BUTTON — Inside drawer
+   ================================================================ */
+@media (max-width: 768px) {
+
+  .nav__cta {
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: var(--space-4, 1rem);
+    padding-bottom: 0;
+    /* Stagger: CTA appears last */
+    opacity: 0;
+    transform: translateX(20px);
+    transition:
+      opacity   0.32s var(--mnav-smooth),
+      transform 0.34s var(--mnav-smooth);
+    transition-delay: 0ms;
+  }
+
+  .nav__menu.open .nav__cta {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: calc(var(--mnav-item-base) + 8 * var(--mnav-item-step));
+  }
+
+  .nav__cta .btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 0.85em 1.5em;
+    font-size: 0.9rem;
+  }
+}
+
+/* ================================================================
+   LANDSCAPE — Compact drawer layout
+   ================================================================ */
+@media (max-width: 768px) and (orientation: landscape) {
+
+  .nav__menu {
+    /* Narrower drawer in landscape to leave visible content */
+    width: min(360px, 82vw);
+    padding-top: 70px;               /* tighter top in landscape */
+    padding-bottom: max(1rem, env(safe-area-inset-bottom, 0.5rem));
+  }
+
+  /* Compact link rows */
+  .nav__menu .nav__link,
+  .nav__menu .nav__dropdown-trigger {
+    font-size: 0.95rem;
+    padding: 0.65rem 0;
+  }
+
+  .nav__dropdown-item {
+    padding: 0.55rem 0;
+    font-size: 0.88rem;
+  }
+
+  /* Tighter lang / cta */
+  .nav__lang {
+    margin-top: var(--space-4, 1rem);
+    padding-top: var(--space-4, 1rem);
+  }
+
+  .nav__cta {
+    margin-top: var(--space-3, 0.75rem);
+  }
+
+  .nav__cta .btn {
+    padding: 0.7em 1.2em;
+    font-size: 0.85rem;
+  }
+}
+
+/* ================================================================
+   SAFE AREA (iPhone notch / Dynamic Island)
+   ================================================================ */
+@supports (padding-top: env(safe-area-inset-top)) {
+  @media (max-width: 768px) {
+    .nav__menu {
+      /* padding-top is set by JS, but safe-area is guaranteed minimum */
+      padding-left:  max(var(--space-8, 2rem), env(safe-area-inset-left, 0px));
+      padding-right: max(var(--space-8, 2rem), env(safe-area-inset-right, 0px));
+    }
+  }
+}
+
+/* ================================================================
+   REDUCED MOTION — honour system preference
+   ================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .nav__menu,
+  .nav__overlay,
+  .nav__toggle span,
+  .nav__menu > .nav__link,
+  .nav__menu > .nav__dropdown,
+  .nav__menu > .nav__lang,
+  .nav__menu > .nav__cta {
+    transition: none !important;
+    animation:  none !important;
+    transition-delay: 0ms !important;
+  }
+  /* Still show/hide correctly */
+  .nav__menu       { transform: translateX(100%); }
+  .nav__menu.open  { transform: translateX(0);    }
+  .nav__menu > .nav__link,
+  .nav__menu > .nav__dropdown,
+  .nav__menu > .nav__lang,
+  .nav__menu > .nav__cta { opacity: 1; transform: none; }
+}
+
+/* ================================================================
+   DEBUG PANEL  (?debugMenu=1)
+   ================================================================ */
+#mnav-debug {
+  position: fixed;
+  top: 80px;
+  left: 12px;
+  z-index: 99998;
+  min-width: 210px;
+  background: rgba(8, 12, 8, 0.94);
+  color: #94a3b8;
+  border-radius: 10px;
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-size: 10.5px;
+  line-height: 1.55;
+  padding: 10px 14px 12px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#mnav-debug .mdb-title {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #475569;
+  margin-bottom: 7px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+#mnav-debug .mdb-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 0;
+}
+
+#mnav-debug .mdb-key { color: #475569; min-width: 72px; }
+#mnav-debug .mdb-val { color: #e2e8f0; font-weight: 600; }
+#mnav-debug .mdb-on  { color: #4ade80; }
+#mnav-debug .mdb-off { color: #475569; }
+#mnav-debug .mdb-warn{ color: #fb923c; }
