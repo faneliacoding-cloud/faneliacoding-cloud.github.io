@@ -598,39 +598,35 @@
 #mnav-debug .mdb-warn{ color: #fb923c; }
 
 /* ================================================================
-   NAV BADGE SYSTEM — Mobile Drawer
-   Each nav item becomes a sage-tinted card-badge (icon + label row).
-   Matches the .trust-bar__item visual language at mobile scale.
+   NAV ICON SYSTEM — Mobile Drawer
+   Clean icon + label rows. No card backgrounds/bubbles.
+   Separator lines come from the existing .nav__menu .nav__link rules.
    ================================================================ */
 @media (max-width: 768px) {
 
-  /* ── Card-badge rows — override the separator-line style ────── */
+  /* ── Icon + label row — no bubble, no card ───────────────────── */
   .nav__menu a.nav__link {
     display: flex !important;
     align-items: center;
     gap: 10px;
     justify-content: flex-start;
-    padding: 0.8rem 1rem !important;
-    margin-bottom: 0.5rem;
-    border-radius: 12px;
-    border: 1px solid rgba(74, 103, 65, 0.14) !important;
-    border-bottom: 1px solid rgba(74, 103, 65, 0.14) !important;
-    background: rgba(74, 103, 65, 0.055) !important;
+    padding: 0.9rem 0 !important;
+    padding-left: 0 !important;
+    margin-bottom: 0;
+    border-radius: 0;
+    border: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.055) !important;
+    background: transparent !important;
+    box-shadow: none;
     color: var(--charcoal, #2d3028);
-    font-size: 1rem !important;
-    font-weight: 500;
+    font-size: 1.05rem !important;
+    font-weight: 450;
     text-decoration: none;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(74, 103, 65, 0.05);
-    transition:
-      background   0.18s ease,
-      border-color 0.18s ease,
-      color        0.18s ease,
-      box-shadow   0.18s ease;
-    /* Preserve stagger opacity/transform from parent rule */
-    padding-left: 1rem !important;
+    transition: color 0.18s ease;
+    transform: none;
   }
 
-  /* Icon in drawer — larger, sage-colored */
+  /* Icon — sage colored, 18px */
   .nav__menu a.nav__link .nav-badge__icon {
     display: flex;
     align-items: center;
@@ -638,54 +634,46 @@
   }
 
   .nav__menu a.nav__link .nav-badge__icon svg {
-    width: 18px;
-    height: 18px;
+    width: 17px;
+    height: 17px;
     color: var(--sage, #6a8f5f);
     flex-shrink: 0;
   }
 
-  /* Label */
+  /* Label fills remaining space */
   .nav__menu a.nav__link .nav-badge__label {
     flex: 1;
     display: block;
   }
 
-  /* Chevron pushed to right — dropdown triggers only */
-  .nav__menu a.nav__link.nav__dropdown-trigger {
-    justify-content: flex-start;
-  }
-  .nav__menu a.nav__link.nav__dropdown-trigger .nav-badge__label {
-    flex: 1;
-  }
-  /* Chevron (12×12 SVG) sits at the right */
+  /* Chevron stays at right for dropdown triggers */
   .nav__menu a.nav__link.nav__dropdown-trigger > svg:last-child {
     margin-left: auto;
     flex-shrink: 0;
     opacity: 0.5;
   }
 
-  /* ── Hover state ─────────────────────────────────────────────── */
+  /* ── Hover ───────────────────────────────────────────────────── */
   .nav__menu a.nav__link:hover,
   .nav__menu a.nav__link:focus-visible {
-    background: rgba(74, 103, 65, 0.12) !important;
-    border-color: rgba(74, 103, 65, 0.28) !important;
+    background: transparent !important;
+    border-color: rgba(0, 0, 0, 0.055) !important;
     color: var(--sage-dark, #4a6741) !important;
-    padding-left: 1rem !important; /* override the slide-in hover from base CSS */
-    box-shadow: 0 2px 8px rgba(74, 103, 65, 0.1);
-    transform: none !important; /* suppress desktop lift */
+    padding-left: 0.25rem !important;
+    box-shadow: none;
+    transform: none !important;
   }
 
   .nav__menu a.nav__link:hover .nav-badge__icon svg {
     color: var(--sage-dark, #4a6741);
   }
 
-  /* ── Active current-page ─────────────────────────────────────── */
+  /* ── Active current page ─────────────────────────────────────── */
   .nav__menu a.nav__link.nav-badge--active {
-    background: rgba(74, 103, 65, 0.14) !important;
-    border-color: rgba(74, 103, 65, 0.32) !important;
+    background: transparent !important;
     color: var(--sage-dark, #4a6741) !important;
     font-weight: 600 !important;
-    box-shadow: 0 2px 8px rgba(74, 103, 65, 0.1);
+    box-shadow: none;
   }
 
   .nav__menu a.nav__link.nav-badge--active .nav-badge__icon svg {
@@ -696,19 +684,17 @@
   .nav__menu a.nav__link:focus-visible {
     outline: 2px solid var(--sage-dark, #4a6741);
     outline-offset: 2px;
-    border-radius: 12px;
+    border-radius: 4px;
   }
 }
 
-/* ── Landscape: compact card-badges ───────────────────────────── */
+/* ── Landscape: slightly tighter rows ────────────────────────── */
 @media (max-width: 768px) and (orientation: landscape) {
 
   .nav__menu a.nav__link {
-    padding: 0.6rem 0.85rem !important;
-    padding-left: 0.85rem !important;
-    font-size: 0.9rem !important;
-    margin-bottom: 0.35rem;
-    border-radius: 10px;
+    padding: 0.65rem 0 !important;
+    padding-left: 0 !important;
+    font-size: 0.95rem !important;
     gap: 8px;
   }
 
