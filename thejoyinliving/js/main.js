@@ -33,9 +33,9 @@ function initNav() {
   }
 
   // Auto-apply scrolled state on pages without a dark hero
-  const hasHero = document.querySelector('.hero, .portal-hero, .page-hero');
-  const hasLightHero = document.querySelector('.article-hero');
-  if (!hasHero || hasLightHero) {
+  const hasDarkHero = document.querySelector('.hero, .portal-hero');
+  const hasLightBg  = document.querySelector('.article-hero, .page-hero');
+  if (!hasDarkHero || hasLightBg) {
     nav.classList.add('scrolled');
   }
 
@@ -44,7 +44,7 @@ function initNav() {
   window.addEventListener('scroll', () => {
     const current = window.scrollY;
 
-    if (current > 80 || !hasHero || hasLightHero) {
+    if (current > 80 || !hasDarkHero || hasLightBg) {
       nav.classList.add('scrolled');
     } else {
       nav.classList.remove('scrolled');
