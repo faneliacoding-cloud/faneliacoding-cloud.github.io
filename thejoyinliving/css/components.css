@@ -425,8 +425,8 @@
   transform: rotate(-45deg) translate(5px, -6px);
 }
 
-/* Mobile Navigation */
-@media (max-width: 1024px) {
+/* Mobile Navigation — phones only (iOS / Android ≤768px) */
+@media (max-width: 768px) {
   .nav__toggle { display: flex; }
 
   .nav__menu {
@@ -2036,7 +2036,7 @@ a[aria-label="Oxford Health Plans"] img.insurance-logo {
   align-items: center;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 769px) {
   .nav__dropdown-item {
     min-height: unset;
     display: block;
