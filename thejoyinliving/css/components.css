@@ -207,17 +207,17 @@
 }
 
 .nav__logo-img {
-  height: 72px;
+  height: 100px;
   width: auto;
   transition: all var(--duration-normal) var(--ease-soft);
 }
 
 .nav.scrolled .nav__logo-img {
-  height: 58px;
+  height: 80px;
 }
 
 .footer .nav__logo-img {
-  height: 64px;
+  height: 85px;
 }
 
 /* Legacy SVG logo support — keep for backwards compat */
@@ -2277,7 +2277,7 @@ input, textarea, select {
 /* --- Nav logo: right size on very small phones --- */
 @media (max-width: 380px) {
   .nav__logo-img {
-    width: 140px !important;
+    width: 180px !important;
     height: auto !important;
   }
 
