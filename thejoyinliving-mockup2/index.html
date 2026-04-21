@@ -537,15 +537,28 @@
       margin-bottom: 60px;
     }
 
-    /* Fade-in on scroll */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+    /* Fade-in — CSS-only, no JS dependency */
+    @keyframes sectionFadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .fade-in {
+      animation: sectionFadeUp 0.7s ease both;
+    }
+    /* Stagger children inside grids */
+    .who-for-grid .fade-in:nth-child(1) { animation-delay: 0.05s; }
+    .who-for-grid .fade-in:nth-child(2) { animation-delay: 0.15s; }
+    .who-for-grid .fade-in:nth-child(3) { animation-delay: 0.25s; }
+    .who-for-grid .fade-in:nth-child(4) { animation-delay: 0.35s; }
+    .services-grid .fade-in:nth-child(1) { animation-delay: 0.05s; }
+    .services-grid .fade-in:nth-child(2) { animation-delay: 0.12s; }
+    .services-grid .fade-in:nth-child(3) { animation-delay: 0.19s; }
+    .services-grid .fade-in:nth-child(4) { animation-delay: 0.26s; }
+    .services-grid .fade-in:nth-child(5) { animation-delay: 0.33s; }
+    .services-grid .fade-in:nth-child(6) { animation-delay: 0.40s; }
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { animation: none; }
     }
 
     /* ==========================================
@@ -1979,22 +1992,8 @@
   };
 
   /* ---- HERO ANIMATION ---- */
-  const heroSection = document.getElementById('hero');
-  setTimeout(() => heroSection.classList.add('loaded'), 100);
-
-  /* ---- FADE IN ON SCROLL ---- */
-  const fadeElements = document.querySelectorAll('.fade-in');
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry, i) {
-      if (entry.isIntersecting) {
-        const delay = (i % 4) * 80;
-        setTimeout(() => entry.target.classList.add('visible'), delay);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  fadeElements.forEach(function (el) { observer.observe(el); });
+  var heroSection = document.getElementById('hero');
+  if (heroSection) setTimeout(function () { heroSection.classList.add('loaded'); }, 100);
 
   /* ---- LANGUAGE TOGGLE ---- */
   window.toggleLang = function () {
@@ -2036,106 +2035,123 @@
   }
 
   /* ---- TESTIMONIALS CAROUSEL ---- */
-  const track = document.getElementById('testimonial-track');
-  const dots = document.querySelectorAll('.carousel-dot');
+  var track = document.getElementById('testimonial-track');
+  var dots = document.querySelectorAll('.carousel-dot');
 
   window.goToSlide = function (idx) {
     currentSlide = idx;
-    track.style.transform = `translateX(-${idx * 100}%)`;
+    if (track) track.style.transform = 'translateX(-' + (idx * 100) + '%)';
     dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
     resetAutoSlide();
   };
 
   function nextSlide() {
-    goToSlide((currentSlide + 1) % totalSlides);
+    window.goToSlide((currentSlide + 1) % totalSlides);
   }
 
   function resetAutoSlide() {
     clearInterval(autoSlideTimer);
-    autoSlideTimer = setInterval(nextSlide, 5000);
+    autoSlideTimer = setInterval(nextSlide, 5500);
   }
 
   resetAutoSlide();
 
-  // Touch swipe support
-  let touchStartX = 0;
-  track.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
-  track.addEventListener('touchend', function (e) {
-    const delta = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(delta) > 50) {
-      goToSlide(delta > 0 ? (currentSlide + 1) % totalSlides : (currentSlide - 1 + totalSlides) % totalSlides);
-    }
-  });
+  /* Touch swipe support */
+  var touchStartX = 0;
+  if (track) {
+    track.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', function (e) {
+      var delta = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(delta) > 50) {
+        window.goToSlide(delta > 0 ? (currentSlide + 1) % totalSlides : (currentSlide - 1 + totalSlides) % totalSlides);
+      }
+    });
+  }
 
   /* ---- CHATBOT ---- */
-  document.getElementById('chatbot-toggle').addEventListener('click', function () {
-    chatOpen = !chatOpen;
-    document.getElementById('chatbot-panel').classList.toggle('open', chatOpen);
-    // Remove badge once opened
-    const badge = document.querySelector('.chatbot-badge');
-    if (badge && chatOpen) badge.style.display = 'none';
-  });
+  var chatToggleBtn = document.getElementById('chatbot-toggle');
+  if (chatToggleBtn) {
+    chatToggleBtn.addEventListener('click', function () {
+      chatOpen = !chatOpen;
+      var panel = document.getElementById('chatbot-panel');
+      if (panel) panel.classList.toggle('open', chatOpen);
+      var badge = document.querySelector('.chatbot-badge');
+      if (badge && chatOpen) badge.style.display = 'none';
+    });
+  }
 
-  const chatResponses = {
+  var chatResponses = {
     en: {
-      book: "Great! You can book a free 15-minute consultation by calling (914) 686-2484 or visiting our appointments page. Claudia would love to meet you! 💚",
-      services: "We offer Individual Therapy, Couples & Family, Group Therapy, Immigration Evaluations, Clinical Supervision, and Telehealth — all in English and Spanish. Which interests you most?",
-      insurance: "We accept Cigna, Aetna, UnitedHealth, BlueCross BlueShield, Optum, and work with Headway. Out-of-network superbills are also available. Visit our Insurance page for full details!",
-      contact: "You can reach us at:\n📞 (914) 686-2484\n✉️ reception@thejoyinliving.com\n\nWe're here for you. 💚",
+      book: 'Great! You can book a free 15-minute consultation by calling (914) 686-2484 or visiting our appointments page. Claudia would love to meet you! 💚',
+      services: 'We offer Individual Therapy, Couples & Family, Group Therapy, Immigration Evaluations, Clinical Supervision, and Telehealth — all in English and Spanish. Which interests you most?',
+      insurance: 'We accept Cigna, Aetna, UnitedHealth, BlueCross BlueShield, Optum, and work with Headway. Out-of-network superbills are also available. Visit our Insurance page for full details!',
+      contact: 'You can reach us at:\n📞 (914) 686-2484\n✉️ reception@thejoyinliving.com\n\nWe are here for you. 💚'
     },
     es: {
-      book: "¡Genial! Puedes reservar una consulta gratuita de 15 minutos llamando al (914) 686-2484 o visitando nuestra página de citas. ¡A Claudia le encantaría conocerte! 💚",
-      services: "Ofrecemos Terapia Individual, Parejas y Familia, Terapia de Grupo, Evaluaciones de Inmigración, Supervisión Clínica y Telehealth — todo en inglés y español. ¿Cuál te interesa más?",
-      insurance: "Aceptamos Cigna, Aetna, UnitedHealth, BlueCross BlueShield, Optum y trabajamos con Headway. Las facturas fuera de la red también están disponibles. ¡Visita nuestra página de Seguro para más detalles!",
-      contact: "Puedes comunicarte con nosotros:\n📞 (914) 686-2484\n✉️ reception@thejoyinliving.com\n\nEstamos aquí para ti. 💚",
+      book: '¡Genial! Puedes reservar una consulta gratuita de 15 minutos llamando al (914) 686-2484 o visitando nuestra página de citas. ¡A Claudia le encantaría conocerte! 💚',
+      services: 'Ofrecemos Terapia Individual, Parejas y Familia, Terapia de Grupo, Evaluaciones de Inmigración, Supervisión Clínica y Telehealth — todo en inglés y español. ¿Cuál te interesa más?',
+      insurance: 'Aceptamos Cigna, Aetna, UnitedHealth, BlueCross BlueShield, Optum y trabajamos con Headway. Las facturas fuera de la red también están disponibles.',
+      contact: 'Puedes comunicarte con nosotros:\n📞 (914) 686-2484\n✉️ reception@thejoyinliving.com\n\nEstamos aquí para ti. 💚'
     }
   };
 
   window.chatQuick = function (key) {
-    const response = chatResponses[currentLang][key];
-    addUserMessage(key === 'book' ? (currentLang === 'en' ? 'I'd like to book a consultation' : 'Quiero reservar una consulta') :
-      key === 'services' ? (currentLang === 'en' ? 'Tell me about your services' : 'Cuéntame sobre sus servicios') :
-      key === 'insurance' ? (currentLang === 'en' ? 'What insurance do you accept?' : '¿Qué seguros aceptan?') :
-      (currentLang === 'en' ? 'How can I contact you?' : '¿Cómo puedo contactarles?'));
+    var response = chatResponses[currentLang][key];
+    var userMsgs = {
+      en: { book: 'I would like to book a consultation', services: 'Tell me about your services', insurance: 'What insurance do you accept?', contact: 'How can I contact you?' },
+      es: { book: 'Quiero reservar una consulta', services: 'Cu\u00E9ntame sobre sus servicios', insurance: '\u00BFQu\u00E9 seguros aceptan?', contact: '\u00BFC\u00F3mo puedo contactarles?' }
+    };
+    addUserMessage(userMsgs[currentLang][key] || key);
     setTimeout(function () { addBotMessage(response); }, 700);
   };
 
   window.sendChatMessage = function () {
-    const input = document.getElementById('chat-input');
-    const msg = input.value.trim();
+    var input = document.getElementById('chat-input');
+    var msg = input.value.trim();
     if (!msg) return;
     addUserMessage(msg);
     input.value = '';
-    const reply = currentLang === 'en'
-      ? "Thank you for reaching out. 💚 For the quickest response, please call us at (914) 686-2484 or email reception@thejoyinliving.com. Claudia's team is here to help!"
-      : "Gracias por comunicarte. 💚 Para una respuesta más rápida, llámenos al (914) 686-2484 o envíe un correo a reception@thejoyinliving.com. ¡El equipo de Claudia está aquí para ayudarte!";
+    var reply = currentLang === 'en'
+      ? 'Thank you for reaching out. 💚 For the quickest response, please call us at (914) 686-2484 or email reception@thejoyinliving.com. Claudia\'s team is here to help!'
+      : 'Gracias por comunicarte. 💚 Para una respuesta más rápida, llámenos al (914) 686-2484 o envíe un correo a reception@thejoyinliving.com.';
     setTimeout(function () { addBotMessage(reply); }, 800);
   };
 
-  document.getElementById('chat-input').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') window.sendChatMessage();
-  });
+  var chatInputEl = document.getElementById('chat-input');
+  if (chatInputEl) {
+    chatInputEl.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') window.sendChatMessage();
+    });
+  }
 
   function addUserMessage(text) {
-    const messages = document.getElementById('chatbot-messages');
-    messages.innerHTML += `<div class="chat-message" style="justify-content:flex-end;"><div class="chat-bubble user">${escapeHtml(text)}</div></div>`;
+    var messages = document.getElementById('chatbot-messages');
+    if (!messages) return;
+    var div = document.createElement('div');
+    div.className = 'chat-message';
+    div.style.justifyContent = 'flex-end';
+    div.innerHTML = '<div class="chat-bubble user">' + escapeHtml(text) + '</div>';
+    messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
   }
 
   function addBotMessage(text) {
-    const messages = document.getElementById('chatbot-messages');
-    messages.innerHTML += `<div class="chat-message"><div class="chat-mini-avatar">🌿</div><div class="chat-bubble bot">${escapeHtml(text)}</div></div>`;
+    var messages = document.getElementById('chatbot-messages');
+    if (!messages) return;
+    var div = document.createElement('div');
+    div.className = 'chat-message';
+    div.innerHTML = '<div class="chat-mini-avatar">🌿</div><div class="chat-bubble bot">' + escapeHtml(text) + '</div>';
+    messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
   }
 
   function escapeHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\n/g, '<br>');
   }
-
-  /* ---- HERO H1 INLINE HTML ---- */
-  // Already set in HTML; ensure it renders correctly after lang switch
-  document.querySelector('.hero-h1').innerHTML =
-    `<span data-en="You don't have to go through <em>this alone.</em>" data-es="No tienes que pasar por <em>esto solo.</em>">You don't have to go through <em>this alone.</em></span>`;
 
 })();
 </script>
