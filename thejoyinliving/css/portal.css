@@ -127,6 +127,11 @@
   color: var(--charcoal);
   box-shadow: var(--shadow-sm);
   transition: all 0.2s;
+  /* Fix iOS double-tap: forces single tap to fire as click */
+  touch-action: manipulation;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 .portal-tile:hover {
   transform: translateY(-3px);
