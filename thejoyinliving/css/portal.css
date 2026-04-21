@@ -54,7 +54,7 @@
   border-bottom: 1px solid var(--color-border-light);
   position: sticky;
   top: 104px; /* nav (64px) + crisis banner (40px) */
-  z-index: 39;
+  z-index: 40; /* must be above portal-hero (position:relative, auto z-index) */
 }
 /* When banner is dismissed, nav shrinks back to 64px */
 .banner-hidden .portal-tabs {
@@ -94,6 +94,9 @@
   background: var(--cream);
   min-height: 60vh;
   padding: var(--space-12) 0 var(--space-16);
+  /* Must sit above portal-hero (position:relative, auto z-index = stacking level 6) */
+  position: relative;
+  z-index: 2;
 }
 
 /* Cards — using main design system base, portal variant */
