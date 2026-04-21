@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Patient Portal | The Joy In Living</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --forest: #1F3D36; --forest-dark: #152b26; --forest-light: #2a5248;
+      --sage: #A8C3B0; --sage-light: #c4d9cb; --sage-pale: #e8f0ea;
+      --cream: #F7F4EF; --cream-dark: #EDE9E2;
+      --gold: #C9A96E; --gold-light: #e0c48a;
+      --white: #ffffff;
+      --text-dark: #1a2e28; --text-mid: #4a6358; --text-light: #7a9b8a;
+      --shadow-sm: 0 2px 12px rgba(31,61,54,0.06);
+      --shadow-md: 0 8px 32px rgba(31,61,54,0.10);
+      --radius-sm: 12px; --radius-md: 20px; --radius-lg: 28px; --radius-pill: 100px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text-dark);line-height:1.65;min-height:100vh;}
+
+    /* PORTAL NAV */
+    .portal-nav{background:var(--forest-dark);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;}
+    .portal-nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .portal-nav-logo-icon{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+    .portal-nav-logo-text{display:flex;flex-direction:column;}
+    .portal-nav-logo-text .pn-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--white);line-height:1.1;}
+    .portal-nav-logo-text .pn-sub{font-size:9px;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.1em;text-transform:uppercase;}
+    .portal-nav-tabs{display:flex;align-items:center;gap:4px;}
+    .portal-nav-tab{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-pill);font-size:12px;font-weight:600;color:rgba(255,255,255,0.55);text-decoration:none;transition:all var(--transition);border:1.5px solid transparent;}
+    .portal-nav-tab:hover{background:rgba(255,255,255,0.08);color:var(--white);}
+    .portal-nav-tab.active{background:rgba(168,195,176,0.18);color:var(--sage-light);border-color:rgba(168,195,176,0.30);}
+    .portal-nav-actions{display:flex;align-items:center;gap:10px;}
+    .btn-portal-exit{padding:8px 18px;background:transparent;border:1.5px solid rgba(255,255,255,0.20);border-radius:var(--radius-pill);font-size:12px;font-weight:600;color:rgba(255,255,255,0.65);text-decoration:none;transition:all var(--transition);}
+    .btn-portal-exit:hover{background:rgba(255,255,255,0.08);color:var(--white);}
+
+    /* HERO BANNER */
+    .portal-hero{background:linear-gradient(135deg,var(--forest) 0%,var(--forest-light) 100%);padding:48px 40px;text-align:center;}
+    .portal-hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:rgba(201,169,110,0.18);border:1px solid rgba(201,169,110,0.35);border-radius:var(--radius-pill);font-size:11px;font-weight:700;color:var(--gold-light);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;}
+    .portal-hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,42px);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:12px;}
+    .portal-hero h1 em{font-style:italic;color:var(--gold-light);}
+    .portal-hero p{font-size:15px;color:rgba(255,255,255,0.65);max-width:540px;margin:0 auto;}
+
+    /* MAIN CONTENT */
+    .portal-body{max-width:960px;margin:0 auto;padding:52px 24px;}
+
+    /* INFO BANNER */
+    .portal-info-banner{background:var(--sage-pale);border:1.5px solid var(--sage-light);border-radius:var(--radius-md);padding:20px 28px;margin-bottom:40px;display:flex;align-items:center;gap:14px;}
+    .portal-info-banner-icon{font-size:24px;flex-shrink:0;}
+    .portal-info-banner p{font-size:14px;color:var(--text-mid);line-height:1.6;}
+    .portal-info-banner strong{color:var(--forest);}
+
+    /* TILE GRID */
+    .portal-tile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:40px;}
+    .portal-tile{display:flex;align-items:center;gap:18px;padding:24px 28px;background:var(--white);border:1.5px solid var(--cream-dark);border-radius:var(--radius-md);text-decoration:none;transition:all var(--transition);position:relative;overflow:hidden;}
+    .portal-tile::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--sage-light);border-radius:4px 0 0 4px;transition:background var(--transition);}
+    .portal-tile:hover{border-color:var(--sage);box-shadow:var(--shadow-md);transform:translateY(-2px);}
+    .portal-tile:hover::before{background:var(--forest);}
+    .portal-tile--primary::before{background:var(--forest);}
+    .portal-tile--primary{border-color:var(--sage);}
+    .portal-tile-icon{width:52px;height:52px;background:var(--sage-pale);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+    .portal-tile--primary .portal-tile-icon{background:var(--forest);font-size:22px;}
+    .portal-tile-text .tile-title{font-size:15px;font-weight:700;color:var(--text-dark);margin-bottom:4px;}
+    .portal-tile-text .tile-desc{font-size:13px;color:var(--text-light);}
+    .portal-tile-arrow{margin-left:auto;color:var(--text-light);flex-shrink:0;transition:transform var(--transition);}
+    .portal-tile:hover .portal-tile-arrow{transform:translateX(4px);color:var(--forest);}
+
+    /* INFO CARDS */
+    .portal-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .portal-info-card{padding:24px;background:var(--white);border:1.5px solid var(--cream-dark);border-radius:var(--radius-md);}
+    .portal-info-card h3{font-size:13px;font-weight:700;color:var(--forest);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+    .portal-info-card p,.portal-info-card a{font-size:13px;color:var(--text-mid);line-height:1.7;text-decoration:none;}
+    .portal-info-card a:hover{color:var(--forest);}
+    .portal-info-card .info-link{font-size:12px;font-weight:700;color:var(--forest);text-decoration:none;display:inline-block;margin-top:8px;}
+
+    /* FOOTER */
+    .portal-footer{background:var(--forest-dark);padding:28px 40px;margin-top:80px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .portal-footer p{font-size:12px;color:rgba(255,255,255,0.35);}
+    .portal-footer-links{display:flex;gap:20px;}
+    .portal-footer-links a{font-size:12px;color:rgba(255,255,255,0.40);text-decoration:none;transition:color var(--transition);}
+    .portal-footer-links a:hover{color:rgba(255,255,255,0.80);}
+
+    /* MOBILE NAV */
+    .portal-hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;}
+    .portal-hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,0.7);border-radius:2px;}
+    .portal-mobile-menu{display:none;position:fixed;inset:0;background:var(--forest-dark);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+    .portal-mobile-menu.open{display:flex;}
+    .portal-mobile-menu a{font-family:'Playfair Display',serif;font-size:24px;color:var(--white);text-decoration:none;padding:16px 32px;border-radius:var(--radius-pill);transition:background var(--transition);}
+    .portal-mobile-menu a:hover{background:rgba(255,255,255,0.08);}
+    .portal-mobile-close{position:absolute;top:24px;right:24px;background:none;border:none;color:rgba(255,255,255,0.6);font-size:28px;cursor:pointer;}
+
+    @media(max-width:768px){
+      .portal-nav{padding:0 20px;}
+      .portal-nav-tabs{display:none;}
+      .portal-hamburger{display:flex;}
+      .portal-hero{padding:32px 20px;}
+      .portal-body{padding:32px 16px;}
+      .portal-tile-grid{grid-template-columns:1fr;}
+      .portal-info-grid{grid-template-columns:1fr;}
+      .portal-footer{padding:20px;flex-direction:column;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- PORTAL NAV -->
+<nav class="portal-nav" role="navigation">
+  <a href="../" class="portal-nav-logo">
+    <div class="portal-nav-logo-icon">🌿</div>
+    <div class="portal-nav-logo-text">
+      <span class="pn-name">The Joy In Living</span>
+      <span class="pn-sub">Patient Portal</span>
+    </div>
+  </a>
+  <div class="portal-nav-tabs">
+    <a href="./" class="portal-nav-tab active">🏠 Portal Home</a>
+    <a href="appointments/" class="portal-nav-tab">📅 Appointments</a>
+    <a href="telehealth/" class="portal-nav-tab">💻 Telehealth</a>
+    <a href="notifications/" class="portal-nav-tab">🔔 Notifications</a>
+    <a href="login/" class="portal-nav-tab">🔓 Log In</a>
+  </div>
+  <div class="portal-nav-actions">
+    <a href="../" class="btn-portal-exit">← Back to Main Site</a>
+    <button class="portal-hamburger" id="portal-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="portal-mobile-menu" id="portal-mobile-menu">
+  <button class="portal-mobile-close" onclick="closeMobileMenu()" aria-label="Close">✕</button>
+  <a href="./" onclick="closeMobileMenu()">🏠 Portal Home</a>
+  <a href="appointments/" onclick="closeMobileMenu()">📅 Appointments</a>
+  <a href="telehealth/" onclick="closeMobileMenu()">💻 Telehealth</a>
+  <a href="notifications/" onclick="closeMobileMenu()">🔔 Notifications</a>
+  <a href="login/" onclick="closeMobileMenu()">🔓 Log In</a>
+  <a href="../" onclick="closeMobileMenu()" style="font-size:14px;color:rgba(255,255,255,0.5);">← Back to Main Site</a>
+</div>
+
+<!-- HERO -->
+<section class="portal-hero">
+  <div class="portal-hero-badge">🔒 HIPAA Secure · Encrypted</div>
+  <h1>Your Care,<br><em>At Your Fingertips</em></h1>
+  <p>Book appointments, join telehealth sessions, and manage your care — all in one secure, private space.</p>
+</section>
+
+<!-- BODY -->
+<main class="portal-body">
+
+  <!-- INFO BANNER -->
+  <div class="portal-info-banner">
+    <div class="portal-info-banner-icon">💚</div>
+    <p>Welcome to the client portal for <strong>The Joy In Living</strong>. New clients can check availability and request appointments. Existing clients can log in to access their full dashboard, complete paperwork, and join telehealth sessions.</p>
+  </div>
+
+  <!-- TILE GRID -->
+  <div class="portal-tile-grid">
+    <a href="login/" class="portal-tile portal-tile--primary">
+      <div class="portal-tile-icon">🔓</div>
+      <div class="portal-tile-text">
+        <div class="tile-title">Log In</div>
+        <div class="tile-desc">Existing clients — access your full dashboard</div>
+      </div>
+      <svg class="portal-tile-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <a href="appointments/" class="portal-tile">
+      <div class="portal-tile-icon">📅</div>
+      <div class="portal-tile-text">
+        <div class="tile-title">Request Appointment</div>
+        <div class="tile-desc">Check availability &amp; book a session</div>
+      </div>
+      <svg class="portal-tile-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <a href="telehealth/" class="portal-tile">
+      <div class="portal-tile-icon">💻</div>
+      <div class="portal-tile-text">
+        <div class="tile-title">Telehealth Session</div>
+        <div class="tile-desc">Join your secure virtual therapy session</div>
+      </div>
+      <svg class="portal-tile-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <a href="notifications/" class="portal-tile">
+      <div class="portal-tile-icon">🔔</div>
+      <div class="portal-tile-text">
+        <div class="tile-title">Notifications</div>
+        <div class="tile-desc">Manage appointment reminders &amp; updates</div>
+      </div>
+      <svg class="portal-tile-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+  </div>
+
+  <!-- INFO CARDS -->
+  <div class="portal-info-grid">
+    <div class="portal-info-card">
+      <h3>📍 Office Location</h3>
+      <p>239 North Broadway, Suite LL 101<br>Sleepy Hollow, NY 10591</p>
+      <a href="https://maps.google.com/?q=239+North+Broadway+Sleepy+Hollow+NY" target="_blank" rel="noopener" class="info-link">Get directions →</a>
+    </div>
+    <div class="portal-info-card">
+      <h3>📞 Contact Us</h3>
+      <p>
+        <a href="tel:9146862484">(914) 686-2484</a><br>
+        <a href="tel:9147585286">(914) 758-5286</a><br>
+        <a href="mailto:reception@thejoyinliving.com">reception@thejoyinliving.com</a>
+      </p>
+    </div>
+    <div class="portal-info-card">
+      <h3>🔒 Your Privacy</h3>
+      <p>This portal uses HIPAA-compliant, encrypted technology. Your information is always private, secure, and protected.</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="portal-footer">
+  <p>© 2026 The Joy In Living, LCSW, PLLC. All rights reserved.</p>
+  <div class="portal-footer-links">
+    <a href="../">Main Site</a>
+    <a href="../privacy-policy/">Privacy Policy</a>
+    <a href="tel:9146862484">(914) 686-2484</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('portal-hamburger').addEventListener('click', function() {
+    document.getElementById('portal-mobile-menu').classList.add('open');
+  });
+  function closeMobileMenu() {
+    document.getElementById('portal-mobile-menu').classList.remove('open');
+  }
+</script>
+</body>
+</html>

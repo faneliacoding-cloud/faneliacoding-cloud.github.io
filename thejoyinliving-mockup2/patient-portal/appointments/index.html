@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Request Appointment | The Joy In Living Patient Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --forest: #1F3D36; --forest-dark: #152b26; --forest-light: #2a5248;
+      --sage: #A8C3B0; --sage-light: #c4d9cb; --sage-pale: #e8f0ea;
+      --cream: #F7F4EF; --cream-dark: #EDE9E2;
+      --gold: #C9A96E; --gold-light: #e0c48a;
+      --white: #ffffff;
+      --text-dark: #1a2e28; --text-mid: #4a6358; --text-light: #7a9b8a;
+      --shadow-sm: 0 2px 12px rgba(31,61,54,0.06);
+      --shadow-md: 0 8px 32px rgba(31,61,54,0.10);
+      --radius-sm: 12px; --radius-md: 20px; --radius-pill: 100px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh;}
+
+    /* NAV */
+    .portal-nav{background:var(--forest-dark);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;}
+    .portal-nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .portal-nav-logo-icon{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+    .pn-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:600;color:var(--white);}
+    .pn-sub{font-size:9px;font-weight:600;color:rgba(255,255,255,0.40);letter-spacing:0.1em;text-transform:uppercase;}
+    .portal-nav-tabs{display:flex;align-items:center;gap:4px;}
+    .pnt{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-pill);font-size:12px;font-weight:600;color:rgba(255,255,255,0.55);text-decoration:none;transition:all var(--transition);border:1.5px solid transparent;}
+    .pnt:hover{background:rgba(255,255,255,0.08);color:var(--white);}
+    .pnt.active{background:rgba(168,195,176,0.18);color:var(--sage-light);border-color:rgba(168,195,176,0.30);}
+    .btn-portal-exit{padding:8px 18px;background:transparent;border:1.5px solid rgba(255,255,255,0.20);border-radius:var(--radius-pill);font-size:12px;font-weight:600;color:rgba(255,255,255,0.65);text-decoration:none;transition:all var(--transition);}
+    .btn-portal-exit:hover{background:rgba(255,255,255,0.08);color:var(--white);}
+
+    /* HERO */
+    .portal-hero{background:linear-gradient(135deg,var(--forest) 0%,var(--forest-light) 100%);padding:48px 40px;text-align:center;}
+    .portal-hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:rgba(201,169,110,0.18);border:1px solid rgba(201,169,110,0.35);border-radius:var(--radius-pill);font-size:11px;font-weight:700;color:var(--gold-light);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;}
+    .portal-hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,3vw,42px);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:12px;}
+    .portal-hero h1 em{font-style:italic;color:var(--gold-light);}
+    .portal-hero p{font-size:15px;color:rgba(255,255,255,0.65);max-width:500px;margin:0 auto;}
+
+    /* MAIN LAYOUT */
+    .appt-body{max-width:820px;margin:0 auto;padding:52px 24px;}
+
+    /* STEP PROGRESS */
+    .step-progress{display:flex;align-items:center;gap:0;margin-bottom:48px;}
+    .step-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;}
+    .step-item:not(:last-child)::after{content:'';position:absolute;top:18px;left:50%;width:100%;height:1.5px;background:var(--cream-dark);z-index:0;}
+    .step-item.done:not(:last-child)::after,.step-item.active:not(:last-child)::after{background:var(--sage);}
+    .step-circle{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid var(--cream-dark);background:var(--white);color:var(--text-light);position:relative;z-index:1;transition:all var(--transition);}
+    .step-item.done .step-circle{background:var(--forest);border-color:var(--forest);color:var(--white);}
+    .step-item.active .step-circle{background:var(--white);border-color:var(--forest);color:var(--forest);box-shadow:0 0 0 4px rgba(31,61,54,0.10);}
+    .step-label{font-size:11px;font-weight:600;color:var(--text-light);text-align:center;letter-spacing:0.04em;}
+    .step-item.active .step-label{color:var(--forest);}
+    .step-item.done .step-label{color:var(--text-mid);}
+
+    /* FORM STEPS */
+    .appt-step{display:none;}
+    .appt-step.active{display:block;}
+
+    /* SECTION CARD */
+    .form-card{background:var(--white);border:1.5px solid var(--cream-dark);border-radius:var(--radius-md);padding:36px 40px;margin-bottom:20px;box-shadow:var(--shadow-sm);}
+    .form-card-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--forest);margin-bottom:6px;}
+    .form-card-sub{font-size:13px;color:var(--text-light);margin-bottom:28px;}
+
+    /* SERVICE CHOICE */
+    .service-choices{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:8px;}
+    .service-choice{padding:16px 20px;border:1.5px solid var(--cream-dark);border-radius:var(--radius-sm);cursor:pointer;transition:all var(--transition);display:flex;align-items:center;gap:12px;}
+    .service-choice:hover{border-color:var(--sage);background:var(--sage-pale);}
+    .service-choice.selected{border-color:var(--forest);background:var(--sage-pale);}
+    .service-choice input[type=radio]{display:none;}
+    .service-choice-icon{font-size:20px;}
+    .service-choice-text .sc-title{font-size:13px;font-weight:700;color:var(--text-dark);}
+    .service-choice-text .sc-desc{font-size:11px;color:var(--text-light);margin-top:2px;}
+
+    /* SESSION TYPE */
+    .session-types{display:flex;gap:12px;margin-bottom:24px;}
+    .session-type{flex:1;padding:14px;border:1.5px solid var(--cream-dark);border-radius:var(--radius-sm);cursor:pointer;transition:all var(--transition);text-align:center;}
+    .session-type:hover{border-color:var(--sage);}
+    .session-type.selected{border-color:var(--forest);background:var(--sage-pale);}
+    .session-type input[type=radio]{display:none;}
+    .session-type-icon{font-size:22px;margin-bottom:6px;}
+    .session-type-label{font-size:13px;font-weight:700;color:var(--text-dark);}
+
+    /* FORM FIELDS */
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .form-group{margin-bottom:20px;}
+    .form-label{display:block;font-size:11px;font-weight:700;color:var(--text-mid);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:7px;}
+    .form-input,.form-select,.form-textarea{width:100%;padding:13px 16px;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:var(--radius-sm);font-size:14px;font-family:'Inter',sans-serif;color:var(--text-dark);outline:none;transition:all var(--transition);}
+    .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--sage);background:var(--white);box-shadow:0 0 0 3px rgba(168,195,176,0.18);}
+    .form-input::placeholder,.form-textarea::placeholder{color:var(--text-light);}
+    .form-select{appearance:none;cursor:pointer;}
+    .form-textarea{resize:vertical;min-height:100px;line-height:1.6;}
+
+    /* AVAILABILITY GRID */
+    .availability-label{font-size:12px;font-weight:700;color:var(--text-mid);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:14px;}
+    .availability-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
+    .avail-slot{padding:10px 12px;border:1.5px solid var(--cream-dark);border-radius:var(--radius-sm);cursor:pointer;text-align:center;transition:all var(--transition);}
+    .avail-slot:hover{border-color:var(--sage);background:var(--sage-pale);}
+    .avail-slot.selected{border-color:var(--forest);background:var(--sage-pale);}
+    .avail-slot input[type=checkbox]{display:none;}
+    .avail-day{font-size:12px;font-weight:700;color:var(--text-mid);}
+    .avail-time{font-size:11px;color:var(--text-light);margin-top:2px;}
+
+    /* BUTTONS */
+    .btn-next{padding:15px 36px;background:var(--forest);color:var(--white);border:none;border-radius:var(--radius-pill);font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all var(--transition);}
+    .btn-next:hover{background:var(--forest-light);transform:translateY(-1px);box-shadow:0 8px 28px rgba(31,61,54,0.22);}
+    .btn-back{padding:14px 28px;background:transparent;border:1.5px solid var(--cream-dark);border-radius:var(--radius-pill);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--text-light);cursor:pointer;transition:all var(--transition);margin-right:12px;}
+    .btn-back:hover{border-color:var(--sage);color:var(--forest);}
+    .form-actions{display:flex;align-items:center;justify-content:flex-end;margin-top:8px;}
+
+    /* SUCCESS */
+    .success-card{background:var(--white);border:1.5px solid var(--sage-light);border-radius:var(--radius-md);padding:56px 40px;text-align:center;box-shadow:var(--shadow-md);}
+    .success-icon{font-size:56px;margin-bottom:24px;}
+    .success-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--forest);margin-bottom:12px;}
+    .success-sub{font-size:15px;color:var(--text-mid);line-height:1.7;max-width:460px;margin:0 auto 32px;}
+    .success-detail{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--sage-pale);border-radius:var(--radius-pill);font-size:13px;font-weight:600;color:var(--forest);margin-bottom:32px;}
+    .btn-return{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--forest);color:var(--white);border-radius:var(--radius-pill);text-decoration:none;font-size:14px;font-weight:700;transition:all var(--transition);}
+    .btn-return:hover{background:var(--forest-light);}
+
+    /* FOOTER */
+    .portal-footer{background:var(--forest-dark);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:60px;}
+    .portal-footer p{font-size:11px;color:rgba(255,255,255,0.30);}
+    .portal-footer a{font-size:11px;color:rgba(255,255,255,0.35);text-decoration:none;}
+
+    @media(max-width:768px){
+      .portal-nav{padding:0 16px;}.portal-nav-tabs{display:none;}
+      .appt-body{padding:28px 16px;}
+      .form-card{padding:24px 20px;}
+      .service-choices{grid-template-columns:1fr;}
+      .form-row{grid-template-columns:1fr;}
+      .availability-grid{grid-template-columns:repeat(2,1fr);}
+      .portal-hero{padding:32px 20px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="portal-nav" role="navigation">
+  <a href="../" class="portal-nav-logo">
+    <div class="portal-nav-logo-icon">🌿</div>
+    <div style="display:flex;flex-direction:column;">
+      <span class="pn-name">The Joy In Living</span>
+      <span class="pn-sub">Patient Portal</span>
+    </div>
+  </a>
+  <div class="portal-nav-tabs">
+    <a href="../" class="pnt">🏠 Portal Home</a>
+    <a href="./" class="pnt active">📅 Appointments</a>
+    <a href="../telehealth/" class="pnt">💻 Telehealth</a>
+    <a href="../notifications/" class="pnt">🔔 Notifications</a>
+    <a href="../login/" class="pnt">🔓 Log In</a>
+  </div>
+  <a href="../../" class="btn-portal-exit">← Main Site</a>
+</nav>
+
+<!-- HERO -->
+<section class="portal-hero">
+  <div class="portal-hero-badge">📅 Free 15-Min Consultation Available</div>
+  <h1>Request an <em>Appointment</em></h1>
+  <p>Fill out the form below and we'll reach out within 1–2 business days to confirm your session.</p>
+</section>
+
+<!-- MAIN -->
+<main class="appt-body">
+
+  <!-- STEP PROGRESS -->
+  <div class="step-progress" id="step-progress">
+    <div class="step-item active" id="step-dot-1">
+      <div class="step-circle">1</div>
+      <span class="step-label">Service</span>
+    </div>
+    <div class="step-item" id="step-dot-2">
+      <div class="step-circle">2</div>
+      <span class="step-label">Availability</span>
+    </div>
+    <div class="step-item" id="step-dot-3">
+      <div class="step-circle">3</div>
+      <span class="step-label">Your Info</span>
+    </div>
+    <div class="step-item" id="step-dot-4">
+      <div class="step-circle">✓</div>
+      <span class="step-label">Confirm</span>
+    </div>
+  </div>
+
+  <!-- STEP 1: Service -->
+  <div class="appt-step active" id="step-1">
+    <div class="form-card">
+      <div class="form-card-title">What brings you in?</div>
+      <div class="form-card-sub">Select the service you're interested in. All services are available in English and Spanish.</div>
+      <div class="service-choices">
+        <label class="service-choice" id="sc-individual">
+          <input type="radio" name="service" value="individual" />
+          <span class="service-choice-icon">🧘</span>
+          <div class="service-choice-text">
+            <div class="sc-title">Individual Therapy</div>
+            <div class="sc-desc">One-on-one sessions, CBT, DBT, mindfulness</div>
+          </div>
+        </label>
+        <label class="service-choice" id="sc-couples">
+          <input type="radio" name="service" value="couples" />
+          <span class="service-choice-icon">💑</span>
+          <div class="service-choice-text">
+            <div class="sc-title">Couples &amp; Family</div>
+            <div class="sc-desc">Communication, conflict resolution, reconnection</div>
+          </div>
+        </label>
+        <label class="service-choice" id="sc-group">
+          <input type="radio" name="service" value="group" />
+          <span class="service-choice-icon">👥</span>
+          <div class="service-choice-text">
+            <div class="sc-title">Group Therapy</div>
+            <div class="sc-desc">Community healing, shared journeys</div>
+          </div>
+        </label>
+        <label class="service-choice" id="sc-immigration">
+          <input type="radio" name="service" value="immigration" />
+          <span class="service-choice-icon">📋</span>
+          <div class="service-choice-text">
+            <div class="sc-title">Immigration Evaluation</div>
+            <div class="sc-desc">Asylum, hardship waivers, VAWA cases</div>
+          </div>
+        </label>
+        <label class="service-choice" id="sc-supervision">
+          <input type="radio" name="service" value="supervision" />
+          <span class="service-choice-icon">🎓</span>
+          <div class="service-choice-text">
+            <div class="sc-title">Clinical Supervision</div>
+            <div class="sc-desc">For therapists pursuing LCSW licensing</div>
+          </div>
+        </label>
+        <label class="service-choice" id="sc-consult">
+          <input type="radio" name="service" value="consult" />
+          <span class="service-choice-icon">✨</span>
+          <div class="service-choice-text">
+            <div class="sc-title">Free Consultation</div>
+            <div class="sc-desc">15-min intro call — no obligation</div>
+          </div>
+        </label>
+      </div>
+
+      <div style="margin-top:24px;">
+        <div class="form-card-sub" style="margin-bottom:16px;">How would you like to meet?</div>
+        <div class="session-types">
+          <label class="session-type" id="st-telehealth">
+            <input type="radio" name="session-type" value="telehealth" />
+            <div class="session-type-icon">💻</div>
+            <div class="session-type-label">Telehealth</div>
+          </label>
+          <label class="session-type" id="st-inperson">
+            <input type="radio" name="session-type" value="in-person" />
+            <div class="session-type-icon">🏢</div>
+            <div class="session-type-label">In-Person</div>
+          </label>
+          <label class="session-type" id="st-either">
+            <input type="radio" name="session-type" value="either" />
+            <div class="session-type-icon">🤝</div>
+            <div class="session-type-label">Either Works</div>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-next" onclick="goStep(2)">Next: Availability →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Availability -->
+  <div class="appt-step" id="step-2">
+    <div class="form-card">
+      <div class="form-card-title">When works best for you?</div>
+      <div class="form-card-sub">Select your preferred days and time ranges. Choose as many as apply.</div>
+
+      <div class="availability-label">Preferred Days</div>
+      <div class="availability-grid">
+        <label class="avail-slot"><input type="checkbox" /><div class="avail-day">Monday</div><div class="avail-time">Any time</div></label>
+        <label class="avail-slot"><input type="checkbox" /><div class="avail-day">Tuesday</div><div class="avail-time">Any time</div></label>
+        <label class="avail-slot"><input type="checkbox" /><div class="avail-day">Wednesday</div><div class="avail-time">Any time</div></label>
+        <label class="avail-slot"><input type="checkbox" /><div class="avail-day">Thursday</div><div class="avail-time">Any time</div></label>
+        <label class="avail-slot"><input type="checkbox" /><div class="avail-day">Friday</div><div class="avail-time">Any time</div></label>
+        <label class="avail-slot"><input type="checkbox" /><div class="avail-day">Saturday</div><div class="avail-time">Weekend</div></label>
+      </div>
+
+      <div class="availability-label">Preferred Times</div>
+      <div class="availability-grid">
+        <label class="avail-slot"><input type="checkbox" /><div class="avail-day">Morning</div><div class="avail-time">8am – 12pm</div></label>
+        <label class="avail-slot"><input type="checkbox" /><div class="avail-day">Afternoon</div><div class="avail-time">12pm – 5pm</div></label>
+        <label class="avail-slot"><input type="checkbox" /><div class="avail-day">Evening</div><div class="avail-time">5pm – 8pm</div></label>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Preferred Start Date (optional)</label>
+        <input class="form-input" type="date" id="preferred-date" />
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label">Language Preference</label>
+        <select class="form-select">
+          <option>English</option>
+          <option>Spanish / Español</option>
+          <option>No preference</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-back" onclick="goStep(1)">← Back</button>
+      <button class="btn-next" onclick="goStep(3)">Next: Your Info →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Contact Info -->
+  <div class="appt-step" id="step-3">
+    <div class="form-card">
+      <div class="form-card-title">Tell us about yourself</div>
+      <div class="form-card-sub">All information is confidential and HIPAA protected.</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="first-name">First Name *</label>
+          <input class="form-input" type="text" id="first-name" placeholder="Maria" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="last-name">Last Name *</label>
+          <input class="form-input" type="text" id="last-name" placeholder="Rodriguez" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="appt-email">Email *</label>
+          <input class="form-input" type="email" id="appt-email" placeholder="you@email.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="appt-phone">Phone Number *</label>
+          <input class="form-input" type="tel" id="appt-phone" placeholder="(914) 555-0000" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="dob">Date of Birth</label>
+          <input class="form-input" type="date" id="dob" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="insurance">Insurance Provider</label>
+          <select class="form-select" id="insurance">
+            <option value="">Select or type below</option>
+            <option>Cigna</option>
+            <option>Aetna</option>
+            <option>UnitedHealth / Optum</option>
+            <option>BlueCross BlueShield</option>
+            <option>Headway</option>
+            <option>Self-Pay / Out of Pocket</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label class="form-label" for="appt-message">Brief Description (optional)</label>
+        <textarea class="form-textarea" id="appt-message" placeholder="Tell us a little about what you're looking for help with. This helps us match you with the right approach."></textarea>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-back" onclick="goStep(2)">← Back</button>
+      <button class="btn-next" onclick="submitForm()">Submit Request ✨</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Success -->
+  <div class="appt-step" id="step-4">
+    <div class="success-card">
+      <div class="success-icon">🌿</div>
+      <div class="success-title">Request Received!</div>
+      <p class="success-sub">Thank you for reaching out. A member of Claudia's team will contact you within 1–2 business days to confirm your appointment and answer any questions.</p>
+      <div class="success-detail">📞 Questions? Call (914) 686-2484</div>
+      <div>
+        <a href="../" class="btn-return">← Return to Portal Home</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="portal-footer">
+  <p>© 2026 The Joy In Living, LCSW, PLLC. All rights reserved.</p>
+  <div style="display:flex;gap:16px;">
+    <a href="../../">Main Site</a>
+    <a href="tel:9146862484">(914) 686-2484</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var currentStep = 1;
+
+  window.goStep = function(n) {
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    document.getElementById('step-dot-' + currentStep).classList.remove('active');
+    if (currentStep < n) document.getElementById('step-dot-' + currentStep).classList.add('done');
+    currentStep = n;
+    document.getElementById('step-' + currentStep).classList.add('active');
+    var dot = document.getElementById('step-dot-' + currentStep);
+    if (dot) { dot.classList.remove('done'); dot.classList.add('active'); }
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+
+  window.submitForm = function() {
+    // Mark step 3 done
+    document.getElementById('step-3').classList.remove('active');
+    document.getElementById('step-dot-3').classList.remove('active');
+    document.getElementById('step-dot-3').classList.add('done');
+    document.getElementById('step-dot-4').classList.add('active');
+    currentStep = 4;
+    document.getElementById('step-4').classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+
+  // Service choice selection
+  document.querySelectorAll('.service-choice').forEach(function(el) {
+    el.addEventListener('click', function() {
+      document.querySelectorAll('.service-choice').forEach(function(s){s.classList.remove('selected');});
+      el.classList.add('selected');
+    });
+  });
+
+  // Session type selection
+  document.querySelectorAll('.session-type').forEach(function(el) {
+    el.addEventListener('click', function() {
+      document.querySelectorAll('.session-type').forEach(function(s){s.classList.remove('selected');});
+      el.classList.add('selected');
+    });
+  });
+
+  // Availability slots toggle
+  document.querySelectorAll('.avail-slot').forEach(function(el) {
+    el.addEventListener('click', function() {
+      el.classList.toggle('selected');
+    });
+  });
+
+  // Set min date for preferred date picker
+  var dateInput = document.getElementById('preferred-date');
+  if (dateInput) {
+    var today = new Date();
+    today.setDate(today.getDate() + 1);
+    dateInput.min = today.toISOString().split('T')[0];
+  }
+})();
+</script>
+</body>
+</html>
