@@ -4,13 +4,13 @@
 
 // EN ↔ ES page mapping (key = EN path, value = ES path)
 const PORTAL_LANG_MAP = {
-  '/thejoyinliving/patient-portal/'              : '/thejoyinliving/es/portal-del-paciente/',
-  '/thejoyinliving/patient-portal/appointments/' : '/thejoyinliving/es/portal-del-paciente/citas/',
-  '/thejoyinliving/patient-portal/telehealth/'   : '/thejoyinliving/es/portal-del-paciente/telesalud/',
-  '/thejoyinliving/patient-portal/av-test/'      : '/thejoyinliving/es/portal-del-paciente/prueba-av/',
-  '/thejoyinliving/patient-portal/notifications/': '/thejoyinliving/es/portal-del-paciente/notificaciones/',
-  '/thejoyinliving/patient-portal/login/'        : '/thejoyinliving/es/portal-del-paciente/iniciar-sesion/',
-  '/thejoyinliving/patient-portal/recover/'      : '/thejoyinliving/es/portal-del-paciente/recuperar/',
+  '/patient-portal/'              : '/es/portal-del-paciente/',
+  '/patient-portal/appointments/' : '/es/portal-del-paciente/citas/',
+  '/patient-portal/telehealth/'   : '/es/portal-del-paciente/telesalud/',
+  '/patient-portal/av-test/'      : '/es/portal-del-paciente/prueba-av/',
+  '/patient-portal/notifications/': '/es/portal-del-paciente/notificaciones/',
+  '/patient-portal/login/'        : '/es/portal-del-paciente/iniciar-sesion/',
+  '/patient-portal/recover/'      : '/es/portal-del-paciente/recuperar/',
 };
 
 // Build reverse map (ES → EN)
@@ -21,9 +21,9 @@ const PORTAL_LANG_MAP_ES = Object.fromEntries(
 function getPortalLangTarget(targetLang) {
   const path = window.location.pathname;
   if (targetLang === 'es') {
-    return PORTAL_LANG_MAP[path] || PORTAL_LANG_MAP_ES[path] || '/thejoyinliving/es/portal-del-paciente/';
+    return PORTAL_LANG_MAP[path] || PORTAL_LANG_MAP_ES[path] || '/es/portal-del-paciente/';
   } else {
-    return PORTAL_LANG_MAP_ES[path] || PORTAL_LANG_MAP[path] || '/thejoyinliving/patient-portal/';
+    return PORTAL_LANG_MAP_ES[path] || PORTAL_LANG_MAP[path] || '/patient-portal/';
   }
 }
 
