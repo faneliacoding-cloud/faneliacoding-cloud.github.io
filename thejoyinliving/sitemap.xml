@@ -1,75 +1,377 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- Core EN Pages -->
-  <url><loc>https://thejoyinliving.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://thejoyinliving.com/who-we-are/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://thejoyinliving.com/about/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://thejoyinliving.com/your-visit/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/services/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://thejoyinliving.com/payments-insurance/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/contact/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://thejoyinliving.com/faq/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/resources/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/help-lines/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/local-hospitals/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/privacy-policy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <!-- ================================================
+       THE JOY IN LIVING — SITEMAP
+       Domain: https://thejoyinliving.com
+       Last updated: 2026-04-22
+       ================================================ -->
 
-  <!-- Patient Portal EN -->
-  <url><loc>https://thejoyinliving.com/patient-portal/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://thejoyinliving.com/patient-portal/appointments/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/patient-portal/telehealth/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/patient-portal/login/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/patient-portal/notifications/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://thejoyinliving.com/patient-portal/av-test/</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <!-- ===== HOMEPAGES ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
 
-  <!-- Blog -->
-  <url><loc>https://thejoyinliving.com/blog/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/blog/understanding-anxiety/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/blog/grief-and-loss/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/blog/immigration-psychological-evaluations/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/blog/telehealth-therapy-guide/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/blog/buy-yourself-some-flowers/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/blog/end-of-year-reflection/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/blog/virtual-workshop-mind-body-techniques/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/blog/comprate-flores/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <!-- ===== CORE SERVICES ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/services/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/services/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/servicios/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/es/servicios/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/services/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/servicios/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-  <!-- SEO Landing Pages -->
-  <url><loc>https://thejoyinliving.com/couples-therapy-westchester/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/family-therapy-port-chester/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/grief-counseling-westchester-ny/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/relationship-counseling/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/licensed-clinical-social-worker-in-westchester/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/therapists-in-westchester/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/therapists-in-westchester-ny/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/mental-health-port-chester-ny/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/online-therapy-port-chester/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/virtual-therapy-in-white-plains/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/therapist-white-plains/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/social-service-white-plains/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/consejeria-familiar/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/westchester-mental-health-counseling/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/health-clinics/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/linea-de-ayuda/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/government/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <!-- ===== ABOUT ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/who-we-are/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/who-we-are/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/quienes-somos/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/es/quienes-somos/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/who-we-are/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/quienes-somos/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/about/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
-  <!-- Spanish ES Pages -->
-  <url><loc>https://thejoyinliving.com/es/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://thejoyinliving.com/es/quienes-somos/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://thejoyinliving.com/es/su-visita/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/es/servicios/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://thejoyinliving.com/es/seguros-pagos/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/es/contacto/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://thejoyinliving.com/es/preguntas/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/es/recursos/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/es/hospitales-locales/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <!-- ===== CONTACT ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/contacto/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/es/contacto/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/contacto/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
-  <!-- Portal del Paciente ES -->
-  <url><loc>https://thejoyinliving.com/es/portal-del-paciente/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://thejoyinliving.com/es/portal-del-paciente/citas/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://thejoyinliving.com/es/portal-del-paciente/telesalud/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/es/portal-del-paciente/iniciar-sesion/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://thejoyinliving.com/es/portal-del-paciente/notificaciones/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://thejoyinliving.com/es/portal-del-paciente/prueba-av/</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <!-- ===== INSURANCE & PAYMENTS ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/payments-insurance/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/payments-insurance/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/seguros-pagos/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/es/seguros-pagos/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/payments-insurance/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/seguros-pagos/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ===== YOUR VISIT ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/your-visit/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/your-visit/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/su-visita/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/es/su-visita/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/your-visit/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/su-visita/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ===== FAQ ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/preguntas/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/es/preguntas/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/faq/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/preguntas/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ===== BLOG ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/blog/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/blog/understanding-anxiety/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/blog/grief-and-loss/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/blog/immigration-psychological-evaluations/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/blog/telehealth-therapy-guide/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/blog/end-of-year-reflection/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/blog/buy-yourself-some-flowers/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/blog/comprate-flores/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/blog/virtual-workshop-mind-body-techniques/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- ===== LOCAL SEO LANDING PAGES ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/therapists-in-westchester/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/therapists-in-westchester-ny/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/couples-therapy-westchester/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/licensed-clinical-social-worker-in-westchester/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/grief-counseling-westchester-ny/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/westchester-mental-health-counseling/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/mental-health-port-chester-ny/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/family-therapy-port-chester/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/online-therapy-port-chester/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/therapist-white-plains/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/virtual-therapy-in-white-plains/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/social-service-white-plains/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/relationship-counseling/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/consejeria-familiar/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ===== RESOURCES ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/resources/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/resources/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/recursos/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/es/recursos/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/resources/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/recursos/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/self-care-tools/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/self-care-tools/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/herramientas-de-autocuidado/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/es/herramientas-de-autocuidado/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/self-care-tools/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/herramientas-de-autocuidado/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/help-lines/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/help-lines/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/linea-de-ayuda/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/linea-de-ayuda/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/help-lines/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/linea-de-ayuda/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/local-hospitals/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/local-hospitals/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/hospitales-locales/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/es/hospitales-locales/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/local-hospitals/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/hospitales-locales/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- ===== PATIENT PORTAL (low priority — not SEO targets) ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/patient-portal/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/patient-portal/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/portal-del-paciente/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://thejoyinliving.com/es/portal-del-paciente/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thejoyinliving.com/patient-portal/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thejoyinliving.com/es/portal-del-paciente/"/>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- ===== LEGAL ===== -->
+  <url>
+    <loc>https://thejoyinliving.com/privacy-policy/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 
 </urlset>

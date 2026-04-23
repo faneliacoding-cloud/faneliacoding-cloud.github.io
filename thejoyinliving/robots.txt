@@ -1,8 +1,29 @@
-User-agent: *
-Allow: /
+# ================================================
+# THE JOY IN LIVING — robots.txt
+# https://thejoyinliving.com
+# ================================================
 
-# Block portal backend paths
+# Allow all search engine crawlers
+User-agent: *
+
+# Block private/utility pages from indexing
+Disallow: /patient-portal/login/
+Disallow: /patient-portal/appointments/
+Disallow: /patient-portal/telehealth/
+Disallow: /patient-portal/notifications/
+Disallow: /patient-portal/av-test/
 Disallow: /patient-portal/recover/
+Disallow: /es/portal-del-paciente/iniciar-sesion/
+Disallow: /es/portal-del-paciente/citas/
+Disallow: /es/portal-del-paciente/telesalud/
+Disallow: /es/portal-del-paciente/notificaciones/
+Disallow: /es/portal-del-paciente/prueba-av/
 Disallow: /es/portal-del-paciente/recuperar/
 
+# Block admin/system paths
+Disallow: /cdn-cgi/
+Disallow: /*.json$
+Disallow: /404.html
+
+# Sitemap location
 Sitemap: https://thejoyinliving.com/sitemap.xml
