@@ -1658,6 +1658,158 @@ a[aria-label="Oxford Health Plans"] img.insurance-logo {
   40% { opacity: 1; transform: scale(1); }
 }
 
+/* Alias for JS compatibility */
+.chatbot__input-wrap {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+/* ── Breathing Exercise Widget ───────────────────────────────────── */
+.chatbot__breathing {
+  background: linear-gradient(135deg, #e8f0e8, #f0ebe3);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6) var(--space-5);
+  text-align: center;
+  align-self: stretch;
+  max-width: 100%;
+  margin: 0;
+  border: 1px solid rgba(139,158,139,0.2);
+}
+
+.chatbot__breathing-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,158,139,0.5) 0%, rgba(90,111,90,0.25) 100%);
+  margin: 0 auto var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s linear;
+  box-shadow: 0 0 0 8px rgba(139,158,139,0.12), 0 0 0 16px rgba(139,158,139,0.06);
+}
+
+.chatbot__breathing-circle.inhale {
+  animation: breatheIn 4s ease-in forwards;
+}
+
+.chatbot__breathing-circle.hold {
+  transform: scale(1.4);
+}
+
+.chatbot__breathing-circle.exhale {
+  animation: breatheOut 6s ease-out forwards;
+}
+
+@keyframes breatheIn {
+  from { transform: scale(1); }
+  to   { transform: scale(1.4); }
+}
+
+@keyframes breatheOut {
+  from { transform: scale(1.4); }
+  to   { transform: scale(1); }
+}
+
+.chatbot__breathing-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.chatbot__breathing-phase {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--sage-deep);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  margin-bottom: var(--space-1);
+}
+
+.chatbot__breathing-count {
+  font-size: var(--text-3xl);
+  font-weight: 300;
+  color: var(--sage-dark);
+  font-family: var(--font-heading);
+  min-height: 2.5rem;
+  line-height: 1;
+}
+
+.chatbot__breathing-instruction {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-3);
+  line-height: var(--leading-normal);
+}
+
+.chatbot__breathing-stop {
+  margin-top: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--sage-light);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  color: var(--sage-dark);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-soft);
+}
+
+.chatbot__breathing-stop:hover {
+  background: var(--sage-lighter);
+}
+
+/* ── Proactive bubble ────────────────────────────────────────────── */
+.chatbot__proactive {
+  position: absolute;
+  bottom: calc(100% + var(--space-3));
+  right: 0;
+  background: var(--white);
+  border-radius: var(--radius-xl) var(--radius-xl) var(--radius-sm) var(--radius-xl);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border-light);
+  font-size: var(--text-sm);
+  color: var(--charcoal);
+  max-width: 230px;
+  line-height: var(--leading-normal);
+  animation: proactivePop 0.4s var(--ease-bounce) both;
+  cursor: pointer;
+}
+
+.chatbot__proactive::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  right: 16px;
+  width: 14px;
+  height: 14px;
+  background: var(--white);
+  border-right: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+  transform: rotate(45deg);
+}
+
+@keyframes proactivePop {
+  from { opacity: 0; transform: translateY(8px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.chatbot__proactive-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 0.7rem;
+  color: var(--stone);
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px;
+}
+
+
 /* ============================================================
    CONTACT FORM
    ============================================================ */

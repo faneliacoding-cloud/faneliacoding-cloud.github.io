@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   injectChatbotIfMissing();
   initChatbot();
   initChatbotFade();
+  initChatbotDrag();
 });
 
 /* ============================================================
@@ -22,7 +23,7 @@ function injectChatbotIfMissing() {
     <div class="chatbot__panel" id="chatbot-panel">
       <div class="chatbot__header">
         <div class="chatbot__header-info">
-          <div class="chatbot__header-avatar" style="background:linear-gradient(135deg,#3D4F3D,#6B8C6B);color:white;font-size:1.1rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;width:36px;height:36px;flex-shrink:0;">J</div>
+          <div class="chatbot__header-avatar" style="display:flex;align-items:center;justify-content:center;border-radius:50%;width:40px;height:40px;flex-shrink:0;overflow:hidden;background:#fff;"><img src="/images/chatbot-icon.png" alt="Joy" style="width:40px;height:40px;object-fit:contain;"></div>
           <div>
             <div class="chatbot__header-name">Joy</div>
             <div class="chatbot__header-status">${isEs ? '✨ Asistente de The Joy In Living' : '✨ The Joy In Living Assistant'}</div>
@@ -40,7 +41,7 @@ function injectChatbotIfMissing() {
       </div>
     </div>
     <button class="chatbot__toggle" id="chatbot-toggle" aria-label="${isEs ? 'Hablar con Joy' : 'Chat with Joy'}">
-      <div class="chatbot__toggle-avatar" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.25rem;color:white;letter-spacing:0">J</div>
+      <div class="chatbot__toggle-avatar" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><img src="/images/chatbot-icon.png" alt="Joy" style="width:75%;height:75%;object-fit:contain;"></div>
       <svg class="chatbot__icon-chat" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       <svg class="chatbot__icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       <div class="chatbot__notif-dot" style="position:absolute;top:2px;right:2px;width:10px;height:10px;background:#ff6b6b;border-radius:50%;border:2px solid white;animation:pulse 2s infinite;"></div>
@@ -49,8 +50,28 @@ function injectChatbotIfMissing() {
   <style>
     @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.7}}
     .chatbot__toggle-avatar{pointer-events:none}
+    .chatbot__toggle{cursor:grab}
+    .chatbot--dragging{transition:none!important;user-select:none}
+    .chatbot--dragging .chatbot__toggle{cursor:grabbing!important}
+    .chatbot__drag-hint{
+      position:absolute;bottom:calc(100% + 6px);right:0;
+      background:rgba(61,79,61,0.88);color:#fff;font-size:10px;
+      padding:3px 9px;border-radius:20px;white-space:nowrap;
+      pointer-events:none;opacity:0;transform:translateY(4px);
+      transition:opacity .3s,transform .3s;font-family:sans-serif;
+    }
+    .chatbot:hover:not(.panel-open) .chatbot__drag-hint{opacity:1;transform:translateY(0)}
   </style>`;
   document.body.insertAdjacentHTML('beforeend', html);
+
+  // Inject drag hint label
+  const cb = document.querySelector('.chatbot');
+  if (cb) {
+    const hint = document.createElement('div');
+    hint.className = 'chatbot__drag-hint';
+    hint.textContent = '⠿ drag to move';
+    cb.appendChild(hint);
+  }
 }
 
 /* ============================================================
@@ -543,3 +564,135 @@ function initChatbot() {
     msgBox.scrollTop = msgBox.scrollHeight;
   }
 }
+
+/* ============================================================
+   DRAG-TO-MOVE
+   Lets the user reposition the chatbot bubble anywhere on screen.
+   - Distinguishes clicks (< 5px movement) from drags
+   - Clamps inside viewport with 12px padding
+   - Snaps to left/right edge on screens ≤ 640px
+   - Persists position in localStorage across page loads
+   ============================================================ */
+
+function initChatbotDrag() {
+  const chatbot = document.querySelector('.chatbot');
+  const toggle  = chatbot && chatbot.querySelector('.chatbot__toggle');
+  if (!chatbot || !toggle) return;
+
+  const MARGIN = 12;
+  const DRAG_THRESHOLD = 5;
+
+  // --- position helpers ---
+  function setPos(right, bottom) {
+    chatbot.style.setProperty('right',  right  + 'px', 'important');
+    chatbot.style.setProperty('bottom', bottom + 'px', 'important');
+  }
+
+  function clampPos(right, bottom) {
+    const cw = chatbot.offsetWidth  || 70;
+    const ch = chatbot.offsetHeight || 70;
+    const maxR = window.innerWidth  - cw - MARGIN;
+    const maxB = window.innerHeight - ch - MARGIN;
+    return {
+      right:  Math.max(MARGIN, Math.min(maxR, right)),
+      bottom: Math.max(MARGIN, Math.min(maxB, bottom))
+    };
+  }
+
+  // Restore saved position
+  try {
+    const saved = JSON.parse(localStorage.getItem('joy_chatbot_pos') || 'null');
+    if (saved && typeof saved.right === 'number') {
+      const p = clampPos(saved.right, saved.bottom);
+      setPos(p.right, p.bottom);
+    }
+  } catch(e) {}
+
+  // --- drag state ---
+  let active = false, moved = false;
+  let startX, startY, startRight, startBottom;
+
+  function getComputed(prop) {
+    return parseFloat(window.getComputedStyle(chatbot)[prop]) || MARGIN;
+  }
+
+  function onDown(e) {
+    if (e.target.closest('.chatbot__panel')) return;
+    if (chatbot.classList.contains('panel-open')) return;
+
+    const pt = e.touches ? e.touches[0] : e;
+    startX = pt.clientX;
+    startY = pt.clientY;
+    startRight  = getComputed('right');
+    startBottom = getComputed('bottom');
+
+    active = true;
+    moved  = false;
+
+    document.addEventListener('mousemove', onMove, { passive: false });
+    document.addEventListener('mouseup',   onUp);
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('touchend',  onUp);
+  }
+
+  function onMove(e) {
+    if (!active) return;
+    const pt = e.touches ? e.touches[0] : e;
+    const dx = pt.clientX - startX;
+    const dy = pt.clientY - startY;
+
+    if (!moved && Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
+    e.preventDefault();
+    moved = true;
+
+    chatbot.classList.add('chatbot--dragging');
+    chatbot.classList.remove('chatbot--hidden');
+
+    // right = startRight - dx  (moving right → smaller right offset)
+    // bottom = startBottom + dy (moving up → larger bottom offset... wait: dy is positive downward)
+    // Actually moving down → negative bottom change → startBottom - dy
+    const p = clampPos(startRight - dx, startBottom - dy);
+    setPos(p.right, p.bottom);
+  }
+
+  function onUp() {
+    if (!active) return;
+    active = false;
+    chatbot.classList.remove('chatbot--dragging');
+
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup',   onUp);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend',  onUp);
+
+    if (!moved) return; // was a tap — toggle handler will fire normally
+
+    // Mobile edge snap: snap to nearest vertical edge
+    if (window.innerWidth <= 640) {
+      const rect  = chatbot.getBoundingClientRect();
+      const midX  = rect.left + rect.width / 2;
+      const bot   = parseFloat(chatbot.style.bottom) || MARGIN;
+      const snapR = midX < window.innerWidth / 2
+        ? window.innerWidth - chatbot.offsetWidth - MARGIN  // snap right
+        : MARGIN;                                           // snap left
+      setPos(snapR, bot);
+    }
+
+    // Persist
+    try {
+      localStorage.setItem('joy_chatbot_pos', JSON.stringify({
+        right:  parseFloat(chatbot.style.right),
+        bottom: parseFloat(chatbot.style.bottom)
+      }));
+    } catch(e) {}
+  }
+
+  // Prevent the toggle click from firing after a drag
+  toggle.addEventListener('click', (e) => {
+    if (moved) { e.stopImmediatePropagation(); moved = false; }
+  }, true);
+
+  toggle.addEventListener('mousedown',  onDown);
+  toggle.addEventListener('touchstart', onDown, { passive: true });
+}
+
