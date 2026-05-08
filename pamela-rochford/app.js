@@ -81,21 +81,42 @@ function toggleChat() {
 }
 
 const responses = {
-  'be well': "Be Well is Pamela's beautiful daily devotional — a sanctuary in book form, priced at $25. Each devotion invites you to slow down and reconnect with your whole self: mind, body, and spirit. You can order your copy at pamelarochford.com 🌿",
-  'book pamela': "Pamela brings extraordinary depth and warmth to every stage. To book her for your conference, women's ministry, or event, please reach out to info@pamelarochford.com — her team responds with grace and care. ✦",
-  'encouragement': "You are seen. You are held. You are exactly where you need to be today. 💛 Rest in this truth: 'She is clothed with strength and dignity; she can laugh at the days to come.' — Proverbs 31:25",
-  'scripture': "Here is today's gift for your spirit 🌿\n\n\"For I know the plans I have for you, declares the Lord — plans to prosper you and not to harm you, plans to give you hope and a future.\" — Jeremiah 29:11",
-  'about pamela': "Pamela Rochford is a distinguished educator with over 25 years of service, a devoted minister's wife, and a passionate wellness advocate for women. She wrote Be Well from her own journey of balancing faith, education, and wholeness. She is grace embodied. ✦",
-  'contact': "You can reach Pamela's team with love at info@pamelarochford.com. Whether you're inquiring about the book, a speaking engagement, or simply want to connect — every message is welcomed with warmth.",
-  'default': "That is a beautiful question. ✦ Pamela's heart is to guide women toward wholeness — in mind, body, and spirit. May I help you explore the Be Well devotional, learn about her speaking ministry, or find a scripture for your day? 🌿"
+  'be well': "Oh, Be Well is truly something special. 🌿 Pamela poured her whole heart into this devotional — every page feels like a warm hand reaching out to yours. It's not just a book; it's a daily companion for the woman who's ready to stop running on empty and start living from a place of deep peace.\n\nAt $25, it's one of the most meaningful gifts you could give yourself — or someone you love. You can order it right here → https://a.co/d/0b1HjrZX 💛",
+
+  'book pamela': "It would be such an honor to have Pamela speak at your event. She has this rare gift — the ability to walk into a room and make every single woman feel seen, valued, and deeply loved by God.\n\nWhether it's a women's conference, a ministry gathering, or a wellness retreat, she brings the kind of presence that changes people. Just reach out to info@pamelarochford.com and her team will take beautiful care of you. ✦",
+
+  'encouragement': "Oh sweet soul — I'm so glad you came here today. Whatever you're carrying right now, you don't have to carry it alone. 💛\n\nHear this: You are not behind. You are not broken. You are not too much, and you are not too little. You are a woman in process — and that is holy.\n\n\"She is clothed with strength and dignity; she can laugh at the days to come.\" — Proverbs 31:25\n\nTake a slow breath with me. You are going to be okay. 🌿",
+
+  'anxious': "I hear you, and I want you to know — what you're feeling is real, and it matters. Anxiety can feel so heavy, especially when you're trying to hold everything together.\n\nCan I invite you to try something? Place one hand on your heart. Take three slow, deep breaths — in through your nose, out through your mouth. Let your body remember that you are safe right now. 🌿\n\nPamela's devotionals were written for moments exactly like this one. Each morning practice helps quiet the noise and anchor you back in faith. You deserve that stillness. 💛",
+
+  'grief': "I am so deeply sorry. Grief is one of the heaviest things a heart can hold — and there's no rushing through it, no doing it \"right.\" Please give yourself permission to feel everything you're feeling. 💛\n\nYou are not alone in this. God sees every tear. And Pamela's words were shaped by her own seasons of loss and healing — she writes not as someone who has all the answers, but as a woman who has sat in the dark and found light again.\n\n\"He heals the brokenhearted and binds up their wounds.\" — Psalm 147:3\n\nWould you like me to share a scripture that has brought comfort to so many women in seasons of grief? 🌿",
+
+  'tired': "Beloved, I hear the exhaustion in your words — and I want you to know it's okay to be tired. You have been giving so much of yourself. 💛\n\nRest is not weakness. Rest is sacred. Even God rested. You are allowed to put things down, even just for a moment.\n\n\"Come to me, all you who are weary and burdened, and I will give you rest.\" — Matthew 11:28\n\nPamela's Be Well devotional has a beautiful morning practice that takes just five quiet minutes — enough to fill your cup before the day empties it again. You deserve that. 🌿",
+
+  'lost': "That feeling of being lost — I want you to know, it doesn't mean you're failing. Sometimes feeling lost is just the beginning of finding a truer path. 💛\n\nPamela has walked through seasons of deep uncertainty herself, and she wrote Be Well for women who are searching — for purpose, for peace, for themselves. You came to the right place.\n\n\"Trust in the Lord with all your heart and lean not on your own understanding.\" — Proverbs 3:5\n\nWould you like to start the Be Well journey? Sometimes the first step is the most healing one. 🌿",
+
+  'scripture': "Here is a word just for you today 🌿\n\n\"For I know the plans I have for you,\" declares the Lord, \"plans to prosper you and not to harm you, plans to give you hope and a future.\"\n— Jeremiah 29:11\n\nSit with that for a moment. Those plans haven't changed. Your story isn't finished. There is so much good still ahead of you. 💛",
+
+  'prayer': "What a beautiful thing — to come here seeking prayer. 🌿\n\nLet us agree together:\n\nFather, I lift this precious woman before You. You know exactly what she's carrying today — the worries she hasn't spoken aloud, the hopes she's almost afraid to hold. Meet her here. Remind her that she is loved beyond measure, held beyond her understanding, and never, ever alone. Give her peace that passes understanding, and grace for today. Amen. 💛\n\nYou are covered, beautiful soul.",
+
+  'about pamela': "Pamela Rochford is one of those rare women who carries wisdom like a quiet warmth — you feel it the moment you encounter her words. 💛\n\nShe has spent over 25 years as an educator in the New York City school system, poured decades into ministry alongside her husband Archbishop Robert J. Rochford Sr., and through it all — she learned that you cannot pour from an empty vessel.\n\nBe Well was born from her own journey of learning to honor her spirit, her body, and her soul. She writes not from a pedestal, but from the path — as a woman who has been tired, stretched, and renewed by grace. ✦",
+
+  'contact': "Reaching out is such a courageous and beautiful step. 💛\n\nPamela's team welcomes every message with genuine warmth. Whether you're asking about the book, hoping to book her for an event, or simply need to know someone cares — you can reach them at info@pamelarochford.com.\n\nYou matter. Your question matters. Don't hesitate. 🌿",
+
+  'default': "Thank you for being here — truly. This space was made for women like you. 🌿\n\nI'm Grace, your Be Well companion. I'm here to listen, to encourage, and to gently guide you — whether you need a scripture, want to know more about Pamela, or are looking for the devotional that could change your mornings.\n\nWhat's on your heart today? 💛"
 };
 
 function getResponse(msg) {
   const m = msg.toLowerCase();
   if (m.includes('book') && (m.includes('pamela') || m.includes('speak') || m.includes('event') || m.includes('conference'))) return responses['book pamela'];
   if (m.includes('be well') || m.includes('devotional') || m.includes('order') || m.includes('purchase') || m.includes('buy')) return responses['be well'];
-  if (m.includes('encouragement') || m.includes('hard') || m.includes('struggling') || m.includes('sad') || m.includes('lost')) return responses['encouragement'];
-  if (m.includes('scripture') || m.includes('verse') || m.includes('bible') || m.includes('word')) return responses['scripture'];
+  if (m.includes('anxi') || m.includes('overwhelm') || m.includes('stress') || m.includes('panic') || m.includes('worried') || m.includes('worry')) return responses['anxious'];
+  if (m.includes('grief') || m.includes('griev') || m.includes('loss') || m.includes('died') || m.includes('death') || m.includes('mourning')) return responses['grief'];
+  if (m.includes('tired') || m.includes('exhausted') || m.includes('burnout') || m.includes('worn out') || m.includes('drained') || m.includes('weary')) return responses['tired'];
+  if (m.includes('lost') || m.includes('purpose') || m.includes('direction') || m.includes('confused')) return responses['lost'];
+  if (m.includes('pray') || m.includes('prayer')) return responses['prayer'];
+  if (m.includes('encouragement') || m.includes('encourage') || m.includes('hard') || m.includes('struggling') || m.includes('sad') || m.includes('hurting') || m.includes('broken')) return responses['encouragement'];
+  if (m.includes('scripture') || m.includes('verse') || m.includes('bible') || m.includes('word') || m.includes('psalm') || m.includes('proverb')) return responses['scripture'];
   if (m.includes('about') || m.includes('who is') || m.includes('pamela')) return responses['about pamela'];
   if (m.includes('contact') || m.includes('email') || m.includes('reach')) return responses['contact'];
   return responses['default'];
