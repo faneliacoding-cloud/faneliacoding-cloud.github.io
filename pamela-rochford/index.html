@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pamela Rochford | Be Well — A Luxury Spiritual Wellness Movement for Women</title>
+  <meta name="description" content="Pamela Rochford is a faith-based spiritual wellness leader, author of Be Well, and mentor guiding women toward holistic healing of mind, body, and spirit." />
+  <meta name="keywords" content="Pamela Rochford, Be Well devotional, women's spiritual wellness, Christian women empowerment, emotional healing, daily devotional" />
+  <meta property="og:title" content="Pamela Rochford | Be Well" />
+  <meta property="og:description" content="A luxury spiritual wellness movement for women. Mind. Body. Spirit." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo">Be Well</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#book">The Book</a></li>
+    <li><a href="#wellness">Philosophy</a></li>
+    <li><a href="#devotional">Devotional</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#newsletter">Community</a></li>
+  </ul>
+  <a href="https://www.pamelarochford.com/category/all-products" target="_blank" class="nav-cta">Order Now</a>
+  <div class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" style="display:none;position:fixed;inset:0;background:rgba(250,246,241,0.97);backdrop-filter:blur(20px);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;">
+  <a href="#hero" class="mobile-link" onclick="closeMobile()">Home</a>
+  <a href="#about" class="mobile-link" onclick="closeMobile()">About</a>
+  <a href="#book" class="mobile-link" onclick="closeMobile()">The Book</a>
+  <a href="#wellness" class="mobile-link" onclick="closeMobile()">Philosophy</a>
+  <a href="#devotional" class="mobile-link" onclick="closeMobile()">Devotional</a>
+  <a href="#events" class="mobile-link" onclick="closeMobile()">Events</a>
+  <a href="#newsletter" class="mobile-link" onclick="closeMobile()">Community</a>
+  <a href="https://www.pamelarochford.com/category/all-products" target="_blank" class="btn-primary" onclick="closeMobile()">Order Now</a>
+  <button onclick="closeMobile()" style="position:absolute;top:2rem;right:2rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#5C3D2E;">✕</button>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <canvas id="particles-canvas" style="position:absolute;inset:0;z-index:1;pointer-events:none;"></canvas>
+  <div class="hero-content">
+    <p class="hero-eyebrow">A Luxury Spiritual Wellness Movement for Women</p>
+    <h1 class="hero-title">Healing begins when<br>women choose <em>wholeness.</em></h1>
+    <p class="hero-subtitle">Mind. Body. Spirit. Be Well.</p>
+    <div class="hero-divider"></div>
+    <div class="hero-cta-group">
+      <a href="https://www.pamelarochford.com/category/all-products" target="_blank" class="btn-primary" id="hero-order-btn">Order Be Well</a>
+      <a href="#about" class="btn-ghost" id="hero-learn-btn">Discover Her Story</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY INTRO -->
+<section id="philosophy">
+  <div class="philosophy-grid">
+    <div class="philosophy-img reveal">
+      <img src="assets/images/devotional-lifestyle.png" alt="Luxury wellness devotional lifestyle — journal, tea, and peonies" loading="lazy" />
+      <div class="philosophy-img-accent"></div>
+    </div>
+    <div class="philosophy-content reveal">
+      <p class="section-eyebrow">The Be Well Philosophy</p>
+      <h2 class="section-title"><em>Being well</em> is becoming<br>whole in every dimension.</h2>
+      <div class="divider"></div>
+      <p class="section-body">Pamela Rochford invites you into a sacred space where faith, emotional intelligence, and holistic wellness converge. This is not a program. This is a way of living — rooted in divine purpose and radiant feminine strength.</p>
+      <blockquote class="blockquote">
+        "May God Himself make you whole — spirit, soul, and body — and keep you fit for the coming of our Master, Jesus Christ."
+        <cite style="display:block;font-size:0.8rem;margin-top:0.8rem;color:var(--gold);font-style:normal;letter-spacing:0.1em;">— 1 Thessalonians 5:23</cite>
+      </blockquote>
+      <a href="#wellness" class="btn-primary" id="philosophy-explore-btn">Explore the Philosophy</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-content reveal">
+      <p class="section-eyebrow">Meet Pamela</p>
+      <h2 class="section-title">Woman. Wife.<br><em>Visionary Leader.</em></h2>
+      <div class="divider"></div>
+      <p class="section-body">With over 25 years of service as an educator in the New York City Department of Education, Pamela Rochford has devoted her life to nurturing growth — in young minds, in women's hearts, and in the spirit of every community she touches.</p>
+      <p class="section-body" style="margin-top:1.2rem;">Alongside her husband, Archbishop Robert J. Rochford Sr., she leads with grace, wisdom, and unwavering compassion. Her mission is clear: to empower women to live healthy, purpose-driven lives rooted in faith.</p>
+      <blockquote class="blockquote" style="font-size:1.2rem;">
+        "She believes that spiritual health is the unshakeable foundation for a fulfilling life."
+      </blockquote>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="https://www.instagram.com/pamsroyalness/" target="_blank" class="btn-primary" id="about-instagram-btn">Follow Her Journey</a>
+        <a href="mailto:info@pamelarochford.com" class="btn-ghost" id="about-contact-btn" style="color:var(--warm-brown);border-color:var(--champagne);">Connect with Pamela</a>
+      </div>
+    </div>
+    <div class="about-img reveal">
+      <img src="assets/images/pamela-portrait.png" alt="Pamela Rochford — Author, Educator, and Spiritual Wellness Leader" loading="lazy" />
+      <div class="about-img-tag">
+        <p>"Every woman deserves to feel whole."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK LAUNCH -->
+<section id="book">
+  <div class="book-grid">
+    <div class="book-img-wrap reveal">
+      <div class="book-glow"></div>
+      <img src="assets/images/book-showcase.png" alt="Be Well — A Daily Devotional by Pamela Rochford" loading="lazy" />
+    </div>
+    <div class="book-content reveal">
+      <p class="section-eyebrow">The Devotional</p>
+      <h2 class="section-title" style="color:var(--white);">Be Well.<br><em>A Daily Devotional</em></h2>
+      <div class="divider"></div>
+      <p class="section-body">Crafted from Pamela's own journey of balancing spiritual, physical, and emotional wellness, <em>Be Well</em> is a sanctuary in book form. Each devotion is an invitation to slow down, breathe deeply, and reconnect with the woman God created you to be.</p>
+      <div class="book-reviews">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"This devotional changed how I start every morning. I feel seen, held, and deeply inspired." — Reader Review</p>
+      </div>
+      <p class="price-tag">$25.00</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem;">
+        <a href="https://www.pamelarochford.com/category/all-products" target="_blank" class="btn-primary" id="book-order-btn">Order Your Copy</a>
+        <a href="https://www.amazon.com" target="_blank" class="btn-ghost" id="book-amazon-btn">Find on Amazon</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WELLNESS PILLARS -->
+<section id="wellness">
+  <div class="wellness-intro reveal">
+    <p class="section-eyebrow">Spiritual + Emotional Wellness</p>
+    <h2 class="section-title" style="text-align:center;">The Three Pillars of<br><em>Holistic Wholeness</em></h2>
+    <div class="divider" style="margin:1.5rem auto;"></div>
+    <p class="section-body" style="text-align:center;">Pamela's approach to wellness is sacred and holistic — rooted in faith, grounded in emotional intelligence, and expressed through radiant physical vitality.</p>
+  </div>
+  <div class="pillars-grid">
+    <div class="pillar-card reveal">
+      <div class="pillar-icon">✦</div>
+      <h3>Mind</h3>
+      <p>Emotional freedom begins with the renewal of the mind. Pamela guides women through proven practices that quiet anxiety, dissolve limiting beliefs, and cultivate deep mental peace rooted in divine truth.</p>
+    </div>
+    <div class="pillar-card reveal">
+      <div class="pillar-icon">◇</div>
+      <h3>Body</h3>
+      <p>Your body is sacred. Honoring it is an act of worship. Through intentional wellness practices and compassionate self-care, women learn to inhabit their bodies with confidence, grace, and deep reverence.</p>
+    </div>
+    <div class="pillar-card reveal">
+      <div class="pillar-icon">○</div>
+      <h3>Spirit</h3>
+      <p>At the center of every healing journey is the spirit. Pamela's faith-centered guidance creates a spiritual foundation that sustains women through every season of life — from trials to triumph.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DEVOTIONAL -->
+<section id="devotional">
+  <div class="devotional-grid">
+    <div class="devotional-content reveal">
+      <p class="section-eyebrow">Daily Devotional</p>
+      <h2 class="section-title">Begin each morning<br>with <em>sacred intention.</em></h2>
+      <div class="divider"></div>
+      <p class="section-body">The <em>Be Well</em> devotional was written for the woman who is searching for more — more peace, more purpose, more presence. Each page holds a gentle invitation to encounter God in the stillness of her morning.</p>
+      <div class="scripture-card">
+        <p>"She is clothed with strength and dignity; she can laugh at the days to come."</p>
+        <span class="scripture-ref">— Proverbs 31:25</span>
+      </div>
+      <p class="section-body">Start your Be Well journey — one intentional morning at a time.</p>
+      <a href="https://www.pamelarochford.com/category/all-products" target="_blank" class="btn-primary" id="devotional-start-btn" style="margin-top:1.5rem;display:inline-block;">Begin Your Journey</a>
+    </div>
+    <div class="devotional-img reveal">
+      <img src="assets/images/devotional-lifestyle.png" alt="Morning wellness devotional lifestyle" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header reveal">
+    <p class="section-eyebrow">Stories of Healing</p>
+    <h2 class="section-title">Women whose lives<br><em>have been transformed.</em></h2>
+    <div class="divider"></div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Reading Be Well felt like sitting with a wise, loving mentor. Pamela's words gave me permission to heal and to rest in God's care. I haven't been the same since."</p>
+      <p class="testimonial-name">— Diane T., New York</p>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"I found this devotional during one of the hardest seasons of my life. Every morning, it felt like God was speaking directly to me through Pamela's words. Absolutely life-changing."</p>
+      <p class="testimonial-name">— Michelle R., Atlanta</p>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Pamela has a rare gift — the ability to speak to your spirit while also nurturing your soul. Be Well is the devotional I've been waiting for my entire walk with God."</p>
+      <p class="testimonial-name">— Sandra M., Chicago</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY / WOMEN'S JOURNEY -->
+<section id="community">
+  <div class="community-grid">
+    <div class="community-img reveal">
+      <img src="assets/images/wellness-atmosphere.png" alt="Women gathering in a luxury spiritual wellness sanctuary" loading="lazy" />
+    </div>
+    <div class="community-content reveal">
+      <p class="section-eyebrow">The Be Well Community</p>
+      <h2 class="section-title">You were never meant<br>to <em>heal alone.</em></h2>
+      <div class="divider"></div>
+      <p class="section-body">The Be Well movement is more than a book — it is a sisterhood. A sacred gathering of women who have chosen to walk intentionally toward wholeness, together. Rooted in faith. Bound by grace. Moving forward in purpose.</p>
+      <blockquote class="blockquote">
+        "When women gather with open hearts, heaven moves."
+      </blockquote>
+      <a href="#newsletter" class="btn-primary" id="community-join-btn">Join the Movement</a>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="events-intro reveal">
+    <p class="section-eyebrow">Speaking + Events</p>
+    <h2 class="section-title" style="text-align:center;">Experience Pamela<br><em>live and in person.</em></h2>
+    <div class="divider" style="margin:1.5rem auto;"></div>
+    <p class="section-body" style="text-align:center;margin:0 auto;">Book Pamela for your conference, women's ministry, wellness retreat, or leadership event. She brings a rare combination of academic depth, emotional wisdom, and spiritual power to every stage.</p>
+  </div>
+  <div class="events-grid">
+    <div class="event-card reveal">
+      <div class="event-img">
+        <img src="assets/images/speaking-events.png" alt="Luxury women's wellness conference and speaking event" loading="lazy" />
+      </div>
+      <div class="event-body">
+        <p class="event-date">2026 · Women's Conference</p>
+        <h3>Be Well Women's Summit</h3>
+        <p>An immersive full-day experience of spiritual renewal, emotional healing, and community connection.</p>
+        <a href="mailto:info@pamelarochford.com?subject=Event%20Booking" class="btn-primary" id="event-summit-btn">Inquire to Book</a>
+      </div>
+    </div>
+    <div class="event-card reveal">
+      <div class="event-img">
+        <img src="assets/images/wellness-atmosphere.png" alt="Intimate luxury wellness workshop for women" loading="lazy" />
+      </div>
+      <div class="event-body">
+        <p class="event-date">Ongoing · Workshops</p>
+        <h3>Intimate Wellness Workshops</h3>
+        <p>Small-group gatherings for deep healing, sacred conversation, and intentional community building.</p>
+        <a href="mailto:info@pamelarochford.com?subject=Workshop%20Inquiry" class="btn-primary" id="event-workshop-btn">Reserve Your Spot</a>
+      </div>
+    </div>
+    <div class="event-card reveal">
+      <div class="event-img">
+        <img src="assets/images/speaking-events.png" alt="Keynote speaking engagement for faith and wellness" loading="lazy" />
+      </div>
+      <div class="event-body">
+        <p class="event-date">Year-Round · Keynotes</p>
+        <h3>Keynote Speaking</h3>
+        <p>Invite Pamela to inspire, challenge, and uplift your organization, ministry, or school community.</p>
+        <a href="mailto:info@pamelarochford.com?subject=Speaking%20Engagement" class="btn-primary" id="event-keynote-btn">Book Pamela</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="newsletter-inner reveal">
+    <p class="section-eyebrow" style="text-align:center;">The Sanctuary</p>
+    <h2 class="section-title">Begin your Be Well<br><em>journey today.</em></h2>
+    <div class="divider" style="margin:1.5rem auto;"></div>
+    <p class="section-body">Join thousands of women receiving weekly devotional reflections, wellness wisdom, and sacred encouragement — delivered with love, directly to your inbox.</p>
+    <form class="newsletter-form" id="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+      <input type="email" id="newsletter-email" placeholder="Your email address" required />
+      <button type="submit" class="btn-primary" id="newsletter-submit-btn">Join the Movement</button>
+    </form>
+    <p class="newsletter-note">Your privacy is sacred to us. No spam — only grace.</p>
+    <div id="newsletter-thanks" style="display:none;margin-top:1.5rem;font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--mocha);">
+      ✦ Welcome to the sanctuary. Check your inbox for a gift from Pamela.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="nav-logo" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.8rem;color:#E8D5B7;display:block;margin-bottom:1rem;letter-spacing:0.1em;">Be Well</span>
+      <p>A luxury spiritual wellness movement for women, created by Pamela Rochford. Where faith and emotional wellness become one.</p>
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/pamela.rochford.7" target="_blank" class="social-link" aria-label="Facebook" id="footer-facebook">f</a>
+        <a href="https://www.instagram.com/pamsroyalness/" target="_blank" class="social-link" aria-label="Instagram" id="footer-instagram">in</a>
+        <a href="mailto:info@pamelarochford.com" class="social-link" aria-label="Email" id="footer-email">@</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#about">About Pamela</a></li>
+        <li><a href="#book">Be Well Book</a></li>
+        <li><a href="#wellness">Philosophy</a></li>
+        <li><a href="#devotional">Devotional</a></li>
+        <li><a href="#events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="https://www.pamelarochford.com/category/all-products" target="_blank">Shop</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><a href="mailto:info@pamelarochford.com?subject=Speaking%20Engagement">Book Pamela</a></li>
+        <li><a href="https://www.pamelarochford.com/terms-conditions" target="_blank">Terms</a></li>
+        <li><a href="https://www.pamelarochford.com/privacy-policy" target="_blank">Privacy</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="mailto:info@pamelarochford.com">info@pamelarochford.com</a></li>
+        <li><a href="https://www.instagram.com/pamsroyalness/" target="_blank">@pamsroyalness</a></li>
+        <li><a href="mailto:info@pamelarochford.com?subject=Speaking%20Engagement">Book a Speaking Event</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Pamela Rochford · Be Well. All rights reserved.</p>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="https://www.pamelarochford.com/terms-conditions" target="_blank">Terms</a>
+      <a href="https://www.pamelarochford.com/privacy-policy" target="_blank">Privacy</a>
+      <a href="https://www.pamelarochford.com/refund-policy" target="_blank">Refunds</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CHATBOT -->
+<div id="chatbot-bubble">
+  <div class="chatbot-panel" id="chatbot-panel">
+    <div class="chatbot-header">
+      <div class="chatbot-avatar">✦</div>
+      <div class="chatbot-header-info">
+        <h4>Grace — Be Well Concierge</h4>
+        <span>Your wellness companion</span>
+      </div>
+      <div class="chatbot-online"></div>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages">
+      <div class="chat-msg bot">
+        <div class="chat-bubble">Welcome, beautiful soul. 🌿 I'm Grace, your Be Well concierge. How can I guide you today?</div>
+      </div>
+    </div>
+    <div class="chat-prompts" id="chat-prompts">
+      <button class="prompt-chip" onclick="sendPrompt('Tell me about Be Well')">About the book</button>
+      <button class="prompt-chip" onclick="sendPrompt('How can I book Pamela to speak?')">Book Pamela</button>
+      <button class="prompt-chip" onclick="sendPrompt('I need encouragement today')">Daily encouragement</button>
+      <button class="prompt-chip" onclick="sendPrompt('Share a scripture with me')">Scripture</button>
+    </div>
+    <div class="chatbot-input-row">
+      <input type="text" id="chatbot-input" placeholder="Ask Grace anything..." />
+      <button class="chatbot-send" id="chatbot-send-btn" onclick="sendChatMessage()">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+  <button class="chatbot-toggle" id="chatbot-toggle-btn" onclick="toggleChat()" aria-label="Open wellness concierge">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+  </button>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
