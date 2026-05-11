@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fanelia Music — A Luxury Music House</title>
+  <meta name="description" content="Fanelia Music is a luxury modern music house featuring Magdalena Ford, Velencia de la Cruz, and Dale Brentwood. Cinematic soundscapes. Collectible music experiences."/>
+  <meta property="og:title" content="Fanelia Music — Music For The Ones Who Feel Everything"/>
+  <meta property="og:description" content="A new luxury music house blending cinematic storytelling, soul, and modern sound."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://faneliamusic.com"/>
+  <link rel="canonical" href="https://faneliamusic.com"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- PARTICLES CANVAS -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#home" class="nav-logo">
+    <span class="logo-mark">F</span>
+    <span class="logo-text">FANELIA <em>MUSIC</em></span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#artists" class="nav-link">Artists</a>
+    <a href="#albums" class="nav-link">Albums</a>
+    <a href="#store" class="nav-link">Store</a>
+    <a href="#membership" class="nav-link">Fanelia Black</a>
+    <button class="nav-curator-btn" id="openCurator">The Curator ✦</button>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#artists" class="mobile-link">Artists</a>
+  <a href="#albums" class="mobile-link">Albums</a>
+  <a href="#store" class="mobile-link">Store</a>
+  <a href="#membership" class="mobile-link">Fanelia Black</a>
+  <button class="mobile-curator-btn" id="openCuratorMobile">The Curator ✦</button>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="images/hero_bg.png" alt="" class="hero-bg-img"/>
+    <div class="hero-grain"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-gradient"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-overline reveal-up">A Luxury Music House · Est. 2025</p>
+    <h1 class="hero-headline reveal-up delay-1">
+      Music For<br/>
+      <em class="hero-headline-italic">The Ones Who</em><br/>
+      Feel Everything.
+    </h1>
+    <p class="hero-sub reveal-up delay-2">A new luxury music house blending cinematic storytelling,<br/>soul, and modern sound.</p>
+    <div class="hero-cta-group reveal-up delay-3">
+      <a href="#artists" class="btn-primary magnetic">Explore Artists</a>
+      <a href="#albums" class="btn-ghost magnetic">Listen Now</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+  <div class="hero-marquee-wrap">
+    <div class="hero-marquee">
+      <span>MAGDALENA FORD &nbsp;·&nbsp; VELENCIA DE LA CRUZ &nbsp;·&nbsp; DALE BRENTWOOD &nbsp;·&nbsp; FANELIA MUSIC &nbsp;·&nbsp;</span>
+      <span>MAGDALENA FORD &nbsp;·&nbsp; VELENCIA DE LA CRUZ &nbsp;·&nbsp; DALE BRENTWOOD &nbsp;·&nbsp; FANELIA MUSIC &nbsp;·&nbsp;</span>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO STRIP -->
+<section class="manifesto" id="manifesto">
+  <div class="manifesto-inner">
+    <p class="manifesto-text reveal-fade">"We don't make background music. We make <em>worlds</em>."</p>
+  </div>
+</section>
+
+<!-- ARTISTS -->
+<section class="artists" id="artists">
+  <div class="section-header reveal-up">
+    <p class="section-label">Our Artists</p>
+    <h2 class="section-title">Three Worlds.<br/><em>One Label.</em></h2>
+  </div>
+
+  <!-- MAGDALENA FORD -->
+  <div class="artist-world artist-magdalena" id="magdalena">
+    <div class="artist-world-bg">
+      <img src="images/magdalena_ford.jpg" alt="Magdalena Ford" class="artist-bg-img"/>
+      <div class="artist-overlay"></div>
+    </div>
+    <div class="artist-world-content">
+      <div class="artist-world-text">
+        <p class="artist-world-genre reveal-up">R&amp;B · Soul · Acoustic</p>
+        <h3 class="artist-world-name reveal-up delay-1">Magdalena<br/><em>Ford</em></h3>
+        <p class="artist-world-bio reveal-up delay-2">A voice that holds space for the unhurried. Magdalena Ford writes music for the quiet moments — for the breath between heartbeats. Her debut album is an intimate letter to yourself.</p>
+        <div class="artist-world-album reveal-up delay-3">
+          <div class="album-cover-float">
+            <img src="images/magdalena_ford.jpg" alt="Take Your Time With Me" class="album-cover-img"/>
+            <div class="album-cover-shine"></div>
+          </div>
+          <div class="album-cover-meta">
+            <p class="album-cover-title">Take Your Time With Me</p>
+            <p class="album-cover-label">Debut Album · 2025</p>
+            <div class="stream-row">
+              <a href="https://open.spotify.com/album/6YmPTXJ0CVBeDQsx6ALJ7L" target="_blank" class="stream-pill spotify-pill" id="magdalena-spotify">Spotify</a>
+              <a href="https://music.apple.com/us/album/take-your-time-with-me/1879618860" target="_blank" class="stream-pill apple-pill" id="magdalena-apple">Apple Music</a>
+              <a href="https://music.amazon.com/albums/B0GPJR9BZT" target="_blank" class="stream-pill amazon-pill" id="magdalena-amazon">Amazon</a>
+              <a href="https://music.youtube.com/browse/MPREb_952qNB0mBrS" target="_blank" class="stream-pill yt-pill" id="magdalena-youtube">YouTube</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VELENCIA DE LA CRUZ -->
+  <div class="artist-world artist-velencia" id="velencia">
+    <div class="artist-world-bg">
+      <img src="images/velencia_delacruz.jpg" alt="Velencia de la Cruz" class="artist-bg-img"/>
+      <div class="artist-overlay"></div>
+    </div>
+    <div class="artist-world-content reverse">
+      <div class="artist-world-text">
+        <p class="artist-world-genre reveal-up">Latin Pop · Reggaetón · Soul</p>
+        <h3 class="artist-world-name reveal-up delay-1">Velencia<br/><em>de la Cruz</em></h3>
+        <p class="artist-world-bio reveal-up delay-2">A fearless declaration in Spanish and English. Velencia de la Cruz refuses to be tamed. Her music is a firestorm — fierce percussion, commanding vocals, and lyrics that refuse to bend.</p>
+        <div class="artist-world-album reveal-up delay-3">
+          <div class="album-cover-float">
+            <img src="images/velencia_delacruz.jpg" alt="No Me Domas" class="album-cover-img"/>
+            <div class="album-cover-shine"></div>
+          </div>
+          <div class="album-cover-meta">
+            <p class="album-cover-title">No Me Domas</p>
+            <p class="album-cover-label">Debut Album · 2025</p>
+            <div class="stream-row">
+              <a href="https://open.spotify.com/album/1WbxckFzFSfXGoPzfjlN7J" target="_blank" class="stream-pill spotify-pill" id="velencia-spotify">Spotify</a>
+              <a href="https://music.apple.com/us/album/no-me-domas/1875963530" target="_blank" class="stream-pill apple-pill" id="velencia-apple">Apple Music</a>
+              <a href="https://music.amazon.com/albums/B0GMCJLX8X" target="_blank" class="stream-pill amazon-pill" id="velencia-amazon">Amazon</a>
+              <a href="https://music.youtube.com/browse/MPREb_7FDXpPXIzrR" target="_blank" class="stream-pill yt-pill" id="velencia-youtube">YouTube</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DALE BRENTWOOD -->
+  <div class="artist-world artist-dale" id="dale">
+    <div class="artist-world-bg">
+      <img src="images/dale_brentwood.jpg" alt="Dale Brentwood" class="artist-bg-img"/>
+      <div class="artist-overlay"></div>
+    </div>
+    <div class="artist-world-content">
+      <div class="artist-world-text">
+        <p class="artist-world-genre reveal-up">R&amp;B · Soul · Pop</p>
+        <h3 class="artist-world-name reveal-up delay-1">Dale<br/><em>Brentwood</em></h3>
+        <p class="artist-world-bio reveal-up delay-2">Smooth, seductive, and impossible to stop playing. Dale Brentwood captures the all-consuming feeling of falling for someone — layered harmonies, silky production, conversations you never wanted to end.</p>
+        <div class="artist-world-album reveal-up delay-3">
+          <div class="album-cover-float">
+            <img src="images/dale_brentwood.jpg" alt="Hooked On You" class="album-cover-img"/>
+            <div class="album-cover-shine"></div>
+          </div>
+          <div class="album-cover-meta">
+            <p class="album-cover-title">Hooked On You</p>
+            <p class="album-cover-label">Debut Album · 2025</p>
+            <div class="stream-row">
+              <a href="https://open.spotify.com/album/5omhWavBIM9H42V6ttOi9C" target="_blank" class="stream-pill spotify-pill" id="dale-spotify">Spotify</a>
+              <a href="https://music.apple.com/us/album/hooked-on-you/1873317123" target="_blank" class="stream-pill apple-pill" id="dale-apple">Apple Music</a>
+              <a href="https://music.amazon.com/albums/B0GKJ9ZL94" target="_blank" class="stream-pill amazon-pill" id="dale-amazon">Amazon</a>
+              <a href="https://music.youtube.com/browse/MPREb_zFVEcZPAXd0" target="_blank" class="stream-pill yt-pill" id="dale-youtube">YouTube</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALBUMS GRID -->
+<section class="albums-section" id="albums">
+  <div class="section-header reveal-up">
+    <p class="section-label">Discography</p>
+    <h2 class="section-title">The<br/><em>Collection</em></h2>
+  </div>
+  <div class="albums-grid">
+    <div class="album-card reveal-up" id="album-card-magdalena">
+      <div class="album-card-art-wrap">
+        <img src="images/magdalena_ford.jpg" alt="Take Your Time With Me" class="album-card-img"/>
+        <div class="album-card-shine"></div>
+        <div class="album-card-overlay">
+          <p class="album-card-listen">Stream Now</p>
+          <div class="album-card-links">
+            <a href="https://open.spotify.com/album/6YmPTXJ0CVBeDQsx6ALJ7L" target="_blank">Spotify</a>
+            <a href="https://music.apple.com/us/album/take-your-time-with-me/1879618860" target="_blank">Apple Music</a>
+          </div>
+        </div>
+      </div>
+      <div class="album-card-info">
+        <p class="album-card-title">Take Your Time With Me</p>
+        <p class="album-card-artist">Magdalena Ford</p>
+        <p class="album-card-genre">R&amp;B · Soul · Acoustic</p>
+      </div>
+    </div>
+    <div class="album-card reveal-up delay-1" id="album-card-velencia">
+      <div class="album-card-art-wrap">
+        <img src="images/velencia_delacruz.jpg" alt="No Me Domas" class="album-card-img"/>
+        <div class="album-card-shine"></div>
+        <div class="album-card-overlay">
+          <p class="album-card-listen">Stream Now</p>
+          <div class="album-card-links">
+            <a href="https://open.spotify.com/album/1WbxckFzFSfXGoPzfjlN7J" target="_blank">Spotify</a>
+            <a href="https://music.apple.com/us/album/no-me-domas/1875963530" target="_blank">Apple Music</a>
+          </div>
+        </div>
+      </div>
+      <div class="album-card-info">
+        <p class="album-card-title">No Me Domas</p>
+        <p class="album-card-artist">Velencia de la Cruz</p>
+        <p class="album-card-genre">Latin Pop · Reggaetón · Soul</p>
+      </div>
+    </div>
+    <div class="album-card reveal-up delay-2" id="album-card-dale">
+      <div class="album-card-art-wrap">
+        <img src="images/dale_brentwood.jpg" alt="Hooked On You" class="album-card-img"/>
+        <div class="album-card-shine"></div>
+        <div class="album-card-overlay">
+          <p class="album-card-listen">Stream Now</p>
+          <div class="album-card-links">
+            <a href="https://open.spotify.com/album/5omhWavBIM9H42V6ttOi9C" target="_blank">Spotify</a>
+            <a href="https://music.apple.com/us/album/hooked-on-you/1873317123" target="_blank">Apple Music</a>
+          </div>
+        </div>
+      </div>
+      <div class="album-card-info">
+        <p class="album-card-title">Hooked On You</p>
+        <p class="album-card-artist">Dale Brentwood</p>
+        <p class="album-card-genre">R&amp;B · Soul · Pop</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORE -->
+<section class="store-section" id="store">
+  <div class="section-header reveal-up">
+    <p class="section-label">The Boutique</p>
+    <h2 class="section-title">Collectible<br/><em>Editions</em></h2>
+    <p class="section-sub">Luxury music objects. Limited. Numbered. Yours.</p>
+  </div>
+  <div class="store-grid">
+    <div class="store-card reveal-up" id="store-vinyl-magdalena">
+      <div class="store-card-badge">Limited Edition</div>
+      <div class="store-card-art">
+        <img src="images/magdalena_ford.jpg" alt="Take Your Time With Me Vinyl" class="store-card-img"/>
+        <div class="vinyl-disc"></div>
+      </div>
+      <div class="store-card-info">
+        <p class="store-card-name">Take Your Time With Me</p>
+        <p class="store-card-type">180g Champagne Vinyl · Numbered</p>
+        <p class="store-card-price">$34.99</p>
+        <button class="store-btn" id="buy-magdalena-vinyl">Add to Collection</button>
+      </div>
+    </div>
+    <div class="store-card reveal-up delay-1" id="store-vinyl-velencia">
+      <div class="store-card-badge">Limited Edition</div>
+      <div class="store-card-art">
+        <img src="images/velencia_delacruz.jpg" alt="No Me Domas Vinyl" class="store-card-img"/>
+        <div class="vinyl-disc"></div>
+      </div>
+      <div class="store-card-info">
+        <p class="store-card-name">No Me Domas</p>
+        <p class="store-card-type">180g Crimson Vinyl · Numbered</p>
+        <p class="store-card-price">$34.99</p>
+        <button class="store-btn" id="buy-velencia-vinyl">Add to Collection</button>
+      </div>
+    </div>
+    <div class="store-card reveal-up delay-2" id="store-vinyl-dale">
+      <div class="store-card-badge">Limited Edition</div>
+      <div class="store-card-art">
+        <img src="images/dale_brentwood.jpg" alt="Hooked On You Vinyl" class="store-card-img"/>
+        <div class="vinyl-disc"></div>
+      </div>
+      <div class="store-card-info">
+        <p class="store-card-name">Hooked On You</p>
+        <p class="store-card-type">180g Midnight Blue Vinyl · Numbered</p>
+        <p class="store-card-price">$34.99</p>
+        <button class="store-btn" id="buy-dale-vinyl">Add to Collection</button>
+      </div>
+    </div>
+    <div class="store-card store-card-deluxe reveal-up delay-1" id="store-box-set">
+      <div class="store-card-badge">Exclusive</div>
+      <div class="store-card-art store-art-box">
+        <div class="box-set-visual">
+          <img src="images/magdalena_ford.jpg" alt="" class="box-img box-img-1"/>
+          <img src="images/velencia_delacruz.jpg" alt="" class="box-img box-img-2"/>
+          <img src="images/dale_brentwood.jpg" alt="" class="box-img box-img-3"/>
+        </div>
+      </div>
+      <div class="store-card-info">
+        <p class="store-card-name">Fanelia Deluxe Box Set</p>
+        <p class="store-card-type">All 3 Vinyls + Art Prints + Certificate</p>
+        <p class="store-card-price">$89.99</p>
+        <button class="store-btn store-btn-gold" id="buy-box-set">Claim Your Set</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section class="membership-section" id="membership">
+  <div class="membership-bg">
+    <div class="membership-grain"></div>
+  </div>
+  <div class="membership-inner">
+    <div class="membership-badge-wrap reveal-up">
+      <div class="membership-badge">✦ FANELIA BLACK ✦</div>
+    </div>
+    <h2 class="membership-title reveal-up delay-1">The Inner<br/><em>Circle.</em></h2>
+    <p class="membership-sub reveal-up delay-2">For those who demand more than music. A private membership giving you access to worlds others will never see.</p>
+    <div class="membership-perks reveal-up delay-3">
+      <div class="perk-item">
+        <span class="perk-icon">◈</span>
+        <p class="perk-label">Early Access</p>
+        <p class="perk-desc">Albums, singles & visuals before the world</p>
+      </div>
+      <div class="perk-item">
+        <span class="perk-icon">◈</span>
+        <p class="perk-label">Unreleased Music</p>
+        <p class="perk-desc">Demos, studio sessions & vault recordings</p>
+      </div>
+      <div class="perk-item">
+        <span class="perk-icon">◈</span>
+        <p class="perk-label">Private Livestreams</p>
+        <p class="perk-desc">Intimate performances & artist conversations</p>
+      </div>
+      <div class="perk-item">
+        <span class="perk-icon">◈</span>
+        <p class="perk-label">Collectible Drops</p>
+        <p class="perk-desc">Member-exclusive art prints & limited editions</p>
+      </div>
+    </div>
+    <div class="membership-pricing reveal-up delay-3">
+      <div class="pricing-card" id="pricing-monthly">
+        <p class="pricing-tier">Monthly</p>
+        <p class="pricing-amount">$9<span>.99/mo</span></p>
+        <button class="pricing-btn" id="join-monthly">Join Fanelia Black</button>
+      </div>
+      <div class="pricing-card pricing-card-featured" id="pricing-annual">
+        <div class="pricing-card-badge">Best Value</div>
+        <p class="pricing-tier">Annual</p>
+        <p class="pricing-amount">$79<span>/yr</span></p>
+        <button class="pricing-btn pricing-btn-gold" id="join-annual">Join & Save 34%</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOF CROSSLINK -->
+<section class="hof-section" id="hof">
+  <div class="hof-inner reveal-up">
+    <p class="section-label">The Fanelia Family</p>
+    <h2 class="hof-title">Powered by <em>House Of Fanelia</em></h2>
+    <p class="hof-desc">120+ original tracks spanning House, Electronic, R&amp;B, Hip-Hop, and Chill — produced by DJ Escaflowne.</p>
+    <div class="hof-stats">
+      <div class="hof-stat"><span class="hof-n">120+</span><span class="hof-l">Tracks</span></div>
+      <div class="hof-divider"></div>
+      <div class="hof-stat"><span class="hof-n">100K+</span><span class="hof-l">Views</span></div>
+      <div class="hof-divider"></div>
+      <div class="hof-stat"><span class="hof-n">5</span><span class="hof-l">Genres</span></div>
+    </div>
+    <div class="hof-actions">
+      <a href="https://www.youtube.com/@HouseOfFanelia" target="_blank" class="btn-primary magnetic" id="hof-youtube-link">Visit House Of Fanelia →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">F</span>
+      <p class="footer-wordmark">FANELIA MUSIC</p>
+      <p class="footer-tagline">Music For The Ones Who Feel Everything.</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <p class="footer-col-title">Artists</p>
+        <a href="#magdalena">Magdalena Ford</a>
+        <a href="#velencia">Velencia de la Cruz</a>
+        <a href="#dale">Dale Brentwood</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Experience</p>
+        <a href="#albums">Albums</a>
+        <a href="#store">Store</a>
+        <a href="#membership">Fanelia Black</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Family</p>
+        <a href="https://www.youtube.com/@HouseOfFanelia" target="_blank">House Of Fanelia</a>
+        <a href="https://faneliaconsulting.com" target="_blank">Fanelia Consulting</a>
+        <a href="https://www.youtube.com/@HouseOfFanelia?sub_confirmation=1" target="_blank">Subscribe on YouTube</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Fanelia Music · A House Of Fanelia Label · Distributed by DistroKid</p>
+    <p class="footer-bottom-right">Crafted with intention.</p>
+  </div>
+</footer>
+
+<!-- AI CURATOR CHATBOT -->
+<div class="curator-overlay" id="curatorOverlay"></div>
+<div class="curator-panel" id="curatorPanel">
+  <div class="curator-header">
+    <div class="curator-identity">
+      <div class="curator-avatar">✦</div>
+      <div>
+        <p class="curator-name">The Curator</p>
+        <p class="curator-status">Online · Ready to guide you</p>
+      </div>
+    </div>
+    <button class="curator-close" id="curatorClose">✕</button>
+  </div>
+  <div class="curator-messages" id="curatorMessages">
+    <div class="curator-msg curator-msg-ai">
+      <p>Welcome to Fanelia Music. I'm <strong>The Curator</strong> — your guide through our world of cinematic sound.</p>
+      <p style="margin-top:8px">How are you feeling right now? I'll find the perfect music for your mood.</p>
+    </div>
+  </div>
+  <div class="curator-suggestions" id="curatorSuggestions">
+    <button class="curator-chip" data-msg="I want something soulful and slow">Soulful &amp; slow</button>
+    <button class="curator-chip" data-msg="I'm feeling powerful and fierce">Powerful &amp; fierce</button>
+    <button class="curator-chip" data-msg="I want something romantic">Romantic</button>
+    <button class="curator-chip" data-msg="Show me your artists">Meet the artists</button>
+    <button class="curator-chip" data-msg="Tell me about Fanelia Black membership">Fanelia Black</button>
+    <button class="curator-chip" data-msg="I want to buy vinyl">Buy vinyl</button>
+  </div>
+  <div class="curator-input-row">
+    <input type="text" class="curator-input" id="curatorInput" placeholder="Tell me how you feel..." aria-label="Chat with The Curator"/>
+    <button class="curator-send" id="curatorSend" aria-label="Send">→</button>
+  </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
