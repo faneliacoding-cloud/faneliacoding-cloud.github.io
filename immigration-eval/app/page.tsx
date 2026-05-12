@@ -1,61 +1,40 @@
 'use client';
 /**
- * Main Application Entry Point
- * Renders the macOS-style layout: sidebar + content area
+ * Page entry point — defers all rendering to the client.
+ * Prevents localStorage/Zustand hydration mismatches on GitHub Pages static export.
  */
-import { useEffect } from 'react';
-import { useAppStore } from '@/lib/store';
-import Sidebar from '@/components/Sidebar';
-import Dashboard from '@/components/Dashboard';
-import EvalForm from '@/components/EvalForm';
-import ClientsView from '@/components/views/ClientsView';
-import DraftsView from '@/components/views/DraftsView';
-import CompletedView from '@/components/views/CompletedView';
-import TemplatesView from '@/components/views/TemplatesView';
-import SettingsView from '@/components/views/SettingsView';
-import ExportView from '@/components/views/ExportView';
+import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 
-export default function App() {
-  const { activeView, darkMode } = useAppStore();
+const AppClient = dynamic(() => import('@/components/App'), { ssr: false });
 
-  // Apply dark mode to html element
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode);
-  }, [darkMode]);
+export default function Page() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  const renderView = () => {
-    switch (activeView) {
-      case 'dashboard':    return <Dashboard />;
-      case 'clients':      return <ClientsView />;
-      case 'new-eval':     return <EvalForm />;
-      case 'draft-evals':  return <DraftsView />;
-      case 'completed':    return <CompletedView />;
-      case 'templates':    return <TemplatesView />;
-      case 'settings':     return <SettingsView />;
-      case 'export':       return <ExportView />;
-      default:             return <Dashboard />;
-    }
-  };
-
-  const fullscreen = activeView === 'new-eval';
-
-  return (
-    <div style={{
-      display: 'flex',
-      height: '100vh',
-      overflow: 'hidden',
-      background: 'var(--bg-primary)',
-    }}>
-      <Sidebar />
-      <main style={{
-        flex: 1,
-        overflow: fullscreen ? 'hidden' : 'auto',
-        display: fullscreen ? 'flex' : 'block',
-        flexDirection: 'column',
-        background: 'var(--bg-primary)',
+  if (!mounted) {
+    return (
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        height: '100vh', background: '#f5f5f7',
+        fontFamily: 'Inter, -apple-system, sans-serif',
+        flexDirection: 'column', gap: 12,
       }}>
-        {renderView()}
-      </main>
-    </div>
-  );
+        <div style={{
+          width: 44, height: 44, borderRadius: 14,
+          background: 'linear-gradient(135deg, #0071e3, #5e5ce6)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: '0 4px 16px rgba(0,113,227,0.3)',
+        }}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        </div>
+        <div style={{ fontSize: 15, fontWeight: 600, color: '#1d1d1f' }}>ImmigEval</div>
+        <div style={{ fontSize: 13, color: '#6e6e73' }}>Loading clinical platform...</div>
+      </div>
+    );
+  }
+
+  return <AppClient />;
 }
