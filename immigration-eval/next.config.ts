@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: "export",
+  basePath: "/immigration-eval-app",
+  assetPrefix: "/immigration-eval-app",
+  trailingSlash: true,
+  images: { unoptimized: true },
 };
 
 export default nextConfig;
