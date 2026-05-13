@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ImmigEval — Immigration Evaluation Form Generator",
+  title: "TJIL Immigration Evaluation",
   description: "Premium clinical platform for immigration psychological evaluations. Generate professional DOCX and PDF reports with guided intake forms.",
   keywords: "immigration evaluation, psychological assessment, asylum evaluation, clinical report generator",
-  authors: [{ name: "ImmigEval" }],
+  authors: [{ name: "TJIL Immigration Evaluation" }],
   openGraph: {
-    title: "ImmigEval — Immigration Evaluation Form Generator",
+    title: "TJIL Immigration Evaluation",
     description: "Premium clinical platform for immigration psychological evaluations.",
     type: "website",
   },

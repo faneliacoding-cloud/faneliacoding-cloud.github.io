@@ -58,8 +58,8 @@ export default function Sidebar() {
   return (
     <aside
       style={{
-        width: sidebarCollapsed ? '68px' : '240px',
-        minWidth: sidebarCollapsed ? '68px' : '240px',
+        width: sidebarCollapsed ? '68px' : '260px',
+        minWidth: sidebarCollapsed ? '68px' : '260px',
         background: 'var(--bg-sidebar)',
         borderRight: '1px solid rgba(255,255,255,0.06)',
         display: 'flex',
@@ -95,8 +95,8 @@ export default function Sidebar() {
         </div>
         {!sidebarCollapsed && (
           <div>
-            <div style={{ color: '#f5f5f7', fontSize: 13, fontWeight: 700, letterSpacing: '-0.01em', whiteSpace: 'nowrap' }}>
-              ImmigEval
+            <div style={{ color: '#f5f5f7', fontSize: 11, fontWeight: 700, letterSpacing: '0em', whiteSpace: 'nowrap' }}>
+              TJIL Immigration Evaluation
             </div>
             <div style={{ color: '#636366', fontSize: 10, fontWeight: 500, whiteSpace: 'nowrap' }}>
               Clinical Platform

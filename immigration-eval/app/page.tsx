@@ -30,7 +30,7 @@ export default function Page() {
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
           </svg>
         </div>
-        <div style={{ fontSize: 15, fontWeight: 600, color: '#1d1d1f' }}>ImmigEval</div>
+        <div style={{ fontSize: 15, fontWeight: 600, color: '#1d1d1f' }}>TJIL Immigration Evaluation</div>
         <div style={{ fontSize: 13, color: '#6e6e73' }}>Loading clinical platform...</div>
       </div>
     );
