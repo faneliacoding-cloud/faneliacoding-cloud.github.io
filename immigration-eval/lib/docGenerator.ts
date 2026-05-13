@@ -107,39 +107,45 @@ export function buildTemplateVars(eval_: Evaluation): Record<string, string> {
   };
 }
 
-// Generate DOCX from template
-export async function generateDOCX(evaluation: Evaluation): Promise<void> {
+// Build DOCX blob (core logic — reused by generateDOCX and cloud upload)
+export async function generateDOCXBlob(evaluation: Evaluation): Promise<{ blob: Blob; filename: string }> {
   const { default: PizZip } = await import('pizzip');
   const { default: Docxtemplater } = await import('docxtemplater');
-  const { saveAs } = await import('file-saver');
-
   const vars = buildTemplateVars(evaluation);
+  const filename = `${evaluation.clientInfo.fullName || 'Evaluation'}_Psych_Eval_${new Date().toISOString().split('T')[0]}.docx`;
 
-  // Fetch the template
   const response = await fetch('/asylum-template.docx');
   if (!response.ok) {
-    // Create a simple text DOCX if template not found
-    generateSimpleDOCX(evaluation, vars);
-    return;
+    const content = buildReportText(evaluation, vars);
+    return { blob: new Blob([content], { type: 'application/msword' }), filename: filename.replace('.docx', '.doc') };
   }
 
   const arrayBuffer = await response.arrayBuffer();
   const zip = new PizZip(arrayBuffer);
-  const doc = new Docxtemplater(zip, {
-    paragraphLoop: true,
-    linebreaks: true,
-  });
-
-  // Replace all template variables
+  const doc = new Docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
   doc.render(vars);
-
   const blob = doc.getZip().generate({
     type: 'blob',
     mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   });
+  return { blob, filename };
+}
 
-  const filename = `${evaluation.clientInfo.fullName || 'Evaluation'}_Psych_Eval_${new Date().toISOString().split('T')[0]}.docx`;
+// Generate DOCX and save locally
+export async function generateDOCX(evaluation: Evaluation): Promise<void> {
+  const { blob, filename } = await generateDOCXBlob(evaluation);
+  const { saveAs } = await import('file-saver');
   saveAs(blob, filename);
+}
+
+// Generate PDF blob for cloud upload
+export function buildPDFHTML(evaluation: Evaluation): string {
+  const vars = buildTemplateVars(evaluation);
+  const content = buildReportText(evaluation, vars);
+  return `<!DOCTYPE html><html><head>
+    <title>${evaluation.clientInfo.fullName} - Psychological Evaluation</title>
+    <style>body{font-family:Georgia,serif;max-width:800px;margin:40px auto;line-height:1.7;color:#1a1a1a;font-size:13px}pre{white-space:pre-wrap;font-family:inherit}@page{margin:1in}</style>
+    </head><body><pre>${content}</pre></body></html>`;
 }
 
 // Fallback: generate from scratch without template

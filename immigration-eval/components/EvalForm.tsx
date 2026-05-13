@@ -6,8 +6,9 @@
 import { useAppStore } from '@/lib/store';
 import { generateDOCX, generatePDF } from '@/lib/docGenerator';
 import { useState } from 'react';
+import CloudExportModal from './CloudExportModal';
 import {
-  ChevronLeft, ChevronRight, FileDown, Printer, Save,
+  ChevronLeft, ChevronRight, FileDown, Printer, Save, Share2,
   User, Stethoscope, FileText, AlertTriangle, Brain,
   Eye, BarChart2, ToggleRight, CheckSquare, ArrowLeft,
 } from 'lucide-react';
@@ -38,6 +39,7 @@ export default function EvalForm() {
   const { activeEvalId, evaluations, updateEvaluation, completeEvaluation, setView } = useAppStore();
   const [exporting, setExporting] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
 
   const eval_ = evaluations.find(e => e.id === activeEvalId);
   if (!activeEvalId || !eval_) {
@@ -79,6 +81,7 @@ export default function EvalForm() {
   const isLastStep = currentStep === STEPS.length - 1;
 
   return (
+    <>
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       {/* Top bar */}
       <div style={{
@@ -99,11 +102,8 @@ export default function EvalForm() {
           <button className="btn-ghost" onClick={handleSave} style={{ fontSize: 12 }}>
             <Save size={13} />{saved ? '✓ Saved' : 'Save'}
           </button>
-          <button className="btn-secondary" onClick={handleExportPdf} style={{ fontSize: 12 }}>
-            <Printer size={13} /> PDF
-          </button>
-          <button className="btn-primary" onClick={handleExportDocx} disabled={exporting} style={{ fontSize: 12 }}>
-            <FileDown size={13} />{exporting ? 'Exporting...' : 'Export DOCX'}
+          <button className="btn-primary" onClick={() => setShowExportModal(true)} style={{ fontSize: 12 }}>
+            <Share2 size={13} /> Export / Save to Cloud
           </button>
         </div>
       </div>
@@ -196,5 +196,9 @@ export default function EvalForm() {
         </div>
       </div>
     </div>
+    {showExportModal && eval_ && (
+      <CloudExportModal evaluation={eval_} onClose={() => setShowExportModal(false)} />
+    )}
+    </>
   );
 }
