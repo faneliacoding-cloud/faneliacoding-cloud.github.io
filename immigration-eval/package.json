@@ -1,14 +1,50 @@
 {
   "name": "immigration-eval",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "TJIL Immigration Evaluation — Clinical platform for immigration psychological evaluations",
   "private": true,
+  "main": "electron/main.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "electron:dev": "concurrently \"next dev\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron:build": "next build && electron-builder --mac",
+    "electron:pack": "electron-builder --mac --dir",
+    "cap:build": "next build && npx cap sync ios",
+    "cap:ios": "npx cap open ios",
+    "cap:sync": "npx cap sync"
+  },
+  "build": {
+    "appId": "com.tjil.immigrationeval",
+    "productName": "TJIL Immigration Evaluation",
+    "copyright": "Copyright © 2025 TJIL",
+    "directories": { "output": "dist-electron" },
+    "files": ["electron/**/*", "out/**/*", "public/**/*", "node_modules/**/*", "package.json"],
+    "mac": {
+      "category": "public.app-category.medical",
+      "icon": "public/icons/icon-1024.png",
+      "target": [
+        { "target": "dmg", "arch": ["arm64", "x64"] },
+        { "target": "zip", "arch": ["arm64", "x64"] }
+      ],
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    },
+    "dmg": {
+      "title": "TJIL Immigration Evaluation",
+      "icon": "public/icons/icon-1024.png",
+      "contents": [
+        { "x": 130, "y": 220 },
+        { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+      ]
+    }
   },
   "dependencies": {
+    "@capacitor/cli": "^8.3.4",
+    "@capacitor/core": "^8.3.4",
+    "@capacitor/ios": "^8.3.4",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-progress": "^1.1.8",
     "@radix-ui/react-select": "^2.2.6",
@@ -16,17 +52,22 @@
     "@radix-ui/react-switch": "^1.2.6",
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
+    "concurrently": "^9.2.1",
     "date-fns": "^4.1.0",
     "docxtemplater": "^3.68.7",
+    "electron": "^42.0.1",
+    "electron-builder": "^26.8.1",
     "file-saver": "^2.0.5",
     "framer-motion": "^12.38.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "lucide-react": "^1.14.0",
     "next": "16.2.6",
+    "next-pwa": "^5.6.0",
     "pizzip": "^3.2.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "wait-on": "^9.0.10",
     "zustand": "^5.0.13"
   },
   "devDependencies": {
