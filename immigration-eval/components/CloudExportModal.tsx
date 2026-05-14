@@ -30,14 +30,63 @@ interface Props {
   onClose: () => void;
 }
 
-const PROVIDERS: { id: Provider; label: string; color: string; bg: string; icon: string; desc: string }[] = [
-  { id: 'local',       label: 'Download',      color: '#1d1d1f', bg: '#f5f5f7',             icon: '⬇️', desc: 'Save to your Downloads folder' },
-  { id: 'share',       label: 'Share / iCloud', color: '#0071e3', bg: 'rgba(0,113,227,0.08)', icon: '☁️', desc: 'iOS share sheet, iCloud Drive, AirDrop' },
-  { id: 'filesystem',  label: 'Save Anywhere',  color: '#5e5ce6', bg: 'rgba(94,92,230,0.08)', icon: '📁', desc: 'System file picker — any location' },
-  { id: 'dropbox',     label: 'Dropbox',        color: '#0061FF', bg: 'rgba(0,97,255,0.08)',  icon: '📦', desc: 'Save directly to your Dropbox' },
-  { id: 'googledrive', label: 'Google Drive',   color: '#0F9D58', bg: 'rgba(15,157,88,0.08)', icon: '🔵', desc: 'Upload to Google Drive' },
-  { id: 'onedrive',    label: 'OneDrive',       color: '#0078D4', bg: 'rgba(0,120,212,0.08)', icon: '☁️', desc: 'Upload to Microsoft OneDrive' },
-  { id: 'box',         label: 'Box',            color: '#0061D5', bg: 'rgba(0,97,213,0.08)',  icon: '📫', desc: 'Upload to Box' },
+// Official brand SVG icons (inline for zero external dependencies)
+const ICONS: Record<string, JSX.Element> = {
+  local: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1d1d1f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+  ),
+  share: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M18.5 8.5C19.8807 8.5 21 7.38071 21 6C21 4.61929 19.8807 3.5 18.5 3.5C17.1193 3.5 16 4.61929 16 6C16 6.27894 16.0425 6.5482 16.1216 6.80108L8.87835 10.4186C8.34778 9.86579 7.6044 9.5 6.77778 9.5C5.24365 9.5 4 10.7437 4 12.2778C4 13.8119 5.24365 15.0556 6.77778 15.0556C7.57987 15.0556 8.30384 14.7105 8.83098 14.1837L16.1474 17.7355C16.0517 18.0068 16 18.2978 16 18.6C16 19.9255 17.0745 21 18.4 21C19.7255 21 20.8 19.9255 20.8 18.6C20.8 17.2745 19.7255 16.2 18.4 16.2C17.6471 16.2 16.9772 16.5516 16.5412 17.0962L9.18897 13.5281C9.37158 13.1432 9.47368 12.713 9.47368 12.2591C9.47368 11.8509 9.38904 11.4622 9.23601 11.1085L16.4946 7.48363C16.9311 7.96915 17.5772 8.27778 18.2963 8.27778" fill="#007AFF"/>
+    </svg>
+  ),
+  filesystem: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5e5ce6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+    </svg>
+  ),
+  dropbox: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#0061FF">
+      <path d="M6 2L0 6.5L6 11L12 6.5L6 2Z"/>
+      <path d="M18 2L12 6.5L18 11L24 6.5L18 2Z"/>
+      <path d="M0 15.5L6 20L12 15.5L6 11L0 15.5Z"/>
+      <path d="M18 11L12 15.5L18 20L24 15.5L18 11Z"/>
+      <path d="M6 21.5L12 17L18 21.5L12 26" transform="translate(0,-4) scale(1,0.85)"/>
+    </svg>
+  ),
+  googledrive: (
+    <svg width="20" height="20" viewBox="0 0 24 24">
+      <path d="M7.71 3.5L1.15 15L4.58 21H11L7.71 15L14.27 3.5H7.71Z" fill="#0F9D58"/>
+      <path d="M14.27 3.5L7.71 15L11 21H17.56L14.27 15L20.83 3.5H14.27Z" fill="#FBBC04"/>
+      <path d="M1.15 15L4.58 21H17.56L14.27 15H1.15Z" fill="#4285F4"/>
+    </svg>
+  ),
+  onedrive: (
+    <svg width="20" height="20" viewBox="0 0 24 24">
+      <path d="M10.5 7.5C11.5 5.5 13.5 4 16 4C19.3 4 22 6.7 22 10C22 10.3 22 10.7 21.9 11C22.6 11.4 23 12.2 23 13C23 14.7 21.7 16 20 16H6C3.8 16 2 14.2 2 12C2 10.1 3.4 8.5 5.2 8.1C5.9 7.5 7 7 8 7C8.9 7 9.8 7.2 10.5 7.5Z" fill="#0078D4"/>
+      <path d="M10.5 7.5C9.8 7.2 8.9 7 8 7C7 7 5.9 7.5 5.2 8.1C3.4 8.5 2 10.1 2 12C2 14.2 3.8 16 6 16H14L10.5 7.5Z" fill="#0364B8"/>
+    </svg>
+  ),
+  box: (
+    <svg width="20" height="20" viewBox="0 0 24 24">
+      <path d="M12 2L3 7V17L12 22L21 17V7L12 2Z" fill="#0061D5"/>
+      <path d="M12 2L3 7L12 12L21 7L12 2Z" fill="#2486FC"/>
+      <path d="M12 12L3 7V17L12 22V12Z" fill="#0061D5"/>
+      <path d="M12 12L21 7V17L12 22V12Z" fill="#004DB3"/>
+    </svg>
+  ),
+};
+
+const PROVIDERS: { id: Provider; label: string; color: string; bg: string; desc: string }[] = [
+  { id: 'local',       label: 'Download',      color: '#1d1d1f', bg: '#f5f5f7',             desc: 'Save to your Downloads folder' },
+  { id: 'share',       label: 'Share / iCloud', color: '#007AFF', bg: 'rgba(0,122,255,0.08)', desc: 'iOS share sheet, iCloud Drive, AirDrop' },
+  { id: 'filesystem',  label: 'Save Anywhere',  color: '#5e5ce6', bg: 'rgba(94,92,230,0.08)', desc: 'System file picker — any location' },
+  { id: 'dropbox',     label: 'Dropbox',        color: '#0061FF', bg: 'rgba(0,97,255,0.08)',  desc: 'Save directly to your Dropbox' },
+  { id: 'googledrive', label: 'Google Drive',   color: '#0F9D58', bg: 'rgba(15,157,88,0.08)', desc: 'Upload to Google Drive' },
+  { id: 'onedrive',    label: 'OneDrive',       color: '#0078D4', bg: 'rgba(0,120,212,0.08)', desc: 'Upload to Microsoft OneDrive' },
+  { id: 'box',         label: 'Box',            color: '#0061D5', bg: 'rgba(0,97,213,0.08)',  desc: 'Upload to Box' },
 ];
 
 export default function CloudExportModal({ evaluation, onClose }: Props) {
@@ -364,7 +413,7 @@ export default function CloudExportModal({ evaluation, onClose }: Props) {
                   transition: 'all 180ms ease',
                 }}
               >
-                <div style={{ fontSize: 20, lineHeight: 1, width: 28, textAlign: 'center', flexShrink: 0 }}>{p.icon}</div>
+                <div style={{ width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{ICONS[p.id]}</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 13, fontWeight: 600, color: p.color, marginBottom: 1 }}>{p.label}</div>
                   <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
