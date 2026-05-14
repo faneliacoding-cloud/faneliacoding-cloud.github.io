@@ -535,6 +535,11 @@ a { color: inherit; text-decoration: none; }
   filter: grayscale(0%);
   transform: scale(1.05);
 }
+/* Medicare logo is wide — let it fill width and crop height naturally */
+.insurer-logo-medicare {
+  max-width: 200px;
+  max-height: 100px;
+}
 .insurance-note {
   text-align: center;
   color: var(--charcoal-mid);
