@@ -480,6 +480,21 @@
     }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.fade-left, .fade-right, .fade-up').forEach(el => io.observe(el));
 
+    // Auto-select Free Consultation + scroll to form if coming from a CTA
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('consult') === 'free') {
+        const select = document.getElementById('sessionType');
+        if (select) select.value = 'Free 15-Min Consultation';
+        const form = document.getElementById('bookingForm');
+        if (form) {
+          setTimeout(() => {
+            form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 300);
+        }
+      }
+    });
+
     // Booking form — sends to mindsetlcsw@gmail.com via Formsubmit.co
     async function handleBookingSubmit(e) {
       e.preventDefault();
