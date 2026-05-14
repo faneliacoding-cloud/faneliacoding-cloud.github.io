@@ -114,26 +114,69 @@ export function buildTemplateVars(eval_: Evaluation): Record<string, string> {
 
 // Build DOCX blob (core logic — reused by generateDOCX and cloud upload)
 export async function generateDOCXBlob(evaluation: Evaluation): Promise<{ blob: Blob; filename: string }> {
-  const { default: PizZip } = await import('pizzip');
-  const { default: Docxtemplater } = await import('docxtemplater');
   const vars = buildTemplateVars(evaluation);
-  const filename = `${evaluation.clientInfo.fullName || 'Evaluation'}_Psych_Eval_${new Date().toISOString().split('T')[0]}.docx`;
+  const clientName = evaluation.clientInfo.fullName || 'Evaluation';
+  const filename = `${clientName}_Psych_Eval_${new Date().toISOString().split('T')[0]}.docx`;
 
-  const response = await fetch('/asylum-template.docx');
-  if (!response.ok) {
-    const content = buildReportText(evaluation, vars);
-    return { blob: new Blob([content], { type: 'application/msword' }), filename: filename.replace('.docx', '.doc') };
+  // Try template-based approach first
+  try {
+    const { default: PizZip } = await import('pizzip');
+    const { default: Docxtemplater } = await import('docxtemplater');
+
+    // Try multiple paths for the template
+    let response = await fetch('/immigration-eval-app/asylum-template.docx');
+    if (!response.ok) response = await fetch('/asylum-template.docx');
+
+    if (response.ok) {
+      const arrayBuffer = await response.arrayBuffer();
+      const zip = new PizZip(arrayBuffer);
+      const doc = new Docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
+      doc.render(vars);
+      const blob = doc.getZip().generate({
+        type: 'blob',
+        mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      });
+      return { blob, filename };
+    }
+  } catch (e) {
+    console.warn('[DOCX] Template approach failed, using HTML fallback:', e);
   }
 
-  const arrayBuffer = await response.arrayBuffer();
-  const zip = new PizZip(arrayBuffer);
-  const doc = new Docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
-  doc.render(vars);
-  const blob = doc.getZip().generate({
-    type: 'blob',
-    mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  });
-  return { blob, filename };
+  // Fallback: Generate a proper HTML-based Word document
+  const content = buildReportText(evaluation, vars);
+  const htmlDoc = `
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<title>${clientName} - Psychological Evaluation</title>
+<!--[if gte mso 9]>
+<xml>
+<w:WordDocument>
+<w:View>Print</w:View>
+<w:Zoom>100</w:Zoom>
+<w:DoNotOptimizeForBrowser/>
+</w:WordDocument>
+</xml>
+<![endif]-->
+<style>
+  body { font-family: 'Times New Roman', Georgia, serif; font-size: 12pt; line-height: 1.6; color: #1a1a1a; margin: 1in; }
+  pre { white-space: pre-wrap; word-wrap: break-word; font-family: inherit; font-size: 12pt; margin: 0; }
+  @page { size: letter; margin: 1in; }
+  @page Section1 { mso-header-margin: .5in; mso-footer-margin: .5in; }
+  div.Section1 { page: Section1; }
+</style>
+</head>
+<body>
+<div class="Section1">
+<pre>${content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+</div>
+</body>
+</html>`;
+
+  const blob = new Blob([htmlDoc], { type: 'application/msword' });
+  return { blob, filename: filename.replace('.docx', '.doc') };
 }
 
 // Generate DOCX and save locally
