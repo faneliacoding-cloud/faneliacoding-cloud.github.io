@@ -1,22 +1,71 @@
 'use client';
 /**
  * Section 1: Client Information
- * Demographics, contact details, evaluation metadata
+ * Demographics, contact details, evaluation metadata, profile photo
  */
 import { useAppStore, ClientInfo, Pronoun, MaritalStatus, EvaluationLocation } from '@/lib/store';
-import { User, MapPin, Phone, Mail, Calendar, Globe, Mic } from 'lucide-react';
+import { User, MapPin, Phone, Mail, Calendar, Globe, Mic, Camera, X } from 'lucide-react';
+import { useRef, useCallback } from 'react';
 
 interface Props { evalId: string; }
+
+// Compress to a small profile image
+function compressProfilePhoto(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (file.size > 15 * 1024 * 1024) { reject(new Error('File too large (max 15MB)')); return; }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX = 400;
+        let { width, height } = img;
+        if (width > MAX || height > MAX) {
+          const ratio = Math.min(MAX / width, MAX / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) { reject(new Error('Canvas not supported')); return; }
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', 0.85));
+      };
+      img.onerror = () => reject(new Error('Failed to load image'));
+      img.src = reader.result as string;
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+}
 
 export default function Section1ClientInfo({ evalId }: Props) {
   const { evaluations, updateEvaluation } = useAppStore();
   const eval_ = evaluations.find(e => e.id === evalId);
+  const photoInputRef = useRef<HTMLInputElement>(null);
   if (!eval_) return null;
   const info = eval_.clientInfo;
 
   const update = (field: keyof ClientInfo, value: string | boolean) => {
     updateEvaluation(evalId, { clientInfo: { ...eval_.clientInfo, [field]: value } });
   };
+
+  const handlePhotoUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const dataUrl = await compressProfilePhoto(file);
+      update('profilePhoto', dataUrl);
+    } catch (err: any) {
+      alert(err.message || 'Failed to upload photo');
+    }
+    e.target.value = '';
+  }, [eval_.clientInfo, evalId]);
+
+  const removePhoto = useCallback(() => {
+    update('profilePhoto', '');
+  }, [eval_.clientInfo, evalId]);
 
   const F = ({ label, id, children }: { label: string; id: string; children: React.ReactNode }) => (
     <div>
@@ -37,26 +86,82 @@ export default function Section1ClientInfo({ evalId }: Props) {
         </div>
       </div>
 
-      {/* Personal Info */}
+      {/* Personal Info with Photo */}
       <div style={{ marginBottom: 28 }}>
         <h3 style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 14 }}>
           Personal Information
         </h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: 16 }}>
-          <F label="Full Legal Name *" id="fullName">
-            <input id="fullName" className="form-input" value={info.fullName} onChange={e => update('fullName', e.target.value)} placeholder="e.g. Maria Garcia" />
-          </F>
-          <F label="Preferred Name" id="preferredName">
-            <input id="preferredName" className="form-input" value={info.preferredName} onChange={e => update('preferredName', e.target.value)} placeholder="Nickname or preferred" />
-          </F>
-          <F label="Pronouns" id="pronouns">
-            <select id="pronouns" className="form-select" value={info.pronouns} onChange={e => update('pronouns', e.target.value as Pronoun)}>
-              <option>She/Her</option>
-              <option>He/Him</option>
-              <option>They/Them</option>
-              <option>Other</option>
-            </select>
-          </F>
+        <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+          {/* Profile Photo */}
+          <div style={{ flexShrink: 0 }}>
+            <input
+              ref={photoInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/heic,.heic"
+              capture="user"
+              style={{ display: 'none' }}
+              onChange={handlePhotoUpload}
+            />
+            <div
+              onClick={() => photoInputRef.current?.click()}
+              style={{
+                width: 88, height: 88, borderRadius: 18,
+                border: info.profilePhoto ? '2px solid var(--accent-blue)' : '2px dashed var(--border-medium)',
+                background: info.profilePhoto ? 'transparent' : 'var(--bg-tertiary)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                cursor: 'pointer', overflow: 'hidden', position: 'relative',
+                transition: 'all 200ms ease',
+              }}
+            >
+              {info.profilePhoto ? (
+                <>
+                  <img
+                    src={info.profilePhoto}
+                    alt="Client photo"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  {/* Remove overlay on hover */}
+                  <div
+                    onClick={(e) => { e.stopPropagation(); removePhoto(); }}
+                    style={{
+                      position: 'absolute', top: 4, right: 4,
+                      width: 20, height: 20, borderRadius: '50%',
+                      background: 'rgba(255,69,58,0.9)', color: 'white',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      cursor: 'pointer', boxShadow: '0 1px 4px rgba(0,0,0,0.3)',
+                    }}
+                  >
+                    <X size={11} />
+                  </div>
+                </>
+              ) : (
+                <div style={{ textAlign: 'center' }}>
+                  <Camera size={20} color="var(--text-tertiary)" />
+                  <div style={{ fontSize: 9, color: 'var(--text-tertiary)', marginTop: 2, fontWeight: 500 }}>Add Photo</div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Name fields */}
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: 16 }}>
+              <F label="Full Legal Name *" id="fullName">
+                <input id="fullName" className="form-input" value={info.fullName} onChange={e => update('fullName', e.target.value)} placeholder="e.g. Maria Garcia" />
+              </F>
+              <F label="Preferred Name" id="preferredName">
+                <input id="preferredName" className="form-input" value={info.preferredName} onChange={e => update('preferredName', e.target.value)} placeholder="Nickname or preferred" />
+              </F>
+              <F label="Pronouns" id="pronouns">
+                <select id="pronouns" className="form-select" value={info.pronouns} onChange={e => update('pronouns', e.target.value as Pronoun)}>
+                  <option>She/Her</option>
+                  <option>He/Him</option>
+                  <option>They/Them</option>
+                  <option>Other</option>
+                </select>
+              </F>
+            </div>
+          </div>
         </div>
       </div>
 

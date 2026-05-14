@@ -53,6 +53,7 @@ export interface ClientInfo {
   evaluationLocation: EvaluationLocation;
   evaluationDates: string;
   otherLocation: string;
+  profilePhoto: string; // base64 data URL for client headshot
 }
 
 // ─── Clinician Information ────────────────────────────────────────────────────
@@ -304,6 +305,7 @@ const defaultClientInfo: ClientInfo = {
   maritalStatus: '', numberOfChildren: '',
   interpreterNeeded: false, interpreterName: '',
   evaluationLocation: 'Videoconference', evaluationDates: '', otherLocation: '',
+  profilePhoto: '',
 };
 
 const defaultClinicianInfo: ClinicianInfo = {
