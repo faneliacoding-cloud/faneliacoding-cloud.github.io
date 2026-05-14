@@ -504,6 +504,8 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
   transition: var(--transition);
   background: var(--ivory);
+  text-decoration: none;
+  cursor: pointer;
 }
 .insurer-card:hover {
   border-color: var(--gold);
