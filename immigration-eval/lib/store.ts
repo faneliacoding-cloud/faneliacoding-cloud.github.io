@@ -10,6 +10,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 // ─── Type Definitions ────────────────────────────────────────────────────────
 
 export type Pronoun = 'She/Her' | 'He/Him' | 'They/Them' | 'Other';
+export type Gender = 'Female' | 'Male' | 'Transgender Female' | 'Transgender Male' | 'Non-Binary' | 'Other' | '';
 export type MaritalStatus = 'Single' | 'Married' | 'Divorced' | 'Widowed' | 'Separated' | 'Domestic Partnership';
 export type EvaluationLocation = 'Videoconference' | 'Office' | 'Other';
 export type Severity = 'None' | 'Minimal' | 'Mild' | 'Moderate' | 'Moderately Severe' | 'Severe';
@@ -39,6 +40,7 @@ export interface ClientInfo {
   fullName: string;
   preferredName: string;
   pronouns: Pronoun;
+  gender: Gender;
   dateOfBirth: string;
   age: string;
   nationality: string;
@@ -299,7 +301,7 @@ interface AppState {
 
 // ─── Default Values ───────────────────────────────────────────────────────────
 const defaultClientInfo: ClientInfo = {
-  fullName: '', preferredName: '', pronouns: 'She/Her',
+  fullName: '', preferredName: '', pronouns: 'She/Her', gender: '',
   dateOfBirth: '', age: '', nationality: '', countryOfOrigin: '',
   currentAddress: '', phone: '', email: '',
   maritalStatus: '', numberOfChildren: '',

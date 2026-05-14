@@ -28,6 +28,7 @@ export function buildTemplateVars(eval_: Evaluation): Record<string, string> {
     FULL_NAME: c.fullName || '[Client Name]',
     PREFERRED_NAME: c.preferredName || c.fullName || '[Preferred Name]',
     PRONOUNS: c.pronouns,
+    GENDER: c.gender || '[Gender]',
     TITLE: pro.title,
     MS_XXX: `${pro.title} ${c.fullName?.split(' ').pop() || 'XXX'}`,
     DOB: c.dateOfBirth || '00-00-0000',
@@ -222,6 +223,7 @@ CLINICAL EVALUATION
 
 Name: ${vars.MS_XXX}
 Date of Birth: ${vars.DOB} (${vars.AGE} years old)
+Gender: ${vars.GENDER}
 Nationality: ${vars.NATIONALITY}
 Country of Origin: ${vars.COUNTRY_OF_ORIGIN}
 Marital Status: ${vars.MARITAL_STATUS}

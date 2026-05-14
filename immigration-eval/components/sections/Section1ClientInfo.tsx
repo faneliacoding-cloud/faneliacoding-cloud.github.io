@@ -3,7 +3,7 @@
  * Section 1: Client Information
  * Demographics, contact details, evaluation metadata, profile photo
  */
-import { useAppStore, ClientInfo, Pronoun, MaritalStatus, EvaluationLocation } from '@/lib/store';
+import { useAppStore, ClientInfo, Pronoun, Gender, MaritalStatus, EvaluationLocation } from '@/lib/store';
 import { User, MapPin, Phone, Mail, Calendar, Globe, Mic, Camera, X } from 'lucide-react';
 import { useRef, useCallback } from 'react';
 
@@ -145,7 +145,7 @@ export default function Section1ClientInfo({ evalId }: Props) {
 
           {/* Name fields */}
           <div style={{ flex: 1 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: 16 }}>
               <F label="Full Legal Name *" id="fullName">
                 <input id="fullName" className="form-input" value={info.fullName} onChange={e => update('fullName', e.target.value)} placeholder="e.g. Maria Garcia" />
               </F>
@@ -157,6 +157,17 @@ export default function Section1ClientInfo({ evalId }: Props) {
                   <option>She/Her</option>
                   <option>He/Him</option>
                   <option>They/Them</option>
+                  <option>Other</option>
+                </select>
+              </F>
+              <F label="Gender" id="gender">
+                <select id="gender" className="form-select" value={info.gender} onChange={e => update('gender', e.target.value as Gender)}>
+                  <option value="">Select gender</option>
+                  <option>Female</option>
+                  <option>Male</option>
+                  <option>Transgender Female</option>
+                  <option>Transgender Male</option>
+                  <option>Non-Binary</option>
                   <option>Other</option>
                 </select>
               </F>
