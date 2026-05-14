@@ -28,12 +28,47 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 observers.forEach(el => io.observe(el));
 
-// === CONTACT FORM ===
-function handleFormSubmit(e) {
+// === CONTACT FORM — sends to mindsetlcsw@gmail.com via Formsubmit.co ===
+async function handleFormSubmit(e) {
   e.preventDefault();
-  document.getElementById('contactForm').style.display = 'none';
-  document.getElementById('formSuccess').style.display = 'block';
-  document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const form = document.getElementById('contactForm');
+  const btn  = document.getElementById('formSubmitBtn');
+
+  // Collect form data
+  const data = {
+    name:      form.name.value,
+    email:     form.email.value,
+    phone:     form.phone.value || 'Not provided',
+    insurance: form.insurance.value || 'Not provided',
+    message:   form.message.value || 'No message',
+    _subject:  'New Consultation Request — Mindset Therapy',
+    _captcha:  'false',
+    _template: 'table'
+  };
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch('https://formsubmit.co/ajax/mindsetlcsw@gmail.com', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body:    JSON.stringify(data)
+    });
+
+    if (res.ok) {
+      form.style.display = 'none';
+      const success = document.getElementById('formSuccess');
+      success.style.display = 'block';
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      throw new Error('Submission failed');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Send My Request';
+    alert('There was a problem sending your message. Please call us directly at 516-939-8867 or email mindsetlcsw@gmail.com.');
+  }
 }
 
 // === CHATBOT ===
