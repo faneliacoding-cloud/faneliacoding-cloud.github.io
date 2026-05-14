@@ -2,9 +2,11 @@
 /**
  * Main Application Entry Point
  * Renders the macOS-style layout: sidebar + content area
+ * Wrapped with ErrorBoundary for crash recovery
  */
 import { useEffect } from 'react';
 import { useAppStore } from '@/lib/store';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import Sidebar from '@/components/Sidebar';
 import Dashboard from '@/components/Dashboard';
 import EvalForm from '@/components/EvalForm';
@@ -40,22 +42,24 @@ export default function AppClient() {
   const fullscreen = activeView === 'new-eval';
 
   return (
-    <div style={{
-      display: 'flex',
-      height: '100vh',
-      overflow: 'hidden',
-      background: 'var(--bg-primary)',
-    }}>
-      <Sidebar />
-      <main style={{
-        flex: 1,
-        overflow: fullscreen ? 'hidden' : 'auto',
-        display: fullscreen ? 'flex' : 'block',
-        flexDirection: 'column',
+    <ErrorBoundary>
+      <div style={{
+        display: 'flex',
+        height: '100vh',
+        overflow: 'hidden',
         background: 'var(--bg-primary)',
       }}>
-        {renderView()}
-      </main>
-    </div>
+        <Sidebar />
+        <main style={{
+          flex: 1,
+          overflow: fullscreen ? 'hidden' : 'auto',
+          display: fullscreen ? 'flex' : 'block',
+          flexDirection: 'column',
+          background: 'var(--bg-primary)',
+        }}>
+          {renderView()}
+        </main>
+      </div>
+    </ErrorBoundary>
   );
 }

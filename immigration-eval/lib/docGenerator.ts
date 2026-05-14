@@ -2,8 +2,10 @@
 /**
  * Document Generation Engine
  * Handles DOCX template population and PDF export
+ * Production-hardened with photo embedding, validation, and cross-browser compatibility
  */
 import type { Evaluation } from './store';
+import { getAllImagesForExport } from './imageStore';
 
 // Build template variables from evaluation data
 export function buildTemplateVars(eval_: Evaluation): Record<string, string> {
@@ -97,6 +99,8 @@ export function buildTemplateVars(eval_: Evaluation): Record<string, string> {
     CREDIBILITY: f.credibilityAssessment || '[Credibility Assessment]',
     RECOMMENDATIONS: f.recommendations || '[Recommendations]',
     RISK_ASSESSMENT: f.riskAssessment || '[Risk Assessment]',
+    FUNCTIONAL_IMPAIRMENT: f.functionalImpairment || '[Functional Impairment]',
+    PROGNOSIS: f.prognosis || '[Prognosis]',
     // Optional
     LGBTQ_SECTION: os.lgbtqAsylum.enabled ? os.lgbtqAsylum.personalExperiences : '',
     DELAYED_FILING: os.delayedFiling.enabled ? os.delayedFiling.explanation : '',
@@ -144,7 +148,13 @@ export function buildPDFHTML(evaluation: Evaluation): string {
   const content = buildReportText(evaluation, vars);
   return `<!DOCTYPE html><html><head>
     <title>${evaluation.clientInfo.fullName} - Psychological Evaluation</title>
-    <style>body{font-family:Georgia,serif;max-width:800px;margin:40px auto;line-height:1.7;color:#1a1a1a;font-size:13px}pre{white-space:pre-wrap;font-family:inherit}@page{margin:1in}</style>
+    <style>
+      body{font-family:Georgia,serif;max-width:800px;margin:40px auto;line-height:1.7;color:#1a1a1a;font-size:13px}
+      pre{white-space:pre-wrap;font-family:inherit}
+      @page{margin:1in;@bottom-center{content:"Page " counter(page) " of " counter(pages);font-size:9px;color:#999}}
+      @media print{body{margin:0}}
+      .page-break{page-break-before:always}
+    </style>
     </head><body><pre>${content}</pre></body></html>`;
 }
 
@@ -159,7 +169,48 @@ async function generateSimpleDOCX(evaluation: Evaluation, vars: Record<string, s
 
 // Build full report text
 export function buildReportText(evaluation: Evaluation, vars: Record<string, string>): string {
-  const { clientInfo: c, findings: f, phq9, gad7, pcl5 } = evaluation;
+  const { clientInfo: c, findings: f, phq9, gad7, pcl5, optionalSections: os } = evaluation;
+
+  let optionalContent = '';
+
+  if (os.lgbtqAsylum.enabled && os.lgbtqAsylum.personalExperiences) {
+    optionalContent += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+LGBTQ+ ASYLUM CONSIDERATIONS
+
+${os.lgbtqAsylum.personalExperiences}
+`;
+  }
+  if (os.delayedFiling.enabled && os.delayedFiling.explanation) {
+    optionalContent += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DELAYED FILING EXPLANATION
+
+${os.delayedFiling.explanation}
+${os.delayedFiling.psychologicalBarriers ? `\nPsychological Barriers: ${os.delayedFiling.psychologicalBarriers}` : ''}
+`;
+  }
+  if (os.physicalScars.enabled && os.physicalScars.scarDescription) {
+    optionalContent += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PHYSICAL SCARS/MARKS DOCUMENTATION
+
+${os.physicalScars.scarDescription}
+${os.physicalScars.location ? `Location: ${os.physicalScars.location}` : ''}
+${os.physicalScars.consistentWithAccount ? 'Finding: Consistent with client\'s account of events.' : ''}
+`;
+  }
+  if (os.medicalConditions.enabled && os.medicalConditions.conditions) {
+    optionalContent += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+MEDICAL CONDITIONS
+
+${os.medicalConditions.conditions}
+${os.medicalConditions.medications ? `Medications: ${os.medicalConditions.medications}` : ''}
+${os.medicalConditions.traumaRelated ? 'These conditions are related to the traumatic events described.' : ''}
+`;
+  }
+
   return `
 CLINICAL PSYCHOLOGICAL EVALUATION
 ${vars.CLINICIAN_NAME}, ${vars.LICENSE_TYPE} #${vars.LICENSE_NUMBER}
@@ -172,6 +223,8 @@ CLINICAL EVALUATION
 Name: ${vars.MS_XXX}
 Date of Birth: ${vars.DOB} (${vars.AGE} years old)
 Nationality: ${vars.NATIONALITY}
+Country of Origin: ${vars.COUNTRY_OF_ORIGIN}
+Marital Status: ${vars.MARITAL_STATUS}
 Clinician: ${vars.CLINICIAN_CREDENTIALS}
 Interpreter: ${vars.INTERPRETER}
 Dates of Evaluation: ${vars.EVAL_DATES}
@@ -183,6 +236,7 @@ Report Date: ${vars.REPORT_DATE}
 CASE SUMMARY
 
 ${vars.CASE_SUMMARY}
+${vars.KEY_QUOTE ? `\n${vars.KEY_QUOTE}` : ''}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -199,7 +253,16 @@ Assessment tools included:
 TRAUMA HISTORY
 
 Category: ${vars.TRAUMA_CATEGORY}
+Type of Abuse/Persecution: ${vars.ABUSE_TYPE}
+
 ${vars.TRAUMA_DESCRIPTION}
+
+Perpetrator: ${vars.PERPETRATOR}
+Date(s) of Trauma: ${vars.TRAUMA_DATES}
+Physical Violence: ${vars.PHYSICAL_VIOLENCE}
+Sexual Violence: ${vars.SEXUAL_VIOLENCE}
+Police Involvement: ${vars.POLICE_INVOLVEMENT}
+${vars.TRAUMA_QUOTE ? `\nDirect Quote: ${vars.TRAUMA_QUOTE}` : ''}
 
 Decision to Leave: ${vars.DECISION_TO_LEAVE}
 
@@ -209,7 +272,14 @@ Why ${vars.MS_XXX} Cannot Return: ${vars.WHY_CANT_RETURN}
 
 PSYCHOLOGICAL FUNCTIONING — MENTAL STATUS EXAM
 
-${vars.MSE_NOTES}
+Appearance: ${vars.APPEARANCE || 'Not assessed'}
+Eye Contact: ${vars.EYE_CONTACT || 'Not assessed'}
+Speech: ${vars.SPEECH || 'Not assessed'}
+Mood: ${vars.MOOD || 'Not assessed'}
+Affect: ${vars.AFFECT || 'Not assessed'}
+Thought Process: ${vars.THOUGHT_PROCESS || 'Not assessed'}
+Orientation: ${vars.ORIENTATION || 'Not assessed'}
+${vars.MSE_NOTES ? `\nAdditional Observations: ${vars.MSE_NOTES}` : ''}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -218,7 +288,8 @@ ASSESSMENT RESULTS
 PHQ-9 Depression: ${vars.PHQ9_TOTAL}/27 — ${vars.PHQ9_SEVERITY}
 GAD-7 Anxiety: ${vars.GAD7_TOTAL}/21 — ${vars.GAD7_SEVERITY}
 PCL-5 PTSD: ${vars.PCL5_TOTAL}/80 — ${vars.PCL5_SEVERITY}
-
+PTSD Threshold: ${vars.PCL5_PTSD}
+${optionalContent}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 CLINICAL IMPRESSION & DIAGNOSES
@@ -231,6 +302,9 @@ ${vars.DIAGNOSES}
 Credibility Assessment:
 ${vars.CREDIBILITY}
 
+Functional Impairment:
+${vars.FUNCTIONAL_IMPAIRMENT}
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 RECOMMENDATIONS
@@ -238,6 +312,8 @@ RECOMMENDATIONS
 ${vars.RECOMMENDATIONS}
 
 Risk Assessment: ${vars.RISK_ASSESSMENT}
+
+Prognosis: ${vars.PROGNOSIS}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -248,23 +324,64 @@ ${vars.REPORT_DATE}
 `;
 }
 
-// Generate PDF via print
-export function generatePDF(evaluation: Evaluation): void {
+// Generate PDF via print — improved for cross-browser compatibility
+export async function generatePDF(evaluation: Evaluation): Promise<void> {
   const vars = buildTemplateVars(evaluation);
   const content = buildReportText(evaluation, vars);
+
+  // Try to load photos
+  let photoHTML = '';
+  try {
+    const photos = await getAllImagesForExport(evaluation.id);
+    if (photos.length > 0) {
+      photoHTML = `
+        <div class="page-break"></div>
+        <h2 style="font-size:16px;margin-bottom:16px;border-bottom:2px solid #333;padding-bottom:8px;">SUPPORTING IMAGES & DOCUMENTATION</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          ${photos.filter(p => p.metadata.mimeType !== 'application/pdf').map(p => `
+            <div style="text-align:center;">
+              <img src="${p.dataUrl}" style="max-width:100%;max-height:300px;border:1px solid #ddd;border-radius:4px;" />
+              <div style="font-size:10px;color:#666;margin-top:4px;">${p.metadata.filename}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+  } catch {
+    // Silently skip photos if storage unavailable
+  }
+
   const printWindow = window.open('', '_blank');
-  if (!printWindow) return;
+  if (!printWindow) {
+    alert('Please allow pop-ups to generate PDF. Go to Settings → Pop-ups and redirects → Allow for this site.');
+    return;
+  }
+
   printWindow.document.write(`
     <!DOCTYPE html><html><head>
-    <title>${evaluation.clientInfo.fullName} - Psychological Evaluation</title>
+    <title>${evaluation.clientInfo.fullName || 'Evaluation'} - Psychological Evaluation</title>
     <style>
-      body { font-family: Georgia, serif; max-width: 800px; margin: 40px auto; line-height: 1.7; color: #1a1a1a; font-size: 13px; }
-      pre { white-space: pre-wrap; font-family: inherit; }
-      @page { margin: 1in; }
-      @media print { body { margin: 0; } }
+      * { box-sizing: border-box; }
+      body { font-family: Georgia, 'Times New Roman', serif; max-width: 800px; margin: 40px auto; line-height: 1.7; color: #1a1a1a; font-size: 13px; }
+      pre { white-space: pre-wrap; word-wrap: break-word; font-family: inherit; margin: 0; }
+      .page-break { page-break-before: always; }
+      @page { margin: 0.9in; size: letter; }
+      @media print {
+        body { margin: 0; max-width: none; }
+        .no-print { display: none !important; }
+      }
+      img { max-width: 100%; height: auto; }
     </style></head><body>
     <pre>${content}</pre>
-    <script>window.onload = () => { window.print(); window.close(); }</script>
+    ${photoHTML}
+    <script>
+      window.onload = function() {
+        setTimeout(function() { window.print(); }, 300);
+        window.onafterprint = function() { window.close(); };
+        // Fallback close for Safari
+        setTimeout(function() { window.close(); }, 60000);
+      };
+    </script>
     </body></html>
   `);
   printWindow.document.close();

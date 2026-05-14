@@ -44,3 +44,5 @@ resume/ripple/*.docx
 .vscode/
 .idea/
 *.swp
+immigration-eval/dist-electron/
+immigration-eval/node_modules/
