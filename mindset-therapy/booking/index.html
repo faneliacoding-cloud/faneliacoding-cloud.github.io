@@ -481,7 +481,7 @@
     document.querySelectorAll('.fade-left, .fade-right, .fade-up').forEach(el => io.observe(el));
 
     // Auto-select Free Consultation + scroll to form if coming from a CTA
-    window.addEventListener('DOMContentLoaded', () => {
+    (function() {
       const params = new URLSearchParams(window.location.search);
       if (params.get('consult') === 'free') {
         const select = document.getElementById('sessionType');
@@ -490,10 +490,10 @@
         if (form) {
           setTimeout(() => {
             form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 300);
+          }, 100);
         }
       }
-    });
+    })();
 
     // Booking form — sends to mindsetlcsw@gmail.com via Formsubmit.co
     async function handleBookingSubmit(e) {
