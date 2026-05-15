@@ -6,57 +6,84 @@
   <meta name="description" content="Start Up Kids apparel keeps up with little ones in search of big adventures with super fun and functional playsets.">
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .brand-hero{height:65vh;min-height:450px;position:relative;overflow:hidden;display:flex;align-items:flex-end;}
+    .brand-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+    .brand-hero-overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(26,26,26,0.6) 0%,transparent 50%);}
+    .brand-hero-content{position:relative;z-index:2;padding:3rem;max-width:700px;}
+    .brand-hero-content h1{color:white;font-size:clamp(2.5rem,5vw,4rem);margin-bottom:0.5rem;}
+    .brand-hero-content p{color:rgba(255,255,255,0.8);font-size:1rem;}
+    .brand-layout{display:grid;grid-template-columns:1fr 340px;gap:4rem;max-width:1200px;margin:0 auto;padding:4rem 3rem;}
+    .brand-main h2{font-family:var(--font-serif);font-size:2rem;margin-bottom:1.5rem;color:var(--charcoal);}
+    .brand-main p{margin-bottom:1.25rem;line-height:1.8;color:#555;}
+    .brand-testimonial{border-left:3px solid var(--gold);padding:1.5rem 2rem;margin:2.5rem 0;background:var(--cream);border-radius:0 8px 8px 0;}
+    .brand-testimonial p{font-family:var(--font-serif);font-size:1.15rem;font-style:italic;color:var(--mocha);line-height:1.6;margin:0;}
+    .brand-testimonial .author{font-family:var(--font-sans);font-style:normal;font-size:0.85rem;color:var(--gold);margin-top:0.75rem;font-weight:500;display:block;}
+    .brand-gallery{margin-top:3rem;}
+    .brand-gallery h3{font-family:var(--font-serif);font-size:1.5rem;margin-bottom:1.5rem;}
+    .brand-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+    .brand-gallery-grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px;}
+    .brand-sidebar{position:sticky;top:100px;}
+    .sidebar-section{margin-bottom:2.5rem;padding:2rem;background:white;border:1px solid rgba(0,0,0,0.06);border-radius:8px;}
+    .sidebar-section h4{font-family:var(--font-sans);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--taupe);margin-bottom:1.25rem;}
+    .product-icons{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:center;}
+    .product-icon{display:flex;flex-direction:column;align-items:center;gap:0.5rem;}
+    .product-icon i{font-size:1.5rem;color:var(--gold);width:50px;height:50px;display:flex;align-items:center;justify-content:center;background:var(--cream);border-radius:50%;}
+    .product-icon span{font-size:0.72rem;color:var(--taupe);letter-spacing:0.05em;}
+    .size-badges{display:flex;flex-wrap:wrap;gap:0.5rem;}
+    .size-badge{padding:0.4rem 1rem;border-radius:20px;font-size:0.72rem;font-weight:500;letter-spacing:0.05em;color:white;}
+    .size-newborn{background:#A08CC5;}.size-infant{background:#E64B64;}.size-toddler{background:#84B6F4;}.size-kids{background:#4ECDC4;}
+    .sidebar-newsletter input{width:100%;padding:0.8rem 1rem;border:1px solid var(--champagne);font-family:var(--font-sans);font-size:0.88rem;margin-bottom:0.75rem;border-radius:4px;}
+    .sidebar-newsletter button{width:100%;padding:0.8rem;background:var(--charcoal);color:white;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;border-radius:4px;font-weight:500;}
+    .sidebar-newsletter button:hover{background:var(--gold);}
+    .brand-explore{padding:5rem 3rem;text-align:center;background:var(--cream);}
+    .brand-explore-logos{display:flex;justify-content:center;align-items:center;gap:3rem;flex-wrap:wrap;margin:2.5rem auto;max-width:900px;}
+    .brand-explore-logos a{opacity:0.5;transition:opacity 0.3s;}.brand-explore-logos a:hover{opacity:1;}
+    .brand-explore-logos img{height:45px;filter:grayscale(100%);transition:filter 0.3s;}.brand-explore-logos a:hover img{filter:none;}
+    @media(max-width:900px){.brand-layout{grid-template-columns:1fr;}.brand-sidebar{position:static;}}
+  </style>
 </head>
 <body>
-<nav class="nav scrolled" id="mainNav">
-  <a href="../index.html" class="nav-logo">RASHTI &amp; RASHTI</a>
-  <ul class="nav-links">
-    <li class="nav-item"><a href="../brands.html" class="nav-link">Our Brands</a></li>
-    <li class="nav-item"><a href="../products.html" class="nav-link">Products</a></li>
-    <li class="nav-item"><a href="../about.html" class="nav-link">Our Story</a></li>
-    <li class="nav-item"><a href="../blog.html" class="nav-link">Journal</a></li>
-    <li class="nav-item"><a href="../press.html" class="nav-link">Press</a></li>
-    <li class="nav-item"><a href="../where-to-buy.html" class="nav-link">Where to Buy</a></li>
-    <li class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></li>
-  </ul>
-  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
+<nav class="nav scrolled" id="mainNav"><a href="../index.html" class="nav-logo">RASHTI &amp; RASHTI</a><ul class="nav-links"><li class="nav-item"><a href="../brands.html" class="nav-link">Our Brands</a></li><li class="nav-item"><a href="../products.html" class="nav-link">Products</a></li><li class="nav-item"><a href="../about.html" class="nav-link">Our Story</a></li><li class="nav-item"><a href="../blog.html" class="nav-link">Journal</a></li><li class="nav-item"><a href="../press.html" class="nav-link">Press</a></li><li class="nav-item"><a href="../where-to-buy.html" class="nav-link">Where to Buy</a></li><li class="nav-item"><a href="../contact.html" class="nav-link">Contact</a></li></ul><button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button></nav>
 <div class="mobile-nav" id="mobileNav"><a href="../brands.html">Our Brands</a><a href="../products.html">Products</a><a href="../about.html">Our Story</a><a href="../blog.html">Journal</a><a href="../contact.html">Contact</a></div>
 
-<section class="section" style="padding-top:10rem;">
-  <div class="editorial reveal">
-    <div class="editorial-media"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/07/363-1024x683.jpg" alt="Start Up Kids collection" loading="lazy"></div>
-    <div class="editorial-content">
-      <p class="section-eyebrow">Signature Brand</p>
-      <h1 class="section-title" style="font-size:clamp(2.2rem,4vw,3.5rem);">Start Up Kids®</h1>
-      <p>From digging in the dirt to racing tricycles to teatime in the grass, toddlers are always in motion. Start Up Kids apparel keeps up with little ones in search of big adventures. Our super fun and functional playsets have the same quality and style parents love in Baby Starters — dynamic elements, durable construction and playful design — now made for a growing, talking, walking (and running!) kid.</p>
-      <p style="margin-top:1.5rem;">Toddlers adore the spirited side of Start Up Kids, from lively graphics and bright colors to comfortable fabrics and textures that move so well kids want to dance and play all day.</p>
-      <blockquote>"I love the Start Up Kids brand clothes and so does my daughter! They are cute and frilly but also comfortable and great for play dates! My daughters favorite part… the ruffles and tutus!"<br><small>— Nicole, mom of one</small></blockquote>
+<section class="brand-hero">
+  <img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/07/363-1024x683.jpg" alt="Start Up Kids lifestyle" loading="eager">
+  <div class="brand-hero-overlay"></div>
+  <div class="brand-hero-content fade-in"><p class="hero-eyebrow">Signature Brand</p><h1>Start Up Kids®</h1><p>Growing up in style</p></div>
+</section>
+
+<div class="brand-layout">
+  <div class="brand-main reveal">
+    <img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_startupkids.png" alt="Start Up Kids logo" style="height:50px;margin-bottom:2rem;">
+    <h2>Big Adventures for Little Ones</h2>
+    <p>From digging in the dirt to racing tricycles to teatime in the grass, toddlers are always in motion. Start Up Kids apparel keeps up with little ones in search of big adventures. Our super fun and functional playsets have the same quality and style parents love in Baby Starters — dynamic elements, durable construction and playful design — now made for a growing, talking, walking (and running!) kid.</p>
+    <p>Toddlers adore the spirited side of Start Up Kids, from lively graphics and bright colors to comfortable fabrics and textures that move so well kids want to dance and play all day.</p>
+    <div class="brand-testimonial">
+      <p>"I love the Start Up Kids brand clothes and so does my daughter! They are cute and frilly but also comfortable and great for play dates! My daughters favorite part… the ruffles and tutus!"</p>
+      <span class="author">— Nicole, mom of one</span>
     </div>
+    <div class="brand-gallery"><h3>Check Out Some of Our Favorites</h3><div class="brand-gallery-grid">
+      <img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/07/363-1024x683.jpg" alt="Start Up Kids 1" loading="lazy">
+      <img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/0662-1024x683.jpg" alt="Start Up Kids 2" loading="lazy">
+      <img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/07/155-1024x683.jpg" alt="Start Up Kids 3" loading="lazy">
+    </div></div>
   </div>
+  <aside class="brand-sidebar reveal reveal-delay-1">
+    <div class="sidebar-section"><h4>Products</h4><div class="product-icons"><div class="product-icon"><i class="fas fa-tshirt"></i><span>Apparel</span></div><div class="product-icon"><i class="fas fa-child-dress"></i><span>Playsets</span></div><div class="product-icon"><i class="fas fa-vest"></i><span>Outerwear</span></div></div></div>
+    <div class="sidebar-section"><h4>Sizes</h4><div class="size-badges"><span class="size-badge size-toddler">Toddler</span><span class="size-badge size-kids">Kids</span></div></div>
+    <div class="sidebar-section"><h4>Get Updates!</h4><p style="font-size:0.85rem;color:var(--taupe);margin-bottom:1rem;">Join our community for news and product information.</p><form class="sidebar-newsletter" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed ✓';"><input type="email" placeholder="Your email address" required><button type="submit">Subscribe</button></form></div>
+    <div class="sidebar-section"><h4>Let's Get Social</h4><div style="display:flex;gap:1rem;"><a href="#" style="width:40px;height:40px;background:var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--charcoal);"><i class="fab fa-facebook-f"></i></a><a href="#" style="width:40px;height:40px;background:var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--charcoal);"><i class="fab fa-instagram"></i></a><a href="#" style="width:40px;height:40px;background:var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--charcoal);"><i class="fab fa-pinterest-p"></i></a></div></div>
+  </aside>
+</div>
+
+<section class="brand-explore">
+  <p class="section-eyebrow reveal">Explore More</p><h2 class="section-title reveal">Our Family of Brands</h2>
+  <div class="brand-explore-logos reveal"><a href="baby-starters.html"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_babystarters.png" alt="Baby Starters"></a><a href="mini-b.html"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_minib.png" alt="Mini B"></a><a href="wetsuit-club.html"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_wetsuit.png" alt="Wetsuit Club"></a><a href="night-life.html"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_nightlife.png" alt="Night Life"></a><a href="magic-years.html"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_magicyears.png" alt="Magic Years"></a></div>
+  <a href="../brands.html" class="btn btn-dark reveal">View All Brands</a>
 </section>
 
-<section class="section section-cream" style="text-align:center;">
-  <p class="section-eyebrow reveal">Explore More</p>
-  <h2 class="section-title reveal">Our Family of Brands</h2>
-  <div class="brand-grid" style="max-width:900px;margin:3rem auto 0;">
-    <a href="baby-starters.html" class="brand-card reveal"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/0662-1024x683.jpg" alt="Baby Starters"><div class="brand-card-overlay"><h3>Baby Starters®</h3></div></a>
-    <a href="mini-b.html" class="brand-card reveal reveal-delay-1"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/07/155-1024x683.jpg" alt="Mini B"><div class="brand-card-overlay"><h3>Mini B.™</h3></div></a>
-    <a href="night-life.html" class="brand-card reveal reveal-delay-2"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/07/434-1024x683.jpg" alt="Night Life"><div class="brand-card-overlay"><h3>Night Life®</h3></div></a>
-  </div>
-  <a href="../brands.html" class="btn btn-dark reveal" style="margin-top:3rem;">View All Brands</a>
-</section>
-
-<footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-brand"><h3>RASHTI &amp; RASHTI</h3><p>For over 70 years, celebrating the magic of childhood.</p></div>
-    <div class="footer-col"><h4>Our Brands</h4><a href="baby-starters.html">Baby Starters</a><a href="startup-kids.html">Start Up Kids</a><a href="mini-b.html">Mini B.</a><a href="wetsuit-club.html">Wetsuit Club</a><a href="night-life.html">Night Life</a><a href="magic-years.html">Magic Years</a><a href="../collections.html">Collections</a><a href="../licensed.html">Licensed Brands</a></div>
-    <div class="footer-col"><h4>Work With Us</h4><a href="../work-with-us.html#retailers">Retailers</a><a href="../work-with-us.html#licensors">Licensors</a><a href="../work-with-us.html#vendors">Vendors</a><a href="../work-with-us.html#consumers">Consumers</a></div>
-    <div class="footer-col"><h4>Journal</h4><a href="../blog.html">To Be Expected</a><a href="../blog.html">Parents Corner</a><a href="../blog.html">All About Babies and Kids</a></div>
-    <div class="footer-col"><h4>Stay in Touch</h4><a href="../where-to-buy.html">Where To Buy</a><a href="../about.html">About Us</a><a href="../press.html">Press</a><a href="../contact.html">Contact Us</a></div>
-  </div>
-  <div class="footer-bottom"><span>&copy; 2026 Rashti &amp; Rashti. All rights reserved.</span><div class="footer-legal"><a href="../cpsia.html">CPSIA Compliance</a><a href="../privacy.html">Privacy Policy</a></div></div>
-</footer>
+<footer class="footer"><div class="footer-grid"><div class="footer-brand"><h3>RASHTI &amp; RASHTI</h3><p>For over 70 years, celebrating the magic of childhood.</p></div><div class="footer-col"><h4>Our Brands</h4><a href="baby-starters.html">Baby Starters</a><a href="startup-kids.html">Start Up Kids</a><a href="mini-b.html">Mini B.</a><a href="wetsuit-club.html">Wetsuit Club</a><a href="night-life.html">Night Life</a><a href="magic-years.html">Magic Years</a><a href="../collections.html">Collections</a><a href="../licensed.html">Licensed Brands</a></div><div class="footer-col"><h4>Work With Us</h4><a href="../work-with-us.html#retailers">Retailers</a><a href="../work-with-us.html#licensors">Licensors</a><a href="../work-with-us.html#vendors">Vendors</a><a href="../work-with-us.html#consumers">Consumers</a></div><div class="footer-col"><h4>Journal</h4><a href="../blog.html">To Be Expected</a><a href="../blog.html">Parents Corner</a><a href="../blog.html">All About Babies and Kids</a></div><div class="footer-col"><h4>Stay in Touch</h4><a href="../where-to-buy.html">Where To Buy</a><a href="../about.html">About Us</a><a href="../press.html">Press</a><a href="../contact.html">Contact Us</a></div></div><div class="footer-bottom"><span>&copy; 2026 Rashti &amp; Rashti. All rights reserved.</span><div class="footer-legal"><a href="../cpsia.html">CPSIA Compliance</a><a href="../privacy.html">Privacy Policy</a></div></div></footer>
 <script src="../script.js"></script>
 </body>
 </html>
