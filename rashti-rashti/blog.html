@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Journal — Rashti &amp; Rashti</title>
-  <meta name="description" content="Expert parenting advice, family tips, and childhood inspiration from the Rashti & Rashti editorial team.">
+  <meta name="description" content="Expert parenting advice, family tips, and childhood inspiration from the Rashti &amp; Rashti editorial team.">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .blog-filters{display:flex;gap:0.75rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;}
+    .blog-filter{padding:0.6rem 1.5rem;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--champagne);color:var(--taupe);border-radius:2px;cursor:pointer;transition:all 0.3s;}
+    .blog-filter:hover,.blog-filter.active{background:var(--charcoal);color:white;border-color:var(--charcoal);}
+  </style>
 </head>
 <body>
 <nav class="nav scrolled" id="mainNav">
@@ -27,106 +32,232 @@
   <p class="section-eyebrow reveal">The Journal</p>
   <h1 class="section-title reveal" style="font-size:clamp(2.5rem,5vw,4rem);">Parenting Wisdom &amp; Inspiration</h1>
   <p class="section-subtitle reveal" style="margin:0 auto;">Expert advice, heartfelt stories, and curated guides for every stage of parenthood.</p>
-  <div style="display:flex;gap:1rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;" class="reveal">
-    <a href="#to-be-expected" class="btn btn-ghost">To Be Expected</a>
-    <a href="#parents-corner" class="btn btn-ghost">Parents Corner</a>
-    <a href="#babies-and-kids" class="btn btn-ghost">All About Babies &amp; Kids</a>
+  <div class="blog-filters reveal">
+    <a href="blog.html" class="blog-filter active">All Posts</a>
+    <a href="blog/to-be-expected.html" class="blog-filter">To Be Expected</a>
+    <a href="blog/parents-corner.html" class="blog-filter">Parents Corner</a>
+    <a href="blog/babies-and-kids.html" class="blog-filter">All About Babies &amp; Kids</a>
   </div>
 </section>
 
-<section class="section section-cream" id="featured">
+<section class="section section-cream" id="posts">
   <div class="blog-grid">
-    <a href="https://www.rashtiandrashti.com/blog/all-about-babies-and-kids/stories-before-sleep-routine/" class="blog-card reveal">
+    <a href="https://www.rashtiandrashti.com/blog/all-about-babies-and-kids/stories-before-sleep-routine/" class="blog-card reveal" data-cat="babies">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2022/02/StorytimePajamas.jpg" alt="Stories before sleep" loading="lazy"></div>
       <p class="blog-card-tag">All About Babies and Kids</p>
       <h3>Stories Before Sleep: How to Make Reading a Regular Part of Your Child's Routine</h3>
       <p>Reading before bedtime has tremendous long-term benefits for kids of all ages...</p>
     </a>
-    <a href="https://www.rashtiandrashti.com/blog/parents-corner/fun-ways-for-families-to-spend-the-holiday-break/" class="blog-card reveal reveal-delay-1">
+    <a href="https://www.rashtiandrashti.com/blog/parents-corner/fun-ways-for-families-to-spend-the-holiday-break/" class="blog-card reveal reveal-delay-1" data-cat="parents">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2021/12/Cooking-HolidayBreak.jpg" alt="Holiday break" loading="lazy"></div>
       <p class="blog-card-tag">Parents Corner</p>
       <h3>Together Again: Fun Ways for Families to Spend the Holiday Break</h3>
       <p>Quality family moments that create lasting memories...</p>
     </a>
-    <a href="https://www.rashtiandrashti.com/blog/kids-in-the-kitchen/" class="blog-card reveal reveal-delay-2">
+    <a href="https://www.rashtiandrashti.com/blog/kids-in-the-kitchen/" class="blog-card reveal reveal-delay-2" data-cat="parents">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2020/03/KidsInKitchen.jpg" alt="Kids in kitchen" loading="lazy"></div>
       <p class="blog-card-tag">Parents Corner</p>
       <h3>What's Cooking? Getting Kids into the Kitchen</h3>
       <p>Fun and educational ways to get your little ones involved in cooking...</p>
     </a>
-    <a href="https://www.rashtiandrashti.com/blog/mom-friends/" class="blog-card reveal">
+    <a href="https://www.rashtiandrashti.com/blog/mom-friends/" class="blog-card reveal" data-cat="parents">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2020/02/MomFriends-1.jpg" alt="Mom friends" loading="lazy"></div>
       <p class="blog-card-tag">Parents Corner</p>
       <h3>Why Having Mom Friends is So Important</h3>
       <p>The importance of connection and community in motherhood...</p>
     </a>
-    <a href="https://www.rashtiandrashti.com/blog/moms-and-drinking-alcohol/" class="blog-card reveal reveal-delay-1">
+    <a href="https://www.rashtiandrashti.com/blog/moms-and-drinking-alcohol/" class="blog-card reveal reveal-delay-1" data-cat="parents">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2020/01/safedrinking-scaled.jpg" alt="Wellness" loading="lazy"></div>
       <p class="blog-card-tag">Parents Corner</p>
       <h3>Moms and Alcohol: A Cautious Cocktail</h3>
       <p>Thoughtful perspectives on wellness and balance for parents...</p>
     </a>
-    <a href="https://www.rashtiandrashti.com/blog/cozying-up-the-nursery/" class="blog-card reveal reveal-delay-2">
+    <a href="https://www.rashtiandrashti.com/blog/kids-and-the-importance-of-giving/" class="blog-card reveal reveal-delay-2" data-cat="parents">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/11/cozy-nursery.jpg" alt="Giving" loading="lazy"></div>
+      <p class="blog-card-tag">Parents Corner</p>
+      <h3>Sweet Charity: Teaching Kids About the Importance of Giving</h3>
+      <p>Nurturing generosity and empathy in young hearts...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/cozying-up-the-nursery/" class="blog-card reveal" data-cat="parents">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/11/cozy-nursery.jpg" alt="Nursery" loading="lazy"></div>
-      <p class="blog-card-tag">Nursery Inspiration</p>
+      <p class="blog-card-tag">Parents Corner</p>
       <h3>Bedding and Beyond: Cozying up the Nursery</h3>
       <p>Create a serene sanctuary for your little one...</p>
     </a>
-    <a href="https://www.rashtiandrashti.com/blog/child-food-allergies/" class="blog-card reveal">
+    <a href="https://www.rashtiandrashti.com/blog/child-food-allergies/" class="blog-card reveal reveal-delay-1" data-cat="babies">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/10/kids_food_allergies.jpg" alt="Food allergies" loading="lazy"></div>
-      <p class="blog-card-tag">Baby Wellness</p>
+      <p class="blog-card-tag">All About Babies and Kids</p>
       <h3>Managing Your Child's Food Allergies</h3>
       <p>Expert guidance on navigating dietary needs with care...</p>
     </a>
-    <a href="https://www.rashtiandrashti.com/blog/pregnantdoctorvisits/" class="blog-card reveal reveal-delay-1">
+    <a href="https://www.rashtiandrashti.com/blog/pregnantdoctorvisits/" class="blog-card reveal reveal-delay-2" data-cat="expected">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/08/OBGYN.jpg" alt="OB visits" loading="lazy"></div>
       <p class="blog-card-tag">To Be Expected</p>
       <h3>You're Pregnant: What to Expect From Your OB/GYN Visits</h3>
       <p>Your guide to prenatal care and what to expect at each visit...</p>
     </a>
-    <a href="https://www.rashtiandrashti.com/blog/summerwithkids/" class="blog-card reveal reveal-delay-2">
+    <a href="https://www.rashtiandrashti.com/blog/summerwithkids/" class="blog-card reveal" data-cat="parents">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/07/JoyofSummer_7.19.19-2.jpg" alt="Summer with kids" loading="lazy"></div>
       <p class="blog-card-tag">Parents Corner</p>
       <h3>Introducing Your Kids to the Simple Joys of Summer</h3>
       <p>Outdoor adventures and simple pleasures for the whole family...</p>
     </a>
-    <a href="https://www.rashtiandrashti.com/blog/healthy_dads/" class="blog-card reveal">
+    <a href="https://www.rashtiandrashti.com/blog/healthy_dads/" class="blog-card reveal reveal-delay-1" data-cat="parents">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/06/HealthyDads.jpg" alt="Healthy dads" loading="lazy"></div>
       <p class="blog-card-tag">Parents Corner</p>
       <h3>Keeping Dads Healthy</h3>
       <p>Wellness tips for fathers navigating the joys of parenthood...</p>
     </a>
-    <a href="https://www.rashtiandrashti.com/blog/hosting-a-gender-reveal-party/" class="blog-card reveal reveal-delay-1">
+    <a href="https://www.rashtiandrashti.com/blog/hosting-a-gender-reveal-party/" class="blog-card reveal reveal-delay-2" data-cat="expected">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/03/gender-reveal_538455151.jpg" alt="Gender reveal" loading="lazy"></div>
       <p class="blog-card-tag">To Be Expected</p>
       <h3>Let's Hear it for the Boy (or Girl): Hosting a Gender-Reveal Party</h3>
       <p>Creative ideas for celebrating your growing family...</p>
     </a>
-    <a href="https://www.rashtiandrashti.com/blog/teaching-your-kids-the-art-of-compassion/" class="blog-card reveal reveal-delay-2">
+    <a href="https://www.rashtiandrashti.com/blog/teaching-your-kids-the-art-of-compassion/" class="blog-card reveal" data-cat="parents">
       <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/02/shutterstock_216996220.jpg" alt="Compassion" loading="lazy"></div>
       <p class="blog-card-tag">Parents Corner</p>
       <h3>Cool to be Kind: Teaching Your Kids the Art of Compassion</h3>
       <p>Building empathy and kindness from the earliest years...</p>
     </a>
+    <a href="https://www.rashtiandrashti.com/blog/new-year-new-outlook-focus-on-family/" class="blog-card reveal reveal-delay-1" data-cat="parents">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/02/shutterstock_216996220.jpg" alt="New year family" loading="lazy"></div>
+      <p class="blog-card-tag">Parents Corner</p>
+      <h3>New Year, New Outlook: Focus on Family</h3>
+      <p>Fresh perspectives on making family your priority...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/how-to-take-fun-family-photos/" class="blog-card reveal reveal-delay-2" data-cat="parents">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/07/JoyofSummer_7.19.19-2.jpg" alt="Family photos" loading="lazy"></div>
+      <p class="blog-card-tag">Parents Corner</p>
+      <h3>Say Cheese: How to Take Fun Family Photos</h3>
+      <p>Tips for capturing picture-perfect family moments...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/how-to-update-your-post-baby-wardrobe/" class="blog-card reveal" data-cat="expected">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/08/OBGYN.jpg" alt="Post-baby wardrobe" loading="lazy"></div>
+      <p class="blog-card-tag">To Be Expected</p>
+      <h3>How to Update Your Post-Baby Wardrobe</h3>
+      <p>Stylish solutions for your new-mom closet...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/lying-in-taking-care-of-postpartum-mom-and-baby/" class="blog-card reveal reveal-delay-1" data-cat="expected">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/08/OBGYN.jpg" alt="Postpartum" loading="lazy"></div>
+      <p class="blog-card-tag">To Be Expected</p>
+      <h3>The Benefits of Lying-In: Taking Care of Postpartum Mom and Baby</h3>
+      <p>Essential rest and recovery for new mothers...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/back-to-school-transition/" class="blog-card reveal reveal-delay-2" data-cat="parents">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2020/03/KidsInKitchen.jpg" alt="Back to school" loading="lazy"></div>
+      <p class="blog-card-tag">Parents Corner</p>
+      <h3>Smoothing out the Back-to-School Transition</h3>
+      <p>Practical tips for a stress-free school season...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/parents-corner/making-the-most-of-a-staycation-with-kids/" class="blog-card reveal" data-cat="parents">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/07/JoyofSummer_7.19.19-2.jpg" alt="Staycation" loading="lazy"></div>
+      <p class="blog-card-tag">Parents Corner</p>
+      <h3>Making the Most of a Staycation with Kids</h3>
+      <p>Fun at-home adventures the whole family will love...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/all-about-babies-and-kids/fun-for-all-how-to-pull-off-an-awesome-playdate/" class="blog-card reveal reveal-delay-1" data-cat="babies">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2022/02/StorytimePajamas.jpg" alt="Playdate" loading="lazy"></div>
+      <p class="blog-card-tag">All About Babies and Kids</p>
+      <h3>Fun for All: How to Pull Off an Awesome Playdate</h3>
+      <p>Planning perfect playdates that kids will remember...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/parents-corner/father-figures-developing-those-important-male-relationships-in-your-childs-life/" class="blog-card reveal reveal-delay-2" data-cat="parents">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/06/HealthyDads.jpg" alt="Father figures" loading="lazy"></div>
+      <p class="blog-card-tag">Parents Corner</p>
+      <h3>Father Figures: Developing Those Important Male Relationships</h3>
+      <p>The vital role of male figures in your child's development...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/parents-corner/looking-good-feeling-great-beauty-for-moms-101/" class="blog-card reveal" data-cat="parents">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2020/02/MomFriends-1.jpg" alt="Beauty for moms" loading="lazy"></div>
+      <p class="blog-card-tag">Parents Corner</p>
+      <h3>Looking Good, Feeling Great: Beauty for Moms 101</h3>
+      <p>Self-care tips for busy mothers...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/all-about-babies-and-kids/potty-training-101-how-to-get-your-toddler-to-go-like-a-champ/" class="blog-card reveal reveal-delay-1" data-cat="babies">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/10/kids_food_allergies.jpg" alt="Potty training" loading="lazy"></div>
+      <p class="blog-card-tag">All About Babies and Kids</p>
+      <h3>Potty Training 101: How to Get Your Toddler to Go, Like a Champ</h3>
+      <p>A step-by-step guide to this important milestone...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/moms-day-out-me-time/" class="blog-card reveal reveal-delay-2" data-cat="parents">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2020/02/MomFriends-1.jpg" alt="Me time" loading="lazy"></div>
+      <p class="blog-card-tag">Parents Corner</p>
+      <h3>Mom's Day Out: How to Maximize 'Me Time' for the Long Haul</h3>
+      <p>Making space for yourself in the whirlwind of parenting...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/home-move-with-young-kids/" class="blog-card reveal" data-cat="parents">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/11/cozy-nursery.jpg" alt="Moving with kids" loading="lazy"></div>
+      <p class="blog-card-tag">Parents Corner</p>
+      <h3>Home Sweet Home: Managing a Move with Young Kids</h3>
+      <p>Smooth transitions for the whole family...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/parents-corner/spring-cleaning-101-getting-a-handle-on-household-clutter/" class="blog-card reveal reveal-delay-1" data-cat="parents">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/11/cozy-nursery.jpg" alt="Spring cleaning" loading="lazy"></div>
+      <p class="blog-card-tag">Parents Corner</p>
+      <h3>Spring Cleaning 101: Getting a Handle on Household Clutter</h3>
+      <p>Decluttering strategies for busy families...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/parents-corner/love-reinvented-valentines-day-for-new-parents/" class="blog-card reveal reveal-delay-2" data-cat="parents">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/03/gender-reveal_538455151.jpg" alt="Valentines" loading="lazy"></div>
+      <p class="blog-card-tag">Parents Corner</p>
+      <h3>Love, Reinvented: Valentine's Day for New Parents</h3>
+      <p>Celebrating romance in the era of parenthood...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/all-about-babies-and-kids/curing-cabin-fever-with-babies-and-toddlers/" class="blog-card reveal" data-cat="babies">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2022/02/StorytimePajamas.jpg" alt="Cabin fever" loading="lazy"></div>
+      <p class="blog-card-tag">All About Babies and Kids</p>
+      <h3>Curing Cabin Fever with Babies and Toddlers</h3>
+      <p>Indoor activities to keep little ones engaged...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/to-be-expected/money-matters-101-saving-for-baby/" class="blog-card reveal reveal-delay-1" data-cat="expected">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/08/OBGYN.jpg" alt="Saving for baby" loading="lazy"></div>
+      <p class="blog-card-tag">To Be Expected</p>
+      <h3>Money Matters 101: Saving for Baby</h3>
+      <p>Financial planning for your growing family...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/all-about-babies-and-kids/babies-at-play-how-they-develop-during-their-first-year/" class="blog-card reveal reveal-delay-2" data-cat="babies">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/10/kids_food_allergies.jpg" alt="Babies at play" loading="lazy"></div>
+      <p class="blog-card-tag">All About Babies and Kids</p>
+      <h3>Babies at Play: How They Develop During Their First Year</h3>
+      <p>Milestones and developmental play insights...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/to-be-expected/surviving-a-summertime-pregnancy/" class="blog-card reveal" data-cat="expected">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/07/JoyofSummer_7.19.19-2.jpg" alt="Summer pregnancy" loading="lazy"></div>
+      <p class="blog-card-tag">To Be Expected</p>
+      <h3>Surviving a Summertime Pregnancy</h3>
+      <p>Stay cool and comfortable during the hottest months...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/to-be-expected/mom-to-be-on-board-traveling-during-pregnancy/" class="blog-card reveal reveal-delay-1" data-cat="expected">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/08/OBGYN.jpg" alt="Travel pregnancy" loading="lazy"></div>
+      <p class="blog-card-tag">To Be Expected</p>
+      <h3>Mom-To-Be on Board: Traveling During Pregnancy</h3>
+      <p>Tips for safe and comfortable travel while expecting...</p>
+    </a>
+    <a href="https://www.rashtiandrashti.com/blog/to-be-expected/its-raining-men-the-birth-of-male-showers-and-dadchelor-parties/" class="blog-card reveal reveal-delay-2" data-cat="expected">
+      <div class="blog-card-img"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2019/03/gender-reveal_538455151.jpg" alt="Dadchelor" loading="lazy"></div>
+      <p class="blog-card-tag">To Be Expected</p>
+      <h3>It's Raining Men: The Birth of Male Showers and Dadchelor Parties</h3>
+      <p>Celebrating dads-to-be in style...</p>
+    </a>
   </div>
 </section>
 
 <section class="newsletter">
-  <p class="section-eyebrow reveal">More Reading</p>
-  <h2 class="section-title reveal">Explore More Topics</h2>
-  <div style="display:flex;gap:1rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;" class="reveal">
-    <a href="https://www.rashtiandrashti.com/blog/to-be-expected/" class="btn btn-dark">To Be Expected</a>
-    <a href="https://www.rashtiandrashti.com/blog/parents-corner/" class="btn btn-dark">Parents Corner</a>
-    <a href="https://www.rashtiandrashti.com/blog/all-about-babies-and-kids/" class="btn btn-dark">All About Babies &amp; Kids</a>
-  </div>
+  <p class="section-eyebrow reveal">Stay Connected</p>
+  <h2 class="section-title reveal">Get the Latest From Rashti &amp; Rashti</h2>
+  <form class="newsletter-form reveal" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed ✓';">
+    <input type="email" placeholder="Enter your email" required>
+    <button type="submit">Subscribe</button>
+  </form>
 </section>
 
 <footer class="footer">
   <div class="footer-grid">
     <div class="footer-brand"><h3>RASHTI &amp; RASHTI</h3><p>For over 70 years, celebrating the magic of childhood.</p></div>
-    <div class="footer-col"><h4>Our Brands</h4><a href="brands/baby-starters.html">Baby Starters</a><a href="brands/startup-kids.html">Start Up Kids</a><a href="brands/mini-b.html">Mini B.</a><a href="brands/wetsuit-club.html">Wetsuit Club</a><a href="brands/night-life.html">Night Life</a><a href="brands/magic-years.html">Magic Years</a></div>
+    <div class="footer-col"><h4>Our Brands</h4><a href="brands/baby-starters.html">Baby Starters</a><a href="brands/startup-kids.html">Start Up Kids</a><a href="brands/mini-b.html">Mini B.</a><a href="brands/wetsuit-club.html">Wetsuit Club</a><a href="brands/night-life.html">Night Life</a><a href="brands/magic-years.html">Magic Years</a><a href="collections.html">Collections</a><a href="licensed.html">Licensed Brands</a></div>
     <div class="footer-col"><h4>Work With Us</h4><a href="work-with-us.html#retailers">Retailers</a><a href="work-with-us.html#licensors">Licensors</a><a href="work-with-us.html#vendors">Vendors</a><a href="work-with-us.html#consumers">Consumers</a></div>
-    <div class="footer-col"><h4>Journal</h4><a href="blog.html">To Be Expected</a><a href="blog.html">Parents Corner</a><a href="blog.html">All About Babies and Kids</a></div>
+    <div class="footer-col"><h4>Journal</h4><a href="blog/to-be-expected.html">To Be Expected</a><a href="blog/parents-corner.html">Parents Corner</a><a href="blog/babies-and-kids.html">All About Babies and Kids</a><a href="blog.html">Recent Posts</a></div>
     <div class="footer-col"><h4>Stay in Touch</h4><a href="where-to-buy.html">Where To Buy</a><a href="about.html">About Us</a><a href="press.html">Press</a><a href="contact.html">Contact Us</a></div>
   </div>
   <div class="footer-bottom"><span>&copy; 2026 Rashti &amp; Rashti. All rights reserved.</span><div class="footer-legal"><a href="cpsia.html">CPSIA Compliance</a><a href="privacy.html">Privacy Policy</a></div></div>
