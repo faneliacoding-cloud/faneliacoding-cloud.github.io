@@ -7,12 +7,68 @@
   <meta name="description" content="Discover Rashti & Rashti's family of brands — Baby Starters, Start Up Kids, Mini B., Wetsuit Club, Night Life, and Magic Years.">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .brand-logos-row{display:flex;justify-content:center;align-items:center;gap:3.5rem;flex-wrap:wrap;max-width:1100px;margin:3rem auto 0;padding:0 2rem;}
+    .brand-logos-row a{display:block;transition:all 0.3s var(--transition);}
+    .brand-logos-row a:hover{transform:translateY(-3px);}
+    .brand-logos-row img{height:55px;filter:grayscale(30%);opacity:0.75;transition:all 0.3s var(--transition);}
+    .brand-logos-row a:hover img{filter:none;opacity:1;}
+    .collection-logos{display:flex;justify-content:center;align-items:center;gap:3.5rem;flex-wrap:wrap;max-width:900px;margin:3rem auto 0;padding:0 2rem;}
+    .collection-logos a{display:block;transition:all 0.3s var(--transition);}
+    .collection-logos a:hover{transform:translateY(-3px);}
+    .collection-logos img{height:40px;filter:grayscale(100%);opacity:0.5;transition:all 0.3s var(--transition);}
+    .collection-logos a:hover img{filter:none;opacity:1;}
+    .licensed-logos{display:flex;justify-content:center;align-items:center;gap:3.5rem;flex-wrap:wrap;max-width:900px;margin:3rem auto 0;padding:0 2rem;}
+    .licensed-logos a{display:block;transition:all 0.3s var(--transition);}
+    .licensed-logos a:hover{transform:translateY(-3px);}
+    .licensed-logos img{height:45px;filter:grayscale(100%);opacity:0.6;transition:all 0.3s var(--transition);}
+    .licensed-logos a:hover img{filter:none;opacity:1;}
+    .social-footer{display:flex;gap:1rem;margin-top:1.5rem;}
+    .social-footer a{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);transition:all 0.3s;}
+    .social-footer a:hover{color:var(--gold);border-color:var(--gold);}
+  </style>
 </head>
 <body>
 <nav class="nav scrolled" id="mainNav">
   <a href="index.html" class="nav-logo">RASHTI &amp; RASHTI</a>
   <ul class="nav-links">
-    <li class="nav-item"><a href="brands.html" class="nav-link">Our Brands</a></li>
+    <li class="nav-item">
+      <a href="brands.html" class="nav-link">Our Brands</a>
+      <div class="mega-menu">
+        <div class="mega-grid">
+          <div class="mega-col">
+            <h4>Proprietary Brands</h4>
+            <a href="brands/baby-starters.html">Baby Starters®</a>
+            <a href="brands/startup-kids.html">Start Up Kids®</a>
+            <a href="brands/mini-b.html">Mini B.™</a>
+            <a href="brands/wetsuit-club.html">Wetsuit Club®</a>
+            <a href="brands/night-life.html">Night Life®</a>
+            <a href="brands/magic-years.html">Magic Years®</a>
+          </div>
+          <div class="mega-col">
+            <h4>Collections</h4>
+            <a href="collections.html#bwa">BWA Quotables</a>
+            <a href="collections.html#snuggle-buddy">Snuggle Buddy</a>
+            <a href="collections.html#soft-dreams">Soft Dreams</a>
+            <a href="collections.html#candlesticks">Candlesticks</a>
+          </div>
+          <div class="mega-col">
+            <h4>Licensed Brands</h4>
+            <a href="licensed.html#eric-carle">Eric Carle</a>
+            <a href="licensed.html#little-blue-truck">Little Blue Truck</a>
+            <a href="licensed.html#little-me">Little Me</a>
+            <a href="licensed.html#pete-the-cat">Pete the Cat</a>
+            <a href="licensed.html#rudolph">Rudolph</a>
+          </div>
+          <div class="mega-col">
+            <h4>More</h4>
+            <a href="products.html">All Products</a>
+            <a href="where-to-buy.html">Where to Buy</a>
+            <a href="work-with-us.html">Work With Us</a>
+          </div>
+        </div>
+      </div>
+    </li>
     <li class="nav-item"><a href="products.html" class="nav-link">Products</a></li>
     <li class="nav-item"><a href="about.html" class="nav-link">Our Story</a></li>
     <li class="nav-item"><a href="blog.html" class="nav-link">Journal</a></li>
@@ -28,17 +84,19 @@
   <a href="press.html">Press</a><a href="where-to-buy.html">Where to Buy</a><a href="contact.html">Contact</a>
 </div>
 
+<!-- HERO INTRO -->
 <section class="section" style="padding-top:10rem;text-align:center;">
-  <p class="section-eyebrow reveal">Rashti &amp; Rashti</p>
-  <h1 class="section-title reveal" style="font-size:clamp(2.5rem,5vw,4rem);">A Family of Brands</h1>
-  <p class="section-subtitle reveal" style="margin:0 auto;max-width:700px;">We've got it all! From newborn layette to toddler toys to pre-teen sleep and swimwear, our brands grow up with the kids who wear them and the families who love them. Rashti &amp; Rashti's commitment to exceptional product and outstanding quality means that we are a trusted source for apparel, blankets, toys and gifts.</p>
+  <p class="section-eyebrow reveal">A Family of Brands</p>
+  <h1 class="section-title reveal" style="font-size:clamp(2.5rem,5vw,4rem);">Say Hello to Our Brands</h1>
+  <p class="section-subtitle reveal" style="margin:0 auto;max-width:700px;">Welcome to Rashti &amp; Rashti, where we believe in celebrating the magic of childhood. Our brands stay with families from snuggly infancy through active toddlerhood and into big-kid adventures.</p>
 </section>
 
+<!-- PROPRIETARY BRAND CARDS -->
 <section class="section" style="padding-top:2rem;">
   <div class="brand-grid">
     <a href="brands/baby-starters.html" class="brand-card reveal" id="baby-starters">
       <img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/0662-1024x683.jpg" alt="Baby Starters" loading="lazy">
-      <div class="brand-card-overlay"><h3>Baby Starters®</h3><p>Where babyhood begins</p></div>
+      <div class="brand-card-overlay"><h3>Baby Starters®</h3><p>Where babyhood begins beautifully</p></div>
     </a>
     <a href="brands/startup-kids.html" class="brand-card reveal reveal-delay-1" id="startup-kids">
       <img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/07/363-1024x683.jpg" alt="Start Up Kids" loading="lazy">
@@ -61,37 +119,118 @@
       <div class="brand-card-overlay"><h3>Magic Years®</h3><p>Toys, blankets &amp; wonder</p></div>
     </a>
   </div>
+
+  <!-- BRAND LOGOS ROW -->
+  <div class="brand-logos-row reveal">
+    <a href="brands/baby-starters.html"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_babystarters.png" alt="Baby Starters logo"></a>
+    <a href="brands/startup-kids.html"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_startupkids.png" alt="Start Up Kids logo"></a>
+    <a href="brands/mini-b.html"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_minib.png" alt="Mini B logo"></a>
+    <a href="brands/wetsuit-club.html"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_wetsuit.png" alt="Wetsuit Club logo"></a>
+    <a href="brands/night-life.html"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_nightlife.png" alt="Night Life logo"></a>
+    <a href="brands/magic-years.html"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_magicyears.png" alt="Magic Years logo"></a>
+  </div>
 </section>
 
+<!-- COLLECTIONS -->
 <section class="section section-cream" style="text-align:center;">
+  <p class="section-eyebrow reveal">Our Collections</p>
+  <h2 class="section-title reveal">Curated Collections</h2>
+  <p class="section-subtitle reveal" style="margin:0 auto;max-width:700px;">In addition to our signature brands, Rashti &amp; Rashti offers specially curated collections — each with its own unique character and charm.</p>
+  <div class="collection-logos reveal">
+    <a href="collections.html#bwa"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_bwa.png" alt="BWA Quotables"></a>
+    <a href="collections.html#snuggle-buddy"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_snugglebuddy.png" alt="Snuggle Buddy"></a>
+    <a href="collections.html#soft-dreams"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_softdreams.png" alt="Soft Dreams"></a>
+    <a href="collections.html#candlesticks"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_candlesticks.png" alt="Candlesticks"></a>
+  </div>
+  <a href="collections.html" class="btn btn-dark reveal" style="margin-top:3rem;">Explore Collections</a>
+</section>
+
+<!-- LICENSED BRANDS -->
+<section class="section" style="text-align:center;">
   <p class="section-eyebrow reveal">Licensed Partners</p>
   <h2 class="section-title reveal">Meet Our Licensed Brands</h2>
   <p class="section-subtitle reveal" style="margin:0 auto;max-width:700px;">We've teamed up with some of the most highly recognizable and popular licensed brands to bring a wider array of outstanding products to our satisfied customers. We partner with companies who share the same dedication to family and the celebration of childhood.</p>
-  <div class="logo-grid reveal" style="margin-top:3rem;">
-    <img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_rudolph.png" alt="Rudolph">
-    <img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_petethecat.png" alt="Pete the Cat">
-    <img src="https://www.rashtiandrashti.com/wp-content/uploads/2021/12/logo_ericcarle.png" alt="Eric Carle">
-    <img src="https://www.rashtiandrashti.com/wp-content/uploads/2021/12/logo_littlebluetruck.png" alt="Little Blue Truck">
-    <img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_littleme.png" alt="Little Me">
+  <div class="licensed-logos reveal">
+    <a href="licensed.html#eric-carle"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2021/12/logo_ericcarle.png" alt="Eric Carle"></a>
+    <a href="licensed.html#little-blue-truck"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2021/12/logo_littlebluetruck.png" alt="Little Blue Truck"></a>
+    <a href="licensed.html#little-me"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_littleme.png" alt="Little Me"></a>
+    <a href="licensed.html#pete-the-cat"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_petethecat.png" alt="Pete the Cat"></a>
+    <a href="licensed.html#rudolph"><img src="https://www.rashtiandrashti.com/wp-content/uploads/2018/05/logo_rudolph.png" alt="Rudolph"></a>
   </div>
   <a href="licensed.html" class="btn btn-dark reveal" style="margin-top:3rem;">Explore Licensed Brands</a>
 </section>
 
-<section class="section" style="text-align:center;">
+<!-- PRIVATE LABEL -->
+<section class="section section-cream" style="text-align:center;">
   <p class="section-eyebrow reveal">Private Label</p>
   <h2 class="section-title reveal">Exclusive Private Label Brands</h2>
   <p class="section-subtitle reveal" style="margin:0 auto;max-width:700px;">At Rashti &amp; Rashti, we are experienced in collaborating with our retail partners to develop and deliver exclusive branded programs. We have successfully executed many private label programs in a variety of categories. No matter the brand, all of our products are made with the same level of care that customers have come to expect from us.</p>
+  <a href="work-with-us.html#retailers" class="btn btn-dark reveal" style="margin-top:2rem;">Partner With Us</a>
+</section>
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter">
+  <p class="section-eyebrow reveal">Stay Connected</p>
+  <h2 class="section-title reveal">Get the Latest From Rashti &amp; Rashti</h2>
+  <form class="newsletter-form reveal" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed ✓';">
+    <input type="email" placeholder="Enter your email" required>
+    <button type="submit">Subscribe</button>
+  </form>
 </section>
 
 <footer class="footer">
   <div class="footer-grid">
-    <div class="footer-brand"><h3>RASHTI &amp; RASHTI</h3><p>For over 70 years, celebrating the magic of childhood with premium baby apparel, blankets, toys and gifts.</p></div>
-    <div class="footer-col"><h4>Our Brands</h4><a href="brands/baby-starters.html">Baby Starters</a><a href="brands/startup-kids.html">Start Up Kids</a><a href="brands/mini-b.html">Mini B.</a><a href="brands/wetsuit-club.html">Wetsuit Club</a><a href="brands/night-life.html">Night Life</a><a href="brands/magic-years.html">Magic Years</a><a href="collections.html">Collections</a><a href="licensed.html">Licensed Brands</a></div>
-    <div class="footer-col"><h4>Work With Us</h4><a href="work-with-us.html#retailers">Retailers</a><a href="work-with-us.html#licensors">Licensors</a><a href="work-with-us.html#vendors">Vendors</a><a href="work-with-us.html#consumers">Consumers</a></div>
-    <div class="footer-col"><h4>Journal</h4><a href="blog.html#to-be-expected">To Be Expected</a><a href="blog.html#parents-corner">Parents Corner</a><a href="blog.html#babies-and-kids">All About Babies and Kids</a><a href="blog.html">Recent Posts</a></div>
-    <div class="footer-col"><h4>Stay in Touch</h4><a href="where-to-buy.html">Where To Buy</a><a href="about.html">About Us</a><a href="press.html">Press</a><a href="contact.html">Contact Us</a></div>
+    <div class="footer-brand">
+      <h3>RASHTI &amp; RASHTI</h3>
+      <p>For over 70 years, celebrating the magic of childhood with premium baby apparel, blankets, toys and gifts.</p>
+      <div class="social-footer">
+        <a href="https://www.facebook.com/rashtiandrashti" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.linkedin.com/company/rashti-&-rashti" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/rashtiandrashti" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Our Brands</h4>
+      <a href="brands/baby-starters.html">Baby Starters</a>
+      <a href="brands/startup-kids.html">Start Up Kids</a>
+      <a href="brands/mini-b.html">Mini B.</a>
+      <a href="brands/wetsuit-club.html">Wetsuit Club</a>
+      <a href="brands/night-life.html">Night Life</a>
+      <a href="brands/magic-years.html">Magic Years</a>
+      <a href="collections.html">Collections</a>
+      <a href="licensed.html">Licensed Brands</a>
+    </div>
+    <div class="footer-col">
+      <h4>Work With Us</h4>
+      <a href="work-with-us.html#retailers">Retailers</a>
+      <a href="work-with-us.html#licensors">Licensors</a>
+      <a href="work-with-us.html#vendors">Vendors</a>
+      <a href="work-with-us.html#consumers">Consumers</a>
+    </div>
+    <div class="footer-col">
+      <h4>Journal</h4>
+      <a href="blog.html#to-be-expected">To Be Expected</a>
+      <a href="blog.html#parents-corner">Parents Corner</a>
+      <a href="blog.html#babies-and-kids">All About Babies and Kids</a>
+      <a href="blog.html">Recent Posts</a>
+    </div>
+    <div class="footer-col">
+      <h4>Stay in Touch</h4>
+      <a href="where-to-buy.html">Where To Buy</a>
+      <a href="about.html">About Us</a>
+      <a href="press.html">Press</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="cpsia.html">CPSIA Compliance</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
   </div>
-  <div class="footer-bottom"><span>&copy; 2026 Rashti &amp; Rashti. All rights reserved.</span><div class="footer-legal"><a href="cpsia.html">CPSIA Compliance</a><a href="privacy.html">Privacy Policy</a></div></div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Rashti &amp; Rashti. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="cpsia.html">CPSIA Compliance</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </div>
 </footer>
 <script src="script.js"></script>
 </body>
