@@ -29,7 +29,7 @@ function App() {
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
   return (
-    <Router>
+    <Router basename="/a-better-you/">
       <ScrollToTop />
       <Navbar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <Routes>
