@@ -52,13 +52,43 @@
     .success-toast { position: fixed; bottom: 24px; right: 24px; background: var(--sage); color: var(--white); padding: 14px 24px; border-radius: 10px; font-size: 0.88rem; font-weight: 500; transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 1000; }
     .success-toast.show { transform: translateY(0); opacity: 1; }
     @media (max-width: 900px) { .admin-layout { grid-template-columns: 1fr; } .admin-sidebar { border-left: none; border-top: 1px solid var(--beige); } .form-row { grid-template-columns: 1fr; } }
+    /* Login Gate */
+    .login-overlay { position: fixed; inset: 0; background: var(--charcoal); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+    .login-overlay.hidden { display: none; }
+    .login-card { background: var(--white); border-radius: 16px; padding: 48px 40px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .login-card h2 { font-family: var(--font-serif); font-size: 1.6rem; color: var(--charcoal); margin-bottom: 6px; }
+    .login-card h2 em { color: var(--gold); font-style: italic; }
+    .login-card p { font-size: 0.88rem; color: var(--charcoal-mid); margin-bottom: 28px; line-height: 1.5; }
+    .login-card input { text-align: center; font-size: 1rem; margin-bottom: 8px; }
+    .login-card .btn { width: 100%; margin-top: 8px; }
+    .login-error { color: #c0392b; font-size: 0.82rem; margin-top: 8px; display: none; }
+    .login-mode-toggle { font-size: 0.78rem; color: var(--gold); cursor: pointer; margin-top: 16px; display: inline-block; border: none; background: none; font-family: var(--font-sans); }
+    .login-mode-toggle:hover { text-decoration: underline; }
+    .login-logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin: 0 auto 20px; border: 3px solid var(--gold-light); display: block; }
   </style>
 </head>
 <body>
 
+<!-- LOGIN GATE -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-card">
+    <img src="../assets/mindset-logo-real.jpg" alt="Mindset Therapy" class="login-logo" />
+    <h2>Blog <em>Admin</em></h2>
+    <p id="loginPrompt">Enter your password to access the blog editor.</p>
+    <input type="password" id="loginPassword" placeholder="Password" onkeydown="if(event.key==='Enter') handleLogin()" />
+    <input type="password" id="loginConfirm" placeholder="Confirm password" style="display:none" onkeydown="if(event.key==='Enter') handleLogin()" />
+    <button class="btn btn-gold" onclick="handleLogin()" id="loginBtn">Sign In</button>
+    <p class="login-error" id="loginError"></p>
+    <button class="login-mode-toggle" id="loginToggle" onclick="toggleLoginMode()"></button>
+  </div>
+</div>
+
 <header class="admin-header">
   <h1>Mindset Therapy — <em>Blog Post Creator</em></h1>
-  <span class="admin-badge">Admin Tool</span>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span class="admin-badge">Admin Tool</span>
+    <button class="btn btn-outline" style="padding:8px 16px;font-size:0.75rem;" onclick="logout()">Logout</button>
+  </div>
 </header>
 
 <div class="admin-layout">
@@ -200,6 +230,90 @@ Example:
 <div class="success-toast" id="toast">✓ Copied to clipboard!</div>
 
 <script>
+  // === PASSWORD SYSTEM ===
+  async function hashPassword(pw) {
+    const encoded = new TextEncoder().encode(pw);
+    const buffer = await crypto.subtle.digest('SHA-256', encoded);
+    return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  let isSetupMode = false;
+
+  function initLogin() {
+    const stored = localStorage.getItem('mindset_admin_hash');
+    const overlay = document.getElementById('loginOverlay');
+    const toggle = document.getElementById('loginToggle');
+    const confirm = document.getElementById('loginConfirm');
+    const prompt = document.getElementById('loginPrompt');
+    const btn = document.getElementById('loginBtn');
+
+    if (!stored) {
+      isSetupMode = true;
+      prompt.textContent = 'Create a password for your blog admin.';
+      confirm.style.display = 'block';
+      btn.textContent = 'Create Password';
+      toggle.style.display = 'none';
+    } else {
+      isSetupMode = false;
+      prompt.textContent = 'Enter your password to access the blog editor.';
+      confirm.style.display = 'none';
+      btn.textContent = 'Sign In';
+      toggle.textContent = 'Reset password';
+      toggle.style.display = 'inline-block';
+    }
+    overlay.classList.remove('hidden');
+  }
+
+  async function handleLogin() {
+    const pw = document.getElementById('loginPassword').value;
+    const errEl = document.getElementById('loginError');
+    errEl.style.display = 'none';
+
+    if (!pw || pw.length < 4) {
+      errEl.textContent = 'Password must be at least 4 characters.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    if (isSetupMode) {
+      const confirmPw = document.getElementById('loginConfirm').value;
+      if (pw !== confirmPw) {
+        errEl.textContent = 'Passwords do not match.';
+        errEl.style.display = 'block';
+        return;
+      }
+      const hash = await hashPassword(pw);
+      localStorage.setItem('mindset_admin_hash', hash);
+      document.getElementById('loginOverlay').classList.add('hidden');
+    } else {
+      const hash = await hashPassword(pw);
+      const stored = localStorage.getItem('mindset_admin_hash');
+      if (hash === stored) {
+        document.getElementById('loginOverlay').classList.add('hidden');
+      } else {
+        errEl.textContent = 'Incorrect password. Try again.';
+        errEl.style.display = 'block';
+        document.getElementById('loginPassword').value = '';
+      }
+    }
+  }
+
+  function toggleLoginMode() {
+    if (confirm('Reset your password? You will need to create a new one.')) {
+      localStorage.removeItem('mindset_admin_hash');
+      document.getElementById('loginPassword').value = '';
+      initLogin();
+    }
+  }
+
+  function logout() {
+    document.getElementById('loginPassword').value = '';
+    initLogin();
+  }
+
+  // Check login on load
+  initLogin();
+
   // Set default date to today
   document.getElementById('postDate').valueAsDate = new Date();
 
@@ -274,7 +388,7 @@ Example:
     <div class="nav-inner">
       <a href="../../" class="nav-brand"><img src="../../assets/mindset-logo-real.jpg" alt="Mindset Therapy" class="nav-logo" /></a>
       <div class="nav-links" id="navLinks">
-        <a href="../../#about">About</a><a href="../../#services">Services</a><a href="../../#insurance">Insurance</a><a href="../../blog/">Resources</a><a href="../../#contact">Contact</a>
+        <a href="../../#about">About</a><a href="../../#services">Services</a><a href="../../#insurance">Insurance</a><a href="../../#blog">Resources</a><a href="../../blog/">Blog</a><a href="../../#contact">Contact</a>
         <a href="tel:5169398867">516-939-8867</a><a href="../../booking/" class="nav-cta">Book Now</a>
       </div>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
