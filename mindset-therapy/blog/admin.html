@@ -81,20 +81,6 @@
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="overlay" id="loginOverlay">
-  <div class="login-card">
-    <img src="../assets/mindset-logo-real.jpg" alt="Mindset Therapy" />
-    <h2>Blog <em>Admin</em></h2>
-    <p id="loginPrompt">Enter your password to continue.</p>
-    <input type="password" id="loginPw" placeholder="Password" onkeydown="if(event.key==='Enter')handleLogin()" />
-    <input type="password" id="loginConfirm" placeholder="Confirm password" style="display:none" onkeydown="if(event.key==='Enter')handleLogin()" />
-    <button class="btn btn-gold" onclick="handleLogin()" id="loginBtn">Sign In</button>
-    <p class="err" id="loginErr"></p>
-    <button class="toggle-link" id="loginToggle" onclick="resetPassword()"></button>
-  </div>
-</div>
-
 <!-- GITHUB SETUP -->
 <div class="overlay hidden" id="setupOverlay">
   <div class="setup-card">
@@ -121,9 +107,7 @@
   <h1>Mindset Therapy — <em>Blog Admin</em></h1>
   <div class="header-right">
     <span class="badge">Admin</span>
-    <button class="btn btn-outline btn-sm" onclick="showSetup()">⚙ Settings</button>
-    <button class="btn btn-outline btn-sm" onclick="changePassword()">🔑 Change Password</button>
-    <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+    <button class="btn btn-outline btn-sm" onclick="showSetup()">⚙ GitHub Settings</button>
   </div>
 </header>
 
@@ -228,58 +212,7 @@ const REPO_NAME = 'faneliacoding-cloud.github.io';
 const BRANCH = 'main';
 const BASE_PATH = 'mindset/blog';
 
-// === PASSWORD ===
-async function hash(s){const e=new TextEncoder().encode(s);const b=await crypto.subtle.digest('SHA-256',e);return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-
-function initLogin(){
-  const h=localStorage.getItem('mt_admin_hash');
-  const o=document.getElementById('loginOverlay');
-  const c=document.getElementById('loginConfirm');
-  const p=document.getElementById('loginPrompt');
-  const b=document.getElementById('loginBtn');
-  const t=document.getElementById('loginToggle');
-  document.getElementById('loginPw').value='';
-  if(!h){
-    p.textContent='Create a password for your blog admin.';
-    c.style.display='block';b.textContent='Create Password';t.style.display='none';
-  }else{
-    p.textContent='Enter your password to continue.';
-    c.style.display='none';b.textContent='Sign In';t.textContent='Reset password';t.style.display='inline-block';
-  }
-  o.classList.remove('hidden');
-}
-
-async function handleLogin(){
-  const pw=document.getElementById('loginPw').value;
-  const e=document.getElementById('loginErr');e.style.display='none';
-  if(!pw||pw.length<4){e.textContent='Password must be at least 4 characters.';e.style.display='block';return}
-  const stored=localStorage.getItem('mt_admin_hash');
-  if(!stored){
-    const cf=document.getElementById('loginConfirm').value;
-    if(pw!==cf){e.textContent='Passwords do not match.';e.style.display='block';return}
-    localStorage.setItem('mt_admin_hash',await hash(pw));
-    document.getElementById('loginOverlay').classList.add('hidden');
-    checkSetup();
-  }else{
-    if(await hash(pw)===stored){document.getElementById('loginOverlay').classList.add('hidden');checkSetup()}
-    else{e.textContent='Incorrect password.';e.style.display='block';document.getElementById('loginPw').value=''}
-  }
-}
-
-function resetPassword(){if(confirm('Reset password? You will create a new one.')){localStorage.removeItem('mt_admin_hash');initLogin()}}
-async function changePassword(){
-  const oldPw=prompt('Enter your current password:');
-  if(!oldPw)return;
-  const oldHash=await hash(oldPw);
-  if(oldHash!==localStorage.getItem('mt_admin_hash')){alert('Incorrect current password.');return}
-  const newPw=prompt('Enter your new password (min 4 characters):');
-  if(!newPw||newPw.length<4){alert('Password must be at least 4 characters.');return}
-  const confirmPw=prompt('Confirm your new password:');
-  if(newPw!==confirmPw){alert('Passwords do not match.');return}
-  localStorage.setItem('mt_admin_hash',await hash(newPw));
-  alert('✅ Password changed successfully!');
-}
-function logout(){initLogin()}
+// No password gate — GitHub token is the security layer
 
 // === GITHUB TOKEN ===
 function checkSetup(){
@@ -491,14 +424,13 @@ function previewPost(){
   const w=window.open('','_blank');w.document.write(html);w.document.close();
 }
 
-// Init — check for reset URL param
+// Init
 document.getElementById('postDate').valueAsDate=new Date();
 if(new URLSearchParams(window.location.search).get('reset')==='true'){
-  localStorage.removeItem('mt_admin_hash');
   localStorage.removeItem('mt_github_token');
   window.history.replaceState({},'',window.location.pathname);
 }
-initLogin();
+checkSetup();
 </script>
 </body>
 </html>
