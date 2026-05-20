@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Post Creator | Mindset Therapy Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --charcoal: #2D2D2D; --charcoal-mid: #6B6B6B; --gold: #C9A96E; --gold-light: #D4BA8A; --ivory: #FAF8F5; --cream: #F5F0E8; --beige: #E8E0D4; --white: #FFFFFF; --sage: #8FA688; --font-serif: 'Cormorant Garamond', serif; --font-sans: 'DM Sans', sans-serif; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); background: var(--ivory); color: var(--charcoal); min-height: 100vh; }
+    .admin-header { background: var(--charcoal); padding: 24px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .admin-header h1 { font-family: var(--font-serif); font-size: 1.4rem; color: var(--white); font-weight: 400; }
+    .admin-header h1 em { color: var(--gold-light); font-style: italic; }
+    .admin-badge { font-size: 0.7rem; background: var(--gold); color: var(--white); padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+    .admin-layout { display: grid; grid-template-columns: 1fr 340px; gap: 0; max-width: 1400px; margin: 0 auto; min-height: calc(100vh - 72px); }
+    .admin-main { padding: 40px; }
+    .admin-sidebar { background: var(--white); border-left: 1px solid var(--beige); padding: 40px 28px; overflow-y: auto; }
+    .form-section { margin-bottom: 32px; }
+    .form-section h3 { font-family: var(--font-serif); font-size: 1.1rem; color: var(--charcoal); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--gold-light); display: inline-block; }
+    label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--charcoal); margin-bottom: 6px; letter-spacing: 0.03em; }
+    input, select, textarea { width: 100%; padding: 12px 16px; border: 1.5px solid var(--beige); border-radius: 10px; font-family: var(--font-sans); font-size: 0.95rem; color: var(--charcoal); background: var(--white); outline: none; transition: border-color 0.2s; margin-bottom: 16px; box-sizing: border-box; }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,110,0.12); }
+    textarea { resize: vertical; font-family: 'Courier New', monospace; font-size: 0.88rem; line-height: 1.6; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border: none; border-radius: 10px; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.25s; text-decoration: none; }
+    .btn-gold { background: linear-gradient(135deg, var(--gold), #B8894A); color: var(--white); }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(201,169,110,0.4); }
+    .btn-outline { background: transparent; border: 2px solid var(--beige); color: var(--charcoal); }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-block { width: 100%; }
+    .btn-group { display: flex; gap: 12px; margin-top: 24px; }
+    .sidebar-section { margin-bottom: 32px; }
+    .sidebar-section h4 { font-family: var(--font-serif); font-size: 1rem; color: var(--charcoal); margin-bottom: 12px; }
+    .sidebar-section p, .sidebar-section li { font-size: 0.82rem; color: var(--charcoal-mid); line-height: 1.6; margin-bottom: 6px; }
+    .sidebar-section ul { padding-left: 16px; }
+    .sidebar-section code { background: var(--cream); padding: 2px 6px; border-radius: 4px; font-size: 0.78rem; color: var(--charcoal); }
+    .output-section { display: none; margin-top: 40px; padding-top: 40px; border-top: 2px solid var(--beige); }
+    .output-section.active { display: block; }
+    .output-box { background: var(--charcoal); color: #e0e0e0; border-radius: 12px; padding: 20px; margin: 16px 0; overflow-x: auto; max-height: 300px; overflow-y: auto; position: relative; }
+    .output-box pre { font-family: 'Courier New', monospace; font-size: 0.78rem; line-height: 1.5; white-space: pre-wrap; word-wrap: break-word; }
+    .copy-btn { position: absolute; top: 10px; right: 10px; background: var(--gold); color: var(--white); border: none; padding: 6px 14px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 600; }
+    .copy-btn:hover { background: #B8894A; }
+    .step-list { counter-reset: steps; }
+    .step-item { counter-increment: steps; display: flex; gap: 14px; margin-bottom: 20px; }
+    .step-item::before { content: counter(steps); width: 32px; height: 32px; border-radius: 50%; background: var(--gold); color: var(--white); font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .step-item div { font-size: 0.88rem; color: var(--charcoal-mid); line-height: 1.6; }
+    .step-item strong { color: var(--charcoal); }
+    .success-toast { position: fixed; bottom: 24px; right: 24px; background: var(--sage); color: var(--white); padding: 14px 24px; border-radius: 10px; font-size: 0.88rem; font-weight: 500; transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 1000; }
+    .success-toast.show { transform: translateY(0); opacity: 1; }
+    @media (max-width: 900px) { .admin-layout { grid-template-columns: 1fr; } .admin-sidebar { border-left: none; border-top: 1px solid var(--beige); } .form-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header class="admin-header">
+  <h1>Mindset Therapy — <em>Blog Post Creator</em></h1>
+  <span class="admin-badge">Admin Tool</span>
+</header>
+
+<div class="admin-layout">
+  <main class="admin-main">
+    <div class="form-section">
+      <h3>Post Details</h3>
+      <label for="postTitle">Post Title</label>
+      <input type="text" id="postTitle" placeholder="e.g. How to Manage Stress During the Holidays" oninput="autoSlug()" />
+
+      <div class="form-row">
+        <div>
+          <label for="postSlug">URL Slug</label>
+          <input type="text" id="postSlug" placeholder="auto-generated-from-title" />
+        </div>
+        <div>
+          <label for="postTag">Category</label>
+          <select id="postTag">
+            <option>Anxiety</option><option>Mindfulness</option><option>Trauma</option><option>Depression</option>
+            <option>Self-Care</option><option>Grief</option><option>ADHD</option><option>Relationships</option><option>Wellness</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label for="postDate">Publish Date</label>
+          <input type="date" id="postDate" />
+        </div>
+        <div>
+          <label for="postReadTime">Read Time</label>
+          <input type="text" id="postReadTime" placeholder="e.g. 6 min read" value="6 min read" />
+        </div>
+      </div>
+
+      <label for="postExcerpt">Short Excerpt (1-2 sentences for the blog listing)</label>
+      <textarea id="postExcerpt" rows="2" placeholder="A brief summary that appears on the blog card..."></textarea>
+
+      <label for="postImage">Featured Image Path (relative to blog/your-post/)</label>
+      <input type="text" id="postImage" placeholder="../../assets/your-image.png" value="../../assets/blog-meditation.png" />
+
+      <label for="postImageAlt">Image Alt Text</label>
+      <input type="text" id="postImageAlt" placeholder="Describe the image for accessibility" />
+    </div>
+
+    <div class="form-section">
+      <h3>Article Content (HTML)</h3>
+      <textarea id="postContent" rows="20" placeholder="Write your article content here using HTML tags...
+
+Example:
+<p>Your opening paragraph goes here. Make it engaging and personal.</p>
+
+<h2>Your First Section Heading</h2>
+
+<p>Section content goes here. Use clear, compassionate language.</p>
+
+<div class='pull-quote'>A meaningful quote or key insight goes here.</div>
+
+<h3>A Sub-Heading</h3>
+
+<ul>
+  <li>First point</li>
+  <li>Second point</li>
+  <li>Third point</li>
+</ul>"></textarea>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-gold" onclick="generatePost()">✨ Generate Blog Post</button>
+      <button class="btn btn-outline" onclick="previewPost()">👁 Preview</button>
+    </div>
+
+    <!-- OUTPUT -->
+    <div class="output-section" id="outputSection">
+      <h3 style="font-family:var(--font-serif);font-size:1.2rem;margin-bottom:20px;">Your Blog Post is Ready!</h3>
+
+      <div class="step-list">
+        <div class="step-item"><div><strong>Download the HTML file</strong> and upload it to your server at <code>blog/<span id="slugDisplay"></span>/index.html</code></div></div>
+        <div class="step-item"><div><strong>Copy the JSON entry below</strong> and add it to <code>blog/posts.json</code> (add a comma after the previous entry, then paste)</div></div>
+        <div class="step-item"><div><strong>Upload both files</strong> to your hosting server. The new post will appear on the blog automatically!</div></div>
+      </div>
+
+      <h4 style="margin-top:24px;font-size:0.9rem;">JSON Entry for posts.json:</h4>
+      <div class="output-box" id="jsonOutput"><button class="copy-btn" onclick="copyJSON()">Copy</button><pre id="jsonCode"></pre></div>
+
+      <div class="btn-group">
+        <button class="btn btn-gold" onclick="downloadHTML()">⬇ Download HTML File</button>
+        <button class="btn btn-outline" onclick="copyJSON()">📋 Copy JSON Entry</button>
+      </div>
+    </div>
+  </main>
+
+  <aside class="admin-sidebar">
+    <div class="sidebar-section">
+      <h4>📖 How the Blog Works</h4>
+      <p>The blog uses a simple file-based system. Each post is an HTML file inside a folder. The blog listing page reads <code>posts.json</code> to know which posts exist.</p>
+      <p><strong>To add a new post:</strong></p>
+      <ol>
+        <li>Fill out this form and click "Generate"</li>
+        <li>Download the HTML file</li>
+        <li>Upload it to <code>blog/your-slug/index.html</code> on the server</li>
+        <li>Add the JSON entry to <code>blog/posts.json</code></li>
+      </ol>
+    </div>
+
+    <div class="sidebar-section">
+      <h4>🎨 Content Formatting Guide</h4>
+      <p>Use these HTML tags in the content area:</p>
+      <ul>
+        <li><code>&lt;p&gt;...&lt;/p&gt;</code> — Paragraph</li>
+        <li><code>&lt;h2&gt;...&lt;/h2&gt;</code> — Section heading</li>
+        <li><code>&lt;h3&gt;...&lt;/h3&gt;</code> — Sub-heading</li>
+        <li><code>&lt;strong&gt;...&lt;/strong&gt;</code> — Bold</li>
+        <li><code>&lt;em&gt;...&lt;/em&gt;</code> — Italic</li>
+        <li><code>&lt;ul&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;</code> — Bullet list</li>
+        <li><code>&lt;ol&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ol&gt;</code> — Numbered list</li>
+        <li><code>&lt;blockquote&gt;...&lt;/blockquote&gt;</code> — Quote</li>
+        <li><code>&lt;div class='pull-quote'&gt;...&lt;/div&gt;</code> — Gold-bordered pull quote</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <h4>🖼 Adding Images</h4>
+      <p>Upload images to the <code>assets/</code> folder on your server first, then reference them as <code>../../assets/filename.png</code> in the image path field.</p>
+    </div>
+
+    <div class="sidebar-section">
+      <h4>💡 Writing Tips</h4>
+      <ul>
+        <li>Write in a warm, professional tone</li>
+        <li>Aim for 800-1200 words</li>
+        <li>Include a pull quote every 3-4 paragraphs</li>
+        <li>Use specific, actionable advice</li>
+        <li>End with a hopeful, inviting message</li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<div class="success-toast" id="toast">✓ Copied to clipboard!</div>
+
+<script>
+  // Set default date to today
+  document.getElementById('postDate').valueAsDate = new Date();
+
+  function autoSlug() {
+    const title = document.getElementById('postTitle').value;
+    const slug = title.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    document.getElementById('postSlug').value = slug;
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = '✓ ' + msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  let generatedHTML = '';
+
+  function generatePost() {
+    const title = document.getElementById('postTitle').value || 'Untitled Post';
+    const slug = document.getElementById('postSlug').value || 'untitled';
+    const tag = document.getElementById('postTag').value;
+    const date = document.getElementById('postDate').value;
+    const readTime = document.getElementById('postReadTime').value;
+    const excerpt = document.getElementById('postExcerpt').value;
+    const image = document.getElementById('postImage').value;
+    const imageAlt = document.getElementById('postImageAlt').value;
+    const content = document.getElementById('postContent').value;
+
+    const dateObj = new Date(date + 'T00:00:00');
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const dateFormatted = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
+
+    const descMeta = excerpt || title;
+
+    generatedHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${title} | Mindset Therapy</title>
+  <meta name="description" content="${descMeta}" />
+  <link rel="canonical" href="https://mindsetlcsw.com/blog/${slug}/" />
+  <meta property="og:title" content="${title}" />
+  <meta property="og:description" content="${descMeta}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://mindsetlcsw.com/blog/${slug}/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="../../assets/logos/mindset-logo-favicon.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "${title}",
+    "datePublished": "${date}",
+    "author": { "@type": "Person", "name": "Aby Chacko", "jobTitle": "Licensed Clinical Social Worker" },
+    "publisher": { "@type": "Organization", "name": "Mindset Therapy", "url": "https://mindsetlcsw.com" },
+    "description": "${descMeta}",
+    "mainEntityOfPage": "https://mindsetlcsw.com/blog/${slug}/"
+  }
+  <\\/script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <style>
+    .article-hero{position:relative;height:400px;overflow:hidden}.article-hero img{width:100%;height:100%;object-fit:cover}.article-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(45,45,45,.3) 0%,rgba(45,45,45,.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:48px}.article-tag{display:inline-block;background:var(--gold);color:var(--white);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px;font-weight:600;width:fit-content}.article-hero h1{font-family:var(--font-serif);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:400;color:var(--white);line-height:1.3;max-width:700px}.article-meta{display:flex;gap:20px;margin-top:14px;font-size:.82rem;color:rgba(255,255,255,.7)}.article-body{max-width:780px;margin:0 auto;padding:64px 28px 80px}.article-body h2{font-family:var(--font-serif);font-size:1.5rem;font-weight:500;color:var(--charcoal);margin:40px 0 16px}.article-body h3{font-family:var(--font-sans);font-size:1.05rem;font-weight:600;color:var(--charcoal);margin:28px 0 10px}.article-body p{font-size:.97rem;color:var(--charcoal-mid);line-height:1.9;margin-bottom:18px}.article-body ul,.article-body ol{margin:12px 0 20px 20px}.article-body li{font-size:.95rem;color:var(--charcoal-mid);line-height:1.8;margin-bottom:8px}.pull-quote{border-left:4px solid var(--gold);padding:20px 28px;margin:32px 0;background:var(--cream);border-radius:0 var(--radius) var(--radius) 0;font-family:var(--font-serif);font-size:1.15rem;font-style:italic;color:var(--charcoal);line-height:1.7}.article-back{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--gold);font-weight:500;text-decoration:none;padding:12px 0;transition:color .2s}.article-back:hover{color:var(--charcoal)}.author-card{display:flex;gap:24px;align-items:center;padding:36px;background:var(--cream);border:1px solid var(--beige);border-radius:var(--radius-lg);margin-top:48px}.author-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--gold-light);flex-shrink:0}.author-info h4{font-family:var(--font-serif);font-size:1.1rem;color:var(--charcoal);margin-bottom:4px}.author-info p{font-size:.85rem;color:var(--charcoal-mid);line-height:1.6;margin:0}.article-cta{text-align:center;padding:64px 28px;background:var(--charcoal);margin-top:80px;border-radius:var(--radius-lg)}.article-cta h3{font-family:var(--font-serif);font-size:1.6rem;color:var(--white);margin-bottom:12px}.article-cta h3 em{color:var(--gold-light);font-style:italic}.article-cta p{color:rgba(255,255,255,.7);margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto;font-size:.95rem;line-height:1.7}@media(max-width:600px){.article-hero{height:300px}.article-hero-overlay{padding:28px}.author-card{flex-direction:column;text-align:center}}
+  </style>
+</head>
+<body>
+  <nav class="nav scrolled" id="mainNav">
+    <div class="nav-inner">
+      <a href="../../" class="nav-brand"><img src="../../assets/mindset-logo-real.jpg" alt="Mindset Therapy" class="nav-logo" /></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../../#about">About</a><a href="../../#services">Services</a><a href="../../#insurance">Insurance</a><a href="../../blog/">Resources</a><a href="../../#contact">Contact</a>
+        <a href="tel:5169398867">516-939-8867</a><a href="../../booking/" class="nav-cta">Book Now</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="article-hero">
+    <img src="${image}" alt="${imageAlt}" />
+    <div class="article-hero-overlay">
+      <span class="article-tag">${tag}</span>
+      <h1>${title}</h1>
+      <div class="article-meta"><span>${dateFormatted}</span><span>·</span><span>${readTime}</span></div>
+    </div>
+  </div>
+
+  <article class="article-body">
+    <a href="../" class="article-back">← Back to Blog</a>
+
+    ${content}
+
+    <div class="author-card">
+      <img src="../../assets/aby-chacko-portrait.png" alt="Aby Chacko, LCSW" class="author-avatar" />
+      <div class="author-info">
+        <h4>Aby Chacko, LCSW</h4>
+        <p>Licensed Clinical Social Worker with over 10 years of experience specializing in anxiety, depression, trauma, and mindfulness-based approaches. Aby practices at Mindset Therapy in East Meadow, NY.</p>
+      </div>
+    </div>
+
+    <div class="article-cta">
+      <h3>Ready to take <em>the next step?</em></h3>
+      <p>Book a free 15-minute consultation and discover what it feels like to be truly supported.</p>
+      <a href="../../booking/?consult=free#bookingForm" class="btn btn-gold btn-lg" style="display:inline-block;padding:16px 36px;background:linear-gradient(135deg,#C9A96E,#B8894A);color:#fff;border-radius:10px;text-decoration:none;font-weight:600;">Book Your Free Consultation</a>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><img src="../../assets/mindset-logo-real.jpg" alt="Mindset Therapy" class="footer-logo" /><p class="footer-tagline">Healing Through Compassion. Growth Through Connection.</p></div>
+      <div class="footer-links"><h4>Practice</h4><a href="../../#about">About Aby</a><a href="../../#services">Services</a><a href="../../#insurance">Insurance</a><a href="../../#contact">Contact</a></div>
+      <div class="footer-links"><h4>Legal</h4><a href="../../privacy-policy/">Privacy Policy</a><a href="../../booking/">Book a Session</a></div>
+      <div class="footer-contact"><h4>Contact</h4><p>1975 Hempstead Turnpike, Suite 404<br/>East Meadow, NY 11554</p><p><a href="tel:5169398867">Office: 516-939-8867</a></p></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 Mindset Therapy · Aby Chacko, LCSW · East Meadow, NY · All rights reserved.</p></div>
+  </footer>
+
+  <script>
+    document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
+  <\\/script>
+</body>
+</html>`;
+
+    // JSON entry
+    const jsonEntry = {
+      slug: slug,
+      title: title,
+      tag: tag,
+      date: date,
+      excerpt: excerpt,
+      image: `../${image.replace('../../','')}`,
+      imageAlt: imageAlt
+    };
+
+    document.getElementById('jsonCode').textContent = JSON.stringify(jsonEntry, null, 2);
+    document.getElementById('slugDisplay').textContent = slug;
+    document.getElementById('outputSection').classList.add('active');
+    document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function downloadHTML() {
+    if (!generatedHTML) return;
+    const slug = document.getElementById('postSlug').value || 'untitled';
+    const blob = new Blob([generatedHTML], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${slug}-index.html`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showToast('HTML file downloaded! Rename to index.html and upload to blog/' + slug + '/');
+  }
+
+  function copyJSON() {
+    const json = document.getElementById('jsonCode').textContent;
+    navigator.clipboard.writeText(json).then(() => showToast('JSON copied to clipboard!'));
+  }
+
+  function previewPost() {
+    const content = document.getElementById('postContent').value;
+    if (!content) { alert('Enter some content first!'); return; }
+    generatePost();
+    const win = window.open('', '_blank');
+    win.document.write(generatedHTML);
+    win.document.close();
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Request a Session | Mindset Therapy | Aby Chacko, LCSW – East Meadow, NY</title>
+  <meta name="description" content="Request a therapy session with Aby Chacko, LCSW at Mindset Therapy in East Meadow, NY. Free 15-minute consultation available. Accepts Aetna, Cigna, BCBS, Medicare, United Healthcare & more." />
+  <link rel="canonical" href="https://mindsetlcsw.com/booking/" />
+  <meta property="og:title" content="Book a Therapy Session | Mindset Therapy" />
+  <meta property="og:description" content="Request a free 15-minute consultation with Aby Chacko, LCSW. Most major insurance accepted." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mindsetlcsw.com/booking/" />
+  <meta property="og:image" content="https://mindsetlcsw.com/assets/mindset-logo-real.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Book a Therapy Session | Mindset Therapy" />
+  <meta name="twitter:description" content="Request a free consultation with a licensed therapist in East Meadow, NY." />
+  <link rel="icon" type="image/png" href="../assets/logos/mindset-logo-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .page-hero {
+      background: linear-gradient(135deg, var(--charcoal) 0%, #3a3a3a 100%);
+      padding: 140px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(143,166,136,0.15) 0%, transparent 55%),
+                  radial-gradient(ellipse at 80% 20%, rgba(201,169,110,0.1) 0%, transparent 50%);
+    }
+    .page-hero-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      font-weight: 500;
+      position: relative;
+    }
+    .page-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold-light); }
+    .page-hero-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.7;
+      position: relative;
+    }
+    .booking-section {
+      padding: 100px 0;
+      background: var(--ivory);
+    }
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 64px;
+      align-items: start;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+    /* Left info column */
+    .booking-info h2 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 16px;
+    }
+    .booking-info h2 em { font-style: italic; color: var(--gold); }
+    .booking-info p {
+      font-size: 0.97rem;
+      color: var(--charcoal-mid);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .booking-steps {
+      margin: 32px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .booking-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), #B8894A);
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-text strong {
+      display: block;
+      font-size: 0.92rem;
+      color: var(--charcoal);
+      margin-bottom: 4px;
+    }
+    .step-text span {
+      font-size: 0.88rem;
+      color: var(--charcoal-mid);
+      line-height: 1.6;
+    }
+    .booking-insurance-strip {
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 1px solid var(--beige);
+    }
+    .booking-insurance-strip p {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .insurance-pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .insurance-pill {
+      background: var(--white);
+      border: 1px solid var(--beige);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      color: var(--charcoal-mid);
+      font-weight: 500;
+    }
+    .booking-contact-options {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .contact-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: var(--charcoal-mid);
+    }
+    .contact-option a { color: var(--gold); font-weight: 500; transition: color 0.2s; }
+    .contact-option a:hover { color: var(--charcoal); }
+    /* Right form */
+    .booking-form-wrap {
+      background: var(--white);
+      border: 1px solid var(--beige);
+      border-radius: var(--radius-lg);
+      padding: 52px 44px;
+      box-shadow: var(--shadow-hover);
+    }
+    .booking-form-wrap h3 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      margin-bottom: 6px;
+    }
+    .booking-form-wrap .form-note {
+      font-size: 0.82rem;
+      color: #c0392b;
+      background: #fef9f9;
+      border: 1px solid #f5c6c6;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+    }
+    .optional { color: var(--charcoal-mid); font-weight: 400; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--beige);
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      background: var(--ivory);
+      transition: border-color 0.25s, box-shadow 0.25s;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,169,110,0.12);
+    }
+    .form-group textarea { resize: vertical; }
+    .form-privacy {
+      font-size: 0.78rem;
+      color: var(--charcoal-mid);
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+    .form-success {
+      background: var(--white);
+      border: 1px solid var(--sage-light);
+      border-radius: var(--radius-lg);
+      padding: 60px 40px;
+      text-align: center;
+      display: none;
+    }
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      color: var(--sage);
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .form-success h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    .form-success p { color: var(--charcoal-mid); }
+    @media (max-width: 860px) {
+      .booking-grid { grid-template-columns: 1fr; }
+      .booking-form-wrap { padding: 36px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="mainNav">
+    <div class="nav-inner">
+      <a href="../" class="nav-brand">
+        <img src="../assets/mindset-logo-real.jpg" alt="Mindset Therapy" class="nav-logo" />
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="../#about">About</a>
+        <a href="../#services">Services</a>
+        <a href="../#insurance">Insurance</a>
+        <a href="../#blog">Resources</a>
+        <a href="../#contact">Contact</a>
+        <a href="../booking/" class="nav-cta">Book Now</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-label">Begin Your Journey</div>
+    <h1>Request a <em>Session</em></h1>
+    <p class="page-hero-sub">Your first step takes courage. We'll make it feel safe, simple, and supported from the very first message.</p>
+  </div>
+
+  <!-- BOOKING SECTION -->
+  <section class="booking-section">
+    <div class="booking-grid">
+
+      <!-- Left: Info -->
+      <div class="booking-info fade-left">
+        <p class="section-label">How It Works</p>
+        <h2>What to <em>Expect</em></h2>
+        <p>Providing accurate information helps us match you with the right support and verify your insurance coverage. After submitting, our team reviews your request and contacts you to confirm your session — typically within one business day.</p>
+
+        <div class="booking-steps">
+          <div class="booking-step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <strong>Fill out the form</strong>
+              <span>Share a little about yourself and what you're looking for. There's no pressure — only what feels comfortable.</span>
+            </div>
+          </div>
+          <div class="booking-step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <strong>We review &amp; reach out</strong>
+              <span>Our team personally reviews every request and contacts you within one business day to confirm your appointment.</span>
+            </div>
+          </div>
+          <div class="booking-step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <strong>Start your first session</strong>
+              <span>We offer a free 15-minute consultation — a warm, no-pressure conversation to see if we're the right fit for you.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-insurance-strip">
+          <p>Accepted Insurance</p>
+          <div class="insurance-pill-grid">
+            <span class="insurance-pill">Aetna</span>
+            <span class="insurance-pill">Cigna</span>
+            <span class="insurance-pill">Medicare</span>
+            <span class="insurance-pill">United Healthcare</span>
+            <span class="insurance-pill">BlueCross BlueShield</span>
+            <span class="insurance-pill">MagnaCare</span>
+            <span class="insurance-pill">EmblemHealth</span>
+            <span class="insurance-pill">1199 SEIU</span>
+          </div>
+        </div>
+
+        <div class="booking-contact-options">
+          <div class="contact-option">📞 <span>Prefer to call? <a href="tel:5169398867">516-939-8867</a></span>
+          </div>
+          <div class="contact-option">📱 <span>Direct line: <a href="tel:3473807602">347-380-7602</a></span></div>
+          <div class="contact-option">✉️ <span>Email: <a href="mailto:mindsetlcsw@gmail.com">mindsetlcsw@gmail.com</a></span></div>
+          <div class="contact-option">💻 <span>Telehealth available — secure, confidential video sessions</span></div>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="booking-form-wrap fade-right">
+        <h3>Request Your Session</h3>
+        <p class="form-note">Not a crisis service. If you are in immediate danger, please call <strong>911</strong> or the Suicide &amp; Crisis Lifeline at <strong>988</strong>.</p>
+
+        <form id="bookingForm" onsubmit="handleBookingSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" placeholder="First name" required />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Last name" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="sessionType">Session Type</label>
+              <select id="sessionType" name="sessionType">
+                <option value="">Select type</option>
+                <option>Free 15-Min Consultation</option>
+                <option>Individual Therapy</option>
+                <option>Teen / Adolescent Therapy</option>
+                <option>Family Therapy</option>
+                <option>Telehealth Session</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="preferredTime">Preferred Time <span class="optional">(optional)</span></label>
+              <select id="preferredTime" name="preferredTime">
+                <option value="">No preference</option>
+                <option>Mornings (8am–12pm)</option>
+                <option>Afternoons (12pm–5pm)</option>
+                <option>Evenings (5pm–8pm)</option>
+                <option>Weekends</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="insurance">Insurance Provider <span class="optional">(optional)</span></label>
+            <select id="insurance" name="insurance">
+              <option value="">Select your insurance</option>
+              <option>Aetna</option>
+              <option>Cigna</option>
+              <option>Medicare</option>
+              <option>United Healthcare</option>
+              <option>BlueCross BlueShield</option>
+              <option>MagnaCare</option>
+              <option>EmblemHealth</option>
+              <option>1199 SEIU</option>
+              <option>Other / Self-Pay</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="concern">What brings you here? <span class="optional">(optional)</span></label>
+            <textarea id="concern" name="concern" rows="4" placeholder="Share as much or as little as you'd like. There is no wrong answer."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="bookingSubmitBtn">Send My Request</button>
+          <p class="form-privacy">🔒 All information is kept strictly confidential in accordance with HIPAA privacy guidelines.</p>
+        </form>
+
+        <div class="form-success" id="bookingSuccess">
+          <div class="success-icon">✓</div>
+          <h3>Thank you for reaching out.</h3>
+          <p>We've received your request and will be in touch within one business day.<br />You've taken a meaningful first step — we're honored to walk alongside you.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="../assets/mindset-logo-real.jpg" alt="Mindset Therapy" class="footer-logo" />
+        <p class="footer-tagline">Healing Through Compassion. Growth Through Connection.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Practice</h4>
+        <a href="../#about">About Aby</a>
+        <a href="../#services">Services</a>
+        <a href="../#insurance">Insurance</a>
+        <a href="../#contact">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <a href="../privacy-policy/">Privacy Policy</a>
+        <a href="../booking/">Book a Session</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>1975 Hempstead Turnpike, Suite 404<br />East Meadow, NY 11554</p>
+        <p><a href="tel:5169398867">Office: 516-939-8867</a></p>
+        <div class="crisis-line">
+          <strong>Crisis Support</strong>
+          <p>Call or text <a href="tel:988">988</a> — 24/7 Suicide &amp; Crisis Lifeline</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Mindset Therapy · Aby Chacko, LCSW · East Meadow, NY · All rights reserved.</p>
+      <p class="footer-disclaimer">This website is for informational purposes only and does not constitute medical advice. For mental health emergencies, call 911 or 988.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Nav
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Scroll animations
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-left, .fade-right, .fade-up').forEach(el => io.observe(el));
+
+    // Auto-select Free Consultation + scroll to form if coming from a CTA
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('consult') === 'free') {
+        const select = document.getElementById('sessionType');
+        if (select) select.value = 'Free 15-Min Consultation';
+        const form = document.getElementById('bookingForm');
+        if (form) {
+          setTimeout(() => {
+            form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
+      }
+    })();
+
+    // Booking form — sends to mindsetlcsw@gmail.com via Formsubmit.co
+    async function handleBookingSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('bookingForm');
+      const btn  = document.getElementById('bookingSubmitBtn');
+
+      const data = {
+        name:          `${form.firstName.value} ${form.lastName.value}`,
+        email:         form.email.value,
+        phone:         form.phone.value,
+        session_type:  form.sessionType.value || 'Not specified',
+        preferred_time: form.preferredTime.value || 'No preference',
+        insurance:     form.insurance.value || 'Not provided',
+        concern:       form.concern.value || 'No message',
+        _subject:      'New Session Request — Mindset Therapy',
+        _captcha:      'false',
+        _template:     'table'
+      };
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/mindsetlcsw@gmail.com', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body:    JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          form.style.display = 'none';
+          const success = document.getElementById('bookingSuccess');
+          success.style.display = 'block';
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          throw new Error('Failed');
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Send My Request';
+        alert('There was a problem sending your request. Please call us at 516-939-8867 or email mindsetlcsw@gmail.com.');
+      }
+    }
+  </script>
+</body>
+</html>
