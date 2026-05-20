@@ -3,378 +3,359 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog Post Creator | Mindset Therapy Admin</title>
+  <title>Blog Admin | Mindset Therapy</title>
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    :root { --charcoal: #2D2D2D; --charcoal-mid: #6B6B6B; --gold: #C9A96E; --gold-light: #D4BA8A; --ivory: #FAF8F5; --cream: #F5F0E8; --beige: #E8E0D4; --white: #FFFFFF; --sage: #8FA688; --font-serif: 'Cormorant Garamond', serif; --font-sans: 'DM Sans', sans-serif; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: var(--font-sans); background: var(--ivory); color: var(--charcoal); min-height: 100vh; }
-    .admin-header { background: var(--charcoal); padding: 24px 40px; display: flex; align-items: center; justify-content: space-between; }
-    .admin-header h1 { font-family: var(--font-serif); font-size: 1.4rem; color: var(--white); font-weight: 400; }
-    .admin-header h1 em { color: var(--gold-light); font-style: italic; }
-    .admin-badge { font-size: 0.7rem; background: var(--gold); color: var(--white); padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
-    .admin-layout { display: grid; grid-template-columns: 1fr 340px; gap: 0; max-width: 1400px; margin: 0 auto; min-height: calc(100vh - 72px); }
-    .admin-main { padding: 40px; }
-    .admin-sidebar { background: var(--white); border-left: 1px solid var(--beige); padding: 40px 28px; overflow-y: auto; }
-    .form-section { margin-bottom: 32px; }
-    .form-section h3 { font-family: var(--font-serif); font-size: 1.1rem; color: var(--charcoal); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--gold-light); display: inline-block; }
-    label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--charcoal); margin-bottom: 6px; letter-spacing: 0.03em; }
-    input, select, textarea { width: 100%; padding: 12px 16px; border: 1.5px solid var(--beige); border-radius: 10px; font-family: var(--font-sans); font-size: 0.95rem; color: var(--charcoal); background: var(--white); outline: none; transition: border-color 0.2s; margin-bottom: 16px; box-sizing: border-box; }
-    input:focus, select:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,110,0.12); }
-    textarea { resize: vertical; font-family: 'Courier New', monospace; font-size: 0.88rem; line-height: 1.6; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border: none; border-radius: 10px; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.25s; text-decoration: none; }
-    .btn-gold { background: linear-gradient(135deg, var(--gold), #B8894A); color: var(--white); }
-    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(201,169,110,0.4); }
-    .btn-outline { background: transparent; border: 2px solid var(--beige); color: var(--charcoal); }
-    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-    .btn-block { width: 100%; }
-    .btn-group { display: flex; gap: 12px; margin-top: 24px; }
-    .sidebar-section { margin-bottom: 32px; }
-    .sidebar-section h4 { font-family: var(--font-serif); font-size: 1rem; color: var(--charcoal); margin-bottom: 12px; }
-    .sidebar-section p, .sidebar-section li { font-size: 0.82rem; color: var(--charcoal-mid); line-height: 1.6; margin-bottom: 6px; }
-    .sidebar-section ul { padding-left: 16px; }
-    .sidebar-section code { background: var(--cream); padding: 2px 6px; border-radius: 4px; font-size: 0.78rem; color: var(--charcoal); }
-    .output-section { display: none; margin-top: 40px; padding-top: 40px; border-top: 2px solid var(--beige); }
-    .output-section.active { display: block; }
-    .output-box { background: var(--charcoal); color: #e0e0e0; border-radius: 12px; padding: 20px; margin: 16px 0; overflow-x: auto; max-height: 300px; overflow-y: auto; position: relative; }
-    .output-box pre { font-family: 'Courier New', monospace; font-size: 0.78rem; line-height: 1.5; white-space: pre-wrap; word-wrap: break-word; }
-    .copy-btn { position: absolute; top: 10px; right: 10px; background: var(--gold); color: var(--white); border: none; padding: 6px 14px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 600; }
-    .copy-btn:hover { background: #B8894A; }
-    .step-list { counter-reset: steps; }
-    .step-item { counter-increment: steps; display: flex; gap: 14px; margin-bottom: 20px; }
-    .step-item::before { content: counter(steps); width: 32px; height: 32px; border-radius: 50%; background: var(--gold); color: var(--white); font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-    .step-item div { font-size: 0.88rem; color: var(--charcoal-mid); line-height: 1.6; }
-    .step-item strong { color: var(--charcoal); }
-    .success-toast { position: fixed; bottom: 24px; right: 24px; background: var(--sage); color: var(--white); padding: 14px 24px; border-radius: 10px; font-size: 0.88rem; font-weight: 500; transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 1000; }
-    .success-toast.show { transform: translateY(0); opacity: 1; }
-    @media (max-width: 900px) { .admin-layout { grid-template-columns: 1fr; } .admin-sidebar { border-left: none; border-top: 1px solid var(--beige); } .form-row { grid-template-columns: 1fr; } }
-    /* Login Gate */
-    .login-overlay { position: fixed; inset: 0; background: var(--charcoal); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-    .login-overlay.hidden { display: none; }
-    .login-card { background: var(--white); border-radius: 16px; padding: 48px 40px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-    .login-card h2 { font-family: var(--font-serif); font-size: 1.6rem; color: var(--charcoal); margin-bottom: 6px; }
-    .login-card h2 em { color: var(--gold); font-style: italic; }
-    .login-card p { font-size: 0.88rem; color: var(--charcoal-mid); margin-bottom: 28px; line-height: 1.5; }
-    .login-card input { text-align: center; font-size: 1rem; margin-bottom: 8px; }
-    .login-card .btn { width: 100%; margin-top: 8px; }
-    .login-error { color: #c0392b; font-size: 0.82rem; margin-top: 8px; display: none; }
-    .login-mode-toggle { font-size: 0.78rem; color: var(--gold); cursor: pointer; margin-top: 16px; display: inline-block; border: none; background: none; font-family: var(--font-sans); }
-    .login-mode-toggle:hover { text-decoration: underline; }
-    .login-logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin: 0 auto 20px; border: 3px solid var(--gold-light); display: block; }
+    :root{--charcoal:#2D2D2D;--charcoal-mid:#6B6B6B;--gold:#C9A96E;--gold-light:#D4BA8A;--ivory:#FAF8F5;--cream:#F5F0E8;--beige:#E8E0D4;--white:#FFF;--sage:#8FA688;--red:#c0392b;--font-serif:'Cormorant Garamond',serif;--font-sans:'DM Sans',sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:var(--font-sans);background:var(--ivory);color:var(--charcoal);min-height:100vh}
+    /* Header */
+    .admin-header{background:var(--charcoal);padding:20px 36px;display:flex;align-items:center;justify-content:space-between}
+    .admin-header h1{font-family:var(--font-serif);font-size:1.3rem;color:var(--white);font-weight:400}
+    .admin-header h1 em{color:var(--gold-light);font-style:italic}
+    .header-right{display:flex;align-items:center;gap:12px}
+    .badge{font-size:.68rem;background:var(--gold);color:var(--white);padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border:none;border-radius:10px;font-family:var(--font-sans);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .25s;text-decoration:none}
+    .btn-gold{background:linear-gradient(135deg,var(--gold),#B8894A);color:var(--white)}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(201,169,110,.4)}
+    .btn-gold:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+    .btn-outline{background:transparent;border:2px solid var(--beige);color:var(--charcoal)}
+    .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+    .btn-sm{padding:8px 16px;font-size:.78rem}
+    .btn-danger{background:var(--red);color:var(--white)}
+    /* Login */
+    .overlay{position:fixed;inset:0;background:var(--charcoal);z-index:9999;display:flex;align-items:center;justify-content:center}
+    .overlay.hidden{display:none}
+    .login-card{background:var(--white);border-radius:16px;padding:48px 40px;max-width:440px;width:92%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+    .login-card img{width:60px;height:60px;border-radius:50%;object-fit:cover;margin:0 auto 20px;border:3px solid var(--gold-light);display:block}
+    .login-card h2{font-family:var(--font-serif);font-size:1.5rem;color:var(--charcoal);margin-bottom:6px}
+    .login-card h2 em{color:var(--gold);font-style:italic}
+    .login-card>p{font-size:.85rem;color:var(--charcoal-mid);margin-bottom:24px;line-height:1.5}
+    .login-card input{width:100%;padding:13px 16px;border:1.5px solid var(--beige);border-radius:10px;font-family:var(--font-sans);font-size:1rem;text-align:center;outline:none;margin-bottom:10px;transition:border-color .2s}
+    .login-card input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,169,110,.12)}
+    .login-card .btn{width:100%;margin-top:6px}
+    .err{color:var(--red);font-size:.82rem;margin-top:8px;display:none}
+    .toggle-link{font-size:.78rem;color:var(--gold);cursor:pointer;margin-top:14px;display:inline-block;border:none;background:none;font-family:var(--font-sans)}
+    .toggle-link:hover{text-decoration:underline}
+    /* Setup */
+    .setup-card{background:var(--white);border-radius:16px;padding:48px 40px;max-width:560px;width:92%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+    .setup-card h2{font-family:var(--font-serif);font-size:1.4rem;color:var(--charcoal);margin-bottom:16px;text-align:center}
+    .setup-card h2 em{color:var(--gold);font-style:italic}
+    .setup-card p{font-size:.85rem;color:var(--charcoal-mid);line-height:1.6;margin-bottom:12px}
+    .setup-card ol{font-size:.83rem;color:var(--charcoal-mid);line-height:1.7;padding-left:20px;margin-bottom:16px}
+    .setup-card input{width:100%;padding:13px 16px;border:1.5px solid var(--beige);border-radius:10px;font-family:'Courier New',monospace;font-size:.88rem;outline:none;margin:10px 0;transition:border-color .2s}
+    .setup-card input:focus{border-color:var(--gold)}
+    .setup-card .btn{width:100%;margin-top:10px}
+    .setup-notice{background:var(--cream);border-left:4px solid var(--gold);padding:14px 18px;border-radius:0 8px 8px 0;font-size:.82rem;color:var(--charcoal-mid);line-height:1.6;margin:16px 0}
+    /* Main Layout */
+    .main{max-width:900px;margin:0 auto;padding:40px 28px}
+    .section-title{font-family:var(--font-serif);font-size:1.15rem;color:var(--charcoal);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--gold-light);display:inline-block}
+    .form-group{margin-bottom:18px}
+    label{display:block;font-size:.82rem;font-weight:500;color:var(--charcoal);margin-bottom:6px;letter-spacing:.03em}
+    input[type="text"],input[type="date"],select,textarea{width:100%;padding:12px 16px;border:1.5px solid var(--beige);border-radius:10px;font-family:var(--font-sans);font-size:.95rem;color:var(--charcoal);background:var(--white);outline:none;transition:border-color .2s}
+    input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,169,110,.12)}
+    textarea{resize:vertical;font-family:'Courier New',monospace;font-size:.88rem;line-height:1.6}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .optional{color:var(--charcoal-mid);font-weight:400}
+    /* Status */
+    .status-bar{padding:16px 20px;border-radius:10px;margin:20px 0;font-size:.88rem;display:none}
+    .status-bar.info{display:block;background:#EBF5FB;color:#2471A3;border:1px solid #AED6F1}
+    .status-bar.success{display:block;background:#EAFAF1;color:#1E8449;border:1px solid #ABEBC6}
+    .status-bar.error{display:block;background:#FDEDEC;color:#C0392B;border:1px solid #F5B7B1}
+    /* Posts list */
+    .posts-list{margin-top:40px}
+    .post-item{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:var(--white);border:1px solid var(--beige);border-radius:10px;margin-bottom:10px}
+    .post-item h4{font-size:.92rem;color:var(--charcoal)}
+    .post-item span{font-size:.78rem;color:var(--charcoal-mid)}
+    /* Formatting help */
+    .help-toggle{font-size:.82rem;color:var(--gold);cursor:pointer;margin-bottom:10px;display:inline-block;border:none;background:none;font-family:var(--font-sans);font-weight:500}
+    .help-panel{display:none;background:var(--cream);border:1px solid var(--beige);border-radius:10px;padding:20px;margin-bottom:16px;font-size:.82rem;color:var(--charcoal-mid);line-height:1.7}
+    .help-panel.open{display:block}
+    .help-panel code{background:var(--white);padding:2px 6px;border-radius:4px;font-size:.78rem}
+    @media(max-width:600px){.row2{grid-template-columns:1fr}.main{padding:24px 16px}}
   </style>
 </head>
 <body>
 
-<!-- LOGIN GATE -->
-<div class="login-overlay" id="loginOverlay">
+<!-- LOGIN -->
+<div class="overlay" id="loginOverlay">
   <div class="login-card">
-    <img src="../assets/mindset-logo-real.jpg" alt="Mindset Therapy" class="login-logo" />
+    <img src="../assets/mindset-logo-real.jpg" alt="Mindset Therapy" />
     <h2>Blog <em>Admin</em></h2>
-    <p id="loginPrompt">Enter your password to access the blog editor.</p>
-    <input type="password" id="loginPassword" placeholder="Password" onkeydown="if(event.key==='Enter') handleLogin()" />
-    <input type="password" id="loginConfirm" placeholder="Confirm password" style="display:none" onkeydown="if(event.key==='Enter') handleLogin()" />
+    <p id="loginPrompt">Enter your password to continue.</p>
+    <input type="password" id="loginPw" placeholder="Password" onkeydown="if(event.key==='Enter')handleLogin()" />
+    <input type="password" id="loginConfirm" placeholder="Confirm password" style="display:none" onkeydown="if(event.key==='Enter')handleLogin()" />
     <button class="btn btn-gold" onclick="handleLogin()" id="loginBtn">Sign In</button>
-    <p class="login-error" id="loginError"></p>
-    <button class="login-mode-toggle" id="loginToggle" onclick="toggleLoginMode()"></button>
+    <p class="err" id="loginErr"></p>
+    <button class="toggle-link" id="loginToggle" onclick="resetPassword()"></button>
   </div>
 </div>
 
+<!-- GITHUB SETUP -->
+<div class="overlay hidden" id="setupOverlay">
+  <div class="setup-card">
+    <h2>Connect to <em>GitHub</em></h2>
+    <p>To publish posts directly to your live site, we need a GitHub Personal Access Token. This is a one-time setup.</p>
+    <div class="setup-notice">🔒 Your token is stored only in this browser and never sent anywhere except GitHub's API.</div>
+    <p><strong>How to get your token:</strong></p>
+    <ol>
+      <li>Go to <a href="https://github.com/settings/tokens/new" target="_blank" style="color:var(--gold)">github.com/settings/tokens/new</a></li>
+      <li>Name it <strong>"Mindset Blog Admin"</strong></li>
+      <li>Set expiration to <strong>No expiration</strong> (or your preference)</li>
+      <li>Check the <strong>repo</strong> checkbox (full control of repositories)</li>
+      <li>Click <strong>"Generate token"</strong> and copy it</li>
+    </ol>
+    <input type="text" id="tokenInput" placeholder="Paste your GitHub token here (ghp_...)" />
+    <button class="btn btn-gold" onclick="saveToken()">Save &amp; Connect</button>
+    <p class="err" id="setupErr"></p>
+    <button class="toggle-link" onclick="document.getElementById('setupOverlay').classList.add('hidden')" style="margin-top:12px">Skip for now</button>
+  </div>
+</div>
+
+<!-- HEADER -->
 <header class="admin-header">
-  <h1>Mindset Therapy — <em>Blog Post Creator</em></h1>
-  <div style="display:flex;align-items:center;gap:12px;">
-    <span class="admin-badge">Admin Tool</span>
-    <button class="btn btn-outline" style="padding:8px 16px;font-size:0.75rem;" onclick="logout()">Logout</button>
+  <h1>Mindset Therapy — <em>Blog Admin</em></h1>
+  <div class="header-right">
+    <span class="badge">Admin</span>
+    <button class="btn btn-outline btn-sm" onclick="showSetup()">⚙ Settings</button>
+    <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
   </div>
 </header>
 
-<div class="admin-layout">
-  <main class="admin-main">
-    <div class="form-section">
-      <h3>Post Details</h3>
-      <label for="postTitle">Post Title</label>
-      <input type="text" id="postTitle" placeholder="e.g. How to Manage Stress During the Holidays" oninput="autoSlug()" />
+<!-- MAIN -->
+<div class="main" id="mainContent">
+  <h3 class="section-title">Write a New Post</h3>
 
-      <div class="form-row">
-        <div>
-          <label for="postSlug">URL Slug</label>
-          <input type="text" id="postSlug" placeholder="auto-generated-from-title" />
-        </div>
-        <div>
-          <label for="postTag">Category</label>
-          <select id="postTag">
-            <option>Anxiety</option><option>Mindfulness</option><option>Trauma</option><option>Depression</option>
-            <option>Self-Care</option><option>Grief</option><option>ADHD</option><option>Relationships</option><option>Wellness</option>
-          </select>
-        </div>
-      </div>
+  <div class="form-group">
+    <label>Post Title</label>
+    <input type="text" id="postTitle" placeholder="e.g. How to Manage Stress During the Holidays" oninput="autoSlug()" />
+  </div>
 
-      <div class="form-row">
-        <div>
-          <label for="postDate">Publish Date</label>
-          <input type="date" id="postDate" />
-        </div>
-        <div>
-          <label for="postReadTime">Read Time</label>
-          <input type="text" id="postReadTime" placeholder="e.g. 6 min read" value="6 min read" />
-        </div>
-      </div>
-
-      <label for="postExcerpt">Short Excerpt (1-2 sentences for the blog listing)</label>
-      <textarea id="postExcerpt" rows="2" placeholder="A brief summary that appears on the blog card..."></textarea>
-
-      <label for="postImage">Featured Image Path (relative to blog/your-post/)</label>
-      <input type="text" id="postImage" placeholder="../../assets/your-image.png" value="../../assets/blog-meditation.png" />
-
-      <label for="postImageAlt">Image Alt Text</label>
-      <input type="text" id="postImageAlt" placeholder="Describe the image for accessibility" />
+  <div class="row2">
+    <div class="form-group">
+      <label>URL Slug <span class="optional">(auto-generated)</span></label>
+      <input type="text" id="postSlug" placeholder="auto-generated-from-title" />
     </div>
+    <div class="form-group">
+      <label>Category</label>
+      <select id="postTag">
+        <option>Anxiety</option><option>Mindfulness</option><option>Trauma</option><option>Depression</option>
+        <option>Self-Care</option><option>Grief</option><option>ADHD</option><option>Relationships</option><option>Wellness</option>
+      </select>
+    </div>
+  </div>
 
-    <div class="form-section">
-      <h3>Article Content (HTML)</h3>
-      <textarea id="postContent" rows="20" placeholder="Write your article content here using HTML tags...
+  <div class="row2">
+    <div class="form-group">
+      <label>Publish Date</label>
+      <input type="date" id="postDate" />
+    </div>
+    <div class="form-group">
+      <label>Read Time</label>
+      <input type="text" id="postReadTime" value="6 min read" />
+    </div>
+  </div>
 
-Example:
-<p>Your opening paragraph goes here. Make it engaging and personal.</p>
+  <div class="form-group">
+    <label>Excerpt <span class="optional">(1-2 sentences for the blog listing)</span></label>
+    <textarea id="postExcerpt" rows="2" placeholder="A brief summary that appears on the blog card..."></textarea>
+  </div>
 
-<h2>Your First Section Heading</h2>
+  <div class="row2">
+    <div class="form-group">
+      <label>Featured Image Path</label>
+      <select id="postImage">
+        <option value="../../assets/blog-meditation.png">Meditation image</option>
+        <option value="../../assets/blog-nature.png">Nature image</option>
+        <option value="../../assets/hero-bg.png">Office image</option>
+        <option value="../../assets/aby-chacko-portrait.png">Portrait</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Image Alt Text</label>
+      <input type="text" id="postImageAlt" placeholder="Describe the image" />
+    </div>
+  </div>
 
-<p>Section content goes here. Use clear, compassionate language.</p>
+  <div class="form-group">
+    <label>Article Content</label>
+    <button class="help-toggle" onclick="document.getElementById('helpPanel').classList.toggle('open')">📝 Show formatting guide</button>
+    <div class="help-panel" id="helpPanel">
+      <p><strong>Use these HTML tags in your content:</strong></p>
+      <p><code>&lt;p&gt;...&lt;/p&gt;</code> — Paragraph &nbsp; <code>&lt;h2&gt;...&lt;/h2&gt;</code> — Section heading &nbsp; <code>&lt;h3&gt;...&lt;/h3&gt;</code> — Sub-heading</p>
+      <p><code>&lt;strong&gt;...&lt;/strong&gt;</code> — Bold &nbsp; <code>&lt;em&gt;...&lt;/em&gt;</code> — Italic</p>
+      <p><code>&lt;ul&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;</code> — Bullet list &nbsp; <code>&lt;ol&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ol&gt;</code> — Numbered list</p>
+      <p><code>&lt;div class='pull-quote'&gt;...&lt;/div&gt;</code> — Gold-bordered pull quote</p>
+    </div>
+    <textarea id="postContent" rows="18" placeholder="Write your article here using HTML tags...
 
-<div class='pull-quote'>A meaningful quote or key insight goes here.</div>
+<p>Your opening paragraph goes here.</p>
 
-<h3>A Sub-Heading</h3>
+<h2>Your First Section</h2>
+
+<p>Content with <strong>bold</strong> and <em>italic</em> text.</p>
+
+<div class='pull-quote'>A meaningful quote or insight.</div>
 
 <ul>
   <li>First point</li>
   <li>Second point</li>
-  <li>Third point</li>
 </ul>"></textarea>
-    </div>
+  </div>
 
-    <div class="btn-group">
-      <button class="btn btn-gold" onclick="generatePost()">✨ Generate Blog Post</button>
-      <button class="btn btn-outline" onclick="previewPost()">👁 Preview</button>
-    </div>
+  <div style="display:flex;gap:12px;margin-top:8px">
+    <button class="btn btn-gold" onclick="publishPost()" id="publishBtn">🚀 Publish to Live Site</button>
+    <button class="btn btn-outline" onclick="previewPost()">👁 Preview</button>
+  </div>
 
-    <!-- OUTPUT -->
-    <div class="output-section" id="outputSection">
-      <h3 style="font-family:var(--font-serif);font-size:1.2rem;margin-bottom:20px;">Your Blog Post is Ready!</h3>
+  <div class="status-bar" id="statusBar"></div>
 
-      <div class="step-list">
-        <div class="step-item"><div><strong>Download the HTML file</strong> and upload it to your server at <code>blog/<span id="slugDisplay"></span>/index.html</code></div></div>
-        <div class="step-item"><div><strong>Copy the JSON entry below</strong> and add it to <code>blog/posts.json</code> (add a comma after the previous entry, then paste)</div></div>
-        <div class="step-item"><div><strong>Upload both files</strong> to your hosting server. The new post will appear on the blog automatically!</div></div>
-      </div>
-
-      <h4 style="margin-top:24px;font-size:0.9rem;">JSON Entry for posts.json:</h4>
-      <div class="output-box" id="jsonOutput"><button class="copy-btn" onclick="copyJSON()">Copy</button><pre id="jsonCode"></pre></div>
-
-      <div class="btn-group">
-        <button class="btn btn-gold" onclick="downloadHTML()">⬇ Download HTML File</button>
-        <button class="btn btn-outline" onclick="copyJSON()">📋 Copy JSON Entry</button>
-      </div>
-    </div>
-  </main>
-
-  <aside class="admin-sidebar">
-    <div class="sidebar-section">
-      <h4>📖 How the Blog Works</h4>
-      <p>The blog uses a simple file-based system. Each post is an HTML file inside a folder. The blog listing page reads <code>posts.json</code> to know which posts exist.</p>
-      <p><strong>To add a new post:</strong></p>
-      <ol>
-        <li>Fill out this form and click "Generate"</li>
-        <li>Download the HTML file</li>
-        <li>Upload it to <code>blog/your-slug/index.html</code> on the server</li>
-        <li>Add the JSON entry to <code>blog/posts.json</code></li>
-      </ol>
-    </div>
-
-    <div class="sidebar-section">
-      <h4>🎨 Content Formatting Guide</h4>
-      <p>Use these HTML tags in the content area:</p>
-      <ul>
-        <li><code>&lt;p&gt;...&lt;/p&gt;</code> — Paragraph</li>
-        <li><code>&lt;h2&gt;...&lt;/h2&gt;</code> — Section heading</li>
-        <li><code>&lt;h3&gt;...&lt;/h3&gt;</code> — Sub-heading</li>
-        <li><code>&lt;strong&gt;...&lt;/strong&gt;</code> — Bold</li>
-        <li><code>&lt;em&gt;...&lt;/em&gt;</code> — Italic</li>
-        <li><code>&lt;ul&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ul&gt;</code> — Bullet list</li>
-        <li><code>&lt;ol&gt;&lt;li&gt;...&lt;/li&gt;&lt;/ol&gt;</code> — Numbered list</li>
-        <li><code>&lt;blockquote&gt;...&lt;/blockquote&gt;</code> — Quote</li>
-        <li><code>&lt;div class='pull-quote'&gt;...&lt;/div&gt;</code> — Gold-bordered pull quote</li>
-      </ul>
-    </div>
-
-    <div class="sidebar-section">
-      <h4>🖼 Adding Images</h4>
-      <p>Upload images to the <code>assets/</code> folder on your server first, then reference them as <code>../../assets/filename.png</code> in the image path field.</p>
-    </div>
-
-    <div class="sidebar-section">
-      <h4>💡 Writing Tips</h4>
-      <ul>
-        <li>Write in a warm, professional tone</li>
-        <li>Aim for 800-1200 words</li>
-        <li>Include a pull quote every 3-4 paragraphs</li>
-        <li>Use specific, actionable advice</li>
-        <li>End with a hopeful, inviting message</li>
-      </ul>
-    </div>
-  </aside>
+  <!-- EXISTING POSTS -->
+  <div class="posts-list" id="postsList">
+    <h3 class="section-title" style="margin-top:48px">Published Posts</h3>
+    <div id="postsContainer"><p style="color:var(--charcoal-mid);font-size:.88rem">Loading posts...</p></div>
+  </div>
 </div>
 
-<div class="success-toast" id="toast">✓ Copied to clipboard!</div>
-
 <script>
-  // === PASSWORD SYSTEM ===
-  async function hashPassword(pw) {
-    const encoded = new TextEncoder().encode(pw);
-    const buffer = await crypto.subtle.digest('SHA-256', encoded);
-    return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+const REPO_OWNER = 'faneliacoding-cloud';
+const REPO_NAME = 'faneliacoding-cloud.github.io';
+const BRANCH = 'main';
+const BASE_PATH = 'mindset/blog';
+
+// === PASSWORD ===
+async function hash(s){const e=new TextEncoder().encode(s);const b=await crypto.subtle.digest('SHA-256',e);return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+
+function initLogin(){
+  const h=localStorage.getItem('mt_admin_hash');
+  const o=document.getElementById('loginOverlay');
+  const c=document.getElementById('loginConfirm');
+  const p=document.getElementById('loginPrompt');
+  const b=document.getElementById('loginBtn');
+  const t=document.getElementById('loginToggle');
+  document.getElementById('loginPw').value='';
+  if(!h){
+    p.textContent='Create a password for your blog admin.';
+    c.style.display='block';b.textContent='Create Password';t.style.display='none';
+  }else{
+    p.textContent='Enter your password to continue.';
+    c.style.display='none';b.textContent='Sign In';t.textContent='Reset password';t.style.display='inline-block';
   }
+  o.classList.remove('hidden');
+}
 
-  let isSetupMode = false;
-
-  function initLogin() {
-    const stored = localStorage.getItem('mindset_admin_hash');
-    const overlay = document.getElementById('loginOverlay');
-    const toggle = document.getElementById('loginToggle');
-    const confirm = document.getElementById('loginConfirm');
-    const prompt = document.getElementById('loginPrompt');
-    const btn = document.getElementById('loginBtn');
-
-    if (!stored) {
-      isSetupMode = true;
-      prompt.textContent = 'Create a password for your blog admin.';
-      confirm.style.display = 'block';
-      btn.textContent = 'Create Password';
-      toggle.style.display = 'none';
-    } else {
-      isSetupMode = false;
-      prompt.textContent = 'Enter your password to access the blog editor.';
-      confirm.style.display = 'none';
-      btn.textContent = 'Sign In';
-      toggle.textContent = 'Reset password';
-      toggle.style.display = 'inline-block';
-    }
-    overlay.classList.remove('hidden');
+async function handleLogin(){
+  const pw=document.getElementById('loginPw').value;
+  const e=document.getElementById('loginErr');e.style.display='none';
+  if(!pw||pw.length<4){e.textContent='Password must be at least 4 characters.';e.style.display='block';return}
+  const stored=localStorage.getItem('mt_admin_hash');
+  if(!stored){
+    const cf=document.getElementById('loginConfirm').value;
+    if(pw!==cf){e.textContent='Passwords do not match.';e.style.display='block';return}
+    localStorage.setItem('mt_admin_hash',await hash(pw));
+    document.getElementById('loginOverlay').classList.add('hidden');
+    checkSetup();
+  }else{
+    if(await hash(pw)===stored){document.getElementById('loginOverlay').classList.add('hidden');checkSetup()}
+    else{e.textContent='Incorrect password.';e.style.display='block';document.getElementById('loginPw').value=''}
   }
+}
 
-  async function handleLogin() {
-    const pw = document.getElementById('loginPassword').value;
-    const errEl = document.getElementById('loginError');
-    errEl.style.display = 'none';
+function resetPassword(){if(confirm('Reset password? You will create a new one.')){localStorage.removeItem('mt_admin_hash');initLogin()}}
+function logout(){initLogin()}
 
-    if (!pw || pw.length < 4) {
-      errEl.textContent = 'Password must be at least 4 characters.';
-      errEl.style.display = 'block';
-      return;
-    }
+// === GITHUB TOKEN ===
+function checkSetup(){
+  if(!localStorage.getItem('mt_github_token')){document.getElementById('setupOverlay').classList.remove('hidden')}
+  else{loadPosts()}
+}
+function showSetup(){document.getElementById('setupOverlay').classList.remove('hidden')}
 
-    if (isSetupMode) {
-      const confirmPw = document.getElementById('loginConfirm').value;
-      if (pw !== confirmPw) {
-        errEl.textContent = 'Passwords do not match.';
-        errEl.style.display = 'block';
-        return;
-      }
-      const hash = await hashPassword(pw);
-      localStorage.setItem('mindset_admin_hash', hash);
-      document.getElementById('loginOverlay').classList.add('hidden');
-    } else {
-      const hash = await hashPassword(pw);
-      const stored = localStorage.getItem('mindset_admin_hash');
-      if (hash === stored) {
-        document.getElementById('loginOverlay').classList.add('hidden');
-      } else {
-        errEl.textContent = 'Incorrect password. Try again.';
-        errEl.style.display = 'block';
-        document.getElementById('loginPassword').value = '';
-      }
-    }
-  }
+async function saveToken(){
+  const t=document.getElementById('tokenInput').value.trim();
+  const e=document.getElementById('setupErr');e.style.display='none';
+  if(!t||t.length<10){e.textContent='Please enter a valid token.';e.style.display='block';return}
+  // Test token
+  try{
+    const r=await fetch('https://api.github.com/user',{headers:{'Authorization':'token '+t}});
+    if(!r.ok) throw new Error('Invalid token');
+    localStorage.setItem('mt_github_token',t);
+    document.getElementById('setupOverlay').classList.add('hidden');
+    setStatus('success','✅ Connected to GitHub successfully!');
+    loadPosts();
+  }catch(err){e.textContent='Token is invalid. Please check and try again.';e.style.display='block'}
+}
 
-  function toggleLoginMode() {
-    if (confirm('Reset your password? You will need to create a new one.')) {
-      localStorage.removeItem('mindset_admin_hash');
-      document.getElementById('loginPassword').value = '';
-      initLogin();
-    }
-  }
+function getToken(){return localStorage.getItem('mt_github_token')}
 
-  function logout() {
-    document.getElementById('loginPassword').value = '';
-    initLogin();
-  }
+// === STATUS ===
+function setStatus(type,msg){const s=document.getElementById('statusBar');s.className='status-bar '+type;s.textContent=msg;s.style.display='block'}
 
-  // Check login on load
-  initLogin();
+// === AUTO SLUG ===
+function autoSlug(){
+  const t=document.getElementById('postTitle').value;
+  document.getElementById('postSlug').value=t.toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+}
 
-  // Set default date to today
-  document.getElementById('postDate').valueAsDate = new Date();
+// === GITHUB API HELPERS ===
+async function ghGet(path){
+  const r=await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}?ref=${BRANCH}`,{
+    headers:{'Authorization':'token '+getToken(),'Accept':'application/vnd.github.v3+json'}
+  });
+  if(!r.ok) return null;
+  return r.json();
+}
 
-  function autoSlug() {
-    const title = document.getElementById('postTitle').value;
-    const slug = title.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-    document.getElementById('postSlug').value = slug;
-  }
+async function ghPut(path,content,message,sha){
+  const body={message,content:btoa(unescape(encodeURIComponent(content))),branch:BRANCH};
+  if(sha) body.sha=sha;
+  const r=await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`,{
+    method:'PUT',headers:{'Authorization':'token '+getToken(),'Content-Type':'application/json'},body:JSON.stringify(body)
+  });
+  if(!r.ok){const d=await r.json();throw new Error(d.message||'GitHub API error')}
+  return r.json();
+}
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = '✓ ' + msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
-  }
+// === LOAD POSTS ===
+async function loadPosts(){
+  const c=document.getElementById('postsContainer');
+  if(!getToken()){c.innerHTML='<p style="color:var(--charcoal-mid);font-size:.88rem">Connect GitHub to see published posts.</p>';return}
+  try{
+    const f=await ghGet(BASE_PATH+'/posts.json');
+    if(!f){c.innerHTML='<p>No posts.json found.</p>';return}
+    const posts=JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))));
+    if(!posts.length){c.innerHTML='<p style="color:var(--charcoal-mid)">No posts yet. Write your first one above!</p>';return}
+    c.innerHTML=posts.map(p=>`<div class="post-item"><div><h4>${p.title}</h4><span>${p.tag} · ${p.date}</span></div><span style="color:var(--sage)">✓ Live</span></div>`).join('');
+  }catch(e){c.innerHTML='<p style="color:var(--red)">Could not load posts: '+e.message+'</p>'}
+}
 
-  let generatedHTML = '';
-
-  function generatePost() {
-    const title = document.getElementById('postTitle').value || 'Untitled Post';
-    const slug = document.getElementById('postSlug').value || 'untitled';
-    const tag = document.getElementById('postTag').value;
-    const date = document.getElementById('postDate').value;
-    const readTime = document.getElementById('postReadTime').value;
-    const excerpt = document.getElementById('postExcerpt').value;
-    const image = document.getElementById('postImage').value;
-    const imageAlt = document.getElementById('postImageAlt').value;
-    const content = document.getElementById('postContent').value;
-
-    const dateObj = new Date(date + 'T00:00:00');
-    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    const dateFormatted = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
-
-    const descMeta = excerpt || title;
-
-    generatedHTML = `<!DOCTYPE html>
+// === GENERATE HTML ===
+function buildArticleHTML(title,slug,tag,date,readTime,image,imageAlt,content){
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const d=new Date(date+'T00:00:00');
+  const df=`${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  const desc=document.getElementById('postExcerpt').value||title;
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${title} | Mindset Therapy</title>
-  <meta name="description" content="${descMeta}" />
+  <meta name="description" content="${desc}" />
   <link rel="canonical" href="https://mindsetlcsw.com/blog/${slug}/" />
   <meta property="og:title" content="${title}" />
-  <meta property="og:description" content="${descMeta}" />
+  <meta property="og:description" content="${desc}" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://mindsetlcsw.com/blog/${slug}/" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" href="../../assets/logos/mindset-logo-favicon.png" />
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "${title}",
-    "datePublished": "${date}",
-    "author": { "@type": "Person", "name": "Aby Chacko", "jobTitle": "Licensed Clinical Social Worker" },
-    "publisher": { "@type": "Organization", "name": "Mindset Therapy", "url": "https://mindsetlcsw.com" },
-    "description": "${descMeta}",
-    "mainEntityOfPage": "https://mindsetlcsw.com/blog/${slug}/"
-  }
-  <\\/script>
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"${title}","datePublished":"${date}","author":{"@type":"Person","name":"Aby Chacko","jobTitle":"Licensed Clinical Social Worker"},"publisher":{"@type":"Organization","name":"Mindset Therapy","url":"https://mindsetlcsw.com"},"description":"${desc}","mainEntityOfPage":"https://mindsetlcsw.com/blog/${slug}/"}
+  ${'<'}/script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -394,21 +375,17 @@ Example:
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
-
   <div class="article-hero">
     <img src="${image}" alt="${imageAlt}" />
     <div class="article-hero-overlay">
       <span class="article-tag">${tag}</span>
       <h1>${title}</h1>
-      <div class="article-meta"><span>${dateFormatted}</span><span>·</span><span>${readTime}</span></div>
+      <div class="article-meta"><span>${df}</span><span>·</span><span>${readTime}</span></div>
     </div>
   </div>
-
   <article class="article-body">
     <a href="../" class="article-back">← Back to Blog</a>
-
     ${content}
-
     <div class="author-card">
       <img src="../../assets/aby-chacko-portrait.png" alt="Aby Chacko, LCSW" class="author-avatar" />
       <div class="author-info">
@@ -416,14 +393,12 @@ Example:
         <p>Licensed Clinical Social Worker with over 10 years of experience specializing in anxiety, depression, trauma, and mindfulness-based approaches. Aby practices at Mindset Therapy in East Meadow, NY.</p>
       </div>
     </div>
-
     <div class="article-cta">
       <h3>Ready to take <em>the next step?</em></h3>
       <p>Book a free 15-minute consultation and discover what it feels like to be truly supported.</p>
       <a href="../../booking/?consult=free#bookingForm" class="btn btn-gold btn-lg" style="display:inline-block;padding:16px 36px;background:linear-gradient(135deg,#C9A96E,#B8894A);color:#fff;border-radius:10px;text-decoration:none;font-weight:600;">Book Your Free Consultation</a>
     </div>
   </article>
-
   <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-brand"><img src="../../assets/mindset-logo-real.jpg" alt="Mindset Therapy" class="footer-logo" /><p class="footer-tagline">Healing Through Compassion. Growth Through Connection.</p></div>
@@ -433,57 +408,79 @@ Example:
     </div>
     <div class="footer-bottom"><p>© 2025 Mindset Therapy · Aby Chacko, LCSW · East Meadow, NY · All rights reserved.</p></div>
   </footer>
-
   <script>
-    document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
-    document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
-  <\\/script>
+    document.getElementById('navToggle').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(l=>l.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+  </script>
 </body>
 </html>`;
+}
 
-    // JSON entry
-    const jsonEntry = {
-      slug: slug,
-      title: title,
-      tag: tag,
-      date: date,
-      excerpt: excerpt,
-      image: `../${image.replace('../../','')}`,
-      imageAlt: imageAlt
-    };
+// === PUBLISH ===
+async function publishPost(){
+  const btn=document.getElementById('publishBtn');
+  const title=document.getElementById('postTitle').value.trim();
+  const slug=document.getElementById('postSlug').value.trim();
+  const tag=document.getElementById('postTag').value;
+  const date=document.getElementById('postDate').value;
+  const readTime=document.getElementById('postReadTime').value;
+  const excerpt=document.getElementById('postExcerpt').value.trim();
+  const image=document.getElementById('postImage').value;
+  const imageAlt=document.getElementById('postImageAlt').value.trim();
+  const content=document.getElementById('postContent').value.trim();
 
-    document.getElementById('jsonCode').textContent = JSON.stringify(jsonEntry, null, 2);
-    document.getElementById('slugDisplay').textContent = slug;
-    document.getElementById('outputSection').classList.add('active');
-    document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+  if(!title||!slug||!content){setStatus('error','❌ Please fill in the title, slug, and content.');return}
+  if(!getToken()){setStatus('error','❌ Please connect your GitHub account first (click Settings).');return}
+
+  btn.disabled=true;btn.textContent='Publishing...';
+  setStatus('info','📡 Publishing to live site...');
+
+  try{
+    // 1. Create article HTML
+    const html=buildArticleHTML(title,slug,tag,date,readTime,image,imageAlt,content);
+    await ghPut(`${BASE_PATH}/${slug}/index.html`,html,`blog: Add "${title}"`);
+    setStatus('info','📡 Article created. Updating blog listing...');
+
+    // 2. Update posts.json
+    const pf=await ghGet(BASE_PATH+'/posts.json');
+    let posts=[];
+    if(pf) posts=JSON.parse(decodeURIComponent(escape(atob(pf.content.replace(/\n/g,'')))));
+    const newEntry={slug,title,tag,date,excerpt,image:image.replace('../../','../'),imageAlt};
+    // Add to beginning so newest first
+    posts.unshift(newEntry);
+    await ghPut(BASE_PATH+'/posts.json',JSON.stringify(posts,null,2),`blog: Update posts.json with "${title}"`,pf?pf.sha:undefined);
+
+    setStatus('success','🎉 Published! Your post will be live at faneliacoding-cloud.github.io/mindset/blog/'+slug+'/ within 1-2 minutes.');
+    // Clear form
+    document.getElementById('postTitle').value='';document.getElementById('postSlug').value='';
+    document.getElementById('postExcerpt').value='';document.getElementById('postContent').value='';
+    document.getElementById('postImageAlt').value='';
+    loadPosts();
+  }catch(e){
+    setStatus('error','❌ Failed to publish: '+e.message);
+  }finally{
+    btn.disabled=false;btn.textContent='🚀 Publish to Live Site';
   }
+}
 
-  function downloadHTML() {
-    if (!generatedHTML) return;
-    const slug = document.getElementById('postSlug').value || 'untitled';
-    const blob = new Blob([generatedHTML], { type: 'text/html' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `${slug}-index.html`;
-    a.click();
-    URL.revokeObjectURL(a.href);
-    showToast('HTML file downloaded! Rename to index.html and upload to blog/' + slug + '/');
-  }
+// === PREVIEW ===
+function previewPost(){
+  const content=document.getElementById('postContent').value;
+  if(!content){alert('Write some content first!');return}
+  const html=buildArticleHTML(
+    document.getElementById('postTitle').value||'Preview',
+    'preview',document.getElementById('postTag').value,
+    document.getElementById('postDate').value,
+    document.getElementById('postReadTime').value,
+    document.getElementById('postImage').value,
+    document.getElementById('postImageAlt').value,content
+  );
+  const w=window.open('','_blank');w.document.write(html);w.document.close();
+}
 
-  function copyJSON() {
-    const json = document.getElementById('jsonCode').textContent;
-    navigator.clipboard.writeText(json).then(() => showToast('JSON copied to clipboard!'));
-  }
-
-  function previewPost() {
-    const content = document.getElementById('postContent').value;
-    if (!content) { alert('Enter some content first!'); return; }
-    generatePost();
-    const win = window.open('', '_blank');
-    win.document.write(generatedHTML);
-    win.document.close();
-  }
+// Init
+document.getElementById('postDate').valueAsDate=new Date();
+initLogin();
 </script>
-
 </body>
 </html>
