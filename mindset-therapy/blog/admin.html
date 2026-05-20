@@ -122,6 +122,7 @@
   <div class="header-right">
     <span class="badge">Admin</span>
     <button class="btn btn-outline btn-sm" onclick="showSetup()">⚙ Settings</button>
+    <button class="btn btn-outline btn-sm" onclick="changePassword()">🔑 Change Password</button>
     <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
   </div>
 </header>
@@ -266,6 +267,18 @@ async function handleLogin(){
 }
 
 function resetPassword(){if(confirm('Reset password? You will create a new one.')){localStorage.removeItem('mt_admin_hash');initLogin()}}
+async function changePassword(){
+  const oldPw=prompt('Enter your current password:');
+  if(!oldPw)return;
+  const oldHash=await hash(oldPw);
+  if(oldHash!==localStorage.getItem('mt_admin_hash')){alert('Incorrect current password.');return}
+  const newPw=prompt('Enter your new password (min 4 characters):');
+  if(!newPw||newPw.length<4){alert('Password must be at least 4 characters.');return}
+  const confirmPw=prompt('Confirm your new password:');
+  if(newPw!==confirmPw){alert('Passwords do not match.');return}
+  localStorage.setItem('mt_admin_hash',await hash(newPw));
+  alert('✅ Password changed successfully!');
+}
 function logout(){initLogin()}
 
 // === GITHUB TOKEN ===
