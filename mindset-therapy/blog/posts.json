@@ -1,0 +1,29 @@
+[
+  {
+    "slug": "understanding-anxiety-cycle",
+    "title": "Understanding the Anxiety Cycle — and How to Break It",
+    "tag": "Anxiety",
+    "date": "2025-05-12",
+    "excerpt": "Anxiety has a way of feeling both urgent and endless. Learn how CBT techniques interrupt the cycle and restore your sense of control.",
+    "image": "../assets/blog-meditation.png",
+    "imageAlt": "Understanding anxiety and finding calm"
+  },
+  {
+    "slug": "mindfulness-practices",
+    "title": "Five Mindfulness Practices You Can Start Today",
+    "tag": "Mindfulness",
+    "date": "2025-05-05",
+    "excerpt": "You don't need a meditation cushion or an hour of silence. Discover five grounding practices that fit into real, everyday life.",
+    "image": "../assets/blog-nature.png",
+    "imageAlt": "Nature therapy and mindfulness in everyday life"
+  },
+  {
+    "slug": "trauma-informed-care",
+    "title": "What Trauma-Informed Care Actually Means",
+    "tag": "Trauma",
+    "date": "2025-04-28",
+    "excerpt": "Trauma-informed therapy isn't just about processing the past — it's about creating safety in the present. Here's what to expect.",
+    "image": "../assets/hero-bg.png",
+    "imageAlt": "Therapy office and the healing environment"
+  }
+]
