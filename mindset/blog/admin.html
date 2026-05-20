@@ -491,8 +491,13 @@ function previewPost(){
   const w=window.open('','_blank');w.document.write(html);w.document.close();
 }
 
-// Init
+// Init — check for reset URL param
 document.getElementById('postDate').valueAsDate=new Date();
+if(new URLSearchParams(window.location.search).get('reset')==='true'){
+  localStorage.removeItem('mt_admin_hash');
+  localStorage.removeItem('mt_github_token');
+  window.history.replaceState({},'',window.location.pathname);
+}
 initLogin();
 </script>
 </body>
