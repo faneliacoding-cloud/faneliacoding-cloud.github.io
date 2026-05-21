@@ -30,6 +30,7 @@
     </form>
 
     <p class="login-error" id="loginError"></p>
+    <button onclick="resetPassword()" style="background:none;border:none;color:#C9A96E;font-family:inherit;font-size:0.82rem;cursor:pointer;margin-top:14px;transition:color 0.2s" onmouseover="this.style.color='#2C2C2C'" onmouseout="this.style.color='#C9A96E'">Forgot password?</button>
   </div>
 
   <div class="toast" id="toast"></div>
@@ -93,6 +94,29 @@
         errEl.classList.add('show');
         btn.disabled = false;
         btn.textContent = 'Sign In';
+      }
+    }
+
+    async function resetPassword() {
+      const email = document.getElementById('email').value.trim();
+      const errEl = document.getElementById('loginError');
+      if (!email) {
+        errEl.textContent = 'Enter your email above first, then click Forgot password.';
+        errEl.classList.add('show');
+        return;
+      }
+      try {
+        const auth = await getAuth();
+        const { sendPasswordResetEmail } = await import(`${FB_CDN}/firebase-auth.js`);
+        await sendPasswordResetEmail(auth, email);
+        errEl.classList.remove('show');
+        const toast = document.getElementById('toast');
+        toast.textContent = '✅ Password reset email sent! Check your inbox.';
+        toast.className = 'toast show success';
+        setTimeout(() => toast.className = 'toast', 4000);
+      } catch (err) {
+        errEl.textContent = err.code === 'auth/user-not-found' ? 'No account found with this email.' : 'Could not send reset email. Try again.';
+        errEl.classList.add('show');
       }
     }
   </script>
