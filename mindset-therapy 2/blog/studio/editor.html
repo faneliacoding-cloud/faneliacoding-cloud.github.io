@@ -618,19 +618,28 @@
     // ── Load Existing Post ──────────────────────────────────────
     async function loadPost(slug) {
       try {
-        const db = await getDb();
-        const fs = await import(`${FB_CDN_URL}/firebase-firestore.js`);
-        const docRef = fs.doc(db, 'posts', slug);
-        const docSnap = await fs.getDoc(docRef);
-
-        if (!docSnap.exists()) {
-          showToast('Post not found', 'error');
-          setTimeout(() => window.location.href = 'index.html', 1500);
-          return;
+        let post;
+        if (TEST_MODE) {
+          post = await MockDB.getPost(slug);
+          if (!post) {
+            showToast('Post not found', 'error');
+            setTimeout(() => window.location.href = 'index.html', 1500);
+            return;
+          }
+        } else {
+          const db = await getDb();
+          const fs = await import(`${FB_CDN_URL}/firebase-firestore.js`);
+          const docRef = fs.doc(db, 'posts', slug);
+          const docSnap = await fs.getDoc(docRef);
+          if (!docSnap.exists()) {
+            showToast('Post not found', 'error');
+            setTimeout(() => window.location.href = 'index.html', 1500);
+            return;
+          }
+          post = docSnap.data();
         }
 
-        existingPost = docSnap.data();
-        const post = existingPost;
+        existingPost = post;
 
         // Populate fields
         document.getElementById('postTitle').value = post.title || '';
@@ -725,9 +734,6 @@
       showSaveIndicator(true);
 
       try {
-        const db = await getDb();
-        const fs = await import(`${FB_CDN_URL}/firebase-firestore.js`);
-
         // Determine slug
         const slug = currentSlug || generateSlug(title);
         if (!slug) {
@@ -742,6 +748,8 @@
           .split(',')
           .map(t => t.trim())
           .filter(t => t.length > 0);
+
+        const dateVal = document.getElementById('postDate').value;
 
         const postData = {
           title: title,
@@ -758,23 +766,29 @@
           seoDescription: document.getElementById('seoDescription').value.trim(),
           featured: document.getElementById('postFeatured').checked,
           status: status,
-          updatedAt: fs.serverTimestamp()
+          publishDate: dateVal ? dateVal + 'T12:00:00' : new Date().toISOString()
         };
 
-        // Add publishDate
-        const dateVal = document.getElementById('postDate').value;
-        if (dateVal) {
-          postData.publishDate = fs.Timestamp.fromDate(new Date(dateVal + 'T12:00:00'));
+        if (TEST_MODE) {
+          await MockDB.savePost(slug, postData);
+        } else {
+          const fs = await import(`${FB_CDN_URL}/firebase-firestore.js`);
+          const db = await getDb();
+          postData.updatedAt = fs.serverTimestamp();
+          if (dateVal) {
+            postData.publishDate = fs.Timestamp.fromDate(new Date(dateVal + 'T12:00:00'));
+          }
+          const docRef = fs.doc(db, 'posts', slug);
+          if (isEditMode) {
+            await fs.updateDoc(docRef, postData);
+          } else {
+            postData.createdAt = fs.serverTimestamp();
+            await fs.setDoc(docRef, postData);
+          }
         }
 
-        // Create vs update
-        const docRef = fs.doc(db, 'posts', slug);
-        if (isEditMode) {
-          await fs.updateDoc(docRef, postData);
-        } else {
-          postData.createdAt = fs.serverTimestamp();
-          await fs.setDoc(docRef, postData);
-          // Switch to edit mode after first save
+        // Switch to edit mode after first save
+        if (!isEditMode) {
           isEditMode = true;
           currentSlug = slug;
           window.history.replaceState({}, '', `editor.html?slug=${slug}`);
@@ -816,10 +830,14 @@
       if (!currentSlug) return;
 
       try {
-        const db = await getDb();
-        const fs = await import(`${FB_CDN_URL}/firebase-firestore.js`);
-        const docRef = fs.doc(db, 'posts', currentSlug);
-        await fs.deleteDoc(docRef);
+        if (TEST_MODE) {
+          await MockDB.deletePost(currentSlug);
+        } else {
+          const db = await getDb();
+          const fs = await import(`${FB_CDN_URL}/firebase-firestore.js`);
+          const docRef = fs.doc(db, 'posts', currentSlug);
+          await fs.deleteDoc(docRef);
+        }
 
         showToast('Post deleted', 'success');
         closeDeleteModal();

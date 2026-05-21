@@ -157,20 +157,22 @@
       }
     })();
 
-    // ── Load posts from Firestore ─────────────────────────
+    // ── Load posts ────────────────────────────────────────
     async function loadPosts() {
-      const db = await getDb();
-      const fs = await import(`${FB_CDN}/firebase-firestore.js`);
-
-      const postsRef = fs.collection(db, 'posts');
-      const q = fs.query(postsRef, fs.orderBy('createdAt', 'desc'));
-      const snapshot = await fs.getDocs(q);
-
-      allPosts = [];
-      snapshot.forEach(docSnap => {
-        allPosts.push({ id: docSnap.id, ...docSnap.data() });
-      });
-
+      if (TEST_MODE) {
+        allPosts = await MockDB.getAllPosts();
+        allPosts = allPosts.map(p => ({ id: p.slug, ...p }));
+      } else {
+        const db = await getDb();
+        const fs = await import(`${FB_CDN}/firebase-firestore.js`);
+        const postsRef = fs.collection(db, 'posts');
+        const q = fs.query(postsRef, fs.orderBy('createdAt', 'desc'));
+        const snapshot = await fs.getDocs(q);
+        allPosts = [];
+        snapshot.forEach(docSnap => {
+          allPosts.push({ id: docSnap.id, ...docSnap.data() });
+        });
+      }
       updateStats();
       renderPosts();
     }
@@ -311,12 +313,15 @@
       btn.disabled = true;
 
       try {
-        const db = await getDb();
-        const fs = await import(`${FB_CDN}/firebase-firestore.js`);
-        const docRef = fs.doc(db, 'posts', deleteTargetId);
-        await fs.deleteDoc(docRef);
+        if (TEST_MODE) {
+          await MockDB.deletePost(deleteTargetId);
+        } else {
+          const db = await getDb();
+          const fs = await import(`${FB_CDN}/firebase-firestore.js`);
+          const docRef = fs.doc(db, 'posts', deleteTargetId);
+          await fs.deleteDoc(docRef);
+        }
 
-        // Remove from local array
         allPosts = allPosts.filter(p => p.id !== deleteTargetId);
         updateStats();
         renderPosts();
