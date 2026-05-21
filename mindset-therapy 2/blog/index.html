@@ -130,19 +130,33 @@
       document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
     }
 
-    // Try Firestore first, fallback to posts.json
+    // Try test mode (localStorage) → Firestore → posts.json
     async function loadPosts() {
+      // 1) Check test mode: load from localStorage
       try {
-        const FB_CDN = 'https://www.gstatic.com/firebasejs/10.12.2';
-        const { initializeApp } = await import(`${FB_CDN}/firebase-app.js`);
-        const { getFirestore, collection, query, where, orderBy, getDocs } = await import(`${FB_CDN}/firebase-firestore.js`);
-        // Import config
         const cfgScript = document.createElement('script');
         cfgScript.src = 'studio/firebase-config.js';
         document.head.appendChild(cfgScript);
-        await new Promise(r => cfgScript.onload = r);
-        
+        await new Promise((resolve, reject) => {
+          cfgScript.onload = resolve;
+          cfgScript.onerror = reject;
+        });
+
+        if (typeof TEST_MODE !== 'undefined' && TEST_MODE) {
+          const posts = await MockDB.getPublished();
+          if (posts.length > 0) {
+            renderPosts(posts);
+            return;
+          }
+        }
+      } catch (e) {}
+
+      // 2) Try Firestore
+      try {
         if (typeof firebaseConfig !== 'undefined' && firebaseConfig.apiKey !== 'YOUR_API_KEY') {
+          const FB_CDN = 'https://www.gstatic.com/firebasejs/10.12.2';
+          const { initializeApp } = await import(`${FB_CDN}/firebase-app.js`);
+          const { getFirestore, collection, query, where, orderBy, getDocs } = await import(`${FB_CDN}/firebase-firestore.js`);
           const app = initializeApp(firebaseConfig);
           const db = getFirestore(app);
           const q = query(collection(db, 'posts'), where('status', '==', 'published'), orderBy('publishDate', 'desc'));
@@ -156,7 +170,8 @@
       } catch (e) {
         console.log('Firestore unavailable, falling back to posts.json');
       }
-      // Fallback: load from posts.json
+
+      // 3) Fallback: posts.json
       try {
         const r = await fetch('posts.json');
         const posts = await r.json();

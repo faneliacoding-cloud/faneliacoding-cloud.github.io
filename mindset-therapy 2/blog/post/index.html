@@ -145,7 +145,7 @@
   <!-- ======== FIREBASE CONFIG ======== -->
   <script src="../studio/firebase-config.js"></script>
 
-  <!-- ======== LOAD POST FROM FIRESTORE ======== -->
+  <!-- ======== LOAD POST ======== -->
   <script>
     (async () => {
       // ---- 1. Read slug from URL ----
@@ -158,19 +158,28 @@
       }
 
       try {
-        // ---- 2. Fetch post from Firestore ----
-        const db = await getDb();
-        const { doc, getDoc } = await import(`${FB_CDN}/firebase-firestore.js`);
+        let post = null;
 
-        const docRef = doc(db, 'posts', slug);
-        const docSnap = await getDoc(docRef);
+        // ---- 2a. Try test mode (localStorage) ----
+        if (typeof TEST_MODE !== 'undefined' && TEST_MODE) {
+          post = await MockDB.getPost(slug);
+        }
 
-        if (!docSnap.exists()) {
+        // ---- 2b. Try Firestore ----
+        if (!post && typeof firebaseConfig !== 'undefined' && firebaseConfig.apiKey !== 'YOUR_API_KEY') {
+          const db = await getDb();
+          const { doc, getDoc } = await import(`${FB_CDN}/firebase-firestore.js`);
+          const docRef = doc(db, 'posts', slug);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            post = docSnap.data();
+          }
+        }
+
+        if (!post) {
           showNotFound();
           return;
         }
-
-        const post = docSnap.data();
 
         // ---- 3. Only show published posts ----
         if (post.status !== 'published') {
