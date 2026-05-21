@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editor — Blog Studio</title>
+  <link rel="icon" type="image/png" href="../../assets/logos/mindset-logo-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+  <link rel="stylesheet" href="studio.css" />
+  <style>
+    /* === Editor-specific enhancements === */
+    .editor-slug {
+      font-size: 0.78rem;
+      color: var(--charcoal-light);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .editor-slug code {
+      background: var(--cream);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* Publish status badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .status-badge.draft {
+      background: var(--cream);
+      color: var(--charcoal-mid);
+    }
+    .status-badge.published {
+      background: var(--green-light);
+      color: var(--green);
+    }
+    .status-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* Sidebar button stack */
+    .publish-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .publish-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Image progress bar */
+    .upload-progress {
+      width: 100%;
+      height: 4px;
+      background: var(--beige);
+      border-radius: 4px;
+      margin-top: 8px;
+      overflow: hidden;
+      display: none;
+    }
+    .upload-progress.active { display: block; }
+    .upload-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--sage));
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Image upload icon */
+    .upload-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      opacity: 0.4;
+    }
+
+    /* Drag active state */
+    .image-upload-zone.drag-over {
+      border-color: var(--gold);
+      background: var(--cream);
+      transform: scale(1.02);
+    }
+
+    /* Alt text field under image */
+    .alt-text-input {
+      margin-top: 8px;
+    }
+
+    /* SEO character counts */
+    .char-count {
+      font-size: 0.7rem;
+      color: var(--charcoal-light);
+      text-align: right;
+      margin-top: -8px;
+      margin-bottom: 12px;
+    }
+    .char-count.warn { color: var(--red); }
+
+    /* Delete button styling */
+    .btn-delete {
+      background: transparent;
+      border: 1.5px solid var(--red);
+      color: var(--red);
+      font-size: 0.8rem;
+    }
+    .btn-delete:hover {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    /* Saving indicator */
+    .save-indicator {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--charcoal-mid);
+      margin-bottom: 12px;
+    }
+    .save-indicator.active { display: flex; }
+    .save-indicator .mini-spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--beige);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    /* Quill editor focus enhancement */
+    .ql-container.ql-snow:focus-within {
+      border-color: var(--gold) !important;
+    }
+
+    /* Override for editor images in quill */
+    .ql-editor img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+
+    /* Back link in header */
+    .editor-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+    .editor-back:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+  <!-- Loading overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="studio-header">
+    <div class="studio-brand">
+      <a href="index.html" class="editor-back">← Dashboard</a>
+      <span style="color:rgba(255,255,255,0.2);margin:0 4px;">|</span>
+      <img src="../../assets/mindset-logo-real.jpg" alt="Mindset Therapy" />
+      <h1>Blog <em>Studio</em></h1>
+    </div>
+    <div class="studio-header-actions">
+      <a href="../../blog/" target="_blank" class="btn btn-outline btn-sm">View Live Site</a>
+      <button class="btn btn-outline btn-sm" onclick="signOut()">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- ===== EDITOR LAYOUT ===== -->
+  <div class="editor-layout">
+
+    <!-- === MAIN EDITOR === -->
+    <main class="editor-main">
+      <input
+        type="text"
+        class="editor-title"
+        id="postTitle"
+        placeholder="Your post title..."
+        autocomplete="off"
+      />
+      <div class="editor-slug" id="slugDisplay">
+        Slug: <code id="slugValue">—</code>
+      </div>
+      <textarea
+        class="editor-subtitle"
+        id="postExcerpt"
+        rows="2"
+        placeholder="Write a brief excerpt..."
+      ></textarea>
+
+      <!-- Quill Toolbar -->
+      <div id="quillToolbar">
+        <span class="ql-formats">
+          <select class="ql-header">
+            <option value="">Normal</option>
+            <option value="2">Heading 2</option>
+            <option value="3">Heading 3</option>
+          </select>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-bold"></button>
+          <button class="ql-italic"></button>
+          <button class="ql-underline"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-list" value="ordered"></button>
+          <button class="ql-list" value="bullet"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-blockquote"></button>
+          <button class="ql-link"></button>
+          <button class="ql-image"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-divider" title="Horizontal Rule">
+            <svg viewBox="0 0 18 18"><line x1="2" y1="9" x2="16" y2="9" class="ql-stroke" stroke-linecap="round"/></svg>
+          </button>
+          <button class="ql-clean"></button>
+        </span>
+      </div>
+      <!-- Quill Editor -->
+      <div id="quillEditor"></div>
+    </main>
+
+    <!-- === SIDEBAR === -->
+    <aside class="editor-sidebar">
+
+      <!-- PUBLISH -->
+      <div class="sidebar-section">
+        <h4>Publish</h4>
+        <div class="status-badge draft" id="statusBadge">Draft</div>
+        <div class="save-indicator" id="saveIndicator">
+          <div class="mini-spinner"></div>
+          <span>Saving…</span>
+        </div>
+        <div class="publish-actions">
+          <button class="btn btn-outline" id="btnSaveDraft" onclick="saveDraft()">
+            💾 Save Draft
+          </button>
+          <button class="btn btn-outline" id="btnPreview" onclick="openPreview()">
+            👁 Preview
+          </button>
+          <button class="btn btn-gold" id="btnPublish" onclick="publishPost()">
+            🚀 Publish
+          </button>
+          <button class="btn btn-delete" id="btnDelete" onclick="deletePost()" style="display:none;">
+            🗑 Delete Post
+          </button>
+        </div>
+      </div>
+
+      <!-- DETAILS -->
+      <div class="sidebar-section">
+        <h4>Details</h4>
+        <label for="postCategory">Category</label>
+        <select id="postCategory">
+          <option value="">Select category…</option>
+          <option value="Anxiety">Anxiety</option>
+          <option value="Mindfulness">Mindfulness</option>
+          <option value="Trauma">Trauma</option>
+          <option value="Depression">Depression</option>
+          <option value="Self-Care">Self-Care</option>
+          <option value="Grief">Grief</option>
+          <option value="ADHD">ADHD</option>
+          <option value="Relationships">Relationships</option>
+          <option value="Wellness">Wellness</option>
+        </select>
+
+        <label for="postTags">Tags <span style="font-weight:400;color:var(--charcoal-light)">(comma-separated)</span></label>
+        <input type="text" id="postTags" placeholder="e.g. cbt, coping, stress" />
+
+        <label for="postAuthor">Author</label>
+        <input type="text" id="postAuthor" value="Aby Chacko, LCSW" />
+
+        <label for="postDate">Publish Date</label>
+        <input type="date" id="postDate" />
+
+        <label for="postReadTime">Read Time</label>
+        <input type="text" id="postReadTime" placeholder="Auto-calculated" />
+      </div>
+
+      <!-- FEATURED IMAGE -->
+      <div class="sidebar-section">
+        <h4>Featured Image</h4>
+        <div class="image-upload-zone" id="imageUploadZone" onclick="document.getElementById('imageFileInput').click()">
+          <div id="imageUploadContent">
+            <div class="upload-icon">📸</div>
+            <p class="upload-text">
+              Drag & drop or <span>click to upload</span>
+            </p>
+          </div>
+        </div>
+        <input type="file" id="imageFileInput" accept="image/*" style="display:none" />
+        <div class="upload-progress" id="uploadProgress">
+          <div class="upload-progress-bar" id="uploadProgressBar"></div>
+        </div>
+        <label for="imageAlt" class="alt-text-input" style="margin-top:12px">Alt Text</label>
+        <input type="text" id="imageAlt" placeholder="Describe the image..." />
+      </div>
+
+      <!-- SEO -->
+      <div class="sidebar-section">
+        <h4>SEO</h4>
+        <label for="seoTitle">SEO Title</label>
+        <input type="text" id="seoTitle" placeholder="Auto-filled from title" maxlength="70" />
+        <div class="char-count" id="seoTitleCount">0 / 70</div>
+
+        <label for="seoDescription">SEO Description</label>
+        <textarea id="seoDescription" rows="3" placeholder="Auto-filled from excerpt" maxlength="160" style="resize:vertical"></textarea>
+        <div class="char-count" id="seoDescCount">0 / 160</div>
+      </div>
+
+      <!-- FEATURED TOGGLE -->
+      <div class="sidebar-section">
+        <div class="toggle-row">
+          <span>Feature on homepage</span>
+          <label class="toggle">
+            <input type="checkbox" id="postFeatured" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- Delete confirmation modal -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal">
+      <h3>Delete this post?</h3>
+      <p>This action cannot be undone. The post and its data will be permanently removed.</p>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
+        <button class="btn btn-danger" id="btnConfirmDelete" onclick="confirmDelete()">Delete Forever</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="firebase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+  <script>
+    // ============================================================
+    // Blog Post Editor — Full Logic
+    // ============================================================
+
+    const FB_CDN_URL = `https://www.gstatic.com/firebasejs/10.12.2`;
+
+    // State
+    let quill = null;
+    let isEditMode = false;
+    let currentSlug = null;
+    let existingPost = null;
+    let featuredImageURL = null;
+    let isSaving = false;
+
+    // ── Initialize ──────────────────────────────────────────────
+    (async function init() {
+      try {
+        await requireAdmin();
+
+        initQuill();
+        initEventListeners();
+        setDefaultDate();
+
+        // Check for edit mode (?slug=xxx)
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug');
+        if (slug) {
+          isEditMode = true;
+          currentSlug = slug;
+          await loadPost(slug);
+        }
+
+        // Hide loading
+        document.getElementById('loadingOverlay').classList.add('hide');
+      } catch (err) {
+        console.error('Init error:', err);
+      }
+    })();
+
+    // ── Quill Editor Setup ──────────────────────────────────────
+    function initQuill() {
+      // Register custom divider (horizontal rule) blot
+      const BlockEmbed = Quill.import('blots/block/embed');
+      class DividerBlot extends BlockEmbed {
+        static blotName = 'divider';
+        static tagName = 'hr';
+      }
+      Quill.register(DividerBlot);
+
+      quill = new Quill('#quillEditor', {
+        theme: 'snow',
+        modules: {
+          toolbar: {
+            container: '#quillToolbar',
+            handlers: {
+              image: imageHandler,
+              divider: dividerHandler
+            }
+          }
+        },
+        placeholder: 'Start writing your article...'
+      });
+
+      // Auto-calculate read time on text change
+      quill.on('text-change', () => {
+        const html = quill.root.innerHTML;
+        const readTime = estimateReadTime(html);
+        const readTimeInput = document.getElementById('postReadTime');
+        if (!readTimeInput.dataset.manual) {
+          readTimeInput.value = readTime;
+        }
+      });
+    }
+
+    // ── Custom Quill Handlers ───────────────────────────────────
+    function imageHandler() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = async () => {
+        const file = input.files[0];
+        if (!file) return;
+
+        showToast('Uploading image…', 'info');
+        try {
+          const compressed = await compressImage(file);
+          const timestamp = Date.now();
+          const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+          const path = `blog-images/${timestamp}-${safeName}`;
+          const url = await uploadImage(file, path);
+
+          // Insert at cursor
+          const range = quill.getSelection(true);
+          quill.insertEmbed(range.index, 'image', url);
+          quill.setSelection(range.index + 1);
+          showToast('Image inserted ✓', 'success');
+        } catch (err) {
+          console.error('Image upload error:', err);
+          showToast('Image upload failed', 'error');
+        }
+      };
+      input.click();
+    }
+
+    function dividerHandler() {
+      const range = quill.getSelection(true);
+      quill.insertEmbed(range.index, 'divider', true, Quill.sources.USER);
+      quill.setSelection(range.index + 1, Quill.sources.SILENT);
+    }
+
+    // ── Event Listeners ─────────────────────────────────────────
+    function initEventListeners() {
+      const titleInput = document.getElementById('postTitle');
+      const excerptInput = document.getElementById('postExcerpt');
+      const seoTitle = document.getElementById('seoTitle');
+      const seoDesc = document.getElementById('seoDescription');
+      const readTimeInput = document.getElementById('postReadTime');
+
+      // Auto-slug from title
+      titleInput.addEventListener('input', () => {
+        const slug = generateSlug(titleInput.value);
+        document.getElementById('slugValue').textContent = slug || '—';
+
+        // Auto-fill SEO title if not manually edited
+        if (!seoTitle.dataset.manual) {
+          seoTitle.value = titleInput.value;
+          updateCharCount('seoTitle', 70);
+        }
+      });
+
+      // Auto-fill SEO description from excerpt
+      excerptInput.addEventListener('input', () => {
+        if (!seoDesc.dataset.manual) {
+          seoDesc.value = excerptInput.value;
+          updateCharCount('seoDescription', 160);
+        }
+      });
+
+      // Mark SEO fields as manually edited
+      seoTitle.addEventListener('input', () => {
+        seoTitle.dataset.manual = 'true';
+        updateCharCount('seoTitle', 70);
+      });
+      seoDesc.addEventListener('input', () => {
+        seoDesc.dataset.manual = 'true';
+        updateCharCount('seoDescription', 160);
+      });
+
+      // Mark read time as manually edited
+      readTimeInput.addEventListener('input', () => {
+        readTimeInput.dataset.manual = 'true';
+      });
+
+      // SEO char counts
+      seoTitle.addEventListener('input', () => updateCharCount('seoTitle', 70));
+      seoDesc.addEventListener('input', () => updateCharCount('seoDescription', 160));
+
+      // Featured image — file input
+      document.getElementById('imageFileInput').addEventListener('change', handleImageUpload);
+
+      // Featured image — drag & drop
+      const dropZone = document.getElementById('imageUploadZone');
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+      });
+      dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('drag-over');
+      });
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+          handleImageFile(file);
+        }
+      });
+    }
+
+    // ── Featured Image Upload ───────────────────────────────────
+    function handleImageUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      handleImageFile(file);
+    }
+
+    async function handleImageFile(file) {
+      const progressEl = document.getElementById('uploadProgress');
+      const progressBar = document.getElementById('uploadProgressBar');
+
+      progressEl.classList.add('active');
+      progressBar.style.width = '20%';
+
+      try {
+        progressBar.style.width = '40%';
+        const compressed = await compressImage(file);
+        progressBar.style.width = '60%';
+
+        const timestamp = Date.now();
+        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+        const path = `blog-images/featured/${timestamp}-${safeName}`;
+
+        const url = await uploadImage(file, path);
+        progressBar.style.width = '100%';
+        featuredImageURL = url;
+
+        showImagePreview(url);
+        showToast('Featured image uploaded ✓', 'success');
+
+        setTimeout(() => {
+          progressEl.classList.remove('active');
+          progressBar.style.width = '0%';
+        }, 500);
+      } catch (err) {
+        console.error('Featured image upload error:', err);
+        showToast('Image upload failed', 'error');
+        progressEl.classList.remove('active');
+        progressBar.style.width = '0%';
+      }
+    }
+
+    function showImagePreview(url) {
+      const zone = document.getElementById('imageUploadZone');
+      zone.classList.add('has-image');
+      zone.innerHTML = `
+        <img src="${url}" alt="Featured image preview" />
+        <button class="remove-image" onclick="removeImage(event)" title="Remove image">✕</button>
+      `;
+      // Prevent zone click from opening file picker when image is shown
+      zone.onclick = null;
+    }
+
+    function removeImage(e) {
+      e.stopPropagation();
+      featuredImageURL = null;
+      const zone = document.getElementById('imageUploadZone');
+      zone.classList.remove('has-image');
+      zone.innerHTML = `
+        <div class="upload-icon">📸</div>
+        <p class="upload-text">
+          Drag & drop or <span>click to upload</span>
+        </p>
+      `;
+      zone.onclick = () => document.getElementById('imageFileInput').click();
+      document.getElementById('imageFileInput').value = '';
+    }
+
+    // ── Load Existing Post ──────────────────────────────────────
+    async function loadPost(slug) {
+      try {
+        const db = await getDb();
+        const fs = await import(`${FB_CDN_URL}/firebase-firestore.js`);
+        const docRef = fs.doc(db, 'posts', slug);
+        const docSnap = await fs.getDoc(docRef);
+
+        if (!docSnap.exists()) {
+          showToast('Post not found', 'error');
+          setTimeout(() => window.location.href = 'index.html', 1500);
+          return;
+        }
+
+        existingPost = docSnap.data();
+        const post = existingPost;
+
+        // Populate fields
+        document.getElementById('postTitle').value = post.title || '';
+        document.getElementById('slugValue').textContent = slug;
+        document.getElementById('postExcerpt').value = post.excerpt || '';
+        document.getElementById('postCategory').value = post.category || '';
+        document.getElementById('postTags').value = (post.tags || []).join(', ');
+        document.getElementById('postAuthor').value = post.author || 'Aby Chacko, LCSW';
+        document.getElementById('postReadTime').value = post.readTime || '';
+        document.getElementById('postFeatured').checked = post.featured || false;
+
+        // Date
+        if (post.publishDate) {
+          const d = post.publishDate.toDate ? post.publishDate.toDate() : new Date(post.publishDate);
+          document.getElementById('postDate').value = d.toISOString().split('T')[0];
+        }
+
+        // SEO
+        document.getElementById('seoTitle').value = post.seoTitle || post.title || '';
+        document.getElementById('seoDescription').value = post.seoDescription || post.excerpt || '';
+        updateCharCount('seoTitle', 70);
+        updateCharCount('seoDescription', 160);
+
+        // Content
+        if (post.content) {
+          quill.root.innerHTML = post.content;
+        }
+
+        // Featured image
+        if (post.featuredImage) {
+          featuredImageURL = post.featuredImage;
+          showImagePreview(post.featuredImage);
+          document.getElementById('imageAlt').value = post.featuredImageAlt || '';
+        }
+
+        // Status
+        updateStatusBadge(post.status || 'draft');
+
+        // Show delete button
+        document.getElementById('btnDelete').style.display = 'block';
+
+        // Update publish button text
+        if (post.status === 'published') {
+          document.getElementById('btnPublish').innerHTML = '⏸ Unpublish';
+          document.getElementById('btnPublish').onclick = unpublishPost;
+        }
+
+        // Update page title
+        document.title = `Editing: ${post.title} — Blog Studio`;
+      } catch (err) {
+        console.error('Load post error:', err);
+        showToast('Error loading post', 'error');
+      }
+    }
+
+    // ── Save Draft ──────────────────────────────────────────────
+    async function saveDraft() {
+      await savePost('draft');
+    }
+
+    // ── Publish ─────────────────────────────────────────────────
+    async function publishPost() {
+      await savePost('published');
+    }
+
+    // ── Unpublish ───────────────────────────────────────────────
+    async function unpublishPost() {
+      await savePost('draft');
+    }
+
+    // ── Core Save Logic ─────────────────────────────────────────
+    async function savePost(status) {
+      if (isSaving) return;
+
+      const title = document.getElementById('postTitle').value.trim();
+      const content = quill.root.innerHTML;
+      const plainText = quill.getText().trim();
+
+      // Validation
+      if (!title) {
+        showToast('Please enter a title', 'error');
+        document.getElementById('postTitle').focus();
+        return;
+      }
+      if (!plainText || plainText.length < 10) {
+        showToast('Please add some content', 'error');
+        quill.focus();
+        return;
+      }
+
+      isSaving = true;
+      showSaveIndicator(true);
+
+      try {
+        const db = await getDb();
+        const fs = await import(`${FB_CDN_URL}/firebase-firestore.js`);
+
+        // Determine slug
+        const slug = currentSlug || generateSlug(title);
+        if (!slug) {
+          showToast('Could not generate a valid slug', 'error');
+          isSaving = false;
+          showSaveIndicator(false);
+          return;
+        }
+
+        // Build post data
+        const tags = document.getElementById('postTags').value
+          .split(',')
+          .map(t => t.trim())
+          .filter(t => t.length > 0);
+
+        const postData = {
+          title: title,
+          slug: slug,
+          excerpt: document.getElementById('postExcerpt').value.trim(),
+          content: content,
+          category: document.getElementById('postCategory').value,
+          tags: tags,
+          author: document.getElementById('postAuthor').value.trim(),
+          readTime: document.getElementById('postReadTime').value.trim() || estimateReadTime(content),
+          featuredImage: featuredImageURL || '',
+          featuredImageAlt: document.getElementById('imageAlt').value.trim(),
+          seoTitle: document.getElementById('seoTitle').value.trim() || title,
+          seoDescription: document.getElementById('seoDescription').value.trim(),
+          featured: document.getElementById('postFeatured').checked,
+          status: status,
+          updatedAt: fs.serverTimestamp()
+        };
+
+        // Add publishDate
+        const dateVal = document.getElementById('postDate').value;
+        if (dateVal) {
+          postData.publishDate = fs.Timestamp.fromDate(new Date(dateVal + 'T12:00:00'));
+        }
+
+        // Create vs update
+        const docRef = fs.doc(db, 'posts', slug);
+        if (isEditMode) {
+          await fs.updateDoc(docRef, postData);
+        } else {
+          postData.createdAt = fs.serverTimestamp();
+          await fs.setDoc(docRef, postData);
+          // Switch to edit mode after first save
+          isEditMode = true;
+          currentSlug = slug;
+          window.history.replaceState({}, '', `editor.html?slug=${slug}`);
+          document.getElementById('btnDelete').style.display = 'block';
+        }
+
+        // Update UI
+        updateStatusBadge(status);
+        if (status === 'published') {
+          document.getElementById('btnPublish').innerHTML = '⏸ Unpublish';
+          document.getElementById('btnPublish').onclick = unpublishPost;
+          showToast('Post published ✓', 'success');
+        } else {
+          document.getElementById('btnPublish').innerHTML = '🚀 Publish';
+          document.getElementById('btnPublish').onclick = publishPost;
+          showToast('Draft saved ✓', 'success');
+        }
+
+        document.title = `Editing: ${title} — Blog Studio`;
+      } catch (err) {
+        console.error('Save error:', err);
+        showToast('Error saving post: ' + err.message, 'error');
+      } finally {
+        isSaving = false;
+        showSaveIndicator(false);
+      }
+    }
+
+    // ── Delete Post ─────────────────────────────────────────────
+    function deletePost() {
+      document.getElementById('deleteModal').classList.add('open');
+    }
+
+    function closeDeleteModal() {
+      document.getElementById('deleteModal').classList.remove('open');
+    }
+
+    async function confirmDelete() {
+      if (!currentSlug) return;
+
+      try {
+        const db = await getDb();
+        const fs = await import(`${FB_CDN_URL}/firebase-firestore.js`);
+        const docRef = fs.doc(db, 'posts', currentSlug);
+        await fs.deleteDoc(docRef);
+
+        showToast('Post deleted', 'success');
+        closeDeleteModal();
+        setTimeout(() => window.location.href = 'index.html', 1000);
+      } catch (err) {
+        console.error('Delete error:', err);
+        showToast('Error deleting post', 'error');
+      }
+    }
+
+    // ── Preview ─────────────────────────────────────────────────
+    function openPreview() {
+      const title = document.getElementById('postTitle').value.trim() || 'Untitled Post';
+      const category = document.getElementById('postCategory').value || 'Wellness';
+      const author = document.getElementById('postAuthor').value.trim() || 'Aby Chacko, LCSW';
+      const readTime = document.getElementById('postReadTime').value.trim() || '5 min read';
+      const content = quill.root.innerHTML;
+      const image = featuredImageURL || '../../assets/blog-meditation.png';
+      const imageAlt = document.getElementById('imageAlt').value.trim() || title;
+
+      // Format date
+      const dateVal = document.getElementById('postDate').value;
+      const dateStr = dateVal ? formatDate(dateVal) : formatDate(new Date().toISOString());
+
+      const previewHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${escapeHTML(title)} — Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ivory: #FAF8F4; --cream: #F5F0E8; --beige: #E8DDD0;
+      --sage: #8FA688; --charcoal: #2C2C2C; --charcoal-mid: #4A4A4A;
+      --gold: #C9A96E; --gold-light: #E8D5B0; --white: #FFFFFF;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --radius: 12px; --radius-lg: 16px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: var(--font-sans); background: var(--ivory); color: var(--charcoal); }
+    a { color: var(--gold); }
+    img { max-width: 100%; display: block; }
+
+    /* Preview banner */
+    .preview-banner {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 10px;
+      font-size: 0.8rem;
+      font-family: var(--font-sans);
+      letter-spacing: 0.06em;
+    }
+    .preview-banner strong { color: var(--gold-light); }
+
+    /* Article styles */
+    .article-hero{position:relative;height:400px;overflow:hidden}.article-hero img{width:100%;height:100%;object-fit:cover}.article-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(45,45,45,.3) 0%,rgba(45,45,45,.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:48px}.article-tag{display:inline-block;background:var(--gold);color:var(--white);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px;font-weight:600;width:fit-content}.article-hero h1{font-family:var(--font-serif);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:400;color:var(--white);line-height:1.3;max-width:700px}.article-meta{display:flex;gap:20px;margin-top:14px;font-size:.82rem;color:rgba(255,255,255,.7)}.article-body{max-width:780px;margin:0 auto;padding:64px 28px 80px}.article-body h2{font-family:var(--font-serif);font-size:1.5rem;font-weight:500;color:var(--charcoal);margin:40px 0 16px}.article-body h3{font-family:var(--font-sans);font-size:1.05rem;font-weight:600;color:var(--charcoal);margin:28px 0 10px}.article-body p{font-size:.97rem;color:var(--charcoal-mid);line-height:1.9;margin-bottom:18px}.article-body ul,.article-body ol{margin:12px 0 20px 20px}.article-body li{font-size:.95rem;color:var(--charcoal-mid);line-height:1.8;margin-bottom:8px}.pull-quote{border-left:4px solid var(--gold);padding:20px 28px;margin:32px 0;background:var(--cream);border-radius:0 12px 12px 0;font-family:var(--font-serif);font-size:1.15rem;font-style:italic;color:var(--charcoal);line-height:1.7}.article-back{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--gold);font-weight:500;text-decoration:none;padding:12px 0}.author-card{display:flex;gap:24px;align-items:center;padding:36px;background:var(--cream);border:1px solid var(--beige);border-radius:16px;margin-top:48px}.author-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--gold-light);flex-shrink:0}.author-info h4{font-family:var(--font-serif);font-size:1.1rem;color:var(--charcoal);margin-bottom:4px}.author-info p{font-size:.85rem;color:var(--charcoal-mid);line-height:1.6;margin:0}.article-cta{text-align:center;padding:64px 28px;background:var(--charcoal);margin-top:80px;border-radius:16px}.article-cta h3{font-family:var(--font-serif);font-size:1.6rem;color:var(--white);margin-bottom:12px}.article-cta h3 em{color:var(--gold-light);font-style:italic}.article-cta p{color:rgba(255,255,255,.7);margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto;font-size:.95rem;line-height:1.7}
+    .article-body blockquote{border-left:4px solid var(--gold);padding:20px 28px;margin:32px 0;background:var(--cream);border-radius:0 12px 12px 0;font-family:var(--font-serif);font-size:1.15rem;font-style:italic;color:var(--charcoal);line-height:1.7}
+    .article-body img{border-radius:12px;margin:24px 0}
+    .article-body hr{border:none;border-top:1px solid var(--beige);margin:40px 0}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border:none;border-radius:10px;font-family:var(--font-sans);font-size:.9rem;font-weight:600;cursor:pointer;text-decoration:none;line-height:1}
+    .btn-gold{background:linear-gradient(135deg,var(--gold),#B8894A);color:var(--white)}
+    @media(max-width:600px){.article-hero{height:300px}.article-hero-overlay{padding:28px}.author-card{flex-direction:column;text-align:center}}
+  </style>
+</head>
+<body>
+  <div class="preview-banner">👁 <strong>PREVIEW MODE</strong> — This is how your post will look when published</div>
+  <div class="article-hero">
+    <img src="${escapeAttr(image)}" alt="${escapeAttr(imageAlt)}" />
+    <div class="article-hero-overlay">
+      <span class="article-tag">${escapeHTML(category)}</span>
+      <h1>${escapeHTML(title)}</h1>
+      <div class="article-meta">
+        <span>${escapeHTML(dateStr)}</span>
+        <span>·</span>
+        <span>${escapeHTML(readTime)}</span>
+      </div>
+    </div>
+  </div>
+  <article class="article-body">
+    ${content}
+    <div class="author-card">
+      <img src="../../assets/aby-chacko-portrait.png" alt="${escapeAttr(author)}" class="author-avatar" />
+      <div class="author-info">
+        <h4>${escapeHTML(author)}</h4>
+        <p>Licensed Clinical Social Worker with over 10 years of experience specializing in anxiety, depression, trauma, and mindfulness-based approaches. Aby practices at Mindset Therapy in East Meadow, NY.</p>
+      </div>
+    </div>
+    <div class="article-cta">
+      <h3>Ready to take <em>the next step?</em></h3>
+      <p>Your first step doesn't have to be big — just honest. Book a free 15-minute consultation and discover what it feels like to be truly supported.</p>
+      <a href="../../booking/?consult=free#bookingForm" class="btn btn-gold">Book Your Free Consultation</a>
+    </div>
+  </article>
+</body>
+</html>`;
+
+      const previewWin = window.open('', '_blank');
+      previewWin.document.write(previewHTML);
+      previewWin.document.close();
+    }
+
+    // ── Helper: Update Status Badge ─────────────────────────────
+    function updateStatusBadge(status) {
+      const badge = document.getElementById('statusBadge');
+      badge.className = `status-badge ${status}`;
+      badge.textContent = status === 'published' ? 'Published' : 'Draft';
+    }
+
+    // ── Helper: Save Indicator ──────────────────────────────────
+    function showSaveIndicator(show) {
+      const el = document.getElementById('saveIndicator');
+      if (show) {
+        el.classList.add('active');
+      } else {
+        el.classList.remove('active');
+      }
+    }
+
+    // ── Helper: Toast Notifications ─────────────────────────────
+    function showToast(msg, type = 'info') {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = `toast ${type} show`;
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ── Helper: Set Default Date ────────────────────────────────
+    function setDefaultDate() {
+      const dateInput = document.getElementById('postDate');
+      if (!dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+      }
+    }
+
+    // ── Helper: Char Count ──────────────────────────────────────
+    function updateCharCount(inputId, max) {
+      const input = document.getElementById(inputId);
+      const countEl = document.getElementById(inputId === 'seoTitle' ? 'seoTitleCount' : 'seoDescCount');
+      const len = input.value.length;
+      countEl.textContent = `${len} / ${max}`;
+      countEl.className = len > max ? 'char-count warn' : 'char-count';
+    }
+
+    // ── Helper: HTML Escaping ───────────────────────────────────
+    function escapeHTML(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function escapeAttr(str) {
+      return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // ── Keyboard Shortcut: Ctrl/Cmd + S ─────────────────────────
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        saveDraft();
+      }
+    });
+  </script>
+</body>
+</html>

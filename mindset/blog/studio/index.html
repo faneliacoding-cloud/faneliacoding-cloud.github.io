@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Studio — Mindset Therapy</title>
+  <link rel="stylesheet" href="studio.css">
+  <style>
+    /* Page-specific utilities (not in studio.css) */
+    .fade-in { animation: fadeIn 0.4s ease both; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .post-row { animation: fadeIn 0.35s ease both; }
+    .post-row:nth-child(2) { animation-delay: 0.04s; }
+    .post-row:nth-child(3) { animation-delay: 0.08s; }
+    .post-row:nth-child(4) { animation-delay: 0.12s; }
+    .post-row:nth-child(5) { animation-delay: 0.16s; }
+    .post-row:nth-child(6) { animation-delay: 0.20s; }
+
+    /* Status toggle button */
+    .btn-icon { position: relative; }
+    .btn-icon[title]:hover::after {
+      content: attr(title);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 0.7rem;
+      font-weight: 500;
+      background: var(--charcoal);
+      color: var(--white);
+      padding: 4px 10px;
+      border-radius: 6px;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* No-results message */
+    .no-results {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--charcoal-mid);
+      font-size: 0.92rem;
+    }
+    .no-results span { display: block; font-size: 1.6rem; margin-bottom: 8px; opacity: 0.35; }
+  </style>
+</head>
+<body>
+
+  <!-- ========== LOADING OVERLAY ========== -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <header class="studio-header">
+    <a href="index.html" class="studio-brand">
+      <img src="../../assets/mindset-logo-real.jpg" alt="Mindset Therapy">
+      <h1>Blog <em>Studio</em></h1>
+    </a>
+    <div class="studio-header-actions">
+      <a href="../../" target="_blank" class="btn btn-outline btn-sm">View Live Site ↗</a>
+      <button class="btn btn-outline btn-sm" onclick="signOut()">Logout</button>
+    </div>
+  </header>
+
+  <!-- ========== STATS BAR ========== -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <span class="stat-num" id="statPublished">—</span>
+      <div class="stat-label">Published</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="statDrafts">—</span>
+      <div class="stat-label">Drafts</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="statTotal">—</span>
+      <div class="stat-label">Total Posts</div>
+    </div>
+  </div>
+
+  <!-- ========== TOOLBAR ========== -->
+  <div class="studio-toolbar">
+    <div class="toolbar-left">
+      <a href="editor.html" class="btn btn-gold btn-sm">✦ New Blog Post</a>
+    </div>
+    <div class="toolbar-right">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search posts…">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="published">Published</button>
+        <button class="filter-tab" data-filter="draft">Drafts</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== POSTS LIST ========== -->
+  <div class="posts-container">
+    <div class="posts-grid" id="postsGrid">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Empty state (hidden by default) -->
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <div class="empty-icon">✍️</div>
+      <h3>No posts yet</h3>
+      <p>Your blog is a blank canvas. Let's change that.</p>
+      <a href="editor.html" class="btn btn-gold">Write Your First Post</a>
+    </div>
+
+    <!-- No search results -->
+    <div class="no-results" id="noResults" style="display:none;">
+      <span>🔍</span>
+      No posts match your search.
+    </div>
+  </div>
+
+  <!-- ========== DELETE MODAL ========== -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal">
+      <h3>Delete This Post?</h3>
+      <p id="deleteModalText">This action cannot be undone. The post will be permanently removed.</p>
+      <div class="modal-actions">
+        <button class="btn btn-outline btn-sm" onclick="closeDeleteModal()">Cancel</button>
+        <button class="btn btn-danger btn-sm" id="confirmDeleteBtn" onclick="confirmDelete()">Delete Post</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TOAST ========== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script src="firebase-config.js"></script>
+  <script>
+    // ── State ──────────────────────────────────────────────
+    let allPosts = [];
+    let activeFilter = 'all';
+    let searchQuery = '';
+    let deleteTargetId = null;
+    let deleteTargetTitle = '';
+
+    // ── Init ──────────────────────────────────────────────
+    (async function init() {
+      try {
+        // Gate: only admin can see this page
+        await requireAdmin();
+
+        // Load posts from Firestore
+        await loadPosts();
+
+        // Hide loading overlay
+        document.getElementById('loadingOverlay').classList.add('hide');
+      } catch (err) {
+        console.error('Init error:', err);
+      }
+    })();
+
+    // ── Load posts from Firestore ─────────────────────────
+    async function loadPosts() {
+      const db = await getDb();
+      const fs = await import(`${FB_CDN}/firebase-firestore.js`);
+
+      const postsRef = fs.collection(db, 'posts');
+      const q = fs.query(postsRef, fs.orderBy('createdAt', 'desc'));
+      const snapshot = await fs.getDocs(q);
+
+      allPosts = [];
+      snapshot.forEach(docSnap => {
+        allPosts.push({ id: docSnap.id, ...docSnap.data() });
+      });
+
+      updateStats();
+      renderPosts();
+    }
+
+    // ── Stats ─────────────────────────────────────────────
+    function updateStats() {
+      const published = allPosts.filter(p => p.status === 'published').length;
+      const drafts = allPosts.filter(p => p.status === 'draft').length;
+
+      document.getElementById('statPublished').textContent = published;
+      document.getElementById('statDrafts').textContent = drafts;
+      document.getElementById('statTotal').textContent = allPosts.length;
+    }
+
+    // ── Render posts ──────────────────────────────────────
+    function renderPosts() {
+      const grid = document.getElementById('postsGrid');
+      const emptyState = document.getElementById('emptyState');
+      const noResults = document.getElementById('noResults');
+
+      // Apply filter + search
+      let filtered = allPosts;
+
+      if (activeFilter !== 'all') {
+        filtered = filtered.filter(p => p.status === activeFilter);
+      }
+
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(p =>
+          (p.title || '').toLowerCase().includes(q) ||
+          (p.excerpt || '').toLowerCase().includes(q)
+        );
+      }
+
+      // No posts at all
+      if (allPosts.length === 0) {
+        grid.innerHTML = '';
+        emptyState.style.display = '';
+        noResults.style.display = 'none';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+
+      // Search/filter returned nothing
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        noResults.style.display = '';
+        return;
+      }
+
+      noResults.style.display = 'none';
+
+      // Build rows
+      grid.innerHTML = filtered.map(post => {
+        const title = escapeHtml(post.title || 'Untitled');
+        const excerpt = escapeHtml(post.excerpt || '');
+        const category = escapeHtml(post.category || '—');
+        const statusClass = post.status === 'published' ? 'published' : 'draft';
+        const statusLabel = post.status === 'published' ? '● Published' : '○ Draft';
+        const slug = post.slug || '';
+
+        // Format date — try createdAt (could be Firestore Timestamp or ISO string)
+        let dateStr = '—';
+        if (post.createdAt) {
+          const raw = post.createdAt.toDate ? post.createdAt.toDate() : new Date(post.createdAt);
+          dateStr = formatDate(raw.toISOString());
+        }
+
+        return `
+          <div class="post-row" onclick="navigateToEditor('${slug}')">
+            <div class="post-title-col">
+              <h3>${title}</h3>
+              <p>${excerpt || 'No excerpt'}</p>
+            </div>
+            <span class="post-category">${category}</span>
+            <span class="post-status ${statusClass}">${statusLabel}</span>
+            <span class="post-date">${dateStr}</span>
+            <div class="post-actions" onclick="event.stopPropagation()">
+              <button class="btn btn-outline btn-icon" title="Edit" onclick="navigateToEditor('${slug}')">✏️</button>
+              <a href="../../blog/post/?slug=${slug}" target="_blank" class="btn btn-outline btn-icon" title="Preview">👁️</a>
+              <button class="btn btn-outline btn-icon" title="Delete" onclick="openDeleteModal('${post.id}', '${escapeAttr(post.title)}')">🗑️</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    // ── Navigate to editor ────────────────────────────────
+    function navigateToEditor(slug) {
+      if (slug) {
+        window.location.href = `editor.html?slug=${encodeURIComponent(slug)}`;
+      } else {
+        window.location.href = 'editor.html';
+      }
+    }
+
+    // ── Search ────────────────────────────────────────────
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim();
+      renderPosts();
+    });
+
+    // ── Filter tabs ───────────────────────────────────────
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeFilter = tab.dataset.filter;
+        renderPosts();
+      });
+    });
+
+    // ── Delete modal ──────────────────────────────────────
+    function openDeleteModal(postId, postTitle) {
+      deleteTargetId = postId;
+      deleteTargetTitle = postTitle;
+      document.getElementById('deleteModalText').textContent =
+        `"${postTitle || 'Untitled'}" will be permanently deleted. This cannot be undone.`;
+      document.getElementById('deleteModal').classList.add('open');
+    }
+
+    function closeDeleteModal() {
+      document.getElementById('deleteModal').classList.remove('open');
+      deleteTargetId = null;
+    }
+
+    // Close modal on backdrop click
+    document.getElementById('deleteModal').addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-overlay')) closeDeleteModal();
+    });
+
+    async function confirmDelete() {
+      if (!deleteTargetId) return;
+
+      const btn = document.getElementById('confirmDeleteBtn');
+      btn.textContent = 'Deleting…';
+      btn.disabled = true;
+
+      try {
+        const db = await getDb();
+        const fs = await import(`${FB_CDN}/firebase-firestore.js`);
+        const docRef = fs.doc(db, 'posts', deleteTargetId);
+        await fs.deleteDoc(docRef);
+
+        // Remove from local array
+        allPosts = allPosts.filter(p => p.id !== deleteTargetId);
+        updateStats();
+        renderPosts();
+        closeDeleteModal();
+        showToast('Post deleted successfully', 'success');
+      } catch (err) {
+        console.error('Delete error:', err);
+        showToast('Failed to delete post', 'error');
+      } finally {
+        btn.textContent = 'Delete Post';
+        btn.disabled = false;
+      }
+    }
+
+    // ── Toast notifications ───────────────────────────────
+    function showToast(message, type = 'info') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast ${type} show`;
+      setTimeout(() => { toast.classList.remove('show'); }, 3000);
+    }
+
+    // ── Utility: escape HTML for safe rendering ───────────
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    function escapeAttr(str) {
+      return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>

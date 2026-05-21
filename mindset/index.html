@@ -339,7 +339,8 @@
         <h2 class="section-heading">Insights for <em>Your Journey</em></h2>
         <p class="section-sub">Thoughtful articles on mental health, healing, and living with greater intention.</p>
       </div>
-      <div class="blog-grid">
+      <div class="blog-grid" id="homeBlogGrid">
+        <!-- Fallback static cards (replaced by Firestore data when available) -->
         <article class="blog-card fade-up" id="blog-post-1">
           <div class="blog-img-wrap">
             <img src="assets/blog-meditation.png" alt="Understanding anxiety and finding calm" loading="lazy" />
@@ -376,6 +377,46 @@
       </div>
     </div>
   </section>
+  <script>
+    // Dynamic homepage blog cards from Firestore
+    (async () => {
+      try {
+        const FB_CDN = 'https://www.gstatic.com/firebasejs/10.12.2';
+        const cfgScript = document.createElement('script');
+        cfgScript.src = 'blog/studio/firebase-config.js';
+        document.head.appendChild(cfgScript);
+        await new Promise(r => cfgScript.onload = r);
+        if (typeof firebaseConfig === 'undefined' || firebaseConfig.apiKey === 'YOUR_API_KEY') return;
+
+        const { initializeApp } = await import(`${FB_CDN}/firebase-app.js`);
+        const { getFirestore, collection, query, where, orderBy, limit, getDocs } = await import(`${FB_CDN}/firebase-firestore.js`);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const q = query(collection(db, 'posts'), where('status', '==', 'published'), orderBy('publishDate', 'desc'), limit(3));
+        const snap = await getDocs(q);
+        if (snap.empty) return; // Keep fallback cards
+
+        const STATIC_SLUGS = ['understanding-anxiety-cycle', 'mindfulness-practices', 'trauma-informed-care'];
+        const grid = document.getElementById('homeBlogGrid');
+        grid.innerHTML = snap.docs.map((d, i) => {
+          const p = { slug: d.id, ...d.data() };
+          const href = STATIC_SLUGS.includes(p.slug) ? `blog/${p.slug}/` : `blog/post/?slug=${p.slug}`;
+          const img = p.featuredImage || 'assets/blog-meditation.png';
+          const alt = p.featuredImageAlt || p.title;
+          const tag = p.category || 'Wellness';
+          return `<article class="blog-card fade-up" id="blog-post-${i+1}">
+            <div class="blog-img-wrap"><img src="${img}" alt="${alt}" loading="lazy" /></div>
+            <div class="blog-body">
+              <span class="blog-tag">${tag}</span>
+              <h3>${p.title}</h3>
+              <p>${p.excerpt || ''}</p>
+              <a href="${href}" class="blog-read-more">Read More →</a>
+            </div>
+          </article>`;
+        }).join('');
+      } catch (e) { /* Keep fallback static cards */ }
+    })();
+  </script>
 
   <!-- CONTACT -->
   <section class="contact-section" id="contact">

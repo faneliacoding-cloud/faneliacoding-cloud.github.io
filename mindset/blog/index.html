@@ -87,28 +87,86 @@
     document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
 
     const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    function formatDate(d) { const dt = new Date(d + 'T00:00:00'); return `${months[dt.getMonth()]} ${dt.getDate()}, ${dt.getFullYear()}`; }
+    function formatDate(d) {
+      if (!d) return '';
+      // Handle Firestore Timestamp objects
+      if (d.toDate) d = d.toDate();
+      // Handle date strings
+      if (typeof d === 'string') { const dt = new Date(d + 'T00:00:00'); return `${months[dt.getMonth()]} ${dt.getDate()}, ${dt.getFullYear()}`; }
+      // Handle Date objects
+      if (d instanceof Date) return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+      return '';
+    }
 
-    fetch('posts.json').then(r => r.json()).then(posts => {
+    // Known static slugs (keep linking to their static directories)
+    const STATIC_SLUGS = ['understanding-anxiety-cycle', 'mindfulness-practices', 'trauma-informed-care'];
+
+    function renderPosts(posts) {
       const grid = document.getElementById('blogGrid');
       if (!posts.length) { grid.innerHTML = '<div class="blog-empty">No articles yet. Check back soon!</div>'; return; }
-      grid.innerHTML = posts.map(p => `
-        <a href="${p.slug}/" class="blog-listing-card fade-up">
-          <img src="${p.image}" alt="${p.imageAlt}" loading="lazy" />
+      grid.innerHTML = posts.map(p => {
+        // Static posts link to their directory; CMS posts link to dynamic template
+        const href = STATIC_SLUGS.includes(p.slug) ? `${p.slug}/` : `post/?slug=${p.slug}`;
+        const imgSrc = p.featuredImage || p.image || '../assets/blog-meditation.png';
+        const imgAlt = p.featuredImageAlt || p.imageAlt || p.title;
+        const tag = p.category || p.tag || 'Wellness';
+        const date = p.publishDate || p.date || '';
+        return `
+        <a href="${href}" class="blog-listing-card fade-up">
+          <img src="${imgSrc}" alt="${imgAlt}" loading="lazy" />
           <div class="blog-card-body">
-            <span class="blog-card-tag">${p.tag}</span>
+            <span class="blog-card-tag">${tag}</span>
             <h3>${p.title}</h3>
-            <p>${p.excerpt}</p>
+            <p>${p.excerpt || ''}</p>
             <div class="blog-card-meta">
-              <span class="blog-card-date">${formatDate(p.date)}</span>
+              <span class="blog-card-date">${formatDate(date)}</span>
               <span class="blog-card-read">Read More →</span>
             </div>
           </div>
-        </a>
-      `).join('');
+        </a>`;
+      }).join('');
+      // Re-apply scroll animations
       const io = new IntersectionObserver(entries => { entries.forEach((e,i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); io.unobserve(e.target); } }); }, { threshold: 0.05 });
       document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
-    }).catch(() => { document.getElementById('blogGrid').innerHTML = '<div class="blog-empty">Unable to load articles. Please try again later.</div>'; });
+    }
+
+    // Try Firestore first, fallback to posts.json
+    async function loadPosts() {
+      try {
+        const FB_CDN = 'https://www.gstatic.com/firebasejs/10.12.2';
+        const { initializeApp } = await import(`${FB_CDN}/firebase-app.js`);
+        const { getFirestore, collection, query, where, orderBy, getDocs } = await import(`${FB_CDN}/firebase-firestore.js`);
+        // Import config
+        const cfgScript = document.createElement('script');
+        cfgScript.src = 'studio/firebase-config.js';
+        document.head.appendChild(cfgScript);
+        await new Promise(r => cfgScript.onload = r);
+        
+        if (typeof firebaseConfig !== 'undefined' && firebaseConfig.apiKey !== 'YOUR_API_KEY') {
+          const app = initializeApp(firebaseConfig);
+          const db = getFirestore(app);
+          const q = query(collection(db, 'posts'), where('status', '==', 'published'), orderBy('publishDate', 'desc'));
+          const snap = await getDocs(q);
+          if (!snap.empty) {
+            const posts = snap.docs.map(d => ({ slug: d.id, ...d.data() }));
+            renderPosts(posts);
+            return;
+          }
+        }
+      } catch (e) {
+        console.log('Firestore unavailable, falling back to posts.json');
+      }
+      // Fallback: load from posts.json
+      try {
+        const r = await fetch('posts.json');
+        const posts = await r.json();
+        renderPosts(posts);
+      } catch (e) {
+        document.getElementById('blogGrid').innerHTML = '<div class="blog-empty">Unable to load articles. Please try again later.</div>';
+      }
+    }
+
+    loadPosts();
   </script>
 </body>
 </html>
