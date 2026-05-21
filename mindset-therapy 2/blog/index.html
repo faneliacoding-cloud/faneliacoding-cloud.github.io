@@ -92,7 +92,12 @@
       // Handle Firestore Timestamp objects
       if (d.toDate) d = d.toDate();
       // Handle date strings
-      if (typeof d === 'string') { const dt = new Date(d + 'T00:00:00'); return `${months[dt.getMonth()]} ${dt.getDate()}, ${dt.getFullYear()}`; }
+      if (typeof d === 'string') {
+        // Only append T00:00:00 for date-only strings (no T already)
+        const dt = new Date(d.includes('T') ? d : d + 'T00:00:00');
+        if (isNaN(dt)) return '';
+        return `${months[dt.getMonth()]} ${dt.getDate()}, ${dt.getFullYear()}`;
+      }
       // Handle Date objects
       if (d instanceof Date) return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
       return '';

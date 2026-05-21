@@ -56,9 +56,7 @@ const MockDB = {
   _seed() {
     if (this._seeded) return;
     this._seeded = true;
-    const existing = localStorage.getItem('mt_posts');
-    if (existing && JSON.parse(existing).length > 0) return;
-    // Pre-populate with the 3 existing blog posts
+    // The 3 original blog posts — always ensure they exist
     const seedPosts = [
       {
         slug: 'understanding-anxiety-cycle',
@@ -112,7 +110,14 @@ const MockDB = {
         featured: true
       }
     ];
-    localStorage.setItem('mt_posts', JSON.stringify(seedPosts));
+    // Merge: add seed posts that don't already exist
+    let existing = [];
+    try { existing = JSON.parse(localStorage.getItem('mt_posts') || '[]'); } catch {}
+    const existingSlugs = new Set(existing.map(p => p.slug));
+    const toAdd = seedPosts.filter(s => !existingSlugs.has(s.slug));
+    if (toAdd.length > 0) {
+      localStorage.setItem('mt_posts', JSON.stringify([...existing, ...toAdd]));
+    }
   },
   _getAll() {
     this._seed();
