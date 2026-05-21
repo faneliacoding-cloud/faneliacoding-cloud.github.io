@@ -52,7 +52,70 @@ let _testLoggedIn = false;
 // LOCAL STORAGE MOCK DATABASE (Test Mode)
 // ============================================================
 const MockDB = {
+  _seeded: false,
+  _seed() {
+    if (this._seeded) return;
+    this._seeded = true;
+    const existing = localStorage.getItem('mt_posts');
+    if (existing && JSON.parse(existing).length > 0) return;
+    // Pre-populate with the 3 existing blog posts
+    const seedPosts = [
+      {
+        slug: 'understanding-anxiety-cycle',
+        title: 'Understanding the Anxiety Cycle — and How to Break It',
+        excerpt: 'Anxiety has a way of feeling both urgent and endless. Learn how CBT techniques interrupt the cycle and restore your sense of control.',
+        category: 'Anxiety',
+        author: 'Aby Chacko, LCSW',
+        status: 'published',
+        featuredImage: '../../assets/blog-meditation.png',
+        featuredImageAlt: 'Understanding anxiety and finding calm',
+        publishDate: '2025-05-12T12:00:00',
+        createdAt: '2025-05-12T12:00:00',
+        updatedAt: '2025-05-12T12:00:00',
+        readTime: '6 min read',
+        tags: ['anxiety', 'cbt', 'coping'],
+        content: '<h2>The Anxiety Cycle</h2><p>Anxiety has a way of feeling both urgent and endless. It can start with a single worried thought and quickly spiral into a pattern that feels impossible to break.</p><p>This article explores how CBT techniques can interrupt the cycle and restore your sense of control.</p>',
+        featured: true
+      },
+      {
+        slug: 'mindfulness-practices',
+        title: 'Five Mindfulness Practices You Can Start Today',
+        excerpt: "You don't need a meditation cushion or an hour of silence. Discover five grounding practices that fit into real, everyday life.",
+        category: 'Mindfulness',
+        author: 'Aby Chacko, LCSW',
+        status: 'published',
+        featuredImage: '../../assets/blog-nature.png',
+        featuredImageAlt: 'Nature therapy and mindfulness in everyday life',
+        publishDate: '2025-05-05T12:00:00',
+        createdAt: '2025-05-05T12:00:00',
+        updatedAt: '2025-05-05T12:00:00',
+        readTime: '5 min read',
+        tags: ['mindfulness', 'meditation', 'grounding'],
+        content: '<h2>Mindfulness in Daily Life</h2><p>Mindfulness doesn\'t require a special setup. These five practices can be woven into your existing routine.</p>',
+        featured: true
+      },
+      {
+        slug: 'trauma-informed-care',
+        title: 'What Trauma-Informed Care Actually Means',
+        excerpt: "Trauma-informed therapy isn't just about processing the past — it's about creating safety in the present. Here's what to expect.",
+        category: 'Trauma',
+        author: 'Aby Chacko, LCSW',
+        status: 'published',
+        featuredImage: '../../assets/hero-bg.png',
+        featuredImageAlt: 'Therapy office and the healing environment',
+        publishDate: '2025-04-28T12:00:00',
+        createdAt: '2025-04-28T12:00:00',
+        updatedAt: '2025-04-28T12:00:00',
+        readTime: '7 min read',
+        tags: ['trauma', 'therapy', 'safety'],
+        content: '<h2>Understanding Trauma-Informed Care</h2><p>Trauma-informed therapy creates a foundation of safety and trust. It\'s about understanding how past experiences shape present reactions.</p>',
+        featured: true
+      }
+    ];
+    localStorage.setItem('mt_posts', JSON.stringify(seedPosts));
+  },
   _getAll() {
+    this._seed();
     try { return JSON.parse(localStorage.getItem('mt_posts') || '[]'); }
     catch { return []; }
   },
