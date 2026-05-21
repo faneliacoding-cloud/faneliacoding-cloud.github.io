@@ -65,7 +65,7 @@ const MockDB = {
         category: 'Anxiety',
         author: 'Aby Chacko, LCSW',
         status: 'published',
-        featuredImage: '/mindset/assets/blog-meditation.png',
+        featuredImage: 'https://faneliacoding-cloud.github.io/mindset/assets/blog-meditation.png',
         featuredImageAlt: 'Understanding anxiety and finding calm',
         publishDate: '2025-05-12T12:00:00',
         createdAt: '2025-05-12T12:00:00',
@@ -82,7 +82,7 @@ const MockDB = {
         category: 'Mindfulness',
         author: 'Aby Chacko, LCSW',
         status: 'published',
-        featuredImage: '/mindset/assets/blog-nature.png',
+        featuredImage: 'https://faneliacoding-cloud.github.io/mindset/assets/blog-nature.png',
         featuredImageAlt: 'Nature therapy and mindfulness in everyday life',
         publishDate: '2025-05-05T12:00:00',
         createdAt: '2025-05-05T12:00:00',
@@ -99,7 +99,7 @@ const MockDB = {
         category: 'Trauma',
         author: 'Aby Chacko, LCSW',
         status: 'published',
-        featuredImage: '/mindset/assets/hero-bg.png',
+        featuredImage: 'https://faneliacoding-cloud.github.io/mindset/assets/hero-bg.png',
         featuredImageAlt: 'Therapy office and the healing environment',
         publishDate: '2025-04-28T12:00:00',
         createdAt: '2025-04-28T12:00:00',
@@ -110,12 +110,27 @@ const MockDB = {
         featured: true
       }
     ];
-    // Merge: add seed posts that don't already exist
+    // Merge: add missing seed posts AND fix image paths on existing ones
     let existing = [];
     try { existing = JSON.parse(localStorage.getItem('mt_posts') || '[]'); } catch {}
-    const existingSlugs = new Set(existing.map(p => p.slug));
-    const toAdd = seedPosts.filter(s => !existingSlugs.has(s.slug));
-    if (toAdd.length > 0) {
+    const seedBySlug = Object.fromEntries(seedPosts.map(s => [s.slug, s]));
+    let changed = false;
+    // Update existing seed posts with correct image URLs
+    existing = existing.map(p => {
+      if (seedBySlug[p.slug]) {
+        const seed = seedBySlug[p.slug];
+        // Always refresh image to full URL
+        if (p.featuredImage !== seed.featuredImage) {
+          p.featuredImage = seed.featuredImage;
+          changed = true;
+        }
+        delete seedBySlug[p.slug];
+      }
+      return p;
+    });
+    // Add any seed posts that weren't found
+    const toAdd = Object.values(seedBySlug);
+    if (toAdd.length > 0 || changed) {
       localStorage.setItem('mt_posts', JSON.stringify([...existing, ...toAdd]));
     }
   },
