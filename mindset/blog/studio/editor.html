@@ -849,99 +849,26 @@
     }
 
     // ── Preview ─────────────────────────────────────────────────
-    function openPreview() {
-      const title = document.getElementById('postTitle').value.trim() || 'Untitled Post';
-      const category = document.getElementById('postCategory').value || 'Wellness';
-      const author = document.getElementById('postAuthor').value.trim() || 'Aby Chacko, LCSW';
-      const readTime = document.getElementById('postReadTime').value.trim() || '5 min read';
-      const content = quill.root.innerHTML;
-      const image = featuredImageURL || '../../assets/blog-meditation.png';
-      const imageAlt = document.getElementById('imageAlt').value.trim() || title;
+    async function openPreview() {
+      const title = document.getElementById('postTitle').value.trim();
+      const plainText = quill.getText().trim();
 
-      // Format date
-      const dateVal = document.getElementById('postDate').value;
-      const dateStr = dateVal ? formatDate(dateVal) : formatDate(new Date().toISOString());
+      if (!title || !plainText || plainText.length < 10) {
+        showToast('Save the post first before previewing', 'error');
+        return;
+      }
 
-      const previewHTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>${escapeHTML(title)} — Preview</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --ivory: #FAF8F4; --cream: #F5F0E8; --beige: #E8DDD0;
-      --sage: #8FA688; --charcoal: #2C2C2C; --charcoal-mid: #4A4A4A;
-      --gold: #C9A96E; --gold-light: #E8D5B0; --white: #FFFFFF;
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-sans: 'DM Sans', system-ui, sans-serif;
-      --radius: 12px; --radius-lg: 16px;
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: var(--font-sans); background: var(--ivory); color: var(--charcoal); }
-    a { color: var(--gold); }
-    img { max-width: 100%; display: block; }
+      // Auto-save as draft before preview
+      const status = (existingPost && existingPost.status === 'published') ? 'published' : 'draft';
+      await savePost(status);
 
-    /* Preview banner */
-    .preview-banner {
-      background: var(--charcoal);
-      color: rgba(255,255,255,0.7);
-      text-align: center;
-      padding: 10px;
-      font-size: 0.8rem;
-      font-family: var(--font-sans);
-      letter-spacing: 0.06em;
-    }
-    .preview-banner strong { color: var(--gold-light); }
+      if (!currentSlug) {
+        showToast('Could not save post for preview', 'error');
+        return;
+      }
 
-    /* Article styles */
-    .article-hero{position:relative;height:400px;overflow:hidden}.article-hero img{width:100%;height:100%;object-fit:cover}.article-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(45,45,45,.3) 0%,rgba(45,45,45,.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:48px}.article-tag{display:inline-block;background:var(--gold);color:var(--white);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px;font-weight:600;width:fit-content}.article-hero h1{font-family:var(--font-serif);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:400;color:var(--white);line-height:1.3;max-width:700px}.article-meta{display:flex;gap:20px;margin-top:14px;font-size:.82rem;color:rgba(255,255,255,.7)}.article-body{max-width:780px;margin:0 auto;padding:64px 28px 80px}.article-body h2{font-family:var(--font-serif);font-size:1.5rem;font-weight:500;color:var(--charcoal);margin:40px 0 16px}.article-body h3{font-family:var(--font-sans);font-size:1.05rem;font-weight:600;color:var(--charcoal);margin:28px 0 10px}.article-body p{font-size:.97rem;color:var(--charcoal-mid);line-height:1.9;margin-bottom:18px}.article-body ul,.article-body ol{margin:12px 0 20px 20px}.article-body li{font-size:.95rem;color:var(--charcoal-mid);line-height:1.8;margin-bottom:8px}.pull-quote{border-left:4px solid var(--gold);padding:20px 28px;margin:32px 0;background:var(--cream);border-radius:0 12px 12px 0;font-family:var(--font-serif);font-size:1.15rem;font-style:italic;color:var(--charcoal);line-height:1.7}.article-back{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--gold);font-weight:500;text-decoration:none;padding:12px 0}.author-card{display:flex;gap:24px;align-items:center;padding:36px;background:var(--cream);border:1px solid var(--beige);border-radius:16px;margin-top:48px}.author-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--gold-light);flex-shrink:0}.author-info h4{font-family:var(--font-serif);font-size:1.1rem;color:var(--charcoal);margin-bottom:4px}.author-info p{font-size:.85rem;color:var(--charcoal-mid);line-height:1.6;margin:0}.article-cta{text-align:center;padding:64px 28px;background:var(--charcoal);margin-top:80px;border-radius:16px}.article-cta h3{font-family:var(--font-serif);font-size:1.6rem;color:var(--white);margin-bottom:12px}.article-cta h3 em{color:var(--gold-light);font-style:italic}.article-cta p{color:rgba(255,255,255,.7);margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto;font-size:.95rem;line-height:1.7}
-    .article-body blockquote{border-left:4px solid var(--gold);padding:20px 28px;margin:32px 0;background:var(--cream);border-radius:0 12px 12px 0;font-family:var(--font-serif);font-size:1.15rem;font-style:italic;color:var(--charcoal);line-height:1.7}
-    .article-body img{border-radius:12px;margin:24px 0}
-    .article-body hr{border:none;border-top:1px solid var(--beige);margin:40px 0}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border:none;border-radius:10px;font-family:var(--font-sans);font-size:.9rem;font-weight:600;cursor:pointer;text-decoration:none;line-height:1}
-    .btn-gold{background:linear-gradient(135deg,var(--gold),#B8894A);color:var(--white)}
-    @media(max-width:600px){.article-hero{height:300px}.article-hero-overlay{padding:28px}.author-card{flex-direction:column;text-align:center}}
-  </style>
-</head>
-<body>
-  <div class="preview-banner">👁 <strong>PREVIEW MODE</strong> — This is how your post will look when published</div>
-  <div class="article-hero">
-    <img src="${escapeAttr(image)}" alt="${escapeAttr(imageAlt)}" />
-    <div class="article-hero-overlay">
-      <span class="article-tag">${escapeHTML(category)}</span>
-      <h1>${escapeHTML(title)}</h1>
-      <div class="article-meta">
-        <span>${escapeHTML(dateStr)}</span>
-        <span>·</span>
-        <span>${escapeHTML(readTime)}</span>
-      </div>
-    </div>
-  </div>
-  <article class="article-body">
-    ${content}
-    <div class="author-card">
-      <img src="../../assets/aby-chacko-portrait.png" alt="${escapeAttr(author)}" class="author-avatar" />
-      <div class="author-info">
-        <h4>${escapeHTML(author)}</h4>
-        <p>Licensed Clinical Social Worker with over 10 years of experience specializing in anxiety, depression, trauma, and mindfulness-based approaches. Aby practices at Mindset Therapy in East Meadow, NY.</p>
-      </div>
-    </div>
-    <div class="article-cta">
-      <h3>Ready to take <em>the next step?</em></h3>
-      <p>Your first step doesn't have to be big — just honest. Book a free 15-minute consultation and discover what it feels like to be truly supported.</p>
-      <a href="../../booking/?consult=free#bookingForm" class="btn btn-gold">Book Your Free Consultation</a>
-    </div>
-  </article>
-</body>
-</html>`;
-
-      const previewWin = window.open('', '_blank');
-      previewWin.document.write(previewHTML);
-      previewWin.document.close();
+      // Navigate to the post page in same window with back link
+      window.location.href = `../post/?slug=${encodeURIComponent(currentSlug)}&from=editor`;
     }
 
     // ── Helper: Update Status Badge ─────────────────────────────

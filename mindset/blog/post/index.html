@@ -37,6 +37,37 @@
     .not-found p{color:var(--charcoal-mid);margin-bottom:24px}
     .not-found a{color:var(--gold);font-weight:500;text-decoration:none}
     .not-found a:hover{color:var(--charcoal)}
+
+    /* Preview banner from editor */
+    .preview-bar {
+      display: none;
+      background: var(--charcoal);
+      padding: 12px 28px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+      font-family: var(--font-sans);
+      letter-spacing: 0.04em;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .preview-bar strong { color: var(--gold-light); }
+    .preview-bar a {
+      color: var(--gold-light);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 16px;
+      padding: 6px 18px;
+      border: 1px solid var(--gold-light);
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .preview-bar a:hover {
+      background: var(--gold);
+      color: var(--white);
+      border-color: var(--gold);
+    }
   </style>
 </head>
 <body>
@@ -84,6 +115,12 @@
       <p>The article you're looking for doesn't exist or may have been removed.</p>
       <a href="../">← Back to Blog</a>
     </div>
+  </div>
+
+  <!-- ======== PREVIEW BAR (shown when from=editor) ======== -->
+  <div class="preview-bar" id="previewBar">
+    👁 <strong>PREVIEW</strong> — This is how your post will look when published
+    <a href="#" id="backToEditor">← Back to Editor</a>
   </div>
 
   <!-- ======== ARTICLE (hidden until loaded) ======== -->
@@ -151,10 +188,18 @@
       // ---- 1. Read slug from URL ----
       const params = new URLSearchParams(window.location.search);
       const slug = params.get('slug');
+      const fromEditor = params.get('from') === 'editor';
 
       if (!slug) {
         showNotFound();
         return;
+      }
+
+      // Show preview bar with back link if coming from editor
+      if (fromEditor) {
+        const bar = document.getElementById('previewBar');
+        bar.style.display = 'block';
+        document.getElementById('backToEditor').href = `../studio/editor.html?slug=${encodeURIComponent(slug)}`;
       }
 
       try {
@@ -181,8 +226,8 @@
           return;
         }
 
-        // ---- 3. Only show published posts ----
-        if (post.status !== 'published') {
+        // ---- 3. Only show published posts (but allow drafts from editor preview) ----
+        if (post.status !== 'published' && !fromEditor) {
           showNotFound();
           return;
         }
