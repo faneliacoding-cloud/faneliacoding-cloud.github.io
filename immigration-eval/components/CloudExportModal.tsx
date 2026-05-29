@@ -97,8 +97,9 @@ export default function CloudExportModal({ evaluation, onClose }: Props) {
   );
 
   const clientName = evaluation.clientInfo.fullName || 'Evaluation';
+  const safeClientName = clientName.replace(/[^a-zA-Z0-9_\s-]/g, '_');
   const dateStr = new Date().toISOString().split('T')[0];
-  const filename = `${clientName}_Psych_Eval_${dateStr}.${fileType}`;
+  const filename = `${safeClientName}_Psych_Eval_${dateStr}.${fileType}`;
 
   const setStatus = (provider: Provider, status: Status, message = '') => {
     setStates(s => ({ ...s, [provider]: { status, message } }));
@@ -192,10 +193,11 @@ export default function CloudExportModal({ evaluation, onClose }: Props) {
   // ── 4. Dropbox Saver ───────────────────────────────────────────────────────
   const handleDropbox = async () => {
     setStatus('dropbox', 'loading');
+    let url: string | undefined;
     try {
       const { blob, filename } = await getBlob();
       // Upload blob → get object URL → use Dropbox Saver
-      const url = URL.createObjectURL(blob);
+      url = URL.createObjectURL(blob);
       // Load Dropbox SDK dynamically
       await new Promise<void>((resolve, reject) => {
         if ((window as any).Dropbox) { resolve(); return; }
@@ -207,13 +209,14 @@ export default function CloudExportModal({ evaluation, onClose }: Props) {
         document.head.appendChild(s);
       });
       (window as any).Dropbox.save(url, filename, {
-        success: () => { URL.revokeObjectURL(url); setStatus('dropbox', 'success', 'Saved to Dropbox'); },
-        cancel: () => { URL.revokeObjectURL(url); setStatus('dropbox', 'idle'); },
-        error: () => { URL.revokeObjectURL(url); setStatus('dropbox', 'error', 'Dropbox save failed'); },
+        success: () => { URL.revokeObjectURL(url!); setStatus('dropbox', 'success', 'Saved to Dropbox'); },
+        cancel: () => { URL.revokeObjectURL(url!); setStatus('dropbox', 'idle'); },
+        error: () => { URL.revokeObjectURL(url!); setStatus('dropbox', 'error', 'Dropbox save failed'); },
         progress: () => {},
       });
       setStatus('dropbox', 'idle'); // Dropbox handles its own UI
     } catch (e) {
+      if (url) URL.revokeObjectURL(url);
       setStatus('dropbox', 'error', 'Dropbox unavailable — try downloading first');
     }
   };
@@ -224,7 +227,7 @@ export default function CloudExportModal({ evaluation, onClose }: Props) {
     try {
       const { blob, filename } = await getBlob();
       // Use Google Identity Services for token
-      const token = await getGoogleAccessToken();
+      let token = await getGoogleAccessToken();
       if (!token) { setStatus('googledrive', 'error', 'Google sign-in cancelled'); return; }
 
       const metadata = { name: filename, mimeType: blob.type };
@@ -237,6 +240,8 @@ export default function CloudExportModal({ evaluation, onClose }: Props) {
         headers: { Authorization: `Bearer ${token}` },
         body: form,
       });
+
+      token = null;
 
       if (res.ok) {
         setStatus('googledrive', 'success', 'Saved to Google Drive');
@@ -257,17 +262,22 @@ export default function CloudExportModal({ evaluation, onClose }: Props) {
         alert('Google Drive requires a Google Client ID. Add NEXT_PUBLIC_GOOGLE_CLIENT_ID to your .env.local file.');
         return;
       }
+      const state = crypto.randomUUID();
       const scope = 'https://www.googleapis.com/auth/drive.file';
       const popup = window.open(
-        `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(window.location.origin)}&response_type=token&scope=${encodeURIComponent(scope)}`,
+        `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(window.location.origin)}&response_type=token&scope=${encodeURIComponent(scope)}&state=${state}`,
         'google-auth', 'width=500,height=600'
       );
+      let elapsed = 0;
       const poll = setInterval(() => {
+        elapsed++;
+        if (elapsed > 600) { clearInterval(poll); if (popup && !popup.closed) popup.close(); resolve(null); return; }
         try {
           if (!popup || popup.closed) { clearInterval(poll); resolve(null); return; }
           const hash = popup.location.hash;
           if (hash.includes('access_token')) {
             const params = new URLSearchParams(hash.slice(1));
+            if (params.get('state') !== state) { clearInterval(poll); popup.close(); resolve(null); return; }
             clearInterval(poll);
             popup.close();
             resolve(params.get('access_token'));
@@ -287,18 +297,23 @@ export default function CloudExportModal({ evaluation, onClose }: Props) {
         setStatus('onedrive', 'error', 'Set NEXT_PUBLIC_ONEDRIVE_CLIENT_ID in .env.local');
         return;
       }
+      const state = crypto.randomUUID();
       // OAuth popup
-      const token = await new Promise<string | null>(resolve => {
+      let token = await new Promise<string | null>(resolve => {
         const popup = window.open(
-          `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(window.location.origin)}&scope=Files.ReadWrite`,
+          `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(window.location.origin)}&scope=Files.ReadWrite&state=${state}`,
           'onedrive-auth', 'width=500,height=600'
         );
+        let elapsed = 0;
         const poll = setInterval(() => {
+          elapsed++;
+          if (elapsed > 600) { clearInterval(poll); if (popup && !popup.closed) popup.close(); resolve(null); return; }
           try {
             if (!popup || popup.closed) { clearInterval(poll); resolve(null); return; }
             const hash = popup.location.hash;
             if (hash.includes('access_token')) {
               const params = new URLSearchParams(hash.slice(1));
+              if (params.get('state') !== state) { clearInterval(poll); popup.close(); resolve(null); return; }
               clearInterval(poll); popup.close();
               resolve(params.get('access_token'));
             }
@@ -310,6 +325,7 @@ export default function CloudExportModal({ evaluation, onClose }: Props) {
         `https://graph.microsoft.com/v1.0/me/drive/root:/${encodeURIComponent(filename)}:/content`,
         { method: 'PUT', headers: { Authorization: `Bearer ${token}`, 'Content-Type': blob.type }, body: blob }
       );
+      token = null;
       if (res.ok) setStatus('onedrive', 'success', 'Saved to OneDrive');
       else throw new Error('Upload failed');
     } catch {

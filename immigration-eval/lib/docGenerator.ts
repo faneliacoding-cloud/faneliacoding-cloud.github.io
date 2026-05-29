@@ -7,6 +7,10 @@
 import type { Evaluation } from './store';
 import { getAllImagesForExport } from './imageStore';
 
+function escapeHtml(str: string): string {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 // Build template variables from evaluation data
 export function buildTemplateVars(eval_: Evaluation): Record<string, string> {
   const { clientInfo: c, clinicianInfo: cl, caseSummary: cs, traumaHistory: t,
@@ -150,7 +154,7 @@ export async function generateDOCXBlob(evaluation: Evaluation): Promise<{ blob: 
       xmlns="http://www.w3.org/TR/REC-html40">
 <head>
 <meta charset="utf-8">
-<title>${clientName} - Psychological Evaluation</title>
+<title>${escapeHtml(clientName)} - Psychological Evaluation</title>
 <!--[if gte mso 9]>
 <xml>
 <w:WordDocument>
@@ -191,7 +195,7 @@ export function buildPDFHTML(evaluation: Evaluation): string {
   const vars = buildTemplateVars(evaluation);
   const content = buildReportText(evaluation, vars);
   return `<!DOCTYPE html><html><head>
-    <title>${evaluation.clientInfo.fullName} - Psychological Evaluation</title>
+    <title>${escapeHtml(evaluation.clientInfo.fullName || 'Evaluation')} - Psychological Evaluation</title>
     <style>
       body{font-family:Georgia,serif;max-width:800px;margin:40px auto;line-height:1.7;color:#1a1a1a;font-size:13px}
       pre{white-space:pre-wrap;font-family:inherit}
@@ -199,17 +203,10 @@ export function buildPDFHTML(evaluation: Evaluation): string {
       @media print{body{margin:0}}
       .page-break{page-break-before:always}
     </style>
-    </head><body><pre>${content}</pre></body></html>`;
+    </head><body><pre>${escapeHtml(content)}</pre></body></html>`;
 }
 
-// Fallback: generate from scratch without template
-async function generateSimpleDOCX(evaluation: Evaluation, vars: Record<string, string>): Promise<void> {
-  const { saveAs } = await import('file-saver');
-  const content = buildReportText(evaluation, vars);
-  const blob = new Blob([content], { type: 'application/msword' });
-  const filename = `${evaluation.clientInfo.fullName || 'Evaluation'}_Psych_Eval_${new Date().toISOString().split('T')[0]}.doc`;
-  saveAs(blob, filename);
-}
+
 
 // Build full report text
 export function buildReportText(evaluation: Evaluation, vars: Record<string, string>): string {
@@ -383,17 +380,17 @@ export async function generatePDF(evaluation: Evaluation): Promise<void> {
         <div class="page-break"></div>
         <h2 style="font-size:16px;margin-bottom:16px;border-bottom:2px solid #333;padding-bottom:8px;">SUPPORTING IMAGES & DOCUMENTATION</h2>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-          ${photos.filter(p => p.metadata.mimeType !== 'application/pdf').map(p => `
+          ${photos.filter(p => p.metadata.mimeType !== 'application/pdf' && p.dataUrl.startsWith('data:image/')).map(p => `
             <div style="text-align:center;">
               <img src="${p.dataUrl}" style="max-width:100%;max-height:300px;border:1px solid #ddd;border-radius:4px;" />
-              <div style="font-size:10px;color:#666;margin-top:4px;">${p.metadata.filename}</div>
+              <div style="font-size:10px;color:#666;margin-top:4px;">${escapeHtml(p.metadata.filename)}</div>
             </div>
           `).join('')}
         </div>
       `;
     }
-  } catch {
-    // Silently skip photos if storage unavailable
+  } catch (e) {
+    console.warn('[PDF] Failed to load photos for export:', e);
   }
 
   const printWindow = window.open('', '_blank');
@@ -404,7 +401,7 @@ export async function generatePDF(evaluation: Evaluation): Promise<void> {
 
   printWindow.document.write(`
     <!DOCTYPE html><html><head>
-    <title>${evaluation.clientInfo.fullName || 'Evaluation'} - Psychological Evaluation</title>
+    <title>${escapeHtml(evaluation.clientInfo.fullName || 'Evaluation')} - Psychological Evaluation</title>
     <style>
       * { box-sizing: border-box; }
       body { font-family: Georgia, 'Times New Roman', serif; max-width: 800px; margin: 40px auto; line-height: 1.7; color: #1a1a1a; font-size: 13px; }
@@ -417,7 +414,7 @@ export async function generatePDF(evaluation: Evaluation): Promise<void> {
       }
       img { max-width: 100%; height: auto; }
     </style></head><body>
-    <pre>${content}</pre>
+    <pre>${escapeHtml(content)}</pre>
     ${photoHTML}
     <script>
       window.onload = function() {

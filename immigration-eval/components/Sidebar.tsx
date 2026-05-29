@@ -4,6 +4,7 @@
  * macOS-inspired dark sidebar with icon navigation
  */
 import { useAppStore, View } from '@/lib/store';
+import { useState } from 'react';
 import {
   LayoutDashboard, Users, FileText, Clock, CheckSquare,
   FolderOpen, Settings, Download, ChevronLeft, ChevronRight,
@@ -45,6 +46,7 @@ const navSections: { title: string; items: NavItem[] }[] = [
 
 export default function Sidebar() {
   const { activeView, sidebarCollapsed, darkMode, setView, toggleSidebar, toggleDarkMode, evaluations } = useAppStore();
+  const [hoveredId, setHoveredId] = useState<View | null>(null);
 
   const draftCount = evaluations.filter(e => e.status !== 'completed').length;
   const completedCount = evaluations.filter(e => e.status === 'completed').length;
@@ -139,8 +141,8 @@ export default function Sidebar() {
                     padding: sidebarCollapsed ? '9px 14px' : '9px 10px',
                     borderRadius: '10px',
                     border: 'none',
-                    background: isActive ? 'rgba(255,255,255,0.10)' : 'transparent',
-                    color: isActive ? '#f5f5f7' : '#8e8e93',
+                    background: isActive ? 'rgba(255,255,255,0.10)' : hoveredId === item.id ? 'rgba(255,255,255,0.06)' : 'transparent',
+                    color: isActive || hoveredId === item.id ? '#f5f5f7' : '#8e8e93',
                     cursor: 'pointer',
                     fontFamily: 'inherit',
                     fontSize: 13.5,
@@ -151,14 +153,8 @@ export default function Sidebar() {
                     justifyContent: sidebarCollapsed ? 'center' : 'flex-start',
                     position: 'relative',
                   }}
-                  onMouseEnter={e => {
-                    if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.06)';
-                    (e.currentTarget as HTMLButtonElement).style.color = '#f5f5f7';
-                  }}
-                  onMouseLeave={e => {
-                    if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
-                    if (!isActive) (e.currentTarget as HTMLButtonElement).style.color = '#8e8e93';
-                  }}
+                  onMouseEnter={() => setHoveredId(item.id)}
+                  onMouseLeave={() => setHoveredId(null)}
                 >
                   {isActive && (
                     <div style={{

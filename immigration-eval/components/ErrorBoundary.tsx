@@ -31,7 +31,7 @@ export default class ErrorBoundary extends Component<Props, State> {
       return (
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          height: '100vh', background: '#f5f5f7',
+          height: '100vh', background: 'var(--bg-primary)',
           fontFamily: 'Inter, -apple-system, sans-serif',
           flexDirection: 'column', gap: 16, padding: 24,
         }}>
@@ -44,19 +44,19 @@ export default class ErrorBoundary extends Component<Props, State> {
               <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
           </div>
-          <div style={{ fontSize: 17, fontWeight: 700, color: '#1d1d1f', textAlign: 'center' }}>
+          <div style={{ fontSize: 17, fontWeight: 700, color: 'var(--text-primary)', textAlign: 'center' }}>
             Something went wrong
           </div>
-          <div style={{ fontSize: 13, color: '#6e6e73', textAlign: 'center', maxWidth: 400, lineHeight: 1.5 }}>
+          <div style={{ fontSize: 13, color: 'var(--text-secondary)', textAlign: 'center', maxWidth: 400, lineHeight: 1.5 }}>
             The application encountered an unexpected error. Your data is safely stored and will be available when you reload.
           </div>
           {this.state.error && (
             <div style={{
-              fontSize: 11, color: '#aeaeb2', background: 'rgba(0,0,0,0.03)',
+              fontSize: 11, color: 'var(--text-tertiary)', background: 'var(--bg-tertiary)',
               padding: '8px 14px', borderRadius: 8, maxWidth: 500, overflow: 'hidden',
               textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontFamily: 'monospace',
             }}>
-              {this.state.error.message}
+              {this.state.error.message.length > 200 ? this.state.error.message.slice(0, 200) + '…' : this.state.error.message}
             </div>
           )}
           <div style={{ display: 'flex', gap: 10, marginTop: 8 }}>
@@ -68,8 +68,8 @@ export default class ErrorBoundary extends Component<Props, State> {
               Try Again
             </button>
             <button onClick={() => window.location.reload()} style={{
-              padding: '10px 20px', borderRadius: 12, border: '1.5px solid rgba(0,0,0,0.1)',
-              background: 'white', color: '#1d1d1f', fontSize: 14, fontWeight: 500,
+              padding: '10px 20px', borderRadius: 12, border: '1.5px solid var(--border-medium)',
+              background: 'var(--bg-secondary)', color: 'var(--text-primary)', fontSize: 14, fontWeight: 500,
               cursor: 'pointer', fontFamily: 'inherit',
             }}>
               Reload Page

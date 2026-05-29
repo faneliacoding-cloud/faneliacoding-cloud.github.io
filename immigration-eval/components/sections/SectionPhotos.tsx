@@ -16,8 +16,8 @@ export default function SectionPhotos({ evalId }: Props) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [dragOver, setDragOver] = useState(false);
-  const [previewId, setPreviewId] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const clearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Load existing images
   useEffect(() => {
@@ -28,8 +28,15 @@ export default function SectionPhotos({ evalId }: Props) {
     return () => { mounted = false; };
   }, [evalId]);
 
+  useEffect(() => {
+    return () => {
+      if (clearTimerRef.current) clearTimeout(clearTimerRef.current);
+    };
+  }, []);
+
   const clearMessages = useCallback(() => {
-    setTimeout(() => { setError(''); setSuccess(''); }, 4000);
+    if (clearTimerRef.current) clearTimeout(clearTimerRef.current);
+    clearTimerRef.current = setTimeout(() => { setError(''); setSuccess(''); }, 4000);
   }, []);
 
   const handleFiles = async (files: FileList | File[]) => {
@@ -199,7 +206,7 @@ export default function SectionPhotos({ evalId }: Props) {
                     cursor: 'pointer', background: 'var(--bg-tertiary)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                   }}
-                  onClick={() => setPreviewId(previewId === img.id ? null : img.id)}
+                  onClick={() => {}}
                 >
                   {img.mimeType === 'application/pdf' ? (
                     <FileText size={32} color="var(--accent-red)" />

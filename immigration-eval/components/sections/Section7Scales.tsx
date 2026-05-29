@@ -20,6 +20,7 @@ function ScoreButton({ value, selected, onClick }: { value: number; selected: bo
     <button
       onClick={onClick}
       className={`score-btn${selected ? ' selected' : ''}`}
+      aria-label={`Score ${value}`}
     >
       {value}
     </button>
@@ -42,7 +43,8 @@ const PHQ9_LABELS = ['Not at all', 'Several days', 'More than half the days', 'N
 
 function PHQ9Panel({ evalId }: Props) {
   const { evaluations, updateEvaluation } = useAppStore();
-  const eval_ = evaluations.find(e => e.id === evalId)!;
+  const eval_ = evaluations.find(e => e.id === evalId);
+  if (!eval_) return null;
   const phq9 = eval_.phq9;
 
   const updateScore = (q: keyof PHQ9Scores, val: number) => {
@@ -116,7 +118,8 @@ const GAD7_ITEMS = [
 
 function GAD7Panel({ evalId }: Props) {
   const { evaluations, updateEvaluation } = useAppStore();
-  const eval_ = evaluations.find(e => e.id === evalId)!;
+  const eval_ = evaluations.find(e => e.id === evalId);
+  if (!eval_) return null;
   const gad7 = eval_.gad7;
 
   const updateScore = (q: keyof GAD7Scores, val: number) => {
@@ -199,7 +202,8 @@ const PCL5_LABELS = ['Not at all', 'A little bit', 'Moderately', 'Quite a bit', 
 
 function PCL5Panel({ evalId }: Props) {
   const { evaluations, updateEvaluation } = useAppStore();
-  const eval_ = evaluations.find(e => e.id === evalId)!;
+  const eval_ = evaluations.find(e => e.id === evalId);
+  if (!eval_) return null;
   const pcl5 = eval_.pcl5;
 
   const updateScore = (q: keyof PCL5Scores, val: number) => {

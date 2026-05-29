@@ -409,7 +409,7 @@ export const useAppStore = create<AppState>()(
       toggleSidebar: () => set((s) => ({ sidebarCollapsed: !s.sidebarCollapsed })),
 
       createEvaluation: () => {
-        const id = `eval_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const id = `eval_${crypto.randomUUID()}`;
         const now = new Date().toISOString();
         const clinicianInfo = get().savedClinicianInfo;
         const newEval: Evaluation = {
@@ -456,7 +456,7 @@ export const useAppStore = create<AppState>()(
       duplicateEvaluation: (id) => {
         const original = get().evaluations.find((e) => e.id === id);
         if (!original) return '';
-        const newId = `eval_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const newId = `eval_${crypto.randomUUID()}`;
         const now = new Date().toISOString();
         const duplicate: Evaluation = {
           ...JSON.parse(JSON.stringify(original)),
@@ -497,9 +497,22 @@ export const useAppStore = create<AppState>()(
     }),
     {
       name: 'immigeval-storage',
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => ({
+        getItem: (name: string) => localStorage.getItem(name),
+        setItem: (name: string, value: string) => {
+          try {
+            localStorage.setItem(name, value);
+          } catch (e) {
+            console.warn('[Store] localStorage quota exceeded, state not persisted:', e);
+          }
+        },
+        removeItem: (name: string) => localStorage.removeItem(name),
+      })),
       partialize: (state) => ({
-        evaluations: state.evaluations,
+        evaluations: state.evaluations.map(e => ({
+          ...e,
+          clientInfo: { ...e.clientInfo, profilePhoto: '' },
+        })),
         savedClinicianInfo: state.savedClinicianInfo,
         darkMode: state.darkMode,
         sidebarCollapsed: state.sidebarCollapsed,

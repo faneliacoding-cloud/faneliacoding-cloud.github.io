@@ -38,6 +38,7 @@ export default function Section9Findings({ evalId }: Props) {
   const { evaluations, updateEvaluation } = useAppStore();
   const eval_ = evaluations.find(e => e.id === evalId);
   const [aiLoading, setAiLoading] = useState(false);
+  const [selectedDiag, setSelectedDiag] = useState('');
   if (!eval_) return null;
   const { findings: f, clientInfo: c, phq9, gad7, pcl5, psychSymptoms: ps } = eval_;
 
@@ -57,7 +58,7 @@ export default function Section9Findings({ evalId }: Props) {
   const handleAIFindings = () => {
     setAiLoading(true);
     setTimeout(() => {
-      const title = c.pronouns === 'He/Him' ? 'Mr.' : 'Ms.';
+      const title = c.pronouns === 'He/Him' ? 'Mr.' : c.pronouns === 'She/Her' ? 'Ms.' : 'Mx.';
       const lastName = c.fullName?.split(' ').slice(-1)[0] || 'XXX';
       const ref = c.pronouns === 'He/Him' ? 'He' : c.pronouns === 'They/Them' ? 'They' : 'She';
       const poss = c.pronouns === 'He/Him' ? 'his' : c.pronouns === 'They/Them' ? 'their' : 'her';
@@ -138,11 +139,11 @@ These symptoms are consistent with those of individuals who have experienced the
             </span>
           ))}
         </div>
-        <select className="form-select" onChange={e => {
+        <select className="form-select" value={selectedDiag} onChange={e => {
           const selected = DSM_DIAGNOSES.find(d => d.code === e.target.value);
           if (selected) addDiagnosis(selected.code, selected.name);
-          e.target.value = '';
-        }} defaultValue="">
+          setSelectedDiag('');
+        }}>
           <option value="">+ Add diagnosis...</option>
           {DSM_DIAGNOSES.map(d => <option key={d.code} value={d.code}>{d.code} — {d.name}</option>)}
         </select>

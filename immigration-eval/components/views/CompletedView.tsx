@@ -6,6 +6,7 @@ import { useAppStore } from '@/lib/store';
 import { generateDOCX, generatePDF } from '@/lib/docGenerator';
 import { CheckSquare, FileDown, Printer, Eye, Copy, Trash2 } from 'lucide-react';
 import { useState } from 'react';
+import ConfirmDeleteModal from '../ConfirmDeleteModal';
 
 export default function CompletedView() {
   const { evaluations, setView, setActiveEval, duplicateEvaluation, deleteEvaluation } = useAppStore();
@@ -16,8 +17,12 @@ export default function CompletedView() {
 
   const handleDocx = async (ev: typeof completed[0]) => {
     setExporting(ev.id + '-docx');
-    try { await generateDOCX(ev); } catch (e) { console.error(e); }
+    try { await generateDOCX(ev); } catch (e) { console.error(e); alert('DOCX export failed. Please try again.'); }
     setExporting(null);
+  };
+
+  const handlePDF = (ev: typeof completed[0]) => {
+    try { generatePDF(ev); } catch (e) { console.error(e); alert('PDF export failed. Please try again.'); }
   };
 
   const confirmDelete = () => {
@@ -80,13 +85,13 @@ export default function CompletedView() {
                     <button className="btn-ghost" onClick={() => { setActiveEval(ev.id); setView('new-eval'); }} style={{ fontSize: 12 }}>
                       <Eye size={13} /> View
                     </button>
-                    <button className="btn-ghost" onClick={() => { const id = duplicateEvaluation(ev.id); setActiveEval(id); setView('new-eval'); }} style={{ fontSize: 12 }}>
+                    <button className="btn-ghost" onClick={() => { const id = duplicateEvaluation(ev.id); if (id) { setActiveEval(id); setView('new-eval'); } }} style={{ fontSize: 12 }}>
                       <Copy size={13} /> Duplicate
                     </button>
-                    <button className="btn-ghost" onClick={() => setDeleteId(ev.id)} style={{ fontSize: 12, color: '#ff453a' }}>
+                    <button aria-label="Delete evaluation" className="btn-ghost" onClick={() => setDeleteId(ev.id)} style={{ fontSize: 12, color: '#ff453a' }}>
                       <Trash2 size={13} /> Delete
                     </button>
-                    <button className="btn-secondary" onClick={() => generatePDF(ev)} style={{ fontSize: 12 }}>
+                    <button className="btn-secondary" onClick={() => handlePDF(ev)} style={{ fontSize: 12 }}>
                       <Printer size={13} /> PDF
                     </button>
                     <button className="btn-primary" onClick={() => handleDocx(ev)} disabled={exporting === ev.id + '-docx'} style={{ fontSize: 12 }}>
@@ -103,33 +108,12 @@ export default function CompletedView() {
 
       {/* Delete Confirmation Modal */}
       {deleteId && (
-        <div style={{
-          position: 'fixed', inset: 0, zIndex: 1000,
-          background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(6px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
-        }} onClick={() => setDeleteId(null)}>
-          <div style={{
-            background: 'var(--bg-secondary)', borderRadius: 16,
-            border: '1px solid var(--border-medium)', boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-            width: '100%', maxWidth: 380, padding: 24,
-          }} onClick={e => e.stopPropagation()} className="animate-fade-in">
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-              <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(255,69,58,0.10)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Trash2 size={18} color="#ff453a" />
-              </div>
-              <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)' }}>Delete Completed Report?</span>
-            </div>
-            <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 20, lineHeight: 1.5 }}>
-              Are you sure you want to delete <strong>{deleteName}</strong>? This action cannot be undone. Make sure you've exported the report first.
-            </p>
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
-              <button className="btn-secondary" onClick={() => setDeleteId(null)}>Cancel</button>
-              <button className="btn-primary" onClick={confirmDelete} style={{ background: '#ff453a' }}>
-                <Trash2 size={14} /> Delete
-              </button>
-            </div>
-          </div>
-        </div>
+        <ConfirmDeleteModal
+          clientName={evaluations.find(e => e.id === deleteId)?.clientInfo.fullName || ''}
+          isCompleted
+          onConfirm={() => { deleteEvaluation(deleteId); setDeleteId(null); }}
+          onCancel={() => setDeleteId(null)}
+        />
       )}
     </div>
   );

@@ -5,6 +5,7 @@
 import { useAppStore } from '@/lib/store';
 import { Clock, FileText, Plus, Trash2, Copy, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import ConfirmDeleteModal from '../ConfirmDeleteModal';
 
 export default function DraftsView() {
   const { evaluations, setView, setActiveEval, createEvaluation, deleteEvaluation, duplicateEvaluation } = useAppStore();
@@ -70,10 +71,10 @@ export default function DraftsView() {
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 8 }} onClick={e => e.stopPropagation()}>
-                  <button className="btn-ghost" onClick={() => { const id = duplicateEvaluation(ev.id); setActiveEval(id); setView('new-eval'); }} style={{ fontSize: 12 }}>
+                  <button className="btn-ghost" onClick={() => { const id = duplicateEvaluation(ev.id); if (id) { setActiveEval(id); setView('new-eval'); } }} style={{ fontSize: 12 }}>
                     <Copy size={13} /> Duplicate
                   </button>
-                  <button className="btn-ghost" onClick={() => setDeleteId(ev.id)} style={{ fontSize: 12, color: '#ff453a' }}>
+                  <button aria-label="Delete evaluation" className="btn-ghost" onClick={() => setDeleteId(ev.id)} style={{ fontSize: 12, color: '#ff453a' }}>
                     <Trash2 size={13} /> Delete
                   </button>
                   <button className="btn-primary" onClick={() => handleOpen(ev.id)} style={{ fontSize: 12 }}>
@@ -88,33 +89,11 @@ export default function DraftsView() {
 
       {/* Delete Confirmation Modal */}
       {deleteId && (
-        <div style={{
-          position: 'fixed', inset: 0, zIndex: 1000,
-          background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(6px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
-        }} onClick={() => setDeleteId(null)}>
-          <div style={{
-            background: 'var(--bg-secondary)', borderRadius: 16,
-            border: '1px solid var(--border-medium)', boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-            width: '100%', maxWidth: 380, padding: 24,
-          }} onClick={e => e.stopPropagation()} className="animate-fade-in">
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-              <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(255,69,58,0.10)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Trash2 size={18} color="#ff453a" />
-              </div>
-              <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)' }}>Delete Draft?</span>
-            </div>
-            <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 20, lineHeight: 1.5 }}>
-              Are you sure you want to delete <strong>{deleteName}</strong>? This action cannot be undone.
-            </p>
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
-              <button className="btn-secondary" onClick={() => setDeleteId(null)}>Cancel</button>
-              <button className="btn-primary" onClick={confirmDelete} style={{ background: '#ff453a' }}>
-                <Trash2 size={14} /> Delete
-              </button>
-            </div>
-          </div>
-        </div>
+        <ConfirmDeleteModal
+          clientName={evaluations.find(e => e.id === deleteId)?.clientInfo.fullName || ''}
+          onConfirm={() => { deleteEvaluation(deleteId); setDeleteId(null); }}
+          onCancel={() => setDeleteId(null)}
+        />
       )}
     </div>
   );

@@ -69,12 +69,12 @@ async function computeHash(data: ArrayBuffer): Promise<string> {
   try {
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 16);
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 32);
   } catch {
     // Fallback: simple FNV hash
     const view = new Uint8Array(data);
     let hash = 0x811c9dc5;
-    for (let i = 0; i < Math.min(view.length, 8192); i++) {
+    for (let i = 0; i < view.length; i++) {
       hash ^= view[i];
       hash = Math.imul(hash, 0x01000193);
     }
@@ -85,6 +85,12 @@ async function computeHash(data: ArrayBuffer): Promise<string> {
 // ─── Image Compression ───────────────────────────────────────────────────────
 
 function compressImage(file: File, maxDim: number, quality: number): Promise<{ dataUrl: string; width: number; height: number }> {
+  // HEIC/HEIF files cannot be rendered in <canvas> on most browsers
+  const lowerName = file.name.toLowerCase();
+  if (file.type === 'image/heic' || file.type === 'image/heif' || lowerName.endsWith('.heic') || lowerName.endsWith('.heif')) {
+    return Promise.reject(new Error('HEIC/HEIF images are not supported for compression. Please convert to JPEG or PNG before uploading.'));
+  }
+
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -142,7 +148,7 @@ export function validateFile(file: File): { valid: boolean; error?: string } {
   }
 
   const ext = '.' + file.name.split('.').pop()?.toLowerCase();
-  const typeOk = ALLOWED_TYPES.includes(file.type) || ALLOWED_EXTENSIONS.includes(ext);
+  const typeOk = ALLOWED_TYPES.includes(file.type) && ALLOWED_EXTENSIONS.includes(ext);
   if (!typeOk) {
     return { valid: false, error: `Unsupported file type: ${file.type || ext}. Allowed: JPG, PNG, WEBP, HEIC, PDF.` };
   }
@@ -160,8 +166,9 @@ export async function saveImage(evalId: string, file: File): Promise<StoredImage
   const arrayBuffer = await file.arrayBuffer();
   const hash = await computeHash(arrayBuffer);
 
-  // Check for duplicates
+  // Check for duplicates and count limit
   const existing = await getImagesForEval(evalId);
+  if (existing.length >= 50) throw new Error('Maximum of 50 images per evaluation reached. Please delete some images before uploading more.');
   const duplicate = existing.find(img => img.hash === hash);
   if (duplicate) throw new Error('This image has already been uploaded.');
 
@@ -228,13 +235,17 @@ export async function getImagesForEval(evalId: string): Promise<StoredImage[]> {
   const useIDB = await idbAvailable();
   if (useIDB) {
     const db = await openDB();
-    const tx = db.transaction('metadata', 'readonly');
-    const index = tx.objectStore('metadata').index('evalId');
-    return new Promise((resolve, reject) => {
-      const request = index.getAll(evalId);
-      request.onsuccess = () => { db.close(); resolve(request.result); };
-      request.onerror = () => { db.close(); reject(request.error); };
-    });
+    try {
+      const tx = db.transaction('metadata', 'readonly');
+      const index = tx.objectStore('metadata').index('evalId');
+      return await new Promise((resolve, reject) => {
+        const request = index.getAll(evalId);
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+      });
+    } finally {
+      db.close();
+    }
   } else {
     const stored = JSON.parse(localStorage.getItem('tjil-images-meta') || '[]') as StoredImage[];
     return stored.filter(img => img.evalId === evalId);
@@ -245,12 +256,16 @@ export async function getImageData(id: string): Promise<string | null> {
   const useIDB = await idbAvailable();
   if (useIDB) {
     const db = await openDB();
-    const tx = db.transaction(STORE_NAME, 'readonly');
-    return new Promise((resolve, reject) => {
-      const request = tx.objectStore(STORE_NAME).get(id);
-      request.onsuccess = () => { db.close(); resolve(request.result?.dataUrl || null); };
-      request.onerror = () => { db.close(); reject(request.error); };
-    });
+    try {
+      const tx = db.transaction(STORE_NAME, 'readonly');
+      return await new Promise((resolve, reject) => {
+        const request = tx.objectStore(STORE_NAME).get(id);
+        request.onsuccess = () => resolve(request.result?.dataUrl || null);
+        request.onerror = () => reject(request.error);
+      });
+    } finally {
+      db.close();
+    }
   } else {
     return localStorage.getItem(`tjil-img-${id}`) || null;
   }

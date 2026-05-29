@@ -5,9 +5,8 @@
  * confirmation modals, and debounced state updates
  */
 import { useAppStore } from '@/lib/store';
-import { generateDOCX, generatePDF } from '@/lib/docGenerator';
 import { validateEvaluation, validateForExport, type ValidationResult } from '@/lib/validation';
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import CloudExportModal from './CloudExportModal';
 import {
   ChevronLeft, ChevronRight, FileDown, Printer, Save, Share2,
@@ -54,18 +53,7 @@ export default function EvalForm() {
 
   const eval_ = evaluations.find(e => e.id === activeEvalId);
 
-  // ── Autosave ticker ─────────────────────────────────────────────────────────
-  useEffect(() => {
-    if (!activeEvalId) return;
-    autosaveRef.current = setInterval(() => {
-      // Zustand persist handles actual save via localStorage; we just update display
-      setLastSavedDisplay(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-    }, AUTOSAVE_INTERVAL);
-
-    return () => {
-      if (autosaveRef.current) clearInterval(autosaveRef.current);
-    };
-  }, [activeEvalId]);
+  // Autosave ticker removed — lastSavedDisplay is driven by store's lastSaved below
 
   // ── Update last-saved display when store changes ────────────────────────────
   useEffect(() => {
@@ -97,7 +85,7 @@ export default function EvalForm() {
 
   const currentStep = eval_.currentStep;
   const progress = Math.round(((currentStep + 1) / STEPS.length) * 100);
-  const validation = validateEvaluation(eval_);
+  const validation = useMemo(() => validateEvaluation(eval_), [eval_]);
 
   const goTo = (step: number) => {
     if (step < 0 || step >= STEPS.length) return;
@@ -280,7 +268,7 @@ export default function EvalForm() {
 
     {/* Validation Warning Modal */}
     {showValidation && (
-      <div style={{
+      <div role="dialog" aria-modal="true" style={{
         position: 'fixed', inset: 0, zIndex: 1000,
         background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(6px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
@@ -295,8 +283,8 @@ export default function EvalForm() {
             <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)' }}>Missing Required Fields</span>
           </div>
           <div style={{ marginBottom: 16 }}>
-            {exportWarnings.map((w, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--text-secondary)', padding: '6px 0' }}>
+            {exportWarnings.map((w) => (
+              <div key={w} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: 'var(--text-secondary)', padding: '6px 0' }}>
                 <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#ff9f0a', flexShrink: 0 }} />
                 {w}
               </div>
@@ -314,7 +302,7 @@ export default function EvalForm() {
 
     {/* Complete Confirmation Modal */}
     {showCompleteConfirm && (
-      <div style={{
+      <div role="dialog" aria-modal="true" style={{
         position: 'fixed', inset: 0, zIndex: 1000,
         background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(6px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,

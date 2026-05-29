@@ -4,6 +4,7 @@
  */
 import { useAppStore } from '@/lib/store';
 import { FileText, Users, CheckSquare, Clock, Plus, ArrowRight, TrendingUp, Shield, Trash2 } from 'lucide-react';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
 import { useState } from 'react';
 
 export default function Dashboard() {
@@ -141,7 +142,7 @@ export default function Dashboard() {
                       <span className={`badge badge-${ev.status === 'completed' ? 'complete' : ev.currentStep > 0 ? 'progress' : 'draft'}`}>
                         {ev.status === 'completed' ? 'Done' : `${pct}%`}
                       </span>
-                      <button onClick={(e) => { e.stopPropagation(); setDeleteId(ev.id); }} style={{
+                      <button aria-label="Delete evaluation" onClick={(e) => { e.stopPropagation(); setDeleteId(ev.id); }} style={{
                         border: 'none', background: 'rgba(255,69,58,0.08)', borderRadius: 6, padding: '4px 6px',
                         cursor: 'pointer', display: 'flex', alignItems: 'center', color: '#ff453a',
                       }}>
@@ -186,33 +187,11 @@ export default function Dashboard() {
 
       {/* Delete Confirmation Modal */}
       {deleteId && (
-        <div style={{
-          position: 'fixed', inset: 0, zIndex: 1000,
-          background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(6px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
-        }} onClick={() => setDeleteId(null)}>
-          <div style={{
-            background: 'var(--bg-secondary)', borderRadius: 16,
-            border: '1px solid var(--border-medium)', boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-            width: '100%', maxWidth: 380, padding: 24,
-          }} onClick={e => e.stopPropagation()} className="animate-fade-in">
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-              <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(255,69,58,0.10)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Trash2 size={18} color="#ff453a" />
-              </div>
-              <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)' }}>Delete Evaluation?</span>
-            </div>
-            <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 20, lineHeight: 1.5 }}>
-              Are you sure you want to delete <strong>{evaluations.find(e => e.id === deleteId)?.clientInfo.fullName || 'this evaluation'}</strong>? This cannot be undone.
-            </p>
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
-              <button className="btn-secondary" onClick={() => setDeleteId(null)}>Cancel</button>
-              <button className="btn-primary" onClick={() => { deleteEvaluation(deleteId); setDeleteId(null); }} style={{ background: '#ff453a' }}>
-                <Trash2 size={14} /> Delete
-              </button>
-            </div>
-          </div>
-        </div>
+        <ConfirmDeleteModal
+          clientName={evaluations.find(e => e.id === deleteId)?.clientInfo.fullName || ''}
+          onConfirm={() => { deleteEvaluation(deleteId); setDeleteId(null); }}
+          onCancel={() => setDeleteId(null)}
+        />
       )}
     </div>
   );

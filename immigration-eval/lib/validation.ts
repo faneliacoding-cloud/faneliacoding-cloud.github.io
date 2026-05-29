@@ -27,6 +27,7 @@ function isValidEmail(email: string): boolean {
 
 // ── Phone formatting ─────────────────────────────────────────────────────────
 export function formatPhone(raw: string): string {
+  const hasPlus = raw.trimStart().startsWith('+');
   const digits = raw.replace(/\D/g, '');
   if (digits.length === 10) {
     return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
@@ -34,12 +35,19 @@ export function formatPhone(raw: string): string {
   if (digits.length === 11 && digits[0] === '1') {
     return `+1 (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
   }
+  if (hasPlus && !raw.trimStart().startsWith('+')) {
+    return `+${raw}`;
+  }
+  if (hasPlus) {
+    return raw;
+  }
   return raw;
 }
 
 // ── Date validation ──────────────────────────────────────────────────────────
 function isValidDate(dateStr: string): boolean {
   if (!dateStr) return true;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return false;
   const date = new Date(dateStr);
   return !isNaN(date.getTime());
 }
@@ -125,6 +133,66 @@ function validateSection4(eval_: Evaluation): ValidationError[] {
   return errors;
 }
 
+function validateSection5(eval_: Evaluation): ValidationError[] {
+  const errors: ValidationError[] = [];
+  const ps = eval_.psychSymptoms;
+  if (!ps.depressionSeverity || ps.depressionSeverity === 'None') {
+    errors.push({ field: 'depressionSeverity', section: 4, message: 'Depression severity should be assessed', severity: 'warning' });
+  }
+  if (!ps.anxietySeverity || ps.anxietySeverity === 'None') {
+    errors.push({ field: 'anxietySeverity', section: 4, message: 'Anxiety severity should be assessed', severity: 'warning' });
+  }
+  return errors;
+}
+
+function validateSection6(eval_: Evaluation): ValidationError[] {
+  const errors: ValidationError[] = [];
+  const mse = eval_.mentalStatusExam;
+  if (!mse.appearance.trim()) {
+    errors.push({ field: 'appearance', section: 5, message: 'MSE appearance is recommended', severity: 'warning' });
+  }
+  if (!mse.mood.trim()) {
+    errors.push({ field: 'mood', section: 5, message: 'MSE mood is recommended', severity: 'warning' });
+  }
+  if (!mse.affect.trim()) {
+    errors.push({ field: 'affect', section: 5, message: 'MSE affect is recommended', severity: 'warning' });
+  }
+  return errors;
+}
+
+function validateSection7(eval_: Evaluation): ValidationError[] {
+  const errors: ValidationError[] = [];
+  const { phq9, gad7 } = eval_;
+  // PHQ-9: each question should be 0-3
+  for (let i = 1; i <= 9; i++) {
+    const val = phq9[`q${i}` as keyof typeof phq9] as number;
+    if (val < 0 || val > 3) {
+      errors.push({ field: `phq9_q${i}`, section: 6, message: `PHQ-9 question ${i} must be 0-3`, severity: 'error' });
+    }
+  }
+  // GAD-7: each question should be 0-3
+  for (let i = 1; i <= 7; i++) {
+    const val = gad7[`q${i}` as keyof typeof gad7] as number;
+    if (val < 0 || val > 3) {
+      errors.push({ field: `gad7_q${i}`, section: 6, message: `GAD-7 question ${i} must be 0-3`, severity: 'error' });
+    }
+  }
+  return errors;
+}
+
+function validateSection8(eval_: Evaluation): ValidationError[] {
+  const errors: ValidationError[] = [];
+  const { pcl5 } = eval_;
+  // PCL-5: each question should be 0-4
+  for (let i = 1; i <= 20; i++) {
+    const val = pcl5[`q${i}` as keyof typeof pcl5] as number;
+    if (val < 0 || val > 4) {
+      errors.push({ field: `pcl5_q${i}`, section: 7, message: `PCL-5 question ${i} must be 0-4`, severity: 'error' });
+    }
+  }
+  return errors;
+}
+
 function validateSection9(eval_: Evaluation): ValidationError[] {
   const errors: ValidationError[] = [];
   const f = eval_.findings;
@@ -153,6 +221,10 @@ export function validateEvaluation(eval_: Evaluation): ValidationResult {
     ...validateSection2(eval_),
     ...validateSection3(eval_),
     ...validateSection4(eval_),
+    ...validateSection5(eval_),
+    ...validateSection6(eval_),
+    ...validateSection7(eval_),
+    ...validateSection8(eval_),
     ...validateSection9(eval_),
   ];
 

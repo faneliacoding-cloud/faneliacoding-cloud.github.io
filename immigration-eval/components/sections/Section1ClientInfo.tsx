@@ -5,7 +5,7 @@
  */
 import { useAppStore, ClientInfo, Pronoun, Gender, MaritalStatus, EvaluationLocation } from '@/lib/store';
 import { User, MapPin, Phone, Mail, Calendar, Globe, Mic, Camera, X } from 'lucide-react';
-import { useRef, useCallback } from 'react';
+import { useRef } from 'react';
 
 interface Props { evalId: string; }
 
@@ -51,28 +51,23 @@ export default function Section1ClientInfo({ evalId }: Props) {
     updateEvaluation(evalId, { clientInfo: { ...eval_.clientInfo, [field]: value } });
   };
 
-  const handlePhotoUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     try {
       const dataUrl = await compressProfilePhoto(file);
       update('profilePhoto', dataUrl);
     } catch (err: any) {
-      alert(err.message || 'Failed to upload photo');
+      console.error(err.message || 'Failed to upload photo');
     }
     e.target.value = '';
-  }, [eval_.clientInfo, evalId]);
+  };
 
-  const removePhoto = useCallback(() => {
+  const removePhoto = () => {
     update('profilePhoto', '');
-  }, [eval_.clientInfo, evalId]);
+  };
 
-  const F = ({ label, id, children }: { label: string; id: string; children: React.ReactNode }) => (
-    <div>
-      <label className="form-label" htmlFor={id}>{label}</label>
-      {children}
-    </div>
-  );
+
 
   return (
     <div className="animate-fade-in">
@@ -295,6 +290,13 @@ export default function Section1ClientInfo({ evalId }: Props) {
     </div>
   );
 }
+
+const F = ({ label, id, children }: { label: string; id: string; children: React.ReactNode }) => (
+  <div>
+    <label className="form-label" htmlFor={id}>{label}</label>
+    {children}
+  </div>
+);
 
 const COUNTRIES = [
   'Afghanistan','Albania','Algeria','Angola','Armenia','Azerbaijan','Bangladesh',
