@@ -32,8 +32,6 @@ export const viewport: Viewport = {
   themeColor: "#0071e3",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   viewportFit: "cover",
 };
 
@@ -53,6 +51,8 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="TJIL Eval" />
+        {/* Content Security Policy — mitigate XSS on GitHub Pages */}
+        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.dropbox.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://www.googleapis.com https://graph.microsoft.com https://accounts.google.com https://login.microsoftonline.com; frame-src 'none';" />
         <link rel="apple-touch-icon" href="/immigration-eval-app/apple-touch-icon.png" />
         <link rel="manifest" href="/immigration-eval-app/manifest.json" />
         {/* Splash screens for iPhone */}

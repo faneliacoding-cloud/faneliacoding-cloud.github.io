@@ -217,14 +217,15 @@ export async function saveImage(evalId: string, file: File): Promise<StoredImage
     });
     db.close();
   } else {
-    // localStorage fallback (limited to ~5MB)
+    // localStorage fallback — warn about security implications
+    console.warn('[ImageStore] IndexedDB unavailable. Falling back to localStorage. Patient images will be stored unencrypted and accessible to any script on this origin.');
     try {
       const stored = JSON.parse(localStorage.getItem('tjil-images-meta') || '[]') as StoredImage[];
       stored.push(metadata);
       localStorage.setItem('tjil-images-meta', JSON.stringify(stored));
       localStorage.setItem(`tjil-img-${id}`, dataUrl);
     } catch {
-      throw new Error('Storage full. Please delete some images and try again.');
+      throw new Error('Secure storage (IndexedDB) is unavailable and localStorage is full. Please use a modern browser or delete some images.');
     }
   }
 

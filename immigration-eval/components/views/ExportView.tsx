@@ -10,12 +10,29 @@ import { useState } from 'react';
 export default function ExportView() {
   const { evaluations, setActiveEval, setView } = useAppStore();
   const [exporting, setExporting] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const sorted = [...evaluations].sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
 
   const handleDocx = async (ev: typeof sorted[0]) => {
     setExporting(ev.id);
-    try { await generateDOCX(ev); } catch (e) { console.error(e); }
+    setError(null);
+    try {
+      await generateDOCX(ev);
+    } catch (e) {
+      console.error(e);
+      setError(`DOCX export failed for ${ev.clientInfo.fullName || 'this evaluation'}. Please try again.`);
+    }
     setExporting(null);
+  };
+
+  const handlePDF = (ev: typeof sorted[0]) => {
+    setError(null);
+    try {
+      generatePDF(ev);
+    } catch (e) {
+      console.error(e);
+      setError(`PDF export failed for ${ev.clientInfo.fullName || 'this evaluation'}. Please try again.`);
+    }
   };
 
   return (
@@ -29,6 +46,18 @@ export default function ExportView() {
           <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Export evaluations as Word documents or PDFs</p>
         </div>
       </div>
+
+      {/* Error banner */}
+      {error && (
+        <div style={{
+          padding: '12px 16px', marginBottom: 16, borderRadius: 10,
+          background: 'rgba(255,69,58,0.08)', border: '1px solid rgba(255,69,58,0.2)',
+          color: '#ff453a', fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        }}>
+          <span>{error}</span>
+          <button onClick={() => setError(null)} style={{ border: 'none', background: 'none', color: '#ff453a', cursor: 'pointer', fontSize: 16, fontWeight: 700 }}>×</button>
+        </div>
+      )}
 
       {/* Format info */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 28 }}>
@@ -73,7 +102,7 @@ export default function ExportView() {
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
                 <button className="btn-ghost" onClick={() => { setActiveEval(ev.id); setView('new-eval'); }} style={{ fontSize: 12 }}>View</button>
-                <button className="btn-secondary" onClick={() => generatePDF(ev)} style={{ fontSize: 12 }}>
+                <button className="btn-secondary" onClick={() => handlePDF(ev)} style={{ fontSize: 12 }}>
                   <Printer size={13} /> PDF
                 </button>
                 <button className="btn-primary" onClick={() => handleDocx(ev)} disabled={exporting === ev.id} style={{ fontSize: 12 }}>

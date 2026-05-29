@@ -5,10 +5,12 @@
 import { useAppStore } from '@/lib/store';
 import { Users, Search, FileText, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
+import ConfirmDeleteModal from '../ConfirmDeleteModal';
 
 export default function ClientsView() {
   const { evaluations, setView, setActiveEval, createEvaluation, deleteEvaluation } = useAppStore();
   const [search, setSearch] = useState('');
+  const [deleteClient, setDeleteClient] = useState<{ name: string; evalIds: string[] } | null>(null);
 
   // Aggregate by client name
   const clientMap: Record<string, typeof evaluations> = {};
@@ -31,6 +33,13 @@ export default function ClientsView() {
     const id = createEvaluation();
     setActiveEval(id);
     setView('new-eval');
+  };
+
+  const confirmDeleteClient = () => {
+    if (deleteClient) {
+      deleteClient.evalIds.forEach(id => deleteEvaluation(id));
+      setDeleteClient(null);
+    }
   };
 
   return (
@@ -85,7 +94,11 @@ export default function ClientsView() {
                         </span>
                       </button>
                     ))}
-                    <button onClick={() => evals.forEach(e => deleteEvaluation(e.id))} style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#ff453a', display: 'flex', alignItems: 'center', padding: '4px 8px' }}>
+                    <button
+                      onClick={() => setDeleteClient({ name, evalIds: evals.map(e => e.id) })}
+                      aria-label={`Delete all evaluations for ${name}`}
+                      style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#ff453a', display: 'flex', alignItems: 'center', padding: '4px 8px' }}
+                    >
                       <Trash2 size={14} />
                     </button>
                   </div>
@@ -94,6 +107,14 @@ export default function ClientsView() {
             );
           })}
         </div>
+      )}
+
+      {deleteClient && (
+        <ConfirmDeleteModal
+          clientName={deleteClient.name}
+          onConfirm={confirmDeleteClient}
+          onCancel={() => setDeleteClient(null)}
+        />
       )}
     </div>
   );
