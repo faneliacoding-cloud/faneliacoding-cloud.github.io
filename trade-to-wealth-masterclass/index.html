@@ -13,6 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/animations.css">
+  <link rel="stylesheet" href="styles/concierge.css">
 </head>
 <body>
 
@@ -1329,78 +1330,14 @@
     </div>
   </footer>
 
-  <!-- ══════════════════════════════════════════
-       SECTION 10: AI WEALTH CONCIERGE
-  ══════════════════════════════════════════ -->
-  <div id="ai-concierge" class="concierge-widget" aria-label="Trade To Wealth AI Concierge" role="complementary">
-    <button class="concierge-toggle" id="concierge-toggle" aria-expanded="false" aria-controls="concierge-panel" aria-label="Open Trade To Wealth AI Concierge">
-      <div class="concierge-toggle-icon" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      </div>
-      <span class="concierge-toggle-label">Ask AI</span>
-      <span class="concierge-toggle-badge" aria-label="1 unread message">1</span>
-    </button>
-
-    <div class="concierge-panel" id="concierge-panel" role="dialog" aria-label="AI Concierge Chat Panel" aria-modal="true" hidden>
-      <div class="concierge-header">
-        <div class="concierge-header-info">
-          <div class="concierge-avatar" aria-hidden="true">
-            <span>◆</span>
-          </div>
-          <div>
-            <h3 class="concierge-name">Trade To Wealth</h3>
-            <p class="concierge-status">
-              <span class="concierge-online-dot" aria-hidden="true"></span>
-              AI Concierge · Always Available
-            </p>
-          </div>
-        </div>
-        <button class="concierge-close" id="concierge-close" aria-label="Close AI Concierge">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-
-      <div class="concierge-messages" id="concierge-messages" role="log" aria-live="polite" aria-label="Chat messages">
-        <div class="concierge-msg concierge-msg-ai">
-          <p>Welcome to <strong>Trade To Wealth Masterclass</strong> 👋</p>
-          <p>I'm your AI Concierge. I can answer questions about the program, our coaches, and how to get started. How can I help you today?</p>
-          <span class="concierge-msg-time">Just now</span>
-        </div>
-      </div>
-
-      <div class="concierge-quick-actions" id="concierge-quick-actions" aria-label="Quick question buttons">
-        <p class="quick-actions-label">Quick Questions:</p>
-        <div class="quick-actions-grid">
-          <button class="quick-action" data-question="What will I learn?" aria-label="Ask: What will I learn?">What Will I Learn?</button>
-          <button class="quick-action" data-question="Is this beginner friendly?" aria-label="Ask: Is this beginner friendly?">Beginner Friendly?</button>
-          <button class="quick-action" data-question="Who are the coaches?" aria-label="Ask: Who are the coaches?">Who Are The Coaches?</button>
-          <button class="quick-action" data-question="How do I register?" aria-label="Ask: How do I register?">How Do I Register?</button>
-          <button class="quick-action" data-question="How does the program work?" aria-label="Ask: How does the program work?">How Does It Work?</button>
-        </div>
-      </div>
-
-      <div class="concierge-input-row">
-        <input
-          type="text"
-          class="concierge-input"
-          id="concierge-input"
-          placeholder="Ask anything about the masterclass..."
-          aria-label="Type your question"
-          maxlength="500"
-        >
-        <button class="concierge-send" id="concierge-send" aria-label="Send message">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Scroll to top button -->
+  <!-- Scroll to top -->
   <button class="scroll-top" id="scroll-top" aria-label="Scroll to top" style="display:none;">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
   </button>
 
   <script src="js/main.js"></script>
-  <script src="js/concierge.js"></script>
+  <!-- Trade To Wealth AI Concierge — custom, no third-party services -->
+  <script src="js/concierge.js" defer></script>
 </body>
 </html>
+
