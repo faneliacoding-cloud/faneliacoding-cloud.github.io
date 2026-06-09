@@ -1389,8 +1389,27 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
   padding: 44px;
   box-shadow: var(--shadow-gold), var(--shadow-deep);
 }
+.register-form-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
 .register-form-title { font-size: 1.8rem; font-family: var(--font-display); color: var(--cream); margin-bottom: 6px; }
 .register-form-subtitle { font-size: 0.875rem; color: var(--white-50); margin-bottom: 28px; }
+.register-coaches-photo { display: none; }
+.register-coaches-photo img { width: 100%; height: auto; object-fit: cover; }
+.form-privacy-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--white-30);
+  margin-top: 14px;
+}
+.form-privacy-note svg { color: var(--gold); flex-shrink: 0; }
 .form-progress {
   display: flex;
   align-items: center;
@@ -1607,61 +1626,254 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
   box-shadow: var(--shadow-gold);
 }
 
+/* ══════════════════════════════════════
+   RESPONSIVE — TABLET  (≤ 1024px)
+══════════════════════════════════════ */
 @media (max-width: 1024px) {
-  .trust-stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .event-details-bar { grid-template-columns: repeat(2, 1fr); }
+  /* Grid collapses */
+  .trust-stats-grid          { grid-template-columns: repeat(2, 1fr); }
+  .event-details-bar         { grid-template-columns: repeat(2, 1fr); }
   .event-detail:nth-child(2) { border-right: none; }
   .event-detail:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.08); }
-  .problem-layout { grid-template-columns: 1fr; gap: 48px; }
-  .founder-card { grid-template-columns: 1fr; gap: 40px; }
-  .founder-card-reverse { direction: ltr; }
+  .problem-layout            { grid-template-columns: 1fr; gap: 48px; }
+  .founder-card              { grid-template-columns: 1fr; gap: 40px; }
+  .founder-card-reverse      { direction: ltr; }
   .founder-card-reverse .founder-portrait-col { order: 0; }
-  .founder-card-reverse .founder-bio-col { order: 0; }
-  .founder-portrait-frame { aspect-ratio: 16/7; }
-  .video-grid { grid-template-columns: repeat(2, 1fr); }
-  .module-grid { grid-template-columns: repeat(2, 1fr); }
+  .founder-card-reverse .founder-bio-col      { order: 0; }
+  .founder-portrait-frame    { aspect-ratio: 16/7; }
+  .video-grid                { grid-template-columns: repeat(2, 1fr); }
+  .module-grid               { grid-template-columns: repeat(2, 1fr); }
   .module-grid > .module-card:nth-child(4) { grid-column: auto; }
   .module-grid > .module-card:nth-child(5) { grid-column: auto; }
-  .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
-  .video-testimonial-grid { grid-template-columns: repeat(2, 1fr); }
-  .community-features-grid { grid-template-columns: repeat(2, 1fr); }
-  .register-layout { grid-template-columns: 1fr; gap: 48px; }
-  .footer-top { grid-template-columns: 1fr; gap: 40px; }
-  .footer-links { flex-wrap: wrap; gap: 32px; }
+  .testimonial-grid          { grid-template-columns: repeat(2, 1fr); }
+  .video-testimonial-grid    { grid-template-columns: repeat(2, 1fr); }
+  .community-features-grid   { grid-template-columns: repeat(2, 1fr); }
+  .register-layout           { grid-template-columns: 1fr; gap: 48px; }
+  .footer-top                { grid-template-columns: 1fr; gap: 40px; }
+  .footer-links              { flex-wrap: wrap; gap: 32px; }
+
+  /* Register section: coaches photo visible on tablet */
+  .register-coaches-photo { display: block; margin: 24px 0; }
+  .register-coaches-photo img { max-width: 420px; border-radius: var(--radius-lg); }
 }
 
+/* ══════════════════════════════════════
+   RESPONSIVE — MOBILE  (≤ 768px)
+══════════════════════════════════════ */
 @media (max-width: 768px) {
-  :root { --section-pad: clamp(60px, 8vw, 100px); }
-  .nav-links { display: none; }
+  :root {
+    --section-pad: clamp(56px, 10vw, 90px);
+  }
+
+  /* ── NAV ── */
+  .nav-links  { display: none; }
+  .nav-cta    { display: none; }
   .nav-hamburger { display: flex; }
-  .trust-stats-grid { grid-template-columns: 1fr 1fr; }
+  .nav-logo-img { height: 32px; }
+
+  /* ── HERO ── */
+  .hero { padding: 100px 20px 60px; min-height: 100svh; }
+  .hero-headline {
+    font-size: clamp(2.2rem, 9vw, 3.6rem);
+    letter-spacing: -0.5px;
+  }
+  .hero-subheadline { font-size: 1rem; margin-bottom: 28px; }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-ghost,
+  .hero-actions .btn-outline {
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .hero-countdown { padding: 16px 20px; width: 100%; }
+  .countdown-grid { justify-content: center; }
+
+  /* ── SECTION TITLES ── */
+  .section-title { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+
+  /* ── TRUST STATS ── */
+  .trust-stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .trust-stat-num   { font-size: 2rem; }
+
+  /* ── EVENT BAR ── */
   .event-details-bar { grid-template-columns: 1fr; }
-  .event-detail { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .event-detail      { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 20px; }
   .event-detail:last-child { border-bottom: none; }
+
+  /* ── FRAMEWORK ── */
   .framework-line { left: 19px; }
   .framework-step { grid-template-columns: 44px 1fr; gap: 16px; }
-  .step-number { width: 36px; height: 36px; font-size: 0.8rem; }
-  .video-grid { grid-template-columns: 1fr 1fr; }
-  .module-grid { grid-template-columns: 1fr; }
-  .testimonial-grid { grid-template-columns: 1fr; }
-  .video-testimonial-grid { grid-template-columns: 1fr; }
-  .community-features-grid { grid-template-columns: 1fr; }
-  .hero-actions { flex-direction: column; align-items: stretch; }
-  .hero-actions .btn-primary, .hero-actions .btn-ghost, .hero-actions .btn-outline { text-align: center; justify-content: center; }
-  .legacy-pillars { flex-direction: column; }
-  .founder-card { padding: 32px 24px; }
-  .register-form-container { padding: 28px 20px; }
+  .step-number    { width: 36px; height: 36px; font-size: 0.8rem; }
+
+  /* ── FOUNDERS ── */
+  .founder-card     { padding: 28px 20px; }
+  .founder-portrait-frame { aspect-ratio: 4/3; max-height: 340px; }
+  .founder-portrait-img { object-position: center top; }
+  .founder-achievements { gap: 16px; flex-wrap: wrap; }
+  .achievement-num  { font-size: 1.3rem; }
+  .founder-name     { font-size: clamp(1.5rem, 5vw, 2rem); }
+  .founder-mission  { font-size: 0.95rem; }
+
+  /* ── VIDEOS ── */
+  .video-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .coaches-promo-banner { max-width: 100%; }
+
+  /* ── MODULES ── */
+  .module-grid { grid-template-columns: 1fr; gap: 16px; }
+  .module-card { padding: 28px 22px; }
+  .module-num  { font-size: 3rem; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonial-grid  { grid-template-columns: 1fr; gap: 16px; }
+  .testimonial-card  { padding: 24px 20px; }
+  .testimonial-stats { padding: 20px 24px; margin-bottom: 36px; }
+
+  /* ── VIDEO TESTIMONIALS ── */
+  .video-testimonial-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .video-testimonial-row  { margin-top: 40px; }
+
+  /* ── COMMUNITY ── */
+  .community-features-grid { grid-template-columns: 1fr; gap: 14px; }
+  .community-feature       { padding: 24px 20px; }
+
+  /* ── LEGACY ── */
+  .legacy-pillars   { flex-direction: column; gap: 14px; }
+  .legacy-section   { min-height: auto; }
+  .legacy-content   { padding: 0; }
+  .legacy-headline  { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+  .legacy-body      { font-size: 0.95rem; margin-bottom: 32px; }
+
+  /* ── REGISTER ── */
+  .register-layout          { gap: 36px; }
+  .register-form-container  { padding: 24px 18px; border-radius: var(--radius-lg); }
+  .register-form-title      { font-size: 1.5rem; }
+  .register-trust           { flex-direction: column; gap: 12px; }
+  .register-coaches-photo   { display: block; margin: 20px 0; }
+  .register-coaches-photo img { border-radius: var(--radius-md); width: 100%; }
+
+  /* ── FORM ── */
+  .ghl-form-wrapper iframe  { min-height: 500px; }
+
+  /* ── FAQ ── */
+  .faq-question { font-size: 0.95rem; padding: 20px 0; }
+
+  /* ── FOOTER ── */
+  .footer-top    { grid-template-columns: 1fr; gap: 36px; padding-bottom: 40px; margin-bottom: 40px; }
+  .footer-links  { flex-wrap: wrap; gap: 28px; }
+  .footer-col    { min-width: 120px; }
+  .footer-logo-img { height: 40px; }
+  .site-footer   { padding: 60px 0 32px; }
+
+  /* ── SCROLL TOP ── */
   .scroll-top { bottom: 90px; right: 16px; }
-  .founder-achievements { gap: 20px; }
+
+  /* ── PROOF SCREENSHOTS ── */
+  .proof-screenshot { max-height: 220px; }
 }
 
+/* ══════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE  (≤ 480px)
+══════════════════════════════════════ */
 @media (max-width: 480px) {
-  .trust-stats-grid { grid-template-columns: 1fr; }
-  .countdown-cell { padding: 0 10px; }
-  .countdown-num { font-size: 1.8rem; }
-  .hero-countdown { padding: 16px 20px; }
-  .video-grid { grid-template-columns: 1fr; }
-  .testimonial-stats { flex-direction: column; gap: 20px; }
-  .t-stat-divider { width: 80px; height: 1px; }
-  .module-grid { grid-template-columns: 1fr; }
+  :root { --section-pad: 52px; }
+
+  /* ── NAV ── */
+  .nav-logo-img { height: 28px; }
+
+  /* ── HERO ── */
+  .hero { padding: 88px 16px 52px; }
+  .hero-headline { font-size: clamp(2rem, 10vw, 2.8rem); line-height: 1.1; }
+  .hero-eyebrow  { font-size: 9px; padding: 7px 14px; }
+  .hero-countdown { padding: 14px 16px; }
+  .countdown-num  { font-size: 1.8rem; }
+  .countdown-cell { padding: 0 8px; }
+  .countdown-sep  { font-size: 1.4rem; }
+
+  /* ── TRUST STATS ── */
+  .trust-stats-grid { grid-template-columns: 1fr; gap: 12px; }
+  .trust-stat-num   { font-size: 2.2rem; }
+
+  /* ── SECTION ── */
+  .section-inner { padding: 0 16px; }
+  .section-title { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+  .section-body  { font-size: 0.95rem; }
+  .section-eyebrow { font-size: 10px; letter-spacing: 2px; }
+
+  /* ── BUTTONS ── */
+  .btn-primary      { padding: 14px 24px; font-size: 0.9rem; }
+  .btn-primary.btn-large { padding: 16px 28px; font-size: 0.95rem; }
+  .btn-ghost        { padding: 13px 22px; font-size: 0.9rem; }
+
+  /* ── EVENT DETAIL ── */
+  .event-detail-value { font-size: 1.1rem; }
+
+  /* ── FOUNDER ── */
+  .founder-portrait-frame { aspect-ratio: 3/2; }
+  .founder-achievements   { gap: 20px; }
+  .founder-social         { gap: 8px; flex-wrap: wrap; }
+  .founder-social-link    { padding: 6px 14px; font-size: 0.75rem; }
+
+  /* ── VIDEOS ── */
+  .video-grid     { grid-template-columns: 1fr; gap: 14px; }
+  .video-caption  { font-size: 0.78rem; }
+
+  /* ── MODULES ── */
+  .module-card { padding: 24px 18px; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonial-stats  { flex-direction: column; gap: 20px; padding: 20px; }
+  .t-stat-divider     { width: 60px; height: 1px; margin: 0; }
+  .t-stat-num         { font-size: 1.6rem; }
+  .testimonial-card   { padding: 20px 16px; }
+  .proof-screenshot   { max-height: 180px; }
+
+  /* ── VIDEO TESTIMONIALS ── */
+  .video-testimonial-grid { grid-template-columns: 1fr; }
+
+  /* ── COMMUNITY ── */
+  .community-feature-cta { min-height: 220px; }
+  .cf-cta-num { font-size: 2.6rem; }
+
+  /* ── REGISTER ── */
+  .register-form-container { padding: 20px 14px; }
+  .register-form-title     { font-size: 1.3rem; }
+  .register-form-subtitle  { font-size: 0.82rem; }
+  .register-form-eyebrow   { font-size: 9px; }
+  .reg-benefit             { font-size: 0.88rem; gap: 10px; }
+  .form-privacy-note       { font-size: 0.72rem; }
+
+  /* ── FAQ ── */
+  .faq-question { font-size: 0.9rem; gap: 12px; }
+  .faq-icon     { width: 28px; height: 28px; }
+  .faq-answer p { font-size: 0.88rem; }
+
+  /* ── LEGACY ── */
+  .legacy-pillar   { min-width: unset; }
+  .legacy-cta      { flex-direction: column; align-items: flex-start; }
+  .legacy-headline { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+
+  /* ── FOOTER ── */
+  .footer-links    { flex-direction: column; gap: 24px; }
+  .footer-col      { flex-direction: row; flex-wrap: wrap; gap: 16px; }
+  .footer-col-title { flex: 100%; }
+  .footer-disclaimer { font-size: 0.72rem; }
+
+  /* ── CONCIERGE ── */
+  .concierge-widget { bottom: 16px; right: 16px; }
+  .concierge-toggle { padding: 10px 14px 10px 12px; }
+  .concierge-toggle-label { display: none; }
+  .concierge-panel { right: 0; width: calc(100vw - 32px); bottom: calc(100% + 10px); }
+
+  /* ── SCROLL TOP ── */
+  .scroll-top { width: 40px; height: 40px; right: 14px; bottom: 80px; }
+
+  /* ── COACHES PROMO ── */
+  .coaches-promo-banner { border-radius: var(--radius-md); margin-bottom: 32px; }
 }
+
