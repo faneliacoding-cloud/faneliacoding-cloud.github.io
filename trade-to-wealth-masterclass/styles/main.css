@@ -203,24 +203,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
   text-decoration: none;
   flex-shrink: 0;
 }
-.nav-logo-mark {
-  color: var(--gold);
-  font-size: 18px;
-  filter: drop-shadow(0 0 6px rgba(218,193,87,0.6));
-}
-.nav-logo-text {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--cream);
-  line-height: 1;
-}
-.nav-logo-sub {
-  font-size: 0.65rem;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  display: block;
+.nav-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.1);
 }
 .nav-links {
   display: flex;
@@ -304,7 +291,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
 .hero-bg-image {
   position: absolute;
   inset: 0;
-  background-image: url('../assets/hero-bg.png');
+  background-image: url('../assets/hero-promo.png');
   background-size: cover;
   background-position: center top;
   transform: scale(1.05);
@@ -617,7 +604,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
 .problem-bg-pattern {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/QbtvRGv045CvMhz6v5iM/media/69f0cacac5c98840c8447d65.png');
+  background-image: url('../assets/bg-pattern.png');
   background-size: cover;
   background-position: center;
   opacity: 0.03;
@@ -798,7 +785,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
 .founders-bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/QbtvRGv045CvMhz6v5iM/media/69e75e17da11eeea68cb9df7.png');
+  background-image: url('../assets/hero-alt-bg.png');
   background-size: cover;
   background-position: center;
   opacity: 0.04;
@@ -1111,7 +1098,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
 .testimonials-bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/QbtvRGv045CvMhz6v5iM/media/69f0cacac5c98840c8447d65.png');
+  background-image: url('../assets/bg-pattern.png');
   background-size: cover;
   background-position: center;
   opacity: 0.025;
@@ -1351,7 +1338,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
 .register-bg-pattern {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/QbtvRGv045CvMhz6v5iM/media/69f0cacac5c98840c8447d65.png');
+  background-image: url('../assets/bg-pattern.png');
   background-size: cover;
   opacity: 0.03;
 }
@@ -1578,6 +1565,48 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
 /* ══════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════ */
+/* ── PROOF SCREENSHOTS & COACHES PROMO ── */
+.proof-screenshot {
+  width: 100%;
+  border-radius: var(--radius-md);
+  margin: 0 0 16px;
+  object-fit: cover;
+  max-height: 280px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.testimonial-proof-card {
+  display: flex;
+  flex-direction: column;
+}
+.testimonial-proof-card .testimonial-text { display: none; }
+
+.coaches-promo-banner {
+  text-align: center;
+  margin-bottom: 48px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--gold-border);
+  box-shadow: var(--shadow-gold);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.coaches-promo-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* ── LIVE CHART UTILITY ── */
+.live-chart-img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gold-border);
+  box-shadow: var(--shadow-gold);
+}
+
 @media (max-width: 1024px) {
   .trust-stats-grid { grid-template-columns: repeat(2, 1fr); }
   .event-details-bar { grid-template-columns: repeat(2, 1fr); }
