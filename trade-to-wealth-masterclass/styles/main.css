@@ -1398,7 +1398,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
   margin-bottom: 10px;
 }
 .register-form-title { font-size: 1.8rem; font-family: var(--font-display); color: var(--cream); margin-bottom: 6px; }
-.register-form-subtitle { font-size: 0.875rem; color: var(--white-50); margin-bottom: 28px; }
+.register-form-subtitle { font-size: 0.875rem; color: var(--white-50); margin-bottom: 0; }
+.register-form-header { margin-bottom: 24px; }
 .register-coaches-photo { display: none; }
 .register-coaches-photo img { width: 100%; height: auto; object-fit: cover; }
 .form-privacy-note {
