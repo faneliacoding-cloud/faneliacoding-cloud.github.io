@@ -1126,33 +1126,112 @@
               <p class="register-form-subtitle">Fill in your details below — it only takes 30 seconds</p>
             </div>
 
-            <!-- GHL Form Embed — Primary Registration -->
-            <div class="ghl-form-wrapper" id="ghl-form-wrapper">
-              <iframe
-                src="https://api.leadconnectorhq.com/widget/form/qbslikHPuM"
-                id="inline-qbslikHPuM"
-                data-layout="{'id':'INLINE'}"
-                data-trigger-type="alwaysShow"
-                data-trigger-value=""
-                data-activation-type="alwaysActivated"
-                data-activation-value=""
-                data-deactivation-type="neverDeactivate"
-                data-deactivation-value=""
-                data-form-name="TTW Registration"
-                data-height="450"
-                data-layout-iframe-id="inline-qbslikHPuM"
-                data-form-id="qbslikHPuM"
-                title="Trade To Wealth Masterclass Registration Form"
-                aria-label="Registration form"
-                scrolling="no"
-              ></iframe>
-              <script src="https://link.msgsndr.com/js/form_embed.js"></script>
-            </div>
+            <!-- Custom Registration Form -->
+            <form id="ttw-reserve-form" class="ttw-register-form" novalidate>
+              <div class="ttw-form-row">
+                <div class="ttw-form-field">
+                  <label class="ttw-label" for="reg-first-name">First Name <span class="req">*</span></label>
+                  <input
+                    class="ttw-input-field"
+                    type="text"
+                    id="reg-first-name"
+                    name="firstName"
+                    placeholder="First name"
+                    autocomplete="given-name"
+                    maxlength="60"
+                    required
+                  >
+                </div>
+                <div class="ttw-form-field">
+                  <label class="ttw-label" for="reg-last-name">Last Name <span class="req">*</span></label>
+                  <input
+                    class="ttw-input-field"
+                    type="text"
+                    id="reg-last-name"
+                    name="lastName"
+                    placeholder="Last name"
+                    autocomplete="family-name"
+                    maxlength="60"
+                    required
+                  >
+                </div>
+              </div>
 
-            <p class="form-privacy-note">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Your information is 100% secure and will never be shared.
-            </p>
+              <div class="ttw-form-field">
+                <label class="ttw-label" for="reg-email">Email Address <span class="req">*</span></label>
+                <input
+                  class="ttw-input-field"
+                  type="email"
+                  id="reg-email"
+                  name="email"
+                  placeholder="your@email.com"
+                  autocomplete="email"
+                  maxlength="120"
+                  required
+                >
+              </div>
+
+              <div class="ttw-form-field">
+                <label class="ttw-label" for="reg-phone">Phone Number <span class="req">*</span></label>
+                <input
+                  class="ttw-input-field"
+                  type="tel"
+                  id="reg-phone"
+                  name="phone"
+                  placeholder="(555) 000-0000"
+                  autocomplete="tel"
+                  maxlength="20"
+                  required
+                >
+              </div>
+
+              <div class="ttw-form-field">
+                <label class="ttw-label" for="reg-goal">What is your primary financial goal? <span class="req">*</span></label>
+                <div class="ttw-select-wrap">
+                  <select class="ttw-input-field" id="reg-goal" name="goal" required>
+                    <option value="" disabled selected>Select your goal…</option>
+                    <option value="beginner">I'm a complete beginner — learn the basics</option>
+                    <option value="trading">Get into active trading &amp; options</option>
+                    <option value="investing">Long-term investing &amp; wealth building</option>
+                    <option value="family">Build generational wealth for my family</option>
+                    <option value="income">Create passive income streams</option>
+                    <option value="other">Something else</option>
+                  </select>
+                  <svg class="ttw-select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                </div>
+              </div>
+
+              <label class="ttw-checkbox-row">
+                <input type="checkbox" id="reg-consent" name="consent" required>
+                <span class="ttw-checkbox-text">
+                  I agree to be contacted about the Trade To Wealth Masterclass. I understand this is <strong>financial education only</strong>, not financial advice. I consent to receiving program updates by email &amp; phone.
+                </span>
+              </label>
+
+              <div class="ttw-form-error" id="reg-error" role="alert" aria-live="polite"></div>
+
+              <button type="submit" class="ttw-submit" id="reg-submit-btn">
+                <span class="ttw-submit-text">Reserve My Free Seat →</span>
+                <span class="ttw-submit-loading" style="display:none;">
+                  <svg class="ttw-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                  Reserving your seat…
+                </span>
+              </button>
+
+              <p class="form-privacy-note">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Your information is 100% secure and will never be shared.
+              </p>
+            </form>
+
+            <!-- Success State -->
+            <div class="ttw-form-success" id="reg-success" style="display:none;">
+              <div class="ttw-success-icon-wrap">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              </div>
+              <h4 class="ttw-success-headline">You're In! 🎉</h4>
+              <p class="ttw-success-msg">Your seat has been reserved. Watch your inbox for confirmation details from the Trade To Wealth team.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1166,19 +1245,54 @@
       <h2 id="register2-heading" class="section-title center reveal-up">
         Get More Info <em class="gold-text">Sent To You</em>
       </h2>
-      <p class="section-body center reveal-up">Leave your details and we'll send you everything you need to know before the next masterclass.</p>
-      <div class="ghl-form-wrapper" style="margin-top:32px;" id="ghl-form-2-wrapper">
-        <iframe
-          src="https://api.leadconnectorhq.com/widget/form/RlMaiG6wve"
-          id="inline-RlMaiG6wve"
-          data-layout="{'id':'INLINE'}"
-          data-form-name="TTW Info Request"
-          data-form-id="RlMaiG6wve"
-          title="Trade To Wealth Info Request Form"
-          aria-label="Information request form"
-          scrolling="no"
-        ></iframe>
-        <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+      <p class="section-body center reveal-up">Leave your details and we’ll send you everything you need to know before the next masterclass.</p>
+
+      <div class="ttw-info-form-wrap reveal-up">
+        <form id="ttw-info-form" class="ttw-register-form" novalidate>
+          <div class="ttw-form-row">
+            <div class="ttw-form-field">
+              <label class="ttw-label" for="info-first-name">First Name <span class="req">*</span></label>
+              <input class="ttw-input-field" type="text" id="info-first-name" name="firstName" placeholder="First name" autocomplete="given-name" maxlength="60" required>
+            </div>
+            <div class="ttw-form-field">
+              <label class="ttw-label" for="info-last-name">Last Name</label>
+              <input class="ttw-input-field" type="text" id="info-last-name" name="lastName" placeholder="Last name" autocomplete="family-name" maxlength="60">
+            </div>
+          </div>
+
+          <div class="ttw-form-field">
+            <label class="ttw-label" for="info-email">Email Address <span class="req">*</span></label>
+            <input class="ttw-input-field" type="email" id="info-email" name="email" placeholder="your@email.com" autocomplete="email" maxlength="120" required>
+          </div>
+
+          <div class="ttw-form-field">
+            <label class="ttw-label" for="info-phone">Phone Number</label>
+            <input class="ttw-input-field" type="tel" id="info-phone" name="phone" placeholder="(555) 000-0000" autocomplete="tel" maxlength="20">
+          </div>
+
+          <div class="ttw-form-error" id="info-error" role="alert" aria-live="polite"></div>
+
+          <button type="submit" class="ttw-submit" id="info-submit-btn">
+            <span class="ttw-submit-text">Send Me More Info →</span>
+            <span class="ttw-submit-loading" style="display:none;">
+              <svg class="ttw-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+              Submitting…
+            </span>
+          </button>
+
+          <p class="form-privacy-note" style="justify-content:center;margin-top:14px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Your information is 100% secure and will never be shared.
+          </p>
+        </form>
+
+        <div class="ttw-form-success" id="info-success" style="display:none;">
+          <div class="ttw-success-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <h4 class="ttw-success-headline">Got it! ✉️</h4>
+          <p class="ttw-success-msg">We’ll send you all the details you need about the next Trade To Wealth Masterclass session. Keep an eye on your inbox!</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1322,9 +1436,24 @@
       </div>
 
       <div class="footer-bottom">
-        <p class="footer-legal">© 2024 Trade To Wealth Masterclass. All rights reserved.</p>
+        <p class="footer-legal">© 2026 Boss Up Academy | All Rights Reserved</p>
+        <p class="footer-legal" style="margin-top:6px; color:rgba(255,255,255,0.3); font-size:0.78rem;">
+          7860 W Commercial BLVD 200 #705 Lauderhill, Florida 33351
+        </p>
+        <div class="footer-policy-links">
+          <a href="#" class="footer-policy-link">Terms Of Service</a>
+          <span class="footer-policy-sep">|</span>
+          <a href="#" class="footer-policy-link">Privacy Policy</a>
+          <span class="footer-policy-sep">|</span>
+          <a href="#" class="footer-policy-link">Refund Policy</a>
+          <span class="footer-policy-sep">|</span>
+          <a href="#" class="footer-policy-link">Customer Support</a>
+        </div>
         <p class="footer-disclaimer">
           <strong>Disclaimer:</strong> This masterclass is for educational purposes only. Trading and investing involve risk. Past performance is not indicative of future results. We do not provide financial advice or guarantee specific outcomes.
+        </p>
+        <p class="footer-disclaimer" style="margin-top:10px;">
+          <strong>NOT FACEBOOK™:</strong> This site is not a part of the Facebook™ website or Facebook Inc. Additionally, This site is NOT endorsed by Facebook™ in any way. FACEBOOK™ is a trademark of FACEBOOK™, Inc.
         </p>
       </div>
     </div>

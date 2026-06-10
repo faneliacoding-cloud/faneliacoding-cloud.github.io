@@ -289,3 +289,90 @@
     });
   });
 })();
+
+// ── CUSTOM REGISTRATION FORMS ────────────────
+(function initRegForms() {
+  const LEADS_KEY = 'ttw_leads';
+
+  function saveLead(lead) {
+    let leads = [];
+    try { leads = JSON.parse(localStorage.getItem(LEADS_KEY) || '[]'); } catch {}
+    lead.id = Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+    lead.timestamp = new Date().toISOString();
+    leads.push(lead);
+    localStorage.setItem(LEADS_KEY, JSON.stringify(leads));
+    return lead;
+  }
+
+  function showError(errEl, msg) {
+    errEl.textContent = msg;
+    errEl.classList.add('visible');
+  }
+  function clearError(errEl) {
+    errEl.textContent = '';
+    errEl.classList.remove('visible');
+  }
+  function setLoading(btn, loading) {
+    btn.querySelector('.ttw-submit-text').style.display = loading ? 'none' : '';
+    btn.querySelector('.ttw-submit-loading').style.display = loading ? 'flex' : 'none';
+    btn.disabled = loading;
+  }
+
+  // ── PRIMARY RESERVE FORM ──
+  const reserveForm = document.getElementById('ttw-reserve-form');
+  if (reserveForm) {
+    reserveForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const errEl  = document.getElementById('reg-error');
+      const btn    = document.getElementById('reg-submit-btn');
+      const first  = document.getElementById('reg-first-name').value.trim();
+      const last   = document.getElementById('reg-last-name').value.trim();
+      const email  = document.getElementById('reg-email').value.trim();
+      const phone  = document.getElementById('reg-phone').value.trim();
+      const goal   = document.getElementById('reg-goal').value;
+      const consent = document.getElementById('reg-consent').checked;
+
+      clearError(errEl);
+
+      if (!first)                           return showError(errEl, 'Please enter your first name.');
+      if (!last)                            return showError(errEl, 'Please enter your last name.');
+      if (!email || !/\S+@\S+\.\S+/.test(email)) return showError(errEl, 'Please enter a valid email address.');
+      if (!phone)                           return showError(errEl, 'Please enter your phone number.');
+      if (!goal)                            return showError(errEl, 'Please select your primary goal.');
+      if (!consent)                         return showError(errEl, 'Please check the consent box to continue.');
+
+      setLoading(btn, true);
+      setTimeout(function() {
+        saveLead({ name: first + ' ' + last, email, phone, goal, consent: true, source: document.referrer || 'direct', formId: 'reserve' });
+        reserveForm.style.display = 'none';
+        document.getElementById('reg-success').style.display = 'block';
+      }, 900);
+    });
+  }
+
+  // ── SECONDARY INFO FORM ──
+  const infoForm = document.getElementById('ttw-info-form');
+  if (infoForm) {
+    infoForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const errEl  = document.getElementById('info-error');
+      const btn    = document.getElementById('info-submit-btn');
+      const first  = document.getElementById('info-first-name').value.trim();
+      const email  = document.getElementById('info-email').value.trim();
+      const last   = document.getElementById('info-last-name')?.value.trim() || '';
+      const phone  = document.getElementById('info-phone')?.value.trim() || '';
+
+      clearError(errEl);
+
+      if (!first)                              return showError(errEl, 'Please enter your first name.');
+      if (!email || !/\S+@\S+\.\S+/.test(email)) return showError(errEl, 'Please enter a valid email address.');
+
+      setLoading(btn, true);
+      setTimeout(function() {
+        saveLead({ name: (first + ' ' + last).trim(), email, phone, goal: 'info-request', consent: true, source: document.referrer || 'direct', formId: 'info' });
+        infoForm.style.display = 'none';
+        document.getElementById('info-success').style.display = 'block';
+      }, 900);
+    });
+  }
+})();

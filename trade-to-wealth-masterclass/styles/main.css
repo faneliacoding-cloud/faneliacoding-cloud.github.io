@@ -1558,6 +1558,20 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
 .footer-legal { font-size: 0.8rem; color: var(--white-30); }
 .footer-disclaimer { font-size: 0.75rem; color: var(--white-30); line-height: 1.6; max-width: 680px; }
 .footer-disclaimer strong { color: var(--white-50); }
+.footer-policy-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 10px 0;
+}
+.footer-policy-link {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.4);
+  transition: color 0.18s ease;
+}
+.footer-policy-link:hover { color: var(--gold); }
+.footer-policy-sep { color: rgba(255,255,255,0.18); font-size: 0.75rem; }
 
 /* ══════════════════════════════════
    SCROLL TO TOP
@@ -1624,6 +1638,95 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
   border-radius: var(--radius-lg);
   border: 1px solid var(--gold-border);
   box-shadow: var(--shadow-gold);
+}
+
+/* ══════════════════════════════════════
+   CUSTOM REGISTRATION FORMS
+══════════════════════════════════════ */
+.ttw-register-form { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+.ttw-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ttw-form-field { display: flex; flex-direction: column; gap: 7px; }
+.ttw-label { font-size: 0.78rem; font-weight: 600; color: var(--cream-dark); letter-spacing: 0.2px; }
+.ttw-label .req { color: var(--gold); font-weight: 700; margin-left: 2px; }
+.ttw-input-field {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-md);
+  padding: 13px 16px;
+  font-size: 0.875rem;
+  color: var(--cream);
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.ttw-input-field::placeholder { color: rgba(255,255,255,0.25); }
+.ttw-input-field:focus {
+  border-color: rgba(218,193,87,0.5);
+  background: rgba(218,193,87,0.04);
+  box-shadow: 0 0 0 3px rgba(218,193,87,0.08);
+}
+.ttw-input-field.error { border-color: rgba(248,113,113,0.6); background: rgba(248,113,113,0.04); }
+.ttw-select-wrap { position: relative; }
+.ttw-select-wrap select { padding-right: 36px; cursor: pointer; }
+.ttw-select-arrow { position: absolute; right: 13px; top: 50%; transform: translateY(-50%); color: var(--gold); pointer-events: none; }
+.ttw-select-wrap select option { background: var(--black-card); color: var(--cream); }
+.ttw-checkbox-row { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; padding: 4px 0; }
+.ttw-checkbox-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--gold); flex-shrink: 0; margin-top: 1px; cursor: pointer; }
+.ttw-checkbox-text { font-size: 0.78rem; color: var(--white-50); line-height: 1.55; }
+.ttw-checkbox-text strong { color: var(--cream-dark); }
+.ttw-form-error { font-size: 0.8rem; color: #f87171; display: none; }
+.ttw-form-error.visible { display: block; }
+.ttw-submit {
+  width: 100%;
+  background: var(--gold-gradient);
+  color: var(--black-rich);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.975rem;
+  letter-spacing: 0.3px;
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.ttw-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(218,193,87,0.38); }
+.ttw-submit:active { transform: translateY(0); }
+.ttw-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.ttw-submit-loading { display: flex; align-items: center; gap: 8px; }
+.ttw-spin { animation: ttw-spin-anim 0.8s linear infinite; }
+@keyframes ttw-spin-anim { to { transform: rotate(360deg); } }
+.ttw-form-success { text-align: center; padding: 48px 20px; animation: ttw-fade-in 0.4s ease; }
+@keyframes ttw-fade-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.ttw-success-icon-wrap {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, rgba(218,193,87,0.15), rgba(218,193,87,0.05));
+  border: 2px solid var(--gold-border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  margin: 0 auto 20px;
+}
+.ttw-success-headline { font-family: var(--font-display); font-size: 1.6rem; color: var(--cream); margin-bottom: 10px; }
+.ttw-success-msg { font-size: 0.9rem; color: var(--white-70); line-height: 1.65; max-width: 420px; margin: 0 auto; }
+.ttw-info-form-wrap {
+  background: var(--black-card);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-xl);
+  padding: 44px 40px;
+  margin-top: 36px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: var(--shadow-card);
 }
 
 /* ══════════════════════════════════════
