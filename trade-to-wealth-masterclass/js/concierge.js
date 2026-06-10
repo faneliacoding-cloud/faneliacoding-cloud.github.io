@@ -111,7 +111,7 @@ This isn't just about individual trading. It's about your entire household, your
     hello: {
       keywords: ['hello','hi','hey','good morning','good afternoon','what up','howdy','greetings','sup'],
       answer: `Hey there! 👋 Welcome to the <strong>Trade To Wealth Masterclass</strong>.<br><br>
-I'm your AI Concierge — here to help you understand the program, meet the coaches, and figure out if this is the right move for your family.<br><br>
+I'm your BUA Concierge — here to help you understand the program, meet the coaches, and figure out if this is the right move for your family.<br><br>
 What can I help you with today?`
     },
     thanks: {
@@ -216,13 +216,13 @@ Anything else I can help you with?`
     container.id = 'ttw-concierge';
     container.innerHTML = `
       <!-- Floating Bubble -->
-      <button class="ttw-bubble" id="ttw-bubble-btn" aria-label="Open Trade To Wealth AI Concierge" aria-expanded="false">
+      <button class="ttw-bubble" id="ttw-bubble-btn" aria-label="Open BUA Concierge" aria-expanded="false">
         <div class="ttw-bubble-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
           </svg>
         </div>
-        <span class="ttw-bubble-label">Ask AI Concierge</span>
+        <span class="ttw-bubble-label">Ask BUA Concierge</span>
         <span class="ttw-badge" id="ttw-badge" aria-label="1 new message">1</span>
       </button>
     `;
@@ -239,7 +239,7 @@ Anything else I can help you with?`
     panel.className = 'ttw-panel';
     panel.id = 'ttw-panel';
     panel.setAttribute('role', 'dialog');
-    panel.setAttribute('aria-label', 'Trade To Wealth AI Concierge');
+    panel.setAttribute('aria-label', 'BUA Concierge');
     panel.setAttribute('aria-modal', 'true');
 
     panel.innerHTML = `
@@ -251,10 +251,10 @@ Anything else I can help you with?`
             <div class="ttw-avatar-ring"></div>
           </div>
           <div>
-            <div class="ttw-header-name">Trade To Wealth AI</div>
+            <div class="ttw-header-name">BUA Concierge</div>
             <div class="ttw-header-status">
               <span class="ttw-online-dot"></span>
-              AI Concierge · Always Available
+              BUA Concierge · Always Available
             </div>
           </div>
         </div>
@@ -321,7 +321,7 @@ Anything else I can help you with?`
     // Welcome message
     setTimeout(() => {
       addAIMessage(`Welcome to <strong>Trade To Wealth Masterclass</strong> 👋<br><br>
-I'm your AI Concierge. I can help you understand what you'll learn, meet the coaches, and figure out if this is the right fit for your family's financial goals.<br><br>
+I'm your BUA Concierge. I can help you understand what you'll learn, meet the coaches, and figure out if this is the right fit for your family's financial goals.<br><br>
 What would you like to know?`);
     }, 400);
   }
