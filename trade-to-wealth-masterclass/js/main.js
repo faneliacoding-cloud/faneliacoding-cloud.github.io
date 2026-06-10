@@ -292,16 +292,63 @@
 
 // ── CUSTOM REGISTRATION FORMS ────────────────
 (function initRegForms() {
+
+  // ─────────────────────────────────────────────
+  // WEB3FORMS CONFIG
+  // Visit https://web3forms.com → enter taneishateaches@gmail.com
+  // → copy the access key from your email → paste below
+  // ─────────────────────────────────────────────
+  const W3F_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY'; // ← replace this once
+
   const LEADS_KEY = 'ttw_leads';
 
+  // Save lead to localStorage (always, as backup)
   function saveLead(lead) {
     let leads = [];
     try { leads = JSON.parse(localStorage.getItem(LEADS_KEY) || '[]'); } catch {}
-    lead.id = Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+    lead.id        = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
     lead.timestamp = new Date().toISOString();
     leads.push(lead);
     localStorage.setItem(LEADS_KEY, JSON.stringify(leads));
     return lead;
+  }
+
+  // Send lead to Web3Forms → taneishateaches@gmail.com
+  async function sendEmail(lead, formTitle) {
+    if (!W3F_KEY || W3F_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY') return; // key not set yet
+    const goalLabels = {
+      beginner: 'Beginner — learn the basics',
+      trading:  'Active trading & options',
+      investing: 'Long-term investing',
+      family:   'Generational wealth',
+      income:   'Passive income',
+      other:    'Other',
+      'info-request': 'Requested more info'
+    };
+    const body = {
+      access_key:   W3F_KEY,
+      subject:      `🔥 New Lead: ${lead.name} — ${formTitle}`,
+      from_name:    'BUA Website',
+      replyto:      lead.email,
+      name:         lead.name,
+      email:        lead.email,
+      phone:        lead.phone  || 'Not provided',
+      goal:         goalLabels[lead.goal] || lead.goal || 'Not specified',
+      consent:      lead.consent ? 'Yes ✓' : 'No',
+      source:       lead.source || 'Direct',
+      submitted_at: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }) + ' ET',
+      form:         formTitle,
+      message:      `New lead from Trade To Wealth website.\n\nName: ${lead.name}\nEmail: ${lead.email}\nPhone: ${lead.phone || 'N/A'}\nGoal: ${goalLabels[lead.goal] || lead.goal || 'N/A'}\nForm: ${formTitle}\nSubmitted: ${new Date().toLocaleString()}`
+    };
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(body)
+      });
+    } catch (err) {
+      console.warn('Email notification failed (lead still saved locally):', err);
+    }
   }
 
   function showError(errEl, msg) {
@@ -313,66 +360,74 @@
     errEl.classList.remove('visible');
   }
   function setLoading(btn, loading) {
-    btn.querySelector('.ttw-submit-text').style.display = loading ? 'none' : '';
+    btn.querySelector('.ttw-submit-text').style.display  = loading ? 'none' : '';
     btn.querySelector('.ttw-submit-loading').style.display = loading ? 'flex' : 'none';
     btn.disabled = loading;
   }
 
-  // ── PRIMARY RESERVE FORM ──
+  // ── PRIMARY RESERVE FORM ──────────────────────
   const reserveForm = document.getElementById('ttw-reserve-form');
   if (reserveForm) {
-    reserveForm.addEventListener('submit', function(e) {
+    reserveForm.addEventListener('submit', async function(e) {
       e.preventDefault();
-      const errEl  = document.getElementById('reg-error');
-      const btn    = document.getElementById('reg-submit-btn');
-      const first  = document.getElementById('reg-first-name').value.trim();
-      const last   = document.getElementById('reg-last-name').value.trim();
-      const email  = document.getElementById('reg-email').value.trim();
-      const phone  = document.getElementById('reg-phone').value.trim();
-      const goal   = document.getElementById('reg-goal').value;
+      const errEl   = document.getElementById('reg-error');
+      const btn     = document.getElementById('reg-submit-btn');
+      const first   = document.getElementById('reg-first-name').value.trim();
+      const last    = document.getElementById('reg-last-name').value.trim();
+      const email   = document.getElementById('reg-email').value.trim();
+      const phone   = document.getElementById('reg-phone').value.trim();
+      const goal    = document.getElementById('reg-goal').value;
       const consent = document.getElementById('reg-consent').checked;
 
       clearError(errEl);
 
-      if (!first)                           return showError(errEl, 'Please enter your first name.');
-      if (!last)                            return showError(errEl, 'Please enter your last name.');
-      if (!email || !/\S+@\S+\.\S+/.test(email)) return showError(errEl, 'Please enter a valid email address.');
-      if (!phone)                           return showError(errEl, 'Please enter your phone number.');
-      if (!goal)                            return showError(errEl, 'Please select your primary goal.');
-      if (!consent)                         return showError(errEl, 'Please check the consent box to continue.');
+      if (!first)                                    return showError(errEl, 'Please enter your first name.');
+      if (!last)                                     return showError(errEl, 'Please enter your last name.');
+      if (!email || !/\S+@\S+\.\S+/.test(email))    return showError(errEl, 'Please enter a valid email address.');
+      if (!phone)                                    return showError(errEl, 'Please enter your phone number.');
+      if (!goal)                                     return showError(errEl, 'Please select your primary goal.');
+      if (!consent)                                  return showError(errEl, 'Please check the consent box to continue.');
 
       setLoading(btn, true);
-      setTimeout(function() {
-        saveLead({ name: first + ' ' + last, email, phone, goal, consent: true, source: document.referrer || 'direct', formId: 'reserve' });
-        reserveForm.style.display = 'none';
-        document.getElementById('reg-success').style.display = 'block';
-      }, 900);
+
+      const lead = { name: first + ' ' + last, email, phone, goal, consent: true,
+                     source: document.referrer || 'direct', formId: 'reserve' };
+      saveLead(lead);
+      await sendEmail(lead, 'Reserve Your Seat');
+
+      reserveForm.style.display = 'none';
+      document.getElementById('reg-success').style.display = 'block';
     });
   }
 
-  // ── SECONDARY INFO FORM ──
+  // ── SECONDARY INFO FORM ───────────────────────
   const infoForm = document.getElementById('ttw-info-form');
   if (infoForm) {
-    infoForm.addEventListener('submit', function(e) {
+    infoForm.addEventListener('submit', async function(e) {
       e.preventDefault();
-      const errEl  = document.getElementById('info-error');
-      const btn    = document.getElementById('info-submit-btn');
-      const first  = document.getElementById('info-first-name').value.trim();
-      const email  = document.getElementById('info-email').value.trim();
-      const last   = document.getElementById('info-last-name')?.value.trim() || '';
-      const phone  = document.getElementById('info-phone')?.value.trim() || '';
+      const errEl = document.getElementById('info-error');
+      const btn   = document.getElementById('info-submit-btn');
+      const first = document.getElementById('info-first-name').value.trim();
+      const email = document.getElementById('info-email').value.trim();
+      const last  = document.getElementById('info-last-name')?.value.trim() || '';
+      const phone = document.getElementById('info-phone')?.value.trim() || '';
 
       clearError(errEl);
 
-      if (!first)                              return showError(errEl, 'Please enter your first name.');
-      if (!email || !/\S+@\S+\.\S+/.test(email)) return showError(errEl, 'Please enter a valid email address.');
+      if (!first)                                    return showError(errEl, 'Please enter your first name.');
+      if (!email || !/\S+@\S+\.\S+/.test(email))    return showError(errEl, 'Please enter a valid email address.');
 
       setLoading(btn, true);
-      setTimeout(function() {
-        saveLead({ name: (first + ' ' + last).trim(), email, phone, goal: 'info-request', consent: true, source: document.referrer || 'direct', formId: 'info' });
-        infoForm.style.display = 'none';
-        document.getElementById('info-success').style.display = 'block';
-      }, 900);
+
+      const lead = { name: (first + ' ' + last).trim(), email, phone,
+                     goal: 'info-request', consent: true,
+                     source: document.referrer || 'direct', formId: 'info' };
+      saveLead(lead);
+      await sendEmail(lead, 'Get More Info');
+
+      infoForm.style.display = 'none';
+      document.getElementById('info-success').style.display = 'block';
     });
   }
+
 })();
