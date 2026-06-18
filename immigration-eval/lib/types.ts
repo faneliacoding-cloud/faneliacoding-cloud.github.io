@@ -35,17 +35,31 @@ export type CaseType =
   | 'extreme_hardship'
   | 'cancellation_of_removal'
   | 'n648_disability'
+  | 'sijs'
+  | 'bond_hearing'
+  | 'good_faith_marriage'
+  | 'cat_convention'
+  | 'withholding_of_removal'
+  | 'competency_evaluation'
+  | 'psychological_impact'
   | 'custom';
 
 export const CASE_TYPE_CONFIG: Record<CaseType, { label: string; description: string; estimatedTime: string; icon: string }> = {
-  asylum:                 { label: 'Asylum Evaluation',           description: 'Psychological evaluation for asylum seekers documenting persecution, trauma, and fear of return.',                icon: '🛡️', estimatedTime: '2–4 hours' },
-  vawa:                   { label: 'VAWA Evaluation',             description: 'Evaluation for victims of domestic violence by U.S. citizen or permanent resident spouse/parent.',               icon: '💜', estimatedTime: '2–3 hours' },
-  u_visa:                 { label: 'U Visa Evaluation',           description: 'Psychological assessment for victims of qualifying crimes who suffered substantial abuse.',                     icon: '⚖️', estimatedTime: '2–3 hours' },
-  t_visa:                 { label: 'T Visa Evaluation',           description: 'Evaluation for victims of human trafficking documenting psychological impact and trauma.',                      icon: '🔒', estimatedTime: '2–3 hours' },
-  extreme_hardship:       { label: 'Extreme Hardship',            description: 'Assessment documenting extreme hardship to qualifying relatives if applicant is removed.',                      icon: '📋', estimatedTime: '3–5 hours' },
-  cancellation_of_removal:{ label: 'Cancellation of Removal',    description: 'Evaluation supporting cancellation of removal based on exceptional and extremely unusual hardship.',            icon: '🏛️', estimatedTime: '3–5 hours' },
-  n648_disability:        { label: 'N-648 Disability Waiver',     description: 'Mental health evaluation supporting waiver of English/civics naturalization requirements.',                    icon: '📝', estimatedTime: '1–2 hours' },
-  custom:                 { label: 'Custom Evaluation',           description: 'Custom evaluation type for unique immigration cases not covered by standard templates.',                        icon: '✨', estimatedTime: 'Varies' },
+  asylum:                 { label: 'Asylum Evaluation',                  description: 'Comprehensive psychological evaluation for asylum seekers documenting persecution, trauma history, and well-founded fear of return to country of origin.',                          icon: '🛡️', estimatedTime: '3–5 hours' },
+  vawa:                   { label: 'VAWA Evaluation',                    description: 'Evaluation for survivors of domestic violence by a U.S. citizen or lawful permanent resident spouse, parent, or child under the Violence Against Women Act.',                          icon: '💜', estimatedTime: '2–4 hours' },
+  u_visa:                 { label: 'U Visa Evaluation',                  description: 'Psychological assessment for victims of qualifying crimes (assault, trafficking, sexual abuse, etc.) who suffered substantial physical or mental abuse.',                               icon: '⚖️', estimatedTime: '2–4 hours' },
+  t_visa:                 { label: 'T Visa Evaluation',                  description: 'Clinical evaluation for survivors of human trafficking documenting psychological coercion, trauma bonding, and long-term mental health impact.',                                         icon: '🔒', estimatedTime: '3–4 hours' },
+  extreme_hardship:       { label: 'Extreme Hardship Waiver',            description: 'Assessment documenting extreme hardship to a qualifying U.S. citizen or LPR relative if the applicant is denied admission or removed from the United States.',                              icon: '📋', estimatedTime: '3–5 hours' },
+  cancellation_of_removal:{ label: 'Cancellation of Removal',            description: 'Evaluation supporting cancellation of removal based on exceptional and extremely unusual hardship to qualifying relatives, including children\'s developmental needs.',                    icon: '🏛️', estimatedTime: '3–5 hours' },
+  n648_disability:        { label: 'N-648 Disability Waiver',            description: 'Mental health evaluation supporting waiver of English language and U.S. civics naturalization requirements due to developmental or cognitive disability.',                                  icon: '📝', estimatedTime: '1–2 hours' },
+  sijs:                   { label: 'Special Immigrant Juvenile (SIJS)',   description: 'Psychological evaluation for minors who have been abused, neglected, or abandoned by one or both parents, supporting Special Immigrant Juvenile Status petitions.',                      icon: '🧒', estimatedTime: '2–4 hours' },
+  bond_hearing:           { label: 'Bond Hearing Evaluation',            description: 'Psychological assessment for immigration bond hearings documenting mental health needs, community ties, flight risk factors, and suitability for release from detention.',                 icon: '🔑', estimatedTime: '1–3 hours' },
+  good_faith_marriage:    { label: 'Good Faith Marriage (I-751)',         description: 'Psychosocial evaluation documenting the bona fide nature of a marital relationship for I-751 waiver petitions following conditional residence removal.',                                   icon: '💍', estimatedTime: '2–3 hours' },
+  cat_convention:         { label: 'Convention Against Torture (CAT)',    description: 'Clinical evaluation documenting likelihood of torture upon return to home country under the UN Convention Against Torture, including country conditions impact.',                           icon: '🌐', estimatedTime: '3–5 hours' },
+  withholding_of_removal: { label: 'Withholding of Removal',             description: 'Psychological evaluation supporting withholding of removal claims based on persecution risk, documenting past harm and future danger if returned.',                                        icon: '🚫', estimatedTime: '3–5 hours' },
+  competency_evaluation:  { label: 'Competency to Proceed (Franco)',     description: 'Mental competency evaluation for immigration court proceedings assessing whether the respondent can meaningfully participate in their own removal hearings.',                              icon: '🧠', estimatedTime: '2–3 hours' },
+  psychological_impact:   { label: 'Psychological Impact Statement',     description: 'Focused assessment documenting the psychological impact of immigration-related stressors (family separation, detention, deportation fear) for court or USCIS filings.',                   icon: '📊', estimatedTime: '1–3 hours' },
+  custom:                 { label: 'Custom Evaluation',                  description: 'Flexible evaluation template for unique immigration cases, research assessments, or specialized court-ordered psychological evaluations not covered by standard templates.',               icon: '✨', estimatedTime: 'Varies' },
 };
 
 // ── Document Categories ──────────────────────────────────────────────────────
