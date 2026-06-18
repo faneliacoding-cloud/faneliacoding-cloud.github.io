@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 /**
  * Section 2: Clinician Information

@@ -16,22 +16,22 @@ export default function Page() {
     return (
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        height: '100vh', background: '#f5f5f7',
+        height: '100vh', background: '#FAF8F5',
         fontFamily: 'Inter, -apple-system, sans-serif',
         flexDirection: 'column', gap: 12,
       }}>
         <div style={{
           width: 44, height: 44, borderRadius: 14,
-          background: 'linear-gradient(135deg, #0071e3, #5e5ce6)',
+          background: 'linear-gradient(135deg, #1B3A2D, #2D5A45)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 4px 16px rgba(0,113,227,0.3)',
+          boxShadow: '0 4px 16px rgba(27,58,45,0.3)',
         }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
           </svg>
         </div>
-        <div style={{ fontSize: 15, fontWeight: 600, color: '#1d1d1f' }}>TJIL Immigration Evaluation</div>
-        <div style={{ fontSize: 13, color: '#6e6e73' }}>Loading clinical platform...</div>
+        <div style={{ fontSize: 15, fontWeight: 600, color: '#2C2C2E' }}>TJIL Immigration Evaluation</div>
+        <div style={{ fontSize: 13, color: '#6B6B6F' }}>Loading clinical platform...</div>
       </div>
     );
   }

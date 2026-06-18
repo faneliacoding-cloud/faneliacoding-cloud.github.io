@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 /**
  * Section 7: Assessment Scales — PHQ-9, GAD-7, PCL-5

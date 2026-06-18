@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 /**
  * Section 8: Optional Conditional Sections

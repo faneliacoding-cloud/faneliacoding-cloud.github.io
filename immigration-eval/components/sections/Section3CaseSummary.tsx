@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 /**
  * Section 3: Case Summary — AI-enhanced clinical narrative

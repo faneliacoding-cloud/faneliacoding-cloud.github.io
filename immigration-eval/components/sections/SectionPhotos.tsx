@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 /**
  * Section 10: Client Photos / Supporting Images

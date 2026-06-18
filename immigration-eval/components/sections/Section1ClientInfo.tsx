@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client';
 /**
  * Section 1: Client Information

@@ -11,8 +11,8 @@ export default function Dashboard() {
   const { evaluations, setView, createEvaluation, setActiveEval, deleteEvaluation } = useAppStore();
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const drafts = evaluations.filter(e => e.status !== 'completed');
-  const completed = evaluations.filter(e => e.status === 'completed');
+  const drafts = evaluations.filter(e => e.status !== 'report_complete' && e.status !== 'delivered');
+  const completed = evaluations.filter(e => e.status === 'report_complete' || e.status === 'delivered');
   const recent = [...evaluations].sort((a, b) =>
     new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
   ).slice(0, 5);
@@ -27,7 +27,7 @@ export default function Dashboard() {
     { label: 'Total Evaluations', value: evaluations.length, icon: FileText, color: '#0071e3', bg: 'rgba(0,113,227,0.10)' },
     { label: 'In Progress', value: drafts.length, icon: Clock, color: '#ff9f0a', bg: 'rgba(255,159,10,0.10)' },
     { label: 'Completed', value: completed.length, icon: CheckSquare, color: '#30d158', bg: 'rgba(48,209,88,0.10)' },
-    { label: 'Clients', value: new Set(evaluations.map(e => e.clientInfo.fullName).filter(Boolean)).size, icon: Users, color: '#bf5af2', bg: 'rgba(191,90,242,0.10)' },
+    { label: 'Clients', value: new Set(evaluations.map(e => e.client.fullName).filter(Boolean)).size, icon: Users, color: '#bf5af2', bg: 'rgba(191,90,242,0.10)' },
   ];
 
   return (
@@ -92,7 +92,7 @@ export default function Dashboard() {
         <div className="glass-card" style={{ borderRadius: 16, padding: '22px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
             <h3 style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)' }}>Recent Evaluations</h3>
-            <button className="btn-ghost" onClick={() => setView('draft-evals')} style={{ fontSize: 12 }}>
+            <button className="btn-ghost" onClick={() => setView('evaluations')} style={{ fontSize: 12 }}>
               View all <ArrowRight size={12} />
             </button>
           </div>
@@ -123,24 +123,24 @@ export default function Dashboard() {
                       gap: 12,
                     }}
                   >
-                    <div style={{ width: 36, height: 36, borderRadius: 10, background: 'var(--accent-blue-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
-                      {ev.clientInfo.profilePhoto ? (
-                        <img src={ev.clientInfo.profilePhoto} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <div style={{ width: 36, height: 36, borderRadius: 10, background: 'var(--ivory-warm)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
+                      {ev.client.profilePhoto ? (
+                        <img src={ev.client.profilePhoto} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       ) : (
-                        <FileText size={16} color="var(--accent-blue)" />
+                        <FileText size={16} color="var(--sage)" />
                       )}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {ev.clientInfo.fullName || 'Unnamed Client'}
+                        {ev.client.fullName || 'Unnamed Client'}
                       </div>
                       <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
-                        {ev.clientInfo.countryOfOrigin || 'Country unknown'} · {new Date(ev.updatedAt).toLocaleDateString()}
+                        {ev.client.countryOfOrigin || 'Country unknown'} · {new Date(ev.updatedAt).toLocaleDateString()}
                       </div>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-                      <span className={`badge badge-${ev.status === 'completed' ? 'complete' : ev.currentStep > 0 ? 'progress' : 'draft'}`}>
-                        {ev.status === 'completed' ? 'Done' : `${pct}%`}
+                      <span className={`badge badge-${(ev.status === 'report_complete' || ev.status === 'delivered') ? 'complete' : ev.currentStep > 0 ? 'progress' : 'draft'}`}>
+                        {(ev.status === 'report_complete' || ev.status === 'delivered') ? 'Done' : `${pct}%`}
                       </span>
                       <button aria-label="Delete evaluation" onClick={(e) => { e.stopPropagation(); setDeleteId(ev.id); }} style={{
                         border: 'none', background: 'rgba(255,69,58,0.08)', borderRadius: 6, padding: '4px 6px',
@@ -188,7 +188,7 @@ export default function Dashboard() {
       {/* Delete Confirmation Modal */}
       {deleteId && (
         <ConfirmDeleteModal
-          clientName={evaluations.find(e => e.id === deleteId)?.clientInfo.fullName || ''}
+          clientName={evaluations.find(e => e.id === deleteId)?.client.fullName || ''}
           onConfirm={() => { deleteEvaluation(deleteId); setDeleteId(null); }}
           onCancel={() => setDeleteId(null)}
         />
