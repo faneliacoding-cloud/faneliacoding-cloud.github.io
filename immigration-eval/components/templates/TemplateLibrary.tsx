@@ -1,156 +1,147 @@
 'use client';
 /**
- * TemplateLibrary — Premium template selection for new evaluations
- * Displays all 15 case types from CASE_TYPE_CONFIG with interactive cards
+ * TemplateLibrary — All 15 evaluation templates displayed as a clean list
+ * Organized by category, all visible on load without search
  */
 import { useAppStore } from '@/lib/store';
 import { CASE_TYPE_CONFIG, CaseType } from '@/lib/types';
-import { Clock, ArrowRight, Search } from 'lucide-react';
-import { useState } from 'react';
+import { Clock, ArrowRight } from 'lucide-react';
 
-// Group templates by category for better organization
-const TEMPLATE_GROUPS: { label: string; types: CaseType[] }[] = [
+const TEMPLATE_GROUPS: { label: string; description: string; types: CaseType[] }[] = [
   {
-    label: 'Protection-Based',
+    label: 'Protection-Based Evaluations',
+    description: 'For clients seeking protection from persecution, violence, or trafficking',
     types: ['asylum', 'cat_convention', 'withholding_of_removal', 'u_visa', 't_visa', 'vawa'],
   },
   {
     label: 'Removal Defense',
+    description: 'Supporting cases against removal or deportation',
     types: ['cancellation_of_removal', 'extreme_hardship', 'bond_hearing'],
   },
   {
-    label: 'Family & Status',
+    label: 'Family & Status-Based',
+    description: 'Evaluations related to family relationships and immigration status',
     types: ['good_faith_marriage', 'sijs'],
   },
   {
     label: 'Specialized Assessments',
+    description: 'Court-ordered evaluations, waivers, and focused assessments',
     types: ['n648_disability', 'competency_evaluation', 'psychological_impact', 'custom'],
   },
 ];
 
 export default function TemplateLibrary() {
   const { createEvaluation, setView } = useAppStore();
-  const [search, setSearch] = useState('');
 
-  const handleStartEvaluation = (caseType: CaseType) => {
+  const handleStart = (caseType: CaseType) => {
     createEvaluation(caseType);
     setView('new-eval');
   };
 
-  const filteredGroups = TEMPLATE_GROUPS.map(group => ({
-    ...group,
-    types: group.types.filter(type => {
-      const config = CASE_TYPE_CONFIG[type];
-      const q = search.toLowerCase();
-      return (
-        config.label.toLowerCase().includes(q) ||
-        config.description.toLowerCase().includes(q)
-      );
-    }),
-  })).filter(group => group.types.length > 0);
-
   return (
     <div
       className="animate-fade-in"
-      style={{ padding: 32, maxWidth: 1100, margin: '0 auto' }}
+      style={{ padding: '32px 32px 80px', maxWidth: 900, margin: '0 auto' }}
     >
       {/* Header */}
-      <div style={{ marginBottom: 32, textAlign: 'center' }}>
-        <h1
-          className="heading-xl"
-          style={{ marginBottom: 8 }}
-        >
+      <div style={{ marginBottom: 40 }}>
+        <h1 className="heading-xl" style={{ marginBottom: 8 }}>
           Template Library
         </h1>
-        <p className="text-secondary" style={{ fontSize: 15, maxWidth: 560, margin: '0 auto', marginBottom: 24 }}>
-          Choose a template to start a new evaluation. Each template is tailored
-          to the specific requirements of the immigration case type.
+        <p className="text-secondary" style={{ fontSize: 15, maxWidth: 560 }}>
+          Select an evaluation type to begin. Each template is tailored to its specific immigration case requirements.
         </p>
-
-        {/* Search */}
-        <div style={{ maxWidth: 400, margin: '0 auto', position: 'relative' }}>
-          <Search
-            size={15}
-            style={{
-              position: 'absolute',
-              left: 16,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              color: 'var(--charcoal-muted)',
-            }}
-          />
-          <input
-            className="form-input"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Search templates..."
-            style={{ paddingLeft: 42 }}
-            aria-label="Search templates"
-          />
-        </div>
       </div>
 
-      {/* Template count */}
-      <div style={{ fontSize: 12, color: 'var(--charcoal-muted)', marginBottom: 20, textAlign: 'center' }}>
-        {filteredGroups.reduce((sum, g) => sum + g.types.length, 0)} templates available
-      </div>
+      {/* Template Groups */}
+      {TEMPLATE_GROUPS.map(group => (
+        <div key={group.label} style={{ marginBottom: 40 }}>
+          {/* Group Header */}
+          <div style={{ marginBottom: 14 }}>
+            <h2
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 18,
+                fontWeight: 600,
+                color: 'var(--charcoal)',
+                marginBottom: 4,
+              }}
+            >
+              {group.label}
+            </h2>
+            <p style={{ fontSize: 13, color: 'var(--charcoal-muted)' }}>
+              {group.description}
+            </p>
+          </div>
 
-      {/* Grouped Template Cards */}
-      {filteredGroups.map(group => (
-        <div key={group.label} style={{ marginBottom: 36 }}>
-          <h2
-            className="heading-sm"
-            style={{
-              marginBottom: 16,
-              paddingBottom: 8,
-              borderBottom: '1px solid var(--border-light)',
-              color: 'var(--sage)',
-            }}
-          >
-            {group.label}
-          </h2>
-
-          <div
-            className="stagger"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-              gap: 16,
-            }}
-          >
+          {/* Template List */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {group.types.map(key => {
               const config = CASE_TYPE_CONFIG[key];
               return (
                 <div
                   key={key}
-                  className="card card-interactive"
+                  className="card"
                   style={{
-                    padding: 24,
+                    padding: '16px 20px',
                     display: 'flex',
-                    flexDirection: 'column',
-                    gap: 14,
-                    position: 'relative',
-                    overflow: 'hidden',
+                    alignItems: 'center',
+                    gap: 16,
+                    cursor: 'pointer',
+                    transition: 'all var(--transition-fast)',
                   }}
-                  aria-label={`${config.label} template`}
+                  onClick={() => handleStart(key)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={e => { if (e.key === 'Enter') handleStart(key); }}
+                  aria-label={`Start ${config.label}`}
                 >
-                  {/* Top row — icon + time */}
-                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                  {/* Icon */}
+                  <div
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: 12,
+                      background: 'var(--ivory-warm)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 22,
+                      flexShrink: 0,
+                    }}
+                  >
+                    {config.icon}
+                  </div>
+
+                  {/* Info */}
+                  <div style={{ flex: 1, minWidth: 0 }}>
                     <div
                       style={{
-                        width: 48,
-                        height: 48,
-                        borderRadius: 14,
-                        background: 'var(--ivory-warm)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: 24,
-                        flexShrink: 0,
+                        fontSize: 15,
+                        fontWeight: 600,
+                        color: 'var(--charcoal)',
+                        marginBottom: 3,
                       }}
                     >
-                      {config.icon}
+                      {config.label}
                     </div>
+                    <div
+                      style={{
+                        fontSize: 12.5,
+                        color: 'var(--charcoal-light)',
+                        lineHeight: 1.5,
+                        overflow: 'hidden',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical' as const,
+                      }}
+                    >
+                      {config.description}
+                    </div>
+                  </div>
+
+                  {/* Time + Arrow */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
                     <div
                       style={{
                         display: 'flex',
@@ -158,72 +149,34 @@ export default function TemplateLibrary() {
                         gap: 5,
                         fontSize: 11,
                         color: 'var(--charcoal-muted)',
-                        background: 'var(--ivory)',
-                        padding: '4px 10px',
-                        borderRadius: 'var(--radius-pill)',
+                        whiteSpace: 'nowrap',
                       }}
                     >
-                      <Clock size={11} />
+                      <Clock size={12} />
                       {config.estimatedTime}
                     </div>
-                  </div>
-
-                  {/* Title & Description */}
-                  <div style={{ flex: 1 }}>
-                    <h3
+                    <div
                       style={{
-                        fontFamily: 'var(--font-serif)',
-                        fontSize: 17,
-                        fontWeight: 600,
-                        color: 'var(--charcoal)',
-                        marginBottom: 6,
-                        lineHeight: 1.3,
+                        width: 32,
+                        height: 32,
+                        borderRadius: 8,
+                        background: 'var(--forest)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'var(--white)',
+                        flexShrink: 0,
                       }}
                     >
-                      {config.label}
-                    </h3>
-                    <p
-                      className="text-secondary"
-                      style={{
-                        fontSize: 12.5,
-                        lineHeight: 1.6,
-                      }}
-                    >
-                      {config.description}
-                    </p>
+                      <ArrowRight size={14} />
+                    </div>
                   </div>
-
-                  {/* CTA Button */}
-                  <button
-                    className="btn-primary"
-                    onClick={() => handleStartEvaluation(key)}
-                    aria-label={`Start ${config.label}`}
-                    style={{
-                      width: '100%',
-                      justifyContent: 'center',
-                      gap: 8,
-                      marginTop: 4,
-                    }}
-                  >
-                    Start Evaluation
-                    <ArrowRight size={14} />
-                  </button>
                 </div>
               );
             })}
           </div>
         </div>
       ))}
-
-      {/* No results */}
-      {filteredGroups.length === 0 && (
-        <div className="empty-state">
-          <div className="empty-state-icon">🔍</div>
-          <p className="text-secondary" style={{ fontSize: 15 }}>
-            No templates match &ldquo;{search}&rdquo;
-          </p>
-        </div>
-      )}
     </div>
   );
 }
