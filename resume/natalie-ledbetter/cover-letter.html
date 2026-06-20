@@ -9,60 +9,64 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --black: #0f1c33; --charcoal: #0f1c33; --dark: #0f1e38; --panel: #132040;
-  --border: #1e3560; --muted: #4a6a8a; --light: #8eaacc; --white: #fff;
-  --gold: #5B8EC4; --gold-dim: rgba(27,58,107,0.2);
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Inter', system-ui, sans-serif;
 }
 @media print {
   body { background: #fff; color: #000; }
   .no-print { display: none !important; }
-  .page { box-shadow: none; border: none; }
-  .letter-body { color: #333; }
-  .cl-header-name { color: #000; }
+  .page { box-shadow: none; border: none; background: #fff; }
+  .letter-body p { color: #444444; }
+  .letter-body p strong { color: #0D2147; }
+  .letter-body p em { color: #1B3A6B; }
+  .cl-header-name { color: #0D2147; }
+  .cl-header-title { color: #1B3A6B; }
+  .cl-contact { color: #888888; }
+  .cl-date { color: #888888; }
+  .cl-recipient { color: #444444; }
+  .cl-salutation { color: #444444; }
+  .cl-closing { color: #444444; }
   .gold-bar { background: #1B3A6B; }
-  .cl-meta, .cl-contact { color: #666; }
-  .placeholder { background: #e8eef6; color: #1B3A6B; border-color: #5B8EC4; }
+  .placeholder { background: #E8EEF7; color: #1B3A6B; border-color: #D0DAEA; }
 }
-body { background: var(--charcoal); color: var(--white); font-family: var(--sans); -webkit-font-smoothing: antialiased; padding: 48px 16px 80px; }
+body { background: #edf1f7; font-family: var(--sans); -webkit-font-smoothing: antialiased; padding: 48px 16px 80px; }
 .topbar { max-width: 760px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: space-between; }
-.back-link { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-decoration: none; }
-.back-link:hover { color: var(--gold); }
-.print-btn { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: #5B8EC4; background: transparent; border: 1px solid rgba(91,142,196,0.4); padding: 8px 18px; cursor: pointer; font-family: var(--sans); }
+.back-link { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: #888; text-decoration: none; transition: color 0.2s; }
+.back-link:hover { color: #1B3A6B; }
+.print-btn { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: #1B3A6B; background: transparent; border: 1px solid rgba(27,58,107,0.4); padding: 8px 18px; cursor: pointer; font-family: var(--sans); }
 
 /* Tabs */
-.tabs { max-width: 760px; margin: 0 auto 24px; display: flex; gap: 0; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
-.tab { flex: 1; padding: 10px; text-align: center; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; background: var(--panel); color: var(--muted); border: none; font-family: var(--sans); transition: all 0.2s; }
-.tab.active { background: var(--gold-dim); color: var(--gold); border-bottom: 2px solid var(--gold); }
-.tab:hover:not(.active) { background: rgba(255,255,255,0.04); color: var(--light); }
+.tabs { max-width: 760px; margin: 0 auto 24px; display: flex; gap: 0; border: 1px solid #D0DAEA; border-radius: 2px; overflow: hidden; }
+.tab { flex: 1; padding: 10px; text-align: center; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; background: #f5f7fa; color: #888888; border: none; font-family: var(--sans); transition: all 0.2s; }
+.tab.active { background: #E8EEF7; color: #1B3A6B; border-bottom: 2px solid #1B3A6B; }
+.tab:hover:not(.active) { background: #f0f4fa; }
 
 /* Page */
-.page { max-width: 760px; margin: 0 auto; background: var(--dark); box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(27,58,107,0.25); padding: 72px 80px; position: relative; }
+.page { max-width: 760px; margin: 0 auto; background: #ffffff; box-shadow: 0 32px 80px rgba(27,58,107,0.12), 0 0 0 1px #D0DAEA; padding: 72px 80px; position: relative; }
 .gold-bar { width: 100%; height: 3px; background: linear-gradient(90deg, #1B3A6B, #1B3A6B 40%, transparent); margin-bottom: 56px; }
 
 /* Letter header */
 .cl-header { margin-bottom: 40px; }
-.cl-header-name { font-family: var(--serif); font-size: 2rem; font-weight: 300; letter-spacing: 4px; color: var(--white); margin-bottom: 4px; }
-.cl-header-title { font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase; color: #5B8EC4; margin-bottom: 14px; }
-.cl-contact { font-size: 0.72rem; color: var(--muted); line-height: 1.7; }
+.cl-header-name { font-family: var(--serif); font-size: 2rem; font-weight: 300; letter-spacing: 4px; color: #0D2147; margin-bottom: 4px; }
+.cl-header-title { font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase; color: #1B3A6B; margin-bottom: 14px; }
+.cl-contact { font-size: 0.72rem; color: #888888; line-height: 1.7; }
 
 /* Body */
 .letter-body { display: flex; flex-direction: column; gap: 18px; }
-.cl-date { font-size: 0.76rem; color: var(--muted); }
-.cl-recipient { font-size: 0.76rem; color: var(--light); line-height: 1.7; }
-.letter-body p { font-family: var(--serif); font-size: 1.02rem; font-weight: 400; color: var(--light); line-height: 1.9; }
-.letter-body p strong { color: var(--white); font-weight: 600; }
-.letter-body p em { color: #5B8EC4; font-style: normal; }
-.cl-salutation { font-family: var(--serif); font-size: 1rem; color: var(--light); }
-.cl-closing { margin-top: 8px; font-family: var(--serif); font-size: 1rem; color: var(--light); line-height: 1.8; }
+.cl-date { font-size: 0.76rem; color: #888888; }
+.cl-recipient { font-size: 0.76rem; color: #444444; line-height: 1.7; }
+.letter-body p { font-family: var(--serif); font-size: 1.02rem; font-weight: 400; color: #444444; line-height: 1.9; }
+.letter-body p strong { color: #0D2147; font-weight: 600; }
+.letter-body p em { color: #1B3A6B; font-style: normal; }
+.cl-salutation { font-family: var(--serif); font-size: 1rem; color: #444444; }
+.cl-closing { margin-top: 8px; font-family: var(--serif); font-size: 1rem; color: #444444; line-height: 1.8; }
 .placeholder {
   display: inline-block;
-  background: rgba(27,58,107,0.15);
-  border: 1px dashed rgba(91,142,196,0.5);
+  background: #E8EEF7;
+  border: 1px dashed #D0DAEA;
   border-radius: 2px;
   padding: 1px 6px;
-  color: #5B8EC4;
+  color: #1B3A6B;
   font-style: italic;
   font-size: 0.88rem;
 }
@@ -124,7 +128,7 @@ body { background: var(--charcoal); color: var(--white); font-family: var(--sans
 
     <div class="cl-closing">
       With sincere interest,<br><br><br>
-      <strong style="font-size:1.1rem;font-family:var(--serif);color:#ffffff;">Natalie Ledbetter</strong>
+      <strong style="font-size:1.1rem;font-family:var(--serif);color:#0D2147;">Natalie Ledbetter</strong>
     </div>
   </div>
 </div>
@@ -158,7 +162,7 @@ body { background: var(--charcoal); color: var(--white); font-family: var(--sans
 
     <p>I would be honored to discuss this opportunity further. I can be reached at <strong>914.772.3035</strong> or <strong>nataliesledbetter@gmail.com</strong> and am available at your convenience.</p>
 
-    <div class="cl-closing">Respectfully yours,<br><br><br><strong style="font-size:1.1rem;font-family:var(--serif);color:#ffffff;">Natalie Ledbetter</strong></div>
+    <div class="cl-closing">Respectfully yours,<br><br><br><strong style="font-size:1.1rem;font-family:var(--serif);color:#0D2147;">Natalie Ledbetter</strong></div>
   </div>
 </div>
 </div>
@@ -191,7 +195,7 @@ body { background: var(--charcoal); color: var(--white); font-family: var(--sans
 
     <p>I would welcome the opportunity to discuss how I can serve your firm's leadership. Please reach me at <strong>914.772.3035</strong> or <strong>nataliesledbetter@gmail.com</strong>.</p>
 
-    <div class="cl-closing">With great interest,<br><br><br><strong style="font-size:1.1rem;font-family:var(--serif);color:#ffffff;">Natalie Ledbetter</strong></div>
+    <div class="cl-closing">With great interest,<br><br><br><strong style="font-size:1.1rem;font-family:var(--serif);color:#0D2147;">Natalie Ledbetter</strong></div>
   </div>
 </div>
 </div>

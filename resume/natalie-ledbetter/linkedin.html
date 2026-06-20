@@ -9,29 +9,29 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --navy-deep: #060e1f; --navy: #0f1c33; --navy-mid: #0f1e38; --panel: #132040;
-  --border: #1e3560; --muted: #4a6a8a; --light: #8eaacc; --white: #fff;
-  --accent: #5B8EC4; --accent-dim: rgba(27,58,107,0.2);
+  --navy-deep: #0D2147; --navy: #1B3A6B; --navy-mid: #2C5282; --panel: #f0f4fa;
+  --border: #D0DAEA; --muted: #888888; --light: #444444; --white: #fff;
+  --accent: #1B3A6B; --accent-dim: rgba(27,58,107,0.2);
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Inter', system-ui, sans-serif;
 }
-body { background: #0f1c33; color: var(--white); font-family: var(--sans); -webkit-font-smoothing: antialiased; padding: 48px 16px 80px; }
+body { background: #edf1f7; color: #444444; font-family: var(--sans); -webkit-font-smoothing: antialiased; padding: 48px 16px 80px; }
 .topbar { max-width: 860px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: space-between; }
-.back-link { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-decoration: none; }
-.back-link:hover { color: #5B8EC4; }
-.label-chip { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; background: rgba(27,58,107,0.2); color: #5B8EC4; border: 1px solid rgba(91,142,196,0.3); padding: 5px 12px; border-radius: 2px; }
+.back-link { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: #888888; text-decoration: none; }
+.back-link:hover { color: #1B3A6B; }
+.label-chip { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; background: #E8EEF7; color: #1B3A6B; border: 1px solid #D0DAEA; padding: 5px 12px; border-radius: 2px; }
 .page { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
 
 /* LI Banner */
 .li-banner {
-  background: linear-gradient(135deg, #060e1f 0%, #0a1628 100%);
-  border: 1px solid rgba(91,142,196,0.2);
+  background: #ffffff;
+  border: 1px solid #D0DAEA;
   border-radius: 4px;
   overflow: hidden;
 }
 .li-banner-bg {
   height: 120px;
-  background: linear-gradient(135deg, #060e1f 0%, #0d1e38 40%, #0f2244 70%, #080f1e 100%);
+  background: linear-gradient(135deg, #0D2147 0%, #1B3A6B 50%, #2C5282 100%);
   position: relative;
   overflow: hidden;
 }
@@ -40,7 +40,7 @@ body { background: #0f1c33; color: var(--white); font-family: var(--sans); -webk
   position: absolute; inset: 0;
   background: repeating-linear-gradient(
     45deg, transparent, transparent 40px,
-    rgba(91,142,196,0.03) 40px, rgba(91,142,196,0.03) 41px
+    rgba(255,255,255,0.05) 40px, rgba(255,255,255,0.05) 41px
   );
 }
 .li-profile-row {
@@ -50,66 +50,66 @@ body { background: #0f1c33; color: var(--white); font-family: var(--sans); -webk
 }
 .li-avatar {
   width: 80px; height: 80px;
-  border: 3px solid #0a1628;
+  border: 3px solid #ffffff;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0a1628, #142240);
+  background: linear-gradient(135deg, #1B3A6B, #2C5282);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: #7fa8d4;
+  font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: #ffffff;
   flex-shrink: 0;
 }
 .li-info { padding-top: 40px; }
-.li-name { font-family: var(--serif); font-size: 1.5rem; font-weight: 500; color: var(--white); margin-bottom: 3px; }
-.li-headline { font-size: 0.8rem; color: var(--light); line-height: 1.5; margin-bottom: 6px; }
-.li-location { font-size: 0.68rem; color: var(--muted); }
+.li-name { font-family: var(--serif); font-size: 1.5rem; font-weight: 500; color: #0D2147; margin-bottom: 3px; }
+.li-headline { font-size: 0.8rem; color: #444444; line-height: 1.5; margin-bottom: 6px; }
+.li-location { font-size: 0.68rem; color: #888888; }
 
 /* Sections */
 .li-section {
-  background: #0f1e38;
-  border: 1px solid #1e3560;
+  background: #ffffff;
+  border: 1px solid #D0DAEA;
   border-radius: 4px;
   padding: 28px 32px;
 }
 .li-section-label {
   font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase;
-  color: #5B8EC4; margin-bottom: 6px;
+  color: #1B3A6B; margin-bottom: 6px;
 }
 .li-section-title {
-  font-family: var(--serif); font-size: 1.1rem; color: #ffffff;
+  font-family: var(--serif); font-size: 1.1rem; color: #0D2147;
   margin-bottom: 20px;
 }
-.li-text { font-size: 0.8rem; color: #8eaacc; line-height: 1.8; }
+.li-text { font-size: 0.8rem; color: #444444; line-height: 1.8; }
 .li-text p { margin-bottom: 14px; }
 .li-text p:last-child { margin-bottom: 0; }
 
 /* Experience items */
 .li-exp-list { display: flex; flex-direction: column; gap: 24px; }
-.li-exp-item { padding-left: 16px; border-left: 1px solid rgba(91,142,196,0.3); }
-.li-exp-firm { font-weight: 600; font-size: 0.85rem; color: #ffffff; margin-bottom: 2px; }
-.li-exp-role { font-size: 0.75rem; color: #5B8EC4; margin-bottom: 2px; }
-.li-exp-date { font-size: 0.65rem; color: #4a6a8a; margin-bottom: 10px; }
-.li-exp-desc { font-size: 0.76rem; color: #8eaacc; line-height: 1.7; }
+.li-exp-item { padding-left: 16px; border-left: 1px solid #D0DAEA; }
+.li-exp-firm { font-weight: 600; font-size: 0.85rem; color: #0D2147; margin-bottom: 2px; }
+.li-exp-role { font-size: 0.75rem; color: #1B3A6B; margin-bottom: 2px; }
+.li-exp-date { font-size: 0.65rem; color: #888888; margin-bottom: 10px; }
+.li-exp-desc { font-size: 0.76rem; color: #555555; line-height: 1.7; }
 
 /* Skills */
 .li-skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .li-skill-tag {
   font-size: 0.68rem; padding: 6px 14px;
-  background: #132040; border: 1px solid #1e3560;
-  color: #8eaacc; border-radius: 20px;
+  background: #f0f4fa; border: 1px solid #D0DAEA;
+  color: #444444; border-radius: 20px;
 }
 
 /* Keywords */
-.li-keywords { font-size: 0.7rem; color: #4a6a8a; line-height: 1.9; }
+.li-keywords { font-size: 0.7rem; color: #888888; line-height: 1.9; }
 
 /* Instructions */
 .instructions {
-  background: #132040; border: 1px solid rgba(91,142,196,0.25);
+  background: #f0f4fa; border: 1px solid rgba(27,58,107,0.2);
   border-left: 3px solid #1B3A6B; border-radius: 2px;
   padding: 20px 24px;
 }
-.instructions-title { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: #5B8EC4; margin-bottom: 12px; }
+.instructions-title { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: #1B3A6B; margin-bottom: 12px; }
 .instructions ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-.instructions li { font-size: 0.74rem; color: #8eaacc; padding-left: 14px; position: relative; }
-.instructions li::before { content: '→'; position: absolute; left: 0; color: #5B8EC4; font-size: 0.65rem; top: 1px; }
+.instructions li { font-size: 0.74rem; color: #555555; padding-left: 14px; position: relative; }
+.instructions li::before { content: '→'; position: absolute; left: 0; color: #1B3A6B; font-size: 0.65rem; top: 1px; }
 </style>
 </head>
 <body>
@@ -138,7 +138,7 @@ body { background: #0f1c33; color: var(--white); font-family: var(--sans); -webk
   <div class="li-section">
     <div class="li-section-label">LinkedIn Headline</div>
     <div class="li-section-title">Recommended Headline Copy</div>
-    <div style="background:#132040;border:1px solid #1e3560;padding:16px 20px;border-radius:2px;font-size:0.82rem;color:var(--white);line-height:1.6;font-style:italic;">
+    <div style="background:#f0f4fa;border:1px solid #D0DAEA;padding:16px 20px;border-radius:2px;font-size:0.82rem;color:#0D2147;line-height:1.6;font-style:italic;">
       "Senior Executive Assistant | Executive Business Partner | Trusted Partner to C-Suite Leadership | Wealth Management · Private Equity · Private Credit · Alternative Investments | Evercore | Ares Management | Apollo Global | Neuberger Berman | L Catterton | Bloomberg"
     </div>
   </div>
