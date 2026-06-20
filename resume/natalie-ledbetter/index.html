@@ -9,20 +9,19 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --black: #0a0a0a;
-    --charcoal: #1a1a1a;
-    --dark: #242424;
-    --mid: #3a3a3a;
-    --light-mid: #6b6b6b;
-    --light: #b0b0b0;
-    --cream: #f5f0e8;
+    --navy-bg: #0f1c33;
+    --navy-mid: #1B3A6B;
+    --navy-card: rgba(27,58,107,0.12);
+    --navy-border: rgba(27,58,107,0.3);
+    --navy-border-hover: rgba(91,142,196,0.7);
+    --blue-accent: #5B8EC4;
+    --blue-light: #7fa8d4;
+    --blue-muted: #8eaacc;
+    --footer-color: #4a6a8a;
     --white: #ffffff;
-    --gold: #c9a84c;
-    --gold-light: #e8d4a0;
-    --gold-dark: #9a7a32;
   }
   body {
-    background: var(--charcoal);
+    background: #0f1c33;
     color: var(--white);
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
@@ -34,14 +33,14 @@
   }
   .monogram {
     width: 90px; height: 90px;
-    border: 1.5px solid var(--gold);
+    border: 1.5px solid #5B8EC4;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 32px;
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.2rem;
     font-weight: 300;
-    color: var(--gold);
+    color: #7fa8d4;
     letter-spacing: 2px;
   }
   h1 {
@@ -50,20 +49,20 @@
     font-weight: 300;
     letter-spacing: 6px;
     text-align: center;
-    color: var(--white);
+    color: #ffffff;
     margin-bottom: 8px;
   }
   .subtitle {
     font-size: 0.72rem;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: #5B8EC4;
     text-align: center;
     margin-bottom: 16px;
   }
   .divider {
     width: 60px; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    background: linear-gradient(90deg, transparent, #1B3A6B, transparent);
     margin: 24px auto;
   }
   .tagline {
@@ -71,7 +70,7 @@
     font-size: 1.15rem;
     font-weight: 300;
     font-style: italic;
-    color: var(--light);
+    color: #8eaacc;
     text-align: center;
     max-width: 560px;
     line-height: 1.7;
@@ -85,8 +84,8 @@
     width: 100%;
   }
   .card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(201,168,76,0.25);
+    background: rgba(27,58,107,0.12);
+    border: 1px solid rgba(27,58,107,0.3);
     border-radius: 2px;
     padding: 32px 28px;
     text-decoration: none;
@@ -99,17 +98,17 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(201,168,76,0.08), transparent);
+    background: linear-gradient(135deg, rgba(91,142,196,0.08), transparent);
     opacity: 0;
     transition: opacity 0.35s;
   }
-  .card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+  .card:hover { border-color: rgba(91,142,196,0.7); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
   .card:hover::before { opacity: 1; }
   .card-num {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.8rem;
     font-weight: 300;
-    color: rgba(201,168,76,0.25);
+    color: rgba(27,58,107,0.3);
     line-height: 1;
     margin-bottom: 16px;
   }
@@ -117,12 +116,12 @@
     font-size: 0.7rem;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: #5B8EC4;
     margin-bottom: 10px;
   }
   .card-desc {
     font-size: 0.82rem;
-    color: var(--light);
+    color: #8eaacc;
     line-height: 1.65;
   }
   .footer {
@@ -130,7 +129,7 @@
     font-size: 0.68rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--light-mid);
+    color: #4a6a8a;
     text-align: center;
   }
 </style>
@@ -146,12 +145,12 @@
   <a href="resume.html" class="card">
     <div class="card-num">01</div>
     <div class="card-title">Executive Resume</div>
-    <div class="card-desc">ATS-optimized luxury resume. Scored 90+ across Workday, Greenhouse, Lever, iCIMS & Taleo.</div>
+    <div class="card-desc">ATS-optimized luxury resume. Scored 90+ across Workday, Greenhouse, Lever, iCIMS &amp; Taleo.</div>
   </a>
   <a href="biography.html" class="card">
     <div class="card-num">02</div>
     <div class="card-title">Executive Biography</div>
-    <div class="card-desc">One-page premium professional narrative for boards, speaking engagements & high-level introductions.</div>
+    <div class="card-desc">One-page premium professional narrative for boards, speaking engagements &amp; high-level introductions.</div>
   </a>
   <a href="linkedin.html" class="card">
     <div class="card-num">03</div>
@@ -161,17 +160,17 @@
   <a href="cover-letter.html" class="card">
     <div class="card-num">04</div>
     <div class="card-title">Cover Letter</div>
-    <div class="card-desc">Executive-tier cover letter template adaptable across wealth management, private equity & hedge funds.</div>
+    <div class="card-desc">Executive-tier cover letter template adaptable across wealth management, private equity &amp; hedge funds.</div>
   </a>
   <a href="recruiter.html" class="card">
     <div class="card-num">05</div>
     <div class="card-title">Recruiter Version</div>
-    <div class="card-desc">Plain-text recruiter-friendly format, structured for database parsing & keyword optimization.</div>
+    <div class="card-desc">Plain-text recruiter-friendly format, structured for database parsing &amp; keyword optimization.</div>
   </a>
   <a href="competencies.html" class="card">
     <div class="card-num">06</div>
     <div class="card-title">Core Competencies</div>
-    <div class="card-desc">Visual executive competency matrix for presentations, board decks & networking contexts.</div>
+    <div class="card-desc">Visual executive competency matrix for presentations, board decks &amp; networking contexts.</div>
   </a>
 </div>
 
