@@ -1,4 +1,4 @@
-# macOS
+# ─── macOS ──────────────────────────────────────────────────
 .DS_Store
 .DS_Store?
 ._*
@@ -7,26 +7,47 @@
 ehthumbs.db
 Thumbs.db
 
-# Python
+# ─── Environment / Secrets (NEVER COMMIT) ──────────────────
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+.env.staging
+*.env
+!*.env.example
+!*.env.template
+
+# ─── API Keys & Config Files ───────────────────────────────
+firebase-config.js
+**/firebase-config.js
+**/firebaseConfig.js
+**/firebase-config.ts
+**/serviceAccountKey.json
+**/google-credentials.json
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ─── Python ─────────────────────────────────────────────────
 .venv/
+venv/
 __pycache__/
 *.pyc
 *.pyo
 *.egg-info/
 dist/
 build/
-.env
 *.log
 
-# Node / Cloudflare
+# ─── Node / Cloudflare ─────────────────────────────────────
 node_modules/
 .wrangler/
-.env.local
+.next/
+.nuxt/
 
-# Firebase secrets
-firebase-config.js
-
-# Large production files (keep sources, skip compiled output)
+# ─── Large production files ────────────────────────────────
 ebooks/pdfs/
 ebooks/epub/
 options-book/*.pdf
@@ -34,15 +55,22 @@ AI-Practitioner-Full-Book-2026.pdf
 AI-Practitioner-Master-Plan-2026.pdf
 boss-up-academy.zip
 
-# Resume PDFs (large binary)
+# ─── Resume PDFs (large binary) ────────────────────────────
 resume/*.pdf
 resume/*.docx
 resume/ripple/*.pdf
 resume/ripple/*.docx
+resume/natalie-ledbetter/*.pdf
+resume/natalie-ledbetter/*.docx
+resume/natalie-ledbetter/resume-print.html
 
-# IDE
+# ─── IDE ────────────────────────────────────────────────────
 .vscode/
 .idea/
 *.swp
+*.swo
+*~
+
+# ─── Electron / Build Artifacts ────────────────────────────
 immigration-eval/dist-electron/
 immigration-eval/node_modules/

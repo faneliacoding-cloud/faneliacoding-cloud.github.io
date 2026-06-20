@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natalie Ledbetter | LinkedIn Profile Rewrite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #080808; --charcoal: #111; --dark: #1a1a1a; --panel: #1e1e1e;
+  --border: #2c2c2c; --muted: #6b6b6b; --light: #a8a8a8; --white: #fff;
+  --gold: #c9a84c; --gold-dim: rgba(201,168,76,0.15);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+body { background: var(--charcoal); color: var(--white); font-family: var(--sans); -webkit-font-smoothing: antialiased; padding: 48px 16px 80px; }
+.topbar { max-width: 860px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: space-between; }
+.back-link { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+.back-link:hover { color: var(--gold); }
+.label-chip { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); padding: 5px 12px; border-radius: 2px; }
+.page { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+
+/* LI Banner */
+.li-banner {
+  background: linear-gradient(135deg, var(--black) 0%, #1a1208 100%);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.li-banner-bg {
+  height: 120px;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1208 40%, #241a0a 70%, #111 100%);
+  position: relative;
+  overflow: hidden;
+}
+.li-banner-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    45deg, transparent, transparent 40px,
+    rgba(201,168,76,0.03) 40px, rgba(201,168,76,0.03) 41px
+  );
+}
+.li-profile-row {
+  padding: 0 28px 28px;
+  display: flex; align-items: flex-start; gap: 20px;
+  margin-top: -36px;
+}
+.li-avatar {
+  width: 80px; height: 80px;
+  border: 3px solid var(--dark);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a1208, #2a2010);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: var(--gold);
+  flex-shrink: 0;
+}
+.li-info { padding-top: 40px; }
+.li-name { font-family: var(--serif); font-size: 1.5rem; font-weight: 500; color: var(--white); margin-bottom: 3px; }
+.li-headline { font-size: 0.8rem; color: var(--light); line-height: 1.5; margin-bottom: 6px; }
+.li-location { font-size: 0.68rem; color: var(--muted); }
+
+/* Sections */
+.li-section {
+  background: var(--dark);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px 32px;
+}
+.li-section-label {
+  font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+}
+.li-section-title {
+  font-family: var(--serif); font-size: 1.1rem; color: var(--white);
+  margin-bottom: 20px;
+}
+.li-text { font-size: 0.8rem; color: var(--light); line-height: 1.8; }
+.li-text p { margin-bottom: 14px; }
+.li-text p:last-child { margin-bottom: 0; }
+
+/* Experience items */
+.li-exp-list { display: flex; flex-direction: column; gap: 24px; }
+.li-exp-item { padding-left: 16px; border-left: 1px solid rgba(201,168,76,0.25); }
+.li-exp-firm { font-weight: 600; font-size: 0.85rem; color: var(--white); margin-bottom: 2px; }
+.li-exp-role { font-size: 0.75rem; color: var(--gold); margin-bottom: 2px; }
+.li-exp-date { font-size: 0.65rem; color: var(--muted); margin-bottom: 10px; }
+.li-exp-desc { font-size: 0.76rem; color: var(--light); line-height: 1.7; }
+
+/* Skills */
+.li-skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.li-skill-tag {
+  font-size: 0.68rem; padding: 6px 14px;
+  background: var(--panel); border: 1px solid var(--border);
+  color: var(--light); border-radius: 20px;
+}
+
+/* Keywords */
+.li-keywords { font-size: 0.7rem; color: var(--muted); line-height: 1.9; }
+
+/* Instructions */
+.instructions {
+  background: var(--panel); border: 1px solid rgba(201,168,76,0.25);
+  border-left: 3px solid var(--gold); border-radius: 2px;
+  padding: 20px 24px;
+}
+.instructions-title { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.instructions ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.instructions li { font-size: 0.74rem; color: var(--light); padding-left: 14px; position: relative; }
+.instructions li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 0.65rem; top: 1px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="back-link">← Portfolio</a>
+  <div class="label-chip">LinkedIn Rewrite</div>
+</div>
+
+<div class="page">
+
+  <!-- LinkedIn Card -->
+  <div class="li-banner">
+    <div class="li-banner-bg"></div>
+    <div class="li-profile-row">
+      <div class="li-avatar">NL</div>
+      <div class="li-info">
+        <div class="li-name">Natalie Ledbetter</div>
+        <div class="li-headline">Senior Executive Assistant | Executive Business Partner | Wealth Management · Private Equity · Alternative Investments | Evercore | Ares | Apollo | Neuberger Berman</div>
+        <div class="li-location">Greater New York City Area · White Plains, NY</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Headline -->
+  <div class="li-section">
+    <div class="li-section-label">LinkedIn Headline</div>
+    <div class="li-section-title">Recommended Headline Copy</div>
+    <div style="background:var(--panel);border:1px solid var(--border);padding:16px 20px;border-radius:2px;font-size:0.82rem;color:var(--white);line-height:1.6;font-style:italic;">
+      "Senior Executive Assistant | Executive Business Partner | Trusted Partner to C-Suite Leadership | Wealth Management · Private Equity · Private Credit · Alternative Investments | Evercore | Ares Management | Apollo Global | Neuberger Berman | L Catterton | Bloomberg"
+    </div>
+  </div>
+
+  <!-- About / Summary -->
+  <div class="li-section">
+    <div class="li-section-label">About Section</div>
+    <div class="li-section-title">LinkedIn Summary</div>
+    <div class="li-text">
+      <p>I am a Senior Executive Assistant and Executive Business Partner with 12+ years of experience serving as a trusted strategic partner to Presidents, CEOs, Co-Heads, Managing Partners, and Managing Directors across the world's most elite wealth management, private equity, private credit, and alternative investment organizations.</p>
+
+      <p>My career spans some of the most prestigious names in global institutional finance:</p>
+
+      <p>▸ <strong>Evercore Wealth Management</strong> — Executive Assistant to the President & CEO and Co-Head Partners (Current)<br>
+      ▸ <strong>L Catterton</strong> — Executive Assistant to Managing Partners & Co-Heads, Private Credit<br>
+      ▸ <strong>Ares Management</strong> — Executive Assistant, Credit Secondaries<br>
+      ▸ <strong>Neuberger Berman</strong> — Executive Assistant to the Head of Private Equity & 6 Managing Directors<br>
+      ▸ <strong>Apollo Global Management</strong> — Executive Assistant, Global Technology (4+ Years)<br>
+      ▸ <strong>Hutchin Hill Capital</strong> — Senior Executive Assistant to CTO (Hedge Fund)<br>
+      ▸ <strong>Bloomberg LP</strong> — Executive Assistant to Global Head of Workplace Operations</p>
+
+      <p>I specialize in supporting senior investment leadership through complex calendar management, international travel coordination, investor meeting logistics, expense management (Concur, Workday), and operational excellence — all executed with the highest standard of discretion, professionalism, and executive presence.</p>
+
+      <p>I am most effective in high-performance environments where precision, confidentiality, and the ability to anticipate what leadership needs before they know they need it are the baseline expectations — not the exception.</p>
+
+      <p>If your organization requires an Executive Business Partner who brings institutional-caliber operational expertise and deep financial services experience, I welcome the conversation.</p>
+
+      <p>📍 White Plains, NY | Open to New York City, Tri-State Area<br>
+      📧 nataliesledbetter@gmail.com | 📞 914.772.3035</p>
+
+      <p><em>#ExecutiveAssistant #SeniorExecutiveAssistant #ExecutiveBusinessPartner #WealthManagement #PrivateEquity #PrivateCredit #AlternativeInvestments #AssetManagement #HedgeFund #FamilyOffice #Evercore #AresManagement #ApolloGlobal #NeubergerBerman #FinancialServices #CsuitSupport</em></p>
+    </div>
+  </div>
+
+  <!-- Experience Section -->
+  <div class="li-section">
+    <div class="li-section-label">Experience Section</div>
+    <div class="li-section-title">Recommended Role Descriptions</div>
+    <div class="li-exp-list">
+
+      <div class="li-exp-item">
+        <div class="li-exp-firm">Evercore Wealth Management</div>
+        <div class="li-exp-role">Executive Assistant | Wealth Management</div>
+        <div class="li-exp-date">April 2026 – Present · New York, NY</div>
+        <div class="li-exp-desc">
+          Serving as Executive Business Partner to the President & CEO of Evercore Wealth Management and two Co-Head Partners. Directing complex executive calendars, comprehensive international travel programs, investor meeting logistics, and all expense management in a fast-paced, high-visibility wealth management environment. Operating as gatekeeper and strategic operational partner to the firm's most senior wealth management leadership.
+        </div>
+      </div>
+
+      <div class="li-exp-item">
+        <div class="li-exp-firm">L Catterton</div>
+        <div class="li-exp-role">Executive Assistant | Private Credit</div>
+        <div class="li-exp-date">April 2025 – September 2025 · New York, NY</div>
+        <div class="li-exp-desc">
+          Served as dedicated Executive Business Partner to two Managing Partners & Co-Heads of Private Credit at one of the world's largest consumer-focused private equity firms. Managed international travel programs, strategic calendar management, expense processing (Concur), and candidate interview coordination for the Private Credit hiring team.
+        </div>
+      </div>
+
+      <div class="li-exp-item">
+        <div class="li-exp-firm">Ares Management Corporation</div>
+        <div class="li-exp-role">Executive Assistant | Credit Secondaries</div>
+        <div class="li-exp-date">March 2024 – April 2025 · New York, NY</div>
+        <div class="li-exp-desc">
+          Supported two Partners, one Managing Director, and three VPs in Ares Management's Credit Secondaries platform. Directed multi-time-zone calendar management, investor meeting logistics, executive travel, and cross-departmental coordination. Maintained strict confidentiality protocols for all sensitive deal and investor communications.
+        </div>
+      </div>
+
+      <div class="li-exp-item">
+        <div class="li-exp-firm">Neuberger Berman</div>
+        <div class="li-exp-role">Executive Assistant | Private Equity</div>
+        <div class="li-exp-date">August 2022 – December 2023 · New York, NY</div>
+        <div class="li-exp-desc">
+          Executive Business Partner to the Head of Private Equity and six Managing Directors within Neuberger Berman's institutional private equity platform (PIPCO), including the Japan investment team. Managed Salesforce, ServiceNow, complex international travel, and comprehensive executive operations.
+        </div>
+      </div>
+
+      <div class="li-exp-item">
+        <div class="li-exp-firm">Apollo Global Management</div>
+        <div class="li-exp-role">Executive Assistant | Global Technology</div>
+        <div class="li-exp-date">February 2018 – August 2022 · New York, NY</div>
+        <div class="li-exp-desc">
+          Delivered 4+ years of high-impact executive support to a Partner and five Managing Directors at Apollo Global Management — one of the world's leading alternative asset managers. Managed executive calendars, PeopleSoft invoice processing, expense management (Concur), and board-level meeting coordination at a $600B+ AUM organization.
+        </div>
+      </div>
+
+      <div class="li-exp-item">
+        <div class="li-exp-firm">Hutchin Hill Capital, LP</div>
+        <div class="li-exp-role">Senior Executive Assistant | Technology</div>
+        <div class="li-exp-date">August 2015 – November 2017 · New York, NY</div>
+        <div class="li-exp-desc">
+          Senior Executive Assistant to the Chief Technology Officer and two Senior Directors at Hutchin Hill Capital, a premier multi-strategy hedge fund. Managed CTO calendar, travel, procurement, and the firm's technology ticketing system (TrackIT). Partnered with Accounting on invoice reconciliation and budget management.
+        </div>
+      </div>
+
+      <div class="li-exp-item">
+        <div class="li-exp-firm">Bloomberg LP</div>
+        <div class="li-exp-role">Executive Assistant | Workplace Operations</div>
+        <div class="li-exp-date">August 2012 – February 2015 · New York, NY</div>
+        <div class="li-exp-desc">
+          Executive support to the Global Head of Workplace Operations and two Senior Directors at Bloomberg LP. Led New York administrative team for Bloomberg's London real estate project. Managed cross-border meeting logistics, executive calendars, Purchase Orders, and invoice management for the global Workplace Operations team.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <div class="li-section">
+    <div class="li-section-label">Skills Section</div>
+    <div class="li-section-title">Top Skills to Feature on LinkedIn</div>
+    <div class="li-skills-grid">
+      <span class="li-skill-tag">Executive Assistant</span>
+      <span class="li-skill-tag">Executive Business Partner</span>
+      <span class="li-skill-tag">C-Suite Support</span>
+      <span class="li-skill-tag">Calendar Management</span>
+      <span class="li-skill-tag">Travel Management</span>
+      <span class="li-skill-tag">Wealth Management</span>
+      <span class="li-skill-tag">Private Equity</span>
+      <span class="li-skill-tag">Private Credit</span>
+      <span class="li-skill-tag">Hedge Funds</span>
+      <span class="li-skill-tag">Alternative Investments</span>
+      <span class="li-skill-tag">Concur</span>
+      <span class="li-skill-tag">Workday</span>
+      <span class="li-skill-tag">Salesforce</span>
+      <span class="li-skill-tag">Bloomberg Terminal</span>
+      <span class="li-skill-tag">ServiceNow</span>
+      <span class="li-skill-tag">Microsoft 365</span>
+      <span class="li-skill-tag">Expense Management</span>
+      <span class="li-skill-tag">Investor Relations</span>
+      <span class="li-skill-tag">Board Support</span>
+      <span class="li-skill-tag">Operational Excellence</span>
+      <span class="li-skill-tag">Confidentiality</span>
+      <span class="li-skill-tag">Stakeholder Management</span>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions">
+    <div class="instructions-title">Implementation Notes</div>
+    <ul>
+      <li>Set your LinkedIn profile to <strong>Open to Work</strong> (visible to recruiters only) targeting: Senior Executive Assistant, Executive Business Partner, Chief of Staff, EA to CEO, EA to Managing Partner</li>
+      <li>Add <strong>Wealth Management, Private Equity, Hedge Funds, Alternative Investments</strong> as Featured industries in your LinkedIn settings</li>
+      <li>Request LinkedIn recommendations from former executives at Evercore, Ares, Apollo, or Neuberger Berman — even a short one from a Managing Director carries enormous weight</li>
+      <li>Pin a Featured media item — this could be a link to a firm's press release or a deal announcement you supported logistics for</li>
+      <li>Connect with Executive Search recruiters at: Korn Ferry, Spencer Stuart, Heidrick & Struggles, Glocap, Major, Lindsey & Africa (MLA), and Witty & Smith</li>
+      <li>Use LinkedIn Creator Mode to boost profile algorithmic visibility — even occasional posts about executive operations topics significantly increase recruiter discovery</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

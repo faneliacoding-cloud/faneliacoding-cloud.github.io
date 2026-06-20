@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natalie Ledbetter | Executive Resume — 2-Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════ TOKENS ════════════════════════════════
+   Navy  : #0D2147  (deep navy sidebar)
+           #1B3A6B  (primary navy — headings, accents, rules)
+           #2C5282  (mid navy — role titles, section labels)
+           #E8EEF7  (light navy — highlight cells, comp cells)
+           #D0DAEA  (navy border tint)
+   Gray  : #333333  (dark text)
+           #6b6b6b  (mid gray — metadata, italic)
+           #a8a8a8  (light gray — sidebar secondary text)
+           #f5f7fa  (near-white bg — competency cells)
+   White : #ffffff
+   ══════════════════════════════════════════════════════════════════════ */
+
+@page { size: letter; margin: 0.5in 0.6in; }
+
+@media print {
+  html, body { height: auto; }
+  .topbar { display: none !important; }
+  .page-shell { box-shadow: none !important; }
+  .sidebar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+@media screen {
+  body { background: #1a2235; padding: 32px 16px 80px; }
+  .topbar {
+    max-width: 810px; margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .back-link { font-size: 0.63rem; letter-spacing: 2px; text-transform: uppercase;
+    color: #6b7fa8; text-decoration: none; font-family: 'Inter', sans-serif; }
+  .back-link:hover { color: #7fa8d4; }
+  .print-btn { font-size: 0.63rem; letter-spacing: 2px; text-transform: uppercase;
+    color: #7fa8d4; background: transparent; border: 1px solid rgba(127,168,212,0.4);
+    padding: 7px 16px; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .page-shell {
+    max-width: 810px; margin: 0 auto;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(27,58,107,0.3);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 8pt; color: #1a1a1a;
+  background: #fff;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ══════════════════════════ LAYOUT ══════════════════════════════════ */
+.resume { display: table; width: 100%; table-layout: fixed; background: #fff; }
+
+/* ══════════════════════════ SIDEBAR ══════════════════════════════════ */
+.sidebar {
+  display: table-cell;
+  width: 184px;
+  vertical-align: top;
+  background-color: #0D2147;          /* deep navy */
+  padding: 22px 16px 28px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.mono-wrap { text-align: center; margin-bottom: 14px; }
+.mono {
+  display: inline-block;
+  width: 46px; height: 46px;
+  border: 1.5px solid #7fa8d4;        /* steel-blue ring */
+  border-radius: 50%;
+  line-height: 46px; text-align: center;
+  font-family: 'EB Garamond', serif;
+  font-size: 14pt; color: #a8c6e8;    /* soft blue monogram */
+}
+.mono-rule { width: 24px; height: 1px; background: #3a608a; margin: 8px auto 0; }
+
+.sb-label {
+  font-size: 5.8pt; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #7fa8d4;                     /* steel blue label */
+  border-bottom: 1px solid rgba(127,168,212,0.25);
+  padding-bottom: 4px; margin: 14px 0 7px;
+}
+
+.sb-val { font-size: 7pt; color: #8eaacc; line-height: 1.5; margin-bottom: 4px; }
+.sb-val strong {
+  display: block; font-size: 5.5pt; letter-spacing: 1px;
+  text-transform: uppercase; color: #4a6a8a; font-weight: 500; margin-bottom: 1px;
+}
+
+.skill-row { margin-bottom: 5px; }
+.skill-name { font-size: 6.5pt; color: #7a9fc0; margin-bottom: 2px; }
+.skill-bar { height: 1.5px; background: #1a3560; }
+.skill-fill { height: 1.5px; background: #5b8ec4; }  /* mid navy-blue bar */
+
+.tag-cloud { margin-top: 2px; }
+.tag {
+  display: inline-block; font-size: 5.8pt; padding: 2px 5px;
+  border: 1px solid rgba(127,168,212,0.25); color: #6a8faf;
+  margin: 2px 1px 0 0; line-height: 1.2;
+}
+
+.edu-deg { font-size: 7.5pt; color: #c5d9ee; line-height: 1.4; }
+.edu-sch { font-size: 6.5pt; color: #7fa8d4; margin-top: 2px; }
+.edu-loc { font-size: 6pt; color: #4a6a8a; margin-top: 1px; }
+
+/* ══════════════════════════ MAIN ════════════════════════════════════ */
+.main {
+  display: table-cell;
+  vertical-align: top;
+  padding: 22px 24px 28px 20px;
+  border-left: 2.5px solid #1B3A6B;  /* navy left rule */
+}
+
+/* Header */
+.name {
+  font-family: 'EB Garamond', serif;
+  font-size: 22pt; font-weight: 400; letter-spacing: 4px;
+  color: #0D2147; line-height: 1; margin-bottom: 3px;
+}
+.name em { color: #2C5282; font-style: normal; }  /* mid-navy accent */
+
+.title-row {
+  font-size: 6pt; letter-spacing: 3px; text-transform: uppercase;
+  color: #1B3A6B; margin-bottom: 6px;
+}
+.tagline {
+  font-family: 'EB Garamond', serif; font-size: 8.8pt; font-style: italic;
+  color: #4a5a6b; line-height: 1.55; margin-bottom: 10px; max-width: 460px;
+}
+.gold-rule { border: none; border-top: 1.5px solid #1B3A6B; margin-bottom: 10px; }
+
+/* Section headings */
+.sec {
+  font-size: 6pt; letter-spacing: 3px; text-transform: uppercase;
+  color: #1B3A6B;                     /* primary navy */
+  border-bottom: 1px solid #D0DAEA;   /* light navy rule */
+  padding-bottom: 3px; margin: 11px 0 7px;
+}
+
+/* Summary */
+.summary-p { font-size: 7.8pt; color: #333; line-height: 1.7; margin-bottom: 5px; }
+
+/* Highlights */
+.hl-bar { display: table; width: 100%; border-collapse: separate; border-spacing: 5px; margin-bottom: 2px; }
+.hl-row { display: table-row; }
+.hl-cell {
+  display: table-cell; width: 25%;
+  background: #E8EEF7;               /* light navy highlight bg */
+  border-left: 2.5px solid #1B3A6B;  /* navy left accent */
+  padding: 6px 8px; vertical-align: top;
+}
+.hl-num {
+  font-family: 'EB Garamond', serif; font-size: 13pt;
+  color: #1B3A6B; line-height: 1; margin-bottom: 2px;
+}
+.hl-desc { font-size: 6.5pt; color: #4a5a7a; line-height: 1.35; }
+
+/* Experience */
+.exp { margin-bottom: 9px; }
+.exp-top { margin-bottom: 1px; }
+.exp-firm { font-size: 9pt; font-weight: 700; color: #0D2147; }
+.exp-badge {
+  font-size: 5.5pt; letter-spacing: 1.2px; text-transform: uppercase;
+  background: #E8EEF7; color: #1B3A6B;
+  border: 1px solid #D0DAEA;
+  padding: 1px 5px; margin-left: 6px; vertical-align: middle;
+}
+.exp-role {
+  font-size: 6.8pt; letter-spacing: 1px; text-transform: uppercase;
+  color: #2C5282; margin-bottom: 1px;  /* mid-navy */
+}
+.exp-meta { font-size: 6.5pt; color: #7a8a9a; font-style: italic; margin-bottom: 4px; }
+.bullet {
+  font-size: 7.7pt; color: #333; line-height: 1.6;
+  margin-bottom: 2px; padding-left: 11px; position: relative;
+}
+.bullet::before { content: '—'; position: absolute; left: 0; color: #2C5282; font-size: 7pt; }
+
+/* Two-column experience */
+.exp-cols { display: table; width: 100%; border-collapse: separate; border-spacing: 10px 0; }
+.exp-col   { display: table-cell; width: 50%; vertical-align: top; }
+
+/* Competencies */
+.comp-table { display: table; width: 100%; border-collapse: separate; border-spacing: 3px; }
+.comp-tr { display: table-row; }
+.comp-td {
+  display: table-cell; background: #f5f7fa;  /* near-white with blue tint */
+  border: 1px solid #D0DAEA; padding: 4px 7px;
+  font-size: 7pt; color: #333; text-align: center; width: 25%;
+}
+
+/* Tech */
+.tech-line { font-size: 7.5pt; color: #444; margin-bottom: 3px; }
+.tech-sep { color: #2C5282; }          /* navy dot separator */
+
+/* Footer */
+.footer-hr { border: none; border-top: 1px solid #D0DAEA; margin-top: 12px; }
+.footer-txt { font-size: 6.5pt; color: #8899aa; text-align: center; margin-top: 5px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="back-link">← Portfolio</a>
+  <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+</div>
+
+<div class="page-shell">
+<div class="resume">
+
+  <!-- ════════ SIDEBAR ════════ -->
+  <div class="sidebar">
+    <div class="mono-wrap">
+      <div class="mono">NL</div>
+      <div class="mono-rule"></div>
+    </div>
+
+    <div class="sb-label">Contact</div>
+    <div class="sb-val"><strong>Location</strong>White Plains, NY 10603</div>
+    <div class="sb-val"><strong>Phone</strong>914.772.3035</div>
+    <div class="sb-val"><strong>Email</strong>nataliesledbetter@gmail.com</div>
+
+    <div class="sb-label">Platforms</div>
+    <div class="skill-row"><div class="skill-name">Microsoft 365</div><div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div></div>
+    <div class="skill-row"><div class="skill-name">Concur</div><div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div></div>
+    <div class="skill-row"><div class="skill-name">Workday</div><div class="skill-bar"><div class="skill-fill" style="width:96%"></div></div></div>
+    <div class="skill-row"><div class="skill-name">Salesforce</div><div class="skill-bar"><div class="skill-fill" style="width:93%"></div></div></div>
+    <div class="skill-row"><div class="skill-name">Bloomberg Terminal</div><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+    <div class="skill-row"><div class="skill-name">ServiceNow</div><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+    <div class="skill-row"><div class="skill-name">SAP / PeopleSoft</div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+    <div class="skill-row"><div class="skill-name">AI / ChatGPT</div><div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div></div>
+
+    <div class="sb-label">Industries</div>
+    <div class="tag-cloud">
+      <span class="tag">Wealth Management</span>
+      <span class="tag">Private Equity</span>
+      <span class="tag">Private Credit</span>
+      <span class="tag">Hedge Funds</span>
+      <span class="tag">Alt. Investments</span>
+      <span class="tag">Asset Management</span>
+      <span class="tag">Family Office</span>
+    </div>
+
+    <div class="sb-label">Education</div>
+    <div class="edu-deg">B.S. Business Management<br>· Finance</div>
+    <div class="edu-sch">Mercy University</div>
+    <div class="edu-loc">Dobbs Ferry, New York</div>
+
+    <div class="sb-label">Profile</div>
+    <div class="sb-val">12+ years of trusted, confidential executive support at regulated, world-class financial institutions across 4 asset classes.</div>
+  </div>
+
+  <!-- ════════ MAIN ════════ -->
+  <div class="main">
+
+    <!-- Header -->
+    <div class="name">Natalie <em>Ledbetter</em></div>
+    <div class="title-row">Senior Executive Assistant &nbsp;·&nbsp; Executive Business Partner</div>
+    <div class="tagline">Trusted strategic partner to Presidents, CEOs, Managing Partners, and Chief Investment Officers across elite wealth management, private equity, private credit, and alternative investment organizations.</div>
+    <hr class="gold-rule">
+
+    <!-- Summary -->
+    <div class="sec">Executive Summary</div>
+    <p class="summary-p">Executive Business Partner with 12+ years of distinguished service to the most senior leadership at globally recognized financial institutions — including <strong>Evercore Wealth Management</strong>, <strong>Ares Management</strong>, <strong>Apollo Global Management</strong>, <strong>Neuberger Berman</strong>, <strong>L Catterton</strong>, <strong>Hutchin Hill Capital</strong>, and <strong>Bloomberg LP</strong>. Expert in orchestrating complex executive calendars, multi-continent travel programs, investor meeting logistics, board support, and expense management — all executed with institutional discretion and precision. Fluent in Concur, Workday, Salesforce, ServiceNow, Bloomberg Terminal, SAP, and the full Microsoft 365 suite.</p>
+
+    <!-- Career Highlights -->
+    <div class="sec">Career Highlights</div>
+    <div class="hl-bar">
+      <div class="hl-row">
+        <div class="hl-cell"><div class="hl-num">12+</div><div class="hl-desc">Years C-suite executive support in elite financial services</div></div>
+        <div class="hl-cell"><div class="hl-num">7</div><div class="hl-desc">Peak concurrent senior principals across multiple asset classes</div></div>
+        <div class="hl-cell"><div class="hl-num">6</div><div class="hl-desc">Elite firms: Evercore · Ares · Apollo · NB · L Catterton · HHC</div></div>
+        <div class="hl-cell"><div class="hl-num">4</div><div class="hl-desc">Asset class expertise: WM · PE · Private Credit · Hedge Funds</div></div>
+      </div>
+    </div>
+
+    <!-- ── EXPERIENCE ── -->
+    <div class="sec">Professional Experience</div>
+
+    <!-- Row 1 -->
+    <div class="exp-cols">
+      <div class="exp-col">
+        <div class="exp">
+          <div class="exp-top"><span class="exp-firm">Evercore Wealth Management</span> <span class="exp-badge">Current</span></div>
+          <div class="exp-role">Executive Assistant — Wealth Management</div>
+          <div class="exp-meta">April 2026 – Present · New York, NY</div>
+          <div class="bullet">Executive Business Partner to the President &amp; CEO and two Co-Head Partners — directing calendars, investor meetings, travel, and expense management through Concur in a high-visibility wealth management environment.</div>
+          <div class="bullet">Operate as gatekeeper and strategic liaison connecting senior leadership to institutional stakeholders, clients, and internal partners with the highest level of discretion.</div>
+          <div class="bullet">Orchestrate comprehensive international and domestic travel programs, producing detailed itineraries and ensuring zero-friction execution for senior leadership.</div>
+        </div>
+      </div>
+      <div class="exp-col">
+        <div class="exp">
+          <div class="exp-top"><span class="exp-firm">Evercore — Global Technology</span> <span class="exp-badge">Contract</span></div>
+          <div class="exp-role">Executive Assistant — Global Technology</div>
+          <div class="exp-meta">September 2025 – March 2026 · New York, NY</div>
+          <div class="bullet">Delivered executive support to 5 Managing Directors — orchestrating multi-time-zone calendars, investor calls, and client engagements across Evercore's Global Technology group.</div>
+          <div class="bullet">Prepared and submitted expense reports via Workday and Concur; led new-hire onboarding coordination partnering with HR and IT for seamless team integration.</div>
+          <div class="bullet">Managed international and domestic travel arrangements with comprehensive itineraries and real-time adaptability to last-minute changes.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="exp-cols">
+      <div class="exp-col">
+        <div class="exp">
+          <div class="exp-top"><span class="exp-firm">L Catterton</span> <span class="exp-badge">Private Credit</span></div>
+          <div class="exp-role">Executive Assistant — Private Credit</div>
+          <div class="exp-meta">April 2025 – September 2025 · New York, NY</div>
+          <div class="bullet">Executive Business Partner to two Managing Partners &amp; Co-Heads of Private Credit at one of the world's largest consumer-focused private equity firms.</div>
+          <div class="bullet">Directed calendar management, investor meetings, complex international travel across North America and Europe, and full expense management through Concur.</div>
+          <div class="bullet">Coordinated Private Credit hiring candidate scheduling and cross-firm EA collaboration for internal/external leadership engagements.</div>
+        </div>
+      </div>
+      <div class="exp-col">
+        <div class="exp">
+          <div class="exp-top"><span class="exp-firm">Ares Management LLC</span> <span class="exp-badge">Credit Secondaries</span></div>
+          <div class="exp-role">Executive Assistant — Credit Secondaries</div>
+          <div class="exp-meta">March 2024 – April 2025 · New York, NY</div>
+          <div class="bullet">Supported two Partners, one Managing Director, and three VPs within Ares Management's Credit Secondaries group — managing multi-time-zone calendars, LP investor meetings, and deal-team logistics.</div>
+          <div class="bullet">Exercised strict confidentiality for sensitive deal documents and investor communications; processed all expense reports through Concur.</div>
+          <div class="bullet">Partnered in onboarding and training new EA hires; ensured consistent support standards across the platform.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="exp-cols">
+      <div class="exp-col">
+        <div class="exp">
+          <div class="exp-top"><span class="exp-firm">Neuberger Berman</span> <span class="exp-badge">Private Equity</span></div>
+          <div class="exp-role">Executive Assistant — Private Equity (PIPCO)</div>
+          <div class="exp-meta">August 2022 – December 2023 · New York, NY</div>
+          <div class="bullet">Primary Executive Business Partner to the Head of Private Equity and 6 Managing Directors including the Japan investment team — directing all calendar, investor meeting, and conference logistics.</div>
+          <div class="bullet">Managed Salesforce, ServiceNow, and complex international travel including trans-Pacific Japan team itineraries; oversaw full expense management through Concur.</div>
+        </div>
+      </div>
+      <div class="exp-col">
+        <div class="exp">
+          <div class="exp-top"><span class="exp-firm">Apollo Global Management</span> <span class="exp-badge">$600B+ AUM</span></div>
+          <div class="exp-role">Executive Assistant — Global Technology</div>
+          <div class="exp-meta">February 2018 – August 2022 · New York, NY · 4 Yrs</div>
+          <div class="bullet">Delivered 4+ years of executive support to a Partner and 5 Managing Directors — directing heavy calendar management, phone coverage, PeopleSoft invoice processing, and Concur expense management.</div>
+          <div class="bullet">Coordinated board meetings and investor presentations with full AV/VC capability; implemented monthly headcount tracking process for the Global Technology organization.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 4 -->
+    <div class="exp-cols">
+      <div class="exp-col">
+        <div class="exp">
+          <div class="exp-top"><span class="exp-firm">Hutchin Hill Capital, LP</span> <span class="exp-badge">Hedge Fund</span></div>
+          <div class="exp-role">Senior Executive Assistant — Technology</div>
+          <div class="exp-meta">August 2015 – November 2017 · New York, NY</div>
+          <div class="bullet">Senior EA to the CTO and two Senior Directors at a premier multi-strategy hedge fund — managing CTO calendar, travel, T&amp;E, procurement lifecycle, and technology ticketing system (TrackIT).</div>
+          <div class="bullet">Partnered with Accounting on invoice reconciliation and budget controls; coordinated cross-functionally with the firm's Executive Management Team.</div>
+        </div>
+      </div>
+      <div class="exp-col">
+        <div class="exp">
+          <div class="exp-top"><span class="exp-firm">Bloomberg LP</span> <span class="exp-badge">Workplace Ops</span></div>
+          <div class="exp-role">Executive Assistant — Workplace Operations</div>
+          <div class="exp-meta">August 2012 – February 2015 · New York, NY</div>
+          <div class="bullet">Executive support to the Global Head of Workplace Operations and two Senior Directors; led NY Administrative Team for Bloomberg's London real estate expansion project.</div>
+          <div class="bullet">Managed Purchase Orders, invoice coding, and expense tracking for the London project; directed executive calendars and international travel arrangements.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Competencies -->
+    <div class="sec">Core Competencies</div>
+    <div class="comp-table">
+      <div class="comp-tr">
+        <div class="comp-td">Executive Leadership Support</div>
+        <div class="comp-td">Strategic Calendar Management</div>
+        <div class="comp-td">International Travel Programs</div>
+        <div class="comp-td">Investor Meeting Coordination</div>
+      </div>
+      <div class="comp-tr">
+        <div class="comp-td">Wealth Management Operations</div>
+        <div class="comp-td">Private Equity &amp; Credit Support</div>
+        <div class="comp-td">Confidential Information Mgmt</div>
+        <div class="comp-td">Expense Management (Concur)</div>
+      </div>
+      <div class="comp-tr">
+        <div class="comp-td">Board-Level Support</div>
+        <div class="comp-td">Stakeholder Management</div>
+        <div class="comp-td">Executive Onboarding</div>
+        <div class="comp-td">Operational Excellence</div>
+      </div>
+    </div>
+
+    <!-- Technical -->
+    <div class="sec">Technical Skills</div>
+    <div class="tech-line">Microsoft 365 <span class="tech-sep">·</span> Outlook <span class="tech-sep">·</span> Excel <span class="tech-sep">·</span> PowerPoint <span class="tech-sep">·</span> Word <span class="tech-sep">·</span> Concur <span class="tech-sep">·</span> Workday <span class="tech-sep">·</span> Salesforce <span class="tech-sep">·</span> ServiceNow <span class="tech-sep">·</span> SAP <span class="tech-sep">·</span> PeopleSoft <span class="tech-sep">·</span> Bloomberg Terminal <span class="tech-sep">·</span> ChatGPT / AI Tools</div>
+
+    <hr class="footer-hr">
+    <div class="footer-txt">Confidential &nbsp;·&nbsp; Natalie Ledbetter &nbsp;·&nbsp; 914.772.3035 &nbsp;·&nbsp; nataliesledbetter@gmail.com &nbsp;·&nbsp; White Plains, NY</div>
+
+  </div>
+</div>
+</div>
+
+</body>
+</html>

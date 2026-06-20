@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natalie Ledbetter | Executive Assistant | Wealth Management & Alternative Investments</title>
+<meta name="description" content="Senior Executive Assistant and Executive Business Partner with 12+ years supporting C-suite leadership at Evercore, Ares Management, Apollo Global Management, Neuberger Berman, L Catterton, and Bloomberg.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===================== TOKENS ===================== */
+:root {
+  --black:      #080808;
+  --charcoal:   #111111;
+  --dark:       #1a1a1a;
+  --panel:      #1e1e1e;
+  --border:     #2c2c2c;
+  --mid:        #3a3a3a;
+  --muted:      #6b6b6b;
+  --light:      #a8a8a8;
+  --cream:      #f0ebe0;
+  --white:      #ffffff;
+  --gold:       #c9a84c;
+  --gold-light: #e8d4a0;
+  --gold-dim:   rgba(201,168,76,0.18);
+  --gold-glow:  rgba(201,168,76,0.06);
+  --serif:      'Cormorant Garamond', Georgia, serif;
+  --sans:       'Inter', system-ui, sans-serif;
+  --page-w:     860px;
+}
+
+/* ===================== RESET ===================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ===================== PRINT ===================== */
+@media print {
+  body { background: #fff; color: #000; }
+  .no-print { display: none !important; }
+  .page { box-shadow: none; border: none; margin: 0; padding: 32px 40px; }
+  .sidebar { background: #f5f5f5; }
+  .section-label { color: #9a7a32; }
+  .gold-text { color: #9a7a32; }
+}
+
+/* ===================== BASE ===================== */
+html { font-size: 15px; }
+body {
+  background: var(--charcoal);
+  color: var(--white);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  padding: 48px 16px 80px;
+}
+
+/* ===================== RESUME SHELL ===================== */
+.page {
+  max-width: var(--page-w);
+  margin: 0 auto;
+  background: var(--dark);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,168,76,0.15);
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+/* ===================== SIDEBAR ===================== */
+.sidebar {
+  background: var(--black);
+  padding: 48px 28px;
+  border-right: 1px solid rgba(201,168,76,0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.monogram-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.monogram {
+  width: 72px; height: 72px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: 2px;
+}
+.mono-line {
+  width: 32px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* Sidebar sections */
+.sb-block { display: flex; flex-direction: column; gap: 12px; }
+.sb-label {
+  font-size: 0.58rem;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+.sb-contact-item {
+  font-size: 0.72rem;
+  color: var(--light);
+  line-height: 1.5;
+  word-break: break-word;
+}
+.sb-contact-item strong {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
+/* Skills */
+.skill-bar-wrap { display: flex; flex-direction: column; gap: 9px; }
+.skill-bar-row { display: flex; flex-direction: column; gap: 4px; }
+.skill-bar-label { font-size: 0.67rem; color: var(--light); }
+.skill-bar-track {
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dark, #9a7a32), var(--gold));
+  border-radius: 2px;
+}
+
+/* Tags */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.5px;
+  padding: 4px 9px;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 1px;
+  color: var(--light);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Education */
+.edu-item { }
+.edu-degree {
+  font-family: var(--serif);
+  font-size: 0.88rem;
+  color: var(--white);
+  font-weight: 500;
+  line-height: 1.3;
+}
+.edu-school {
+  font-size: 0.68rem;
+  color: var(--gold);
+  margin-top: 3px;
+}
+.edu-detail {
+  font-size: 0.63rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ===================== MAIN ===================== */
+.main { padding: 48px 44px 60px; display: flex; flex-direction: column; gap: 36px; }
+
+/* Header */
+.header-block { border-bottom: 1px solid var(--border); padding-bottom: 28px; }
+.name {
+  font-family: var(--serif);
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: 5px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.name-accent { color: var(--gold); }
+.title-line {
+  font-size: 0.68rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.value-prop {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--light);
+  line-height: 1.65;
+  max-width: 520px;
+}
+
+/* Section headers */
+.section { display: flex; flex-direction: column; gap: 16px; }
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 4px;
+}
+.section-label {
+  font-size: 0.58rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(201,168,76,0.4), transparent);
+}
+
+/* Summary */
+.summary-text {
+  font-size: 0.8rem;
+  color: var(--light);
+  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Highlights */
+.highlights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.highlight-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--gold);
+  padding: 14px 16px;
+}
+.highlight-stat {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--gold);
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.highlight-desc {
+  font-size: 0.67rem;
+  color: var(--light);
+  line-height: 1.45;
+}
+
+/* Experience */
+.exp-list { display: flex; flex-direction: column; gap: 28px; }
+.exp-item { position: relative; }
+.exp-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 12px;
+  margin-bottom: 3px;
+}
+.exp-firm {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.5px;
+}
+.exp-firm-tag {
+  font-size: 0.56rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--gold-dim);
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 3px 8px;
+  border-radius: 1px;
+  white-space: nowrap;
+  align-self: center;
+}
+.exp-role {
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+.exp-meta {
+  font-size: 0.65rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; padding-left: 0; }
+.exp-bullets li {
+  font-size: 0.76rem;
+  color: var(--light);
+  line-height: 1.6;
+  padding-left: 16px;
+  position: relative;
+}
+.exp-bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* Competencies */
+.comp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.comp-item {
+  font-size: 0.68rem;
+  color: var(--light);
+  padding: 7px 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+/* ===================== NAV BAR ===================== */
+.topbar {
+  max-width: var(--page-w);
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+.back-link {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--gold); }
+.print-btn {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.4);
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--sans);
+}
+.print-btn:hover { background: rgba(201,168,76,0.1); }
+
+@media (max-width: 700px) {
+  .page { grid-template-columns: 1fr; }
+  .sidebar { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.12); }
+  .main { padding: 32px 24px 48px; }
+  .highlights-grid { grid-template-columns: 1fr; }
+  .comp-grid { grid-template-columns: 1fr 1fr; }
+  .name { font-size: 2.2rem; letter-spacing: 3px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar no-print">
+  <a href="index.html" class="back-link">← Portfolio</a>
+  <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+</div>
+
+<div class="page">
+
+  <!-- =========== SIDEBAR =========== -->
+  <aside class="sidebar">
+
+    <div class="monogram-wrap">
+      <div class="monogram">NL</div>
+      <div class="mono-line"></div>
+    </div>
+
+    <!-- Contact -->
+    <div class="sb-block">
+      <div class="sb-label">Contact</div>
+      <div class="sb-contact-item">
+        <strong>Location</strong>White Plains, NY 10603
+      </div>
+      <div class="sb-contact-item">
+        <strong>Phone</strong>914.772.3035
+      </div>
+      <div class="sb-contact-item">
+        <strong>Email</strong>nataliesledbetter@gmail.com
+      </div>
+    </div>
+
+    <!-- Technical Proficiency -->
+    <div class="sb-block">
+      <div class="sb-label">Technical Proficiency</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-row">
+          <span class="skill-bar-label">Microsoft 365 Suite</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <span class="skill-bar-label">Concur Expense Mgmt</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <span class="skill-bar-label">Salesforce CRM</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <span class="skill-bar-label">Bloomberg Terminal</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <span class="skill-bar-label">Workday</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <span class="skill-bar-label">ServiceNow</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <span class="skill-bar-label">SAP / PeopleSoft</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <span class="skill-bar-label">AI & Productivity Tools</span>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:92%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Industries -->
+    <div class="sb-block">
+      <div class="sb-label">Industries</div>
+      <div class="tag-cloud">
+        <span class="tag">Wealth Management</span>
+        <span class="tag">Private Equity</span>
+        <span class="tag">Private Credit</span>
+        <span class="tag">Hedge Funds</span>
+        <span class="tag">Asset Management</span>
+        <span class="tag">Alternative Investments</span>
+        <span class="tag">Family Office</span>
+        <span class="tag">Investment Banking</span>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="sb-block">
+      <div class="sb-label">Education</div>
+      <div class="edu-item">
+        <div class="edu-degree">Bachelor of Science<br>Business Management · Finance</div>
+        <div class="edu-school">Mercy University</div>
+        <div class="edu-detail">Dobbs Ferry, New York</div>
+      </div>
+    </div>
+
+    <!-- Clearances -->
+    <div class="sb-block">
+      <div class="sb-label">Distinctions</div>
+      <div class="sb-contact-item">Trusted with highly confidential firm, client, and personal executive information across 12+ years in regulated financial services environments.</div>
+    </div>
+
+  </aside>
+
+  <!-- =========== MAIN =========== -->
+  <main class="main">
+
+    <!-- Header -->
+    <div class="header-block">
+      <div class="name">Natalie <span class="name-accent">Ledbetter</span></div>
+      <div class="title-line">Senior Executive Assistant &nbsp;·&nbsp; Executive Business Partner</div>
+      <div class="value-prop">Trusted strategic partner to Presidents, CEOs, Managing Partners, and Chief Investment Officers across the world's most elite wealth management, private equity, private credit, and alternative investment organizations.</div>
+    </div>
+
+    <!-- Summary -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Executive Summary</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="summary-text">
+        <p>A consummate Executive Business Partner with more than 12 years of distinguished service supporting the most senior leadership at globally recognized financial institutions — including Evercore Wealth Management, Ares Management, Apollo Global Management, Neuberger Berman, L Catterton, Hutchin Hill Capital, and Bloomberg LP. Natalie brings a proven track record of operating at the intersection of strategic executive operations, investor-facing professionalism, and high-stakes confidentiality within some of the most demanding financial environments in the world.</p>
+        <p>Renowned for orchestrating seamless operations for Presidents, CEOs, Managing Partners, Co-Heads, and Managing Directors across wealth management, private equity, private credit, credit secondaries, and global technology. Trusted to act as the gatekeeper, strategic scheduler, and operational right hand to senior investment leaders — managing complex, high-volume calendars, multi-continent travel itineraries, critical investor meeting logistics, and executive expense portfolios simultaneously with unwavering precision.</p>
+        <p>Possesses deep fluency in the language, culture, and cadence of alternative investment organizations. Adept at navigating the highly confidential, fast-moving, and high-pressure environments characteristic of top-tier asset managers and investment banks. Has supported executives across multiple asset classes including wealth management, private equity, credit secondaries, private credit, and global technology — building a uniquely cross-functional executive support profile that few professionals in the industry can match.</p>
+        <p>A disciplined operational professional who thrives under the demands of elite financial services. Combines discretion, executive presence, and sophisticated business judgment with a mastery of enterprise technology platforms — including Concur, Workday, Salesforce, ServiceNow, Bloomberg Terminal, SAP, and Microsoft 365. Trusted to represent senior leadership with the composure, competence, and confidentiality that the world's premier investment organizations demand.</p>
+      </div>
+    </div>
+
+    <!-- Career Highlights -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Career Highlights</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="highlights-grid">
+        <div class="highlight-card">
+          <div class="highlight-stat">12+ Years</div>
+          <div class="highlight-desc">Supporting C-suite executives across elite wealth management, private equity, and alternative investment organizations</div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-stat">7 Executives</div>
+          <div class="highlight-desc">Peak concurrent executive support — Managing Partners, Partners, Managing Directors, and VPs across multiple asset classes simultaneously</div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-stat">6 Elite Firms</div>
+          <div class="highlight-desc">Evercore · Ares Management · Apollo Global · Neuberger Berman · L Catterton · Hutchin Hill Capital</div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-stat">Multi-Continent</div>
+          <div class="highlight-desc">Managed complex international travel programs spanning North America, Europe, and Asia for senior investment leadership</div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-stat">4 Asset Classes</div>
+          <div class="highlight-desc">Executive support expertise across Wealth Management, Private Equity, Private Credit, and Alternative Investments</div>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-stat">$Trillion AUM</div>
+          <div class="highlight-desc">Supported leadership at organizations collectively managing hundreds of billions in assets under management</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Professional Experience</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="exp-list">
+
+        <!-- Evercore WM -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-firm">Evercore Wealth Management</div>
+            <div class="exp-firm-tag">Current Role</div>
+          </div>
+          <div class="exp-role">Executive Assistant — Wealth Management</div>
+          <div class="exp-meta">April 2026 – Present &nbsp;·&nbsp; New York, NY &nbsp;·&nbsp; Evercore, Inc.</div>
+          <ul class="exp-bullets">
+            <li>Serve as trusted Executive Business Partner to the President and CEO of Evercore Wealth Management and two Co-Head Partners, orchestrating seamless day-to-day executive operations in one of the firm's highest-profile leadership environments.</li>
+            <li>Direct complex, high-volume executive calendars across a fast-paced wealth management environment — proactively managing competing priorities, investor meetings, partner coordination, and firm-wide leadership engagements.</li>
+            <li>Orchestrate comprehensive international and domestic executive travel programs, developing detailed multi-leg itineraries, managing logistics, and ensuring zero-friction execution for senior leadership travel schedules.</li>
+            <li>Oversee all executive expense management and reimbursement workflows through Concur, ensuring policy compliance, accurate coding, and timely submission for a senior leadership team.</li>
+            <li>Execute high-discretion operational support across a breadth of confidential matters — functioning as a trusted gatekeeper and strategic liaison connecting senior wealth management leadership to key institutional stakeholders, clients, and internal partners.</li>
+            <li>Coordinate all executive conference room logistics, visitor management, and leadership meeting infrastructure to ensure seamless execution of investor presentations and partner-level engagements.</li>
+          </ul>
+        </div>
+
+        <!-- Evercore GT -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-firm">Evercore &nbsp;<span style="font-weight:300;font-size:0.85rem;color:var(--muted)">· Global Technology</span></div>
+            <div class="exp-firm-tag">Contract</div>
+          </div>
+          <div class="exp-role">Executive Assistant — Global Technology</div>
+          <div class="exp-meta">September 2025 – March 2026 &nbsp;·&nbsp; New York, NY</div>
+          <ul class="exp-bullets">
+            <li>Delivered high-caliber executive support to five Managing Directors within Evercore's Global Technology group, managing a diverse portfolio of operational and strategic administrative priorities in a fast-paced investment banking environment.</li>
+            <li>Orchestrated complex, multi-time-zone calendars — balancing internal strategy sessions, investor calls, cross-functional leadership meetings, and client engagements with precision and operational discipline.</li>
+            <li>Prepared, reviewed, and submitted executive expense reports through Workday and Concur, ensuring accuracy, policy adherence, and efficient reimbursement processing across a senior leadership team.</li>
+            <li>Led new-hire onboarding coordination for the Global Technology team — partnering with Human Resources and Information Technology to provision access, schedule orientation programs, and ensure seamless integration for incoming talent.</li>
+            <li>Managed all domestic and international travel arrangements — producing comprehensive itineraries, anticipating logistical challenges, and executing last-minute modifications with agility.</li>
+            <li>Functioned as a key cross-departmental liaison — maintaining executive-level communication standards across Managing Directors, business partners, and executive assistant teams throughout the firm.</li>
+          </ul>
+        </div>
+
+        <!-- L Catterton -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-firm">L Catterton</div>
+            <div class="exp-firm-tag">Private Credit</div>
+          </div>
+          <div class="exp-role">Executive Assistant — Private Credit</div>
+          <div class="exp-meta">April 2025 – September 2025 &nbsp;·&nbsp; New York, NY</div>
+          <ul class="exp-bullets">
+            <li>Served as dedicated Executive Business Partner to two Managing Partners and Co-Heads of Private Credit at L Catterton — one of the world's largest and most successful consumer-focused private equity firms — directly supporting senior leadership in a high-velocity, deal-driven environment.</li>
+            <li>Directed comprehensive calendar management and meeting coordination for Managing Partners — orchestrating investor meetings, portfolio company engagements, internal leadership sessions, and board-level interactions with flawless precision.</li>
+            <li>Managed sophisticated international and domestic travel programs for Managing Partners — designing complex multi-destination itineraries across North America and Europe and resolving logistical complexities in real time.</li>
+            <li>Oversaw all expense processing and reimbursement workflows for Managing Partners and the broader Private Credit team through Concur, maintaining strict compliance with firm financial policies.</li>
+            <li>Coordinated all candidate interview scheduling for Private Credit hiring initiatives — partnering with HR leadership to facilitate a seamless recruitment process, manage candidate communications, and support the firm's talent acquisition priorities.</li>
+            <li>Collaborated with executive assistants across L Catterton's global platform to coordinate high-priority internal and external meetings, ensuring alignment across leadership teams and firm-wide operational standards.</li>
+          </ul>
+        </div>
+
+        <!-- Ares -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-firm">Ares Management</div>
+            <div class="exp-firm-tag">Credit Secondaries</div>
+          </div>
+          <div class="exp-role">Executive Assistant — Credit Secondaries</div>
+          <div class="exp-meta">March 2024 – April 2025 &nbsp;·&nbsp; New York, NY</div>
+          <ul class="exp-bullets">
+            <li>Supported two Partners, one Managing Director, and three Vice Presidents across Ares Management's Credit Secondaries group — delivering high-impact executive operational support within one of the alternative investment industry's preeminent credit platforms.</li>
+            <li>Managed executive calendars and meeting logistics across multiple time zones — coordinating LP investor meetings, deal team interactions, portfolio reviews, and senior leadership engagements with exceptional attention to detail and strategic prioritization.</li>
+            <li>Orchestrated high-priority leadership meetings with Ares executive management — ensuring meticulous preparation, optimal logistics, and seamless execution that reflected the firm's institutional caliber.</li>
+            <li>Processed and submitted all expense reports through Concur, maintaining rigorous accuracy and compliance standards across a multi-principal executive portfolio.</li>
+            <li>Exercised strict confidentiality protocols in the management and distribution of sensitive deal documents, investor communications, and executive materials — ensuring complete data integrity and compliance throughout the document lifecycle.</li>
+            <li>Partnered in onboarding and training new executive assistant hires — contributing institutional knowledge and operational best practices to strengthen team performance and ensure consistent support standards across the platform.</li>
+          </ul>
+        </div>
+
+        <!-- Neuberger Berman -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-firm">Neuberger Berman</div>
+            <div class="exp-firm-tag">Private Equity</div>
+          </div>
+          <div class="exp-role">Executive Assistant — Private Equity</div>
+          <div class="exp-meta">August 2022 – December 2023 &nbsp;·&nbsp; New York, NY</div>
+          <ul class="exp-bullets">
+            <li>Served as primary Executive Business Partner to the Head of Private Equity — one of the most senior investment leaders within Neuberger Berman's institutional asset management platform — while simultaneously supporting six Managing Directors and the firm's Japan investment team within PIPCO.</li>
+            <li>Directed all calendar management, meeting scheduling, and conference logistics for the Head of Private Equity and Managing Director cohort — executing investor-facing engagements, board meetings, team all-hands, and cross-border leadership sessions with zero-error precision.</li>
+            <li>Managed Salesforce distribution folders and ServiceNow workflows — maintaining critical CRM data integrity and operational ticketing discipline across the private equity platform.</li>
+            <li>Engineered complex domestic and international travel programs — producing detailed multi-destination itineraries, managing hotel, ground transportation, and visa logistics for senior private equity leadership including trans-Pacific Japan team travel.</li>
+            <li>Oversaw comprehensive expense management for the Head of Private Equity and the full team through Concur — maintaining rigorous compliance with firm expense policies and ensuring accurate cost center coding across all submissions.</li>
+            <li>Maintained the highest standard of confidentiality, discretion, and professional integrity in all executive interactions — managing sensitive investor information, proprietary deal data, and firm leadership communications with absolute trustworthiness.</li>
+          </ul>
+        </div>
+
+        <!-- Apollo -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-firm">Apollo Global Management</div>
+            <div class="exp-firm-tag">Global Technology</div>
+          </div>
+          <div class="exp-role">Executive Assistant — Global Technology</div>
+          <div class="exp-meta">February 2018 – August 2022 &nbsp;·&nbsp; New York, NY &nbsp;·&nbsp; 4+ Years</div>
+          <ul class="exp-bullets">
+            <li>Delivered comprehensive executive support to a Partner and five Managing Directors within Apollo Global Management's Global Technology organization — serving a combined leadership group at one of the world's largest alternative asset managers, with over $600B AUM.</li>
+            <li>Directed heavy executive calendar management, proactive scheduling, and phone coverage for a senior leadership team of six — managing competing internal priorities, investor communications, and cross-functional firm engagements in a high-volume environment.</li>
+            <li>Managed and analyzed all Global Technology invoices through PeopleSoft — overseeing accurate coding, expense tracking, and budget reconciliation across a complex organizational cost structure.</li>
+            <li>Coordinated all executive meetings with full audio-visual and video conferencing capability — partnering with AV support teams to ensure seamless execution of board meetings, investor presentations, and leadership sessions.</li>
+            <li>Implemented and maintained a standardized monthly headcount tracking process for the Global Technology organization — providing leadership with accurate reporting and operational visibility across team structure changes.</li>
+            <li>Processed executive expense reports for Partner and Managing Director cohort in Concur, maintaining compliance and accuracy across a high-volume, multi-principal expense portfolio.</li>
+            <li>Facilitated onboarding and training for incoming administrative staff — contributing institutional expertise and elevating support team performance standards across the organization.</li>
+          </ul>
+        </div>
+
+        <!-- Hutchin Hill -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-firm">Hutchin Hill Capital</div>
+            <div class="exp-firm-tag">Hedge Fund</div>
+          </div>
+          <div class="exp-role">Senior Executive Assistant — Technology</div>
+          <div class="exp-meta">August 2015 – November 2017 &nbsp;·&nbsp; New York, NY</div>
+          <ul class="exp-bullets">
+            <li>Served as Senior Executive Assistant to the Chief Technology Officer and two Senior Directors at Hutchin Hill Capital — a premier multi-strategy hedge fund — providing leadership-level executive and operational support across the firm's Global Technology function.</li>
+            <li>Orchestrated comprehensive calendar management, phone coverage, travel and expense programs for the CTO and the full Technology team — establishing operational rhythms that maximized executive efficiency in a high-stakes hedge fund environment.</li>
+            <li>Administered the firm's technology ticketing system (TrackIT) — managing workflow tracking and ensuring timely resolution of technology requests across the organization.</li>
+            <li>Managed the full procurement lifecycle — preparing Purchase Orders, processing invoices for payment, and maintaining rigorous oversight of technology equipment and vendor relationships across a hedge fund technology budget.</li>
+            <li>Partnered with the Accounting team on invoice reconciliation — ensuring accurate budget code assignment, management approval workflows, and compliance with firm financial controls across all technology procurement activities.</li>
+            <li>Operated as a key connector between the CTO's office and Hutchin Hill's Executive Management Team — coordinating cross-functional engagements with precision, professionalism, and institutional discretion.</li>
+          </ul>
+        </div>
+
+        <!-- Bloomberg -->
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-firm">Bloomberg LP</div>
+            <div class="exp-firm-tag">Workplace Operations</div>
+          </div>
+          <div class="exp-role">Executive Assistant — Workplace Operations</div>
+          <div class="exp-meta">August 2012 – February 2015 &nbsp;·&nbsp; New York, NY</div>
+          <ul class="exp-bullets">
+            <li>Delivered executive-level support to the Global Head of Workplace Operations and two Senior Directors at Bloomberg LP — managing complex calendars, international scheduling coordination with the London leadership team, and comprehensive executive administrative operations.</li>
+            <li>Served as New York Administrative Team Lead for Bloomberg's London real estate expansion project — coordinating cross-border meeting logistics, presentation preparation, and executive communication between New York and London leadership teams.</li>
+            <li>Managed Purchase Order creation, invoice coding, and expense tracking for Bloomberg's London project and Real Estate team — ensuring financial accuracy and timely processing across a major capital project.</li>
+            <li>Facilitated inter-departmental collaboration across Bloomberg's global organization — coordinating invoice processing workflows and operational initiatives with multiple internal business units.</li>
+            <li>Directed executive calendar management and domestic/international travel arrangements for Global Head of Workplace Operations and Senior Directors — ensuring seamless scheduling across a globally integrated leadership team.</li>
+            <li>Ensured flawless execution of executive meetings — coordinating video conferencing setup, partnering with IT teams, and guaranteeing technical readiness for high-priority presentations and leadership sessions.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Core Competencies -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Core Competencies</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="comp-grid">
+        <div class="comp-item">Executive Leadership Support</div>
+        <div class="comp-item">Strategic Calendar Management</div>
+        <div class="comp-item">International Travel Programs</div>
+        <div class="comp-item">Wealth Management Operations</div>
+        <div class="comp-item">Private Equity Support</div>
+        <div class="comp-item">Private Credit Operations</div>
+        <div class="comp-item">Investor Meeting Coordination</div>
+        <div class="comp-item">Board-Level Support</div>
+        <div class="comp-item">Executive Communications</div>
+        <div class="comp-item">Confidential Information Mgmt</div>
+        <div class="comp-item">Expense Management (Concur)</div>
+        <div class="comp-item">Stakeholder Management</div>
+        <div class="comp-item">Operational Excellence</div>
+        <div class="comp-item">Executive Onboarding</div>
+        <div class="comp-item">Relationship Management</div>
+        <div class="comp-item">C-Suite Gatekeeper</div>
+        <div class="comp-item">Multi-Principal Support</div>
+        <div class="comp-item">Project Coordination</div>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>
