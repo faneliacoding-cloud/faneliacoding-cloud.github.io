@@ -16,26 +16,46 @@
 
   /* ─── ANNOUNCEMENT BAR ─────────────────────────────────────────── */
   function initAnnouncement() {
-    const messages = [
-      'New York\'s Premier Luxury Staging Studio &nbsp;·&nbsp; Est. 2017 &nbsp;·&nbsp; <span class="ann-sep">◆</span>&nbsp; Serving NY · NJ · CT',
-      'Staging That Sells &nbsp;·&nbsp; 97% of Listings Sell Above Asking Price &nbsp;·&nbsp; <span class="ann-sep">◆</span>&nbsp; Schedule Your Consultation',
-      'Trusted by Douglas Elliman · Compass · Sotheby\'s &nbsp;·&nbsp; <span class="ann-sep">◆</span>&nbsp; Julia &amp; Alfredo Linares'
+    const messagesEN = [
+      "New York's Premier Luxury Staging Studio &nbsp;·&nbsp; Est. 2017 &nbsp;·&nbsp; <span class='ann-sep'>◆</span>&nbsp; Serving NY · NJ · CT",
+      "Staging That Sells &nbsp;·&nbsp; 97% of Listings Sell Above Asking Price &nbsp;·&nbsp; <span class='ann-sep'>◆</span>&nbsp; Schedule Your Consultation",
+      "Trusted by Douglas Elliman · Compass · Sotheby's &nbsp;·&nbsp; <span class='ann-sep'>◆</span>&nbsp; Julia &amp; Alfredo Linares"
+    ];
+    const messagesES = [
+      "El Estudio de Ambientación de Lujo Premier de Nueva York &nbsp;·&nbsp; Est. 2017 &nbsp;·&nbsp; <span class='ann-sep'>◆</span>&nbsp; Sirviendo NY · NJ · CT",
+      "Ambientación que Vende &nbsp;·&nbsp; El 97% de Nuestros Listados se Venden por Encima del Precio &nbsp;·&nbsp; <span class='ann-sep'>◆</span>&nbsp; Agende Su Consulta",
+      "De Confianza de Douglas Elliman · Compass · Sotheby's &nbsp;·&nbsp; <span class='ann-sep'>◆</span>&nbsp; Julia y Alfredo Linares"
     ];
     const el = $('.announcement-text');
     if (!el) return;
     let i = 0;
-    el.innerHTML = messages[0];
-    setInterval(() => {
+
+    function getMessages() {
+      return (window.JCL_I18N && window.JCL_I18N.lang === 'es') ? messagesES : messagesEN;
+    }
+
+    el.innerHTML = getMessages()[0];
+    const ticker = setInterval(() => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(-6px)';
       setTimeout(() => {
-        i = (i + 1) % messages.length;
-        el.innerHTML = messages[i];
+        i = (i + 1) % 3;
+        el.innerHTML = getMessages()[i];
         el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         el.style.opacity = '1';
         el.style.transform = 'translateY(0)';
       }, 400);
     }, 5000);
+
+    // Reset on language change
+    on(window, 'jcl:langchange', () => {
+      i = 0;
+      el.style.opacity = '0';
+      setTimeout(() => {
+        el.innerHTML = getMessages()[0];
+        el.style.opacity = '1';
+      }, 200);
+    });
   }
 
   /* ─── NAVIGATION ───────────────────────────────────────────────── */
@@ -701,7 +721,35 @@
     }
 
     function buildContextualResponse(text) {
-      // Direct response lookup
+      const lang = window.JCL_I18N ? window.JCL_I18N.lang : 'en';
+      const isEs = lang === 'es';
+
+      // Use Spanish response map if language is Spanish
+      if (isEs && window._esResponseMap) {
+        const lower = text.toLowerCase();
+        for (const entry of window._esResponseMap) {
+          if (entry.patterns.some(p => lower.includes(p))) {
+            if (entry.userType) conversationState.userType = entry.userType;
+            if (entry.serviceInterest) conversationState.serviceInterest = entry.serviceInterest;
+            saveState();
+            return pickRandom(entry.responses);
+          }
+        }
+        // Spanish contextual fallbacks
+        if (conversationState.messageCount === 1 && conversationState.userType === 'seller') {
+          return '¿Me puede decir más sobre la propiedad? ¿Está actualmente ocupada o vacía? Eso nos ayuda a determinar si la ambientación completa o una consulta parcial tiene más sentido.';
+        }
+        if (!conversationState.askedLocation && conversationState.userType && conversationState.messageCount > 1) {
+          conversationState.askedLocation = true;
+          saveState();
+          return '¿Dónde está ubicada la propiedad? Servimos toda el área Tri-Estatal — Manhattan, Brooklyn, Nueva Jersey, Connecticut y Long Island.';
+        }
+        return window._esFallbacks
+          ? pickRandom(window._esFallbacks)
+          : 'No dude en preguntar lo que necesite. Estoy aquí para ayudarle.';
+      }
+
+      // English: Direct response lookup
       const direct = findResponse(text);
       if (direct) return direct;
 
@@ -814,21 +862,44 @@
       conversationState.greeted = true;
       saveState();
 
+      const lang = window.JCL_I18N ? window.JCL_I18N.lang : 'en';
+      const isEs = lang === 'es';
+
+      function getGreetingLocale() {
+        const h = getHour();
+        if (isEs) {
+          if (h < 12) return 'Buenos días';
+          if (h < 17) return 'Buenas tardes';
+          return 'Buenas noches';
+        }
+        return getGreeting();
+      }
+
       showTyping();
       await new Promise(r => setTimeout(r, 1200));
       hideTyping();
 
-      await addMessage(`${getGreeting()}, I'm Olivia — JCL's design concierge. Think of me as your personal guide to everything we do here.`);
-
-      setTimeout(() => {
-        showTyping();
-        setTimeout(async () => {
-          hideTyping();
-          await addMessage(`Whether you're preparing a home to sell, exploring interior design, or building a long-term partnership with us — I'm here to help you find exactly what you need.`);
-
-          setQuickReplies(["I'm selling my home", "I'm a Realtor", "I need interior design", "Tell me about pricing"]);
-        }, 1100);
-      }, 500);
+      if (isEs) {
+        await addMessage(`${getGreetingLocale()}, soy Olivia — la concierge de diseño de JCL. Piénseme como su guía personal para todo lo que hacemos aquí.`);
+        setTimeout(() => {
+          showTyping();
+          setTimeout(async () => {
+            hideTyping();
+            await addMessage('Ya sea que esté preparando una propiedad para la venta, explorando diseño de interiores, o construyendo una asociación a largo plazo — estoy aquí para ayudarle a encontrar exactamente lo que necesita.');
+            setQuickReplies(['Quiero vender mi propiedad', 'Soy Realtor', 'Necesito diseño de interiores', 'Información sobre precios']);
+          }, 1100);
+        }, 500);
+      } else {
+        await addMessage(`${getGreetingLocale()}, I'm Olivia — JCL's design concierge. Think of me as your personal guide to everything we do here.`);
+        setTimeout(() => {
+          showTyping();
+          setTimeout(async () => {
+            hideTyping();
+            await addMessage(`Whether you're preparing a home to sell, exploring interior design, or building a long-term partnership with us — I'm here to help you find exactly what you need.`);
+            setQuickReplies(["I'm selling my home", "I'm a Realtor", "I need interior design", "Tell me about pricing"]);
+          }, 1100);
+        }, 500);
+      }
     }
 
     function open() {
@@ -995,3 +1066,133 @@
   }
 
 })();
+
+/* ═══════════════════════════════════════════════════════════════════
+   OLIVIA — SPANISH RESPONSE EXTENSION
+   Extends the AI Concierge with fluent, natural Spanish responses.
+   Triggered by jcl:langchange event from the i18n engine.
+═══════════════════════════════════════════════════════════════════ */
+(function() {
+  'use strict';
+
+  const ES_RESPONSE_MAP = [
+    {
+      patterns: ['hola', 'buenas', 'buenos', 'buen día', 'buen día', 'hi', 'hello', 'hey'],
+      responses: [
+        '¿En qué puedo hacer que su visita sea extraordinaria hoy?',
+        'Es un placer tenerle aquí. Cuénteme, ¿qué le trae a JCL?'
+      ]
+    },
+    {
+      patterns: ['vender', 'venta', 'listado', 'listar', 'bienes raíces', 'inmueble', 'propiedad'],
+      userType: 'seller',
+      responses: [
+        'Ayudar a los vendedores es lo que más amamos — y los resultados hablan por sí solos. El 97% de nuestras propiedades ambientadas se venden por encima del precio de lista. ¿Puede contarme un poco sobre su propiedad? Tamaño, vecindario y cronograma son un excelente punto de partida.',
+        'Preparar una propiedad para la venta es una de las decisiones más impactantes que puede tomar. Nuestro servicio de ambientación completa transforma las propiedades de maneras que generan múltiples ofertas consistentemente. ¿Dónde se encuentra su propiedad y cuándo espera listarla?'
+      ]
+    },
+    {
+      patterns: ['realtor', 'agente', 'corredor', 'broker', 'compass', 'elliman', "sotheby"],
+      userType: 'realtor',
+      responses: [
+        'Nos encanta trabajar con los mejores agentes — muchas de nuestras transformaciones más hermosas han surgido de asociaciones con Compass y Douglas Elliman. ¿Tiene un listado que está preparando, o está explorando una asociación a largo plazo?',
+        'Los realtors son algunos de nuestros socios más valiosos. Entendemos la presión de los listados y el enorme impacto que tiene la ambientación en la velocidad de venta y el precio. ¿En qué puedo ayudarle hoy?'
+      ]
+    },
+    {
+      patterns: ['diseño de interiores', 'diseñador', 'decoración', 'rediseñar', 'remodelar'],
+      serviceInterest: 'interior-design',
+      responses: [
+        'El diseño de interiores es uno de nuestros servicios más personales — Julia aporta una mirada editorial forjada por años en los medios y un amor genuino por los espacios hermosos. Este servicio se trata de crear un hogar que refleje su vida en su máxima expresión. ¿Está rediseñando una residencia principal o una propiedad de inversión?',
+        'El trabajo de diseño de interiores de Julia va más allá de la selección de muebles. Es una visión holística — materiales, arte, iluminación, proporción. Cuénteme sobre su espacio y qué está motivando el proyecto.'
+      ]
+    },
+    {
+      patterns: ['ambientación', 'ambientar', 'staging', 'amueblar para vender'],
+      serviceInterest: 'staging',
+      responses: [
+        'La ambientación de hogares es nuestra especialidad — y los retornos son extraordinarios. En promedio, nuestros clientes obtienen una prima del 21% sobre propiedades comparables sin ambientar. ¿Está preparando para listar, o explorando opciones para el futuro?',
+        'La ambientación es a la vez ciencia y arte. Analizamos a qué responden los compradores de hoy en su mercado, y luego creamos exactamente esa sensación. ¿De qué tipo de propiedad estamos hablando?'
+      ]
+    },
+    {
+      patterns: ['precio', 'costo', 'cuánto cuesta', 'tarifa', 'presupuesto', 'cobran'],
+      responses: [
+        'Nuestros precios están personalizados para cada proyecto — ninguna propiedad es igual. Para una casa o condominio, la ambientación generalmente comienza en algunos miles de dólares y escala según el alcance. La pregunta más relevante es el retorno: nuestros clientes consistentemente ven entre $20,000 y más de $100,000 adicionales en el precio de venta. ¿Le gustaría programar una consulta gratuita?',
+        'Aprecio que pregunte directamente. Los honorarios varían según los metros cuadrados, el alcance y el cronograma. Lo que sí puedo decirle es que el ROI es excepcional. ¿Quiere que Julia o Alfredo le den una propuesta personalizada?'
+      ]
+    },
+    {
+      patterns: ['casa modelo', 'nueva construcción', 'constructor', 'desarrollador', 'desarrollo'],
+      userType: 'builder',
+      responses: [
+        'La ambientación de casas modelo es una especialidad que abordamos con particular cuidado — no se trata solo de compradores individuales, sino de crear un estilo de vida aspiracional que impulse las ventas de toda una comunidad. ¿Está trabajando en un nuevo desarrollo?',
+        'Hemos ayudado a desarrolladores a transformar casas modelo en el corazón emocional de sus proyectos. Cuénteme sobre su desarrollo.'
+      ]
+    },
+    {
+      patterns: ['consulta', 'cita', 'agendar', 'programar', 'reunirse', 'llamada'],
+      responses: [
+        'Una consulta gratuita es el primer paso perfecto — Julia o Alfredo recorrerán su propiedad (o fotos), entenderán sus objetivos y le darán una visión clara de lo que es posible. ¿Qué fechas le funcionan mejor en las próximas dos semanas?',
+        'Me encantaría conectarle directamente con Julia o Alfredo. Normalmente ofrecen llamadas de descubrimiento de 30 minutos sin costo. ¿Puede compartir sus días y horarios preferidos?'
+      ]
+    },
+    {
+      patterns: ['nueva york', 'manhattan', 'brooklyn', 'queens', 'nueva jersey', 'connecticut', 'hamptons', 'long island'],
+      responses: [
+        'Servimos toda el área Tri-Estatal — Manhattan, Brooklyn, Queens, Long Island, Nueva Jersey, Connecticut y los Hamptons. Nuestro equipo se desplaza con fluidez por toda la región. ¿Dónde está ubicada su propiedad?',
+        'El área Tri-Estatal es nuestro territorio natal. Desde cooperativos del Upper East Side hasta mansiones en los Hamptons — los hemos ambientado todos con el mismo nivel de dedicación.'
+      ]
+    },
+    {
+      patterns: ['portafolio', 'ejemplos', 'trabajos', 'proyectos', 'galería', 'fotos', 'portfolio'],
+      responses: [
+        'Nuestro portafolio es una de las cosas más hermosas que puedo compartir con usted. Algunos puntos destacados: un ático en Park Avenue vendido en 11 días por $4.2M, un loft en Tribeca con 5 ofertas competidoras, y una cocina en Brooklyn Heights que superó a propiedades comparables del edificio en un 12%. Desplácese hacia abajo para ver la galería completa.',
+        'Cada proyecto que hemos realizado cuenta una historia diferente. El ático de Park Avenue trataba de la grandeza equilibrada con la intimidad. ¿Le gustaría que le hablara sobre alguna propiedad específica?'
+      ]
+    },
+    {
+      patterns: ['gracias', 'perfecto', 'excelente', 'maravilloso', 'genial', 'me encanta', 'increíble'],
+      responses: [
+        'Es un placer — para eso estoy aquí. ¿Hay algo más que le gustaría explorar?',
+        'Me alegra mucho que haya sido útil. No dude en preguntar lo que sea sobre JCL.',
+        'Gracias — es maravilloso saber que fue de ayuda. Estoy aquí para lo que necesite.'
+      ]
+    },
+    {
+      patterns: ['quiénes son', 'julia', 'alfredo', 'fundadores', 'equipo', 'jcl', 'sobre'],
+      responses: [
+        'JCL Staging & Design fue fundado por Julia Carias-Linares y Alfredo Linares — una pareja de esposos que aportan brillantez complementaria a cada proyecto. Julia es la visionaria creativa: ejecutiva de medios y actriz cuya mirada editorial da forma a cada decisión de diseño. Alfredo es la fuerza operativa que garantiza que cada visión se ejecute con precisión impecable.',
+        'Julia y Alfredo crearon JCL con una convicción compartida: que todo hogar merece vivirse en su máxima expresión. Son extraordinarios juntos.'
+      ]
+    },
+    {
+      patterns: ['virtual', 'ambientación virtual', 'digital', 'fotos', 'renders'],
+      responses: [
+        'La ambientación virtual se ha convertido en una herramienta increiblemente poderosa — especialmente para propiedades vacantes donde la ambientación física no es práctica. Nuestro trabajo virtual es fotorrealista y ayuda a los compradores a conectarse emocionalmente con un espacio antes de visitarlo. ¿Le gustaría ver ejemplos?',
+        'La ambientación virtual es uno de nuestros servicios más accesibles en cuanto a costo, y los resultados son genuinamente hermosos.'
+      ]
+    }
+  ];
+
+  const ES_FALLBACKS = [
+    'Es una excelente pregunta. Para asegurarme de que reciba la respuesta más precisa, me encantaría conectarle directamente con Julia o Alfredo. Mientras tanto, ¿hay algo sobre nuestros servicios o portafolio en lo que pueda ayudarle?',
+    'Quiero asegurarme de que reciba la orientación adecuada. ¿Podría contarme un poco más sobre lo que está buscando?',
+    'Aprecio que comparta eso. Déjeme entender mejor — ¿está pensando principalmente en vender una propiedad, diseñar un hogar o explorar una asociación con JCL?',
+    'Eso merece una conversación más profunda. Julia y Alfredo serían las personas perfectas con quienes hablar. ¿Le gustaría que le ayude a programar una consulta gratuita?'
+  ];
+
+  function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+  // Hook into Olivia's language context
+  on(window, 'jcl:langchange', (e) => {
+    if (window._oliviaSetLang) window._oliviaSetLang(e.detail.lang);
+  });
+
+  // Expose Spanish response engine to Olivia
+  window._esResponseMap = ES_RESPONSE_MAP;
+  window._esFallbacks = ES_FALLBACKS;
+
+  function on(el, ev, fn) { el && el.addEventListener(ev, fn); }
+})();
+

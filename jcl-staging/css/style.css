@@ -2798,3 +2798,197 @@ h4 { font-size: var(--text-xl); }
   .mobile-nav, .ticker { display: none !important; }
   body { background: white; color: black; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   LANGUAGE SWITCHER — BILINGUAL (EN / ES)
+   Premium integrated toggle · Keyboard accessible · Animated
+═══════════════════════════════════════════════════════════════════ */
+
+/* ─── Desktop Lang Switcher ─────────────────────────────────────── */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(176,141,106,0.08);
+  border: 1px solid rgba(176,141,106,0.22);
+  border-radius: 100px;
+  padding: 0.2rem;
+  flex-shrink: 0;
+  transition: border-color 0.3s ease;
+}
+.lang-switcher:hover { border-color: rgba(176,141,106,0.45); }
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border: none;
+  background: transparent;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  line-height: 1;
+}
+.lang-btn:hover { color: var(--charcoal); }
+.lang-btn.active {
+  background: var(--bronze);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(176,141,106,0.35);
+}
+.lang-btn:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 2px;
+}
+.lang-flag { font-size: 0.85rem; line-height: 1; }
+.lang-code { font-size: 0.62rem; }
+
+/* Scrolled header — adjust for darker bg */
+.site-header.scrolled .lang-btn { color: var(--smoke); }
+.site-header.scrolled .lang-switcher {
+  background: rgba(26,23,20,0.06);
+  border-color: rgba(176,141,106,0.25);
+}
+
+/* ─── Mobile Lang Switcher ──────────────────────────────────────── */
+.mobile-lang-switcher {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem var(--space-6);
+  border-bottom: 1px solid var(--parchment-deep);
+  margin-bottom: 0.5rem;
+}
+
+.mlang-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--parchment-deep);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.mlang-btn:hover { border-color: var(--bronze); color: var(--charcoal); }
+.mlang-btn.active {
+  background: var(--bronze);
+  border-color: var(--bronze);
+  color: var(--white);
+}
+.mlang-btn:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 2px;
+}
+.mlang-flag { font-size: 1rem; }
+
+/* ─── Language Suggestion Banner ───────────────────────────────── */
+#langSuggest {
+  position: fixed;
+  bottom: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--charcoal);
+  color: var(--ivory);
+  padding: 0.9rem 1.25rem;
+  border-radius: 8px;
+  border: 1px solid rgba(176,141,106,0.35);
+  box-shadow: 0 8px 40px rgba(26,23,20,0.4);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  animation: suggestIn 0.4s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes suggestIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+#langSuggest span { color: rgba(250,248,245,0.8); }
+#langSuggestYes {
+  background: var(--bronze);
+  border: none;
+  color: var(--white);
+  padding: 0.35rem 0.85rem;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#langSuggestYes:hover { background: var(--bronze-dark); }
+#langSuggestNo {
+  background: transparent;
+  border: none;
+  color: rgba(250,248,245,0.5);
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  cursor: pointer;
+  padding: 0.35rem 0.5rem;
+  transition: color 0.2s;
+}
+#langSuggestNo:hover { color: var(--ivory); }
+
+/* ─── i18n Header Layout Adjustment ────────────────────────────── */
+/* Ensure header accommodates the switcher without overflow */
+.header-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: var(--space-4);
+  align-items: center;
+}
+@media (max-width: 960px) {
+  .header-inner {
+    grid-template-columns: auto 1fr auto;
+  }
+  .lang-switcher { display: none; }
+}
+
+/* ─── Split h2 helpers (for two-part headings) ──────────────────── */
+.split-a { display: inline; }
+.split-b { display: inline; font-style: normal; }
+
+/* ─── BA Section paragraph id helper ───────────────────────────── */
+#baSub {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  color: var(--smoke);
+  margin-top: 1rem;
+  max-width: 55ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ─── Responsive: mobile lang suggestion ───────────────────────── */
+@media (max-width: 600px) {
+  #langSuggest {
+    width: calc(100vw - 2rem);
+    white-space: normal;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+}
+

@@ -211,6 +211,18 @@
       <a href="#faq" aria-label="Frequently asked questions">FAQ</a>
     </nav>
 
+    <!-- Language Switcher -->
+    <div class="lang-switcher" id="langSwitcher" role="group" aria-label="Language selection">
+      <button class="lang-btn active" data-lang="en" aria-pressed="true" aria-label="Switch to English">
+        <span class="lang-flag" aria-hidden="true">🇺🇸</span>
+        <span class="lang-code">EN</span>
+      </button>
+      <button class="lang-btn" data-lang="es" aria-pressed="false" aria-label="Cambiar a Español">
+        <span class="lang-flag" aria-hidden="true">🇪🇸</span>
+        <span class="lang-code">ES</span>
+      </button>
+    </div>
+
     <a href="#contact" class="header-cta" id="headerCTA" aria-label="Book a complimentary consultation">
       Begin Your Transformation
     </a>
@@ -224,6 +236,15 @@
     <button class="mobile-close" id="mobileClose" aria-label="Close navigation menu">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
+    <!-- Mobile Language Switcher -->
+    <div class="mobile-lang-switcher" role="group" aria-label="Language selection">
+      <button class="mlang-btn active" data-lang="en" aria-pressed="true" aria-label="Switch to English">
+        <span class="mlang-flag" aria-hidden="true">🇺🇸</span> English
+      </button>
+      <button class="mlang-btn" data-lang="es" aria-pressed="false" aria-label="Cambiar a Español">
+        <span class="mlang-flag" aria-hidden="true">🇪🇸</span> Español
+      </button>
+    </div>
     <nav aria-label="Mobile primary navigation">
       <a href="#about" class="mnav-link">About</a>
       <a href="#portfolio" class="mnav-link">Portfolio</a>
@@ -352,7 +373,7 @@
 
       <div class="philosophy-text-col reveal-right">
         <span class="label">Our Story</span>
-        <h2 id="philosophyHeading">A Vision Born From<br /><em>Passion &amp; Precision</em></h2>
+        <h2 id="philosophyHeading"><span class="split-a">A Vision Born From</span><br /><em>Passion &amp; Precision</em></h2>
         <p>Founded by husband-and-wife visionaries Julia Carias-Linares and Alfredo Linares, JCL Staging &amp; Design emerged from a shared conviction: that every home deserves to be experienced at its very best — not just before a sale, but as a philosophy of living.</p>
         <p>Julia, a dynamic media executive, actress, and creative force, brings an editorial eye shaped by years of storytelling. Alfredo, the hands-on executor and business architect, ensures every vision is delivered with flawless precision. Together, they've built one of New York's most trusted luxury staging studios — one remarkable property at a time.</p>
 
@@ -394,7 +415,7 @@
     <div class="statistics-inner">
       <div class="statistics-header reveal">
         <span class="label">By the Numbers</span>
-        <h2 id="statsHeading">Results That <em>Speak</em></h2>
+        <h2 id="statsHeading"><span class="split-a">Results That</span> <em>Speak</em></h2>
       </div>
 
       <div class="stats-grid">
@@ -423,8 +444,8 @@
     <div class="before-after-inner">
       <div class="ba-header reveal">
         <span class="label">The Transformation</span>
-        <h2 id="baHeading">See the <em>Difference</em></h2>
-        <p style="font-family:var(--font-body);font-size:var(--text-md);color:var(--smoke);margin-top:1rem;max-width:55ch;margin-left:auto;margin-right:auto;">
+        <h2 id="baHeading"><span id="baH2a">See the</span> <em id="baH2b">Difference</em></h2>
+        <p id="baSub">
           Drag the slider to witness the extraordinary power of professional staging.
           Every space tells a more compelling story after a JCL transformation.
         </p>
@@ -488,7 +509,7 @@
     <div class="services-inner">
       <div class="section-header reveal">
         <span class="label">What We Do</span>
-        <h2 id="servicesHeading">Crafted for <em>Every Vision</em></h2>
+        <h2 id="servicesHeading"><span class="split-a">Crafted for</span> <em>Every Vision</em></h2>
         <p>From a single consultation to a complete interior design commission — every service is delivered with the same obsessive attention to detail and commitment to extraordinary outcomes.</p>
       </div>
 
@@ -615,7 +636,7 @@
     <div class="portfolio-inner">
       <div class="section-header reveal">
         <span class="label">Selected Work</span>
-        <h2 id="portfolioHeading">Spaces That <em>Sell Stories</em></h2>
+        <h2 id="portfolioHeading"><span class="split-a">Spaces That</span> <em>Sell Stories</em></h2>
         <p>Every project is a complete narrative — from vision to sold. Click any project to read its story.</p>
       </div>
 
@@ -717,7 +738,7 @@
     <div class="process-inner">
       <div class="process-header reveal">
         <span class="label">How We Work</span>
-        <h2 id="processHeading">The JCL <em>Process</em></h2>
+        <h2 id="processHeading"><span class="split-a">The JCL</span> <em>Process</em></h2>
       </div>
 
       <div class="process-steps">
@@ -761,7 +782,7 @@
     <div class="testimonials-inner">
       <div class="testimonials-header reveal">
         <span class="label">Client Stories</span>
-        <h2 id="testimonialHeading">What Our Clients <em>Say</em></h2>
+        <h2 id="testimonialHeading"><span class="split-a">What Our Clients</span> <em>Say</em></h2>
       </div>
 
       <div class="testimonials-carousel">
@@ -897,9 +918,9 @@
       <div class="journal-header">
         <div class="reveal">
           <span class="label">The JCL Journal</span>
-          <h2 id="journalHeading">From Our <em>Studio</em></h2>
+          <h2 id="journalHeading"><span class="split-a">From Our</span> <em>Studio</em></h2>
         </div>
-        <a href="#" class="btn-ghost reveal">All Articles <span class="arrow">→</span></a>
+        <a href="#" class="btn-ghost reveal" id="journalAll">All Articles <span class="arrow">→</span></a>
       </div>
 
       <div class="journal-grid">
@@ -948,8 +969,8 @@
   <section class="instagram" id="instagram" aria-labelledby="instaHeading">
     <div class="instagram-inner">
       <div class="instagram-header reveal">
-        <span class="label">On Instagram</span>
-        <h2 id="instaHeading">Follow Our <em>World</em></h2>
+        <span class="label" id="instaHeading">On Instagram</span>
+        <h2><span id="instaH2a">Follow Our</span> <em id="instaH2b">World</em></h2>
         <a href="https://www.instagram.com/jclstagingdesign/" target="_blank" rel="noopener noreferrer" class="insta-handle" aria-label="Follow JCL Staging on Instagram">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
           @jclstagingdesign
@@ -1002,7 +1023,7 @@
     <div class="faq-inner">
       <div class="faq-header reveal">
         <span class="label">Questions &amp; Answers</span>
-        <h2 id="faqHeading">Everything You <em>Need to Know</em></h2>
+        <h2 id="faqHeading"><span class="split-a">Everything You</span> <em>Need to Know</em></h2>
       </div>
 
       <div class="faq-list" role="list">
@@ -1130,8 +1151,8 @@
 
         <div class="consultation-text reveal-left">
           <span class="label">Begin Here</span>
-          <h2 id="consultHeading">Your Property Deserves<br /><em>Something Extraordinary</em></h2>
-          <p>Every remarkable sale begins with a single conversation. Tell us about your property, your goals, and your timeline — and we'll show you exactly what's possible.</p>
+          <h2 id="consultHeading"><span class="split-a">Your Property Deserves</span><br /><em>Something Extraordinary</em></h2>
+          <p id="conP">Every remarkable sale begins with a single conversation. Tell us about your property, your goals, and your timeline — and we'll show you exactly what's possible.</p>
 
           <div class="consultation-promises">
             <div class="promise">
@@ -1315,11 +1336,11 @@
     </div>
 
     <div class="footer-bottom">
-      <p class="footer-copy">&copy; <span id="footerYear"></span> JCL Staging &amp; Design. All rights reserved. New York, NY.</p>
+      <p class="footer-copy" id="footCopy">&copy; <span id="footerYear"></span> JCL Staging &amp; Design. All rights reserved. New York, NY.</p>
       <nav class="footer-legal" aria-label="Legal navigation">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Sitemap</a>
+        <a href="#" id="footPrivacy">Privacy Policy</a>
+        <a href="#" id="footTerms">Terms of Service</a>
+        <a href="#" id="footSitemap">Sitemap</a>
       </nav>
     </div>
   </div>
@@ -1381,6 +1402,7 @@
   // Set current year in footer
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 </script>
+<script src="js/i18n.js" defer></script>
 <script src="js/main.js" defer></script>
 
 </body>
