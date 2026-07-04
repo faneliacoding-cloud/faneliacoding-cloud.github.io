@@ -338,12 +338,18 @@ h4 { font-size: var(--text-xl); }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-8);
+  gap: var(--space-4);
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 1.5rem clamp(1.5rem, 5vw, 4rem);
   transition: padding var(--transition);
 }
+/* Hamburger — push left, logo — center-ish, nav — flex-grow, switcher + CTA — right */
+.header-inner > .hamburger { order: 1; }
+.header-inner > .site-logo  { order: 2; flex-shrink: 0; }
+.header-inner > .main-nav   { order: 3; flex: 1; justify-content: center; }
+.header-inner > .lang-switcher { order: 4; flex-shrink: 0; }
+.header-inner > .header-cta { order: 5; flex-shrink: 0; }
 
 /* Logo — preserved exactly */
 .site-logo {
@@ -2761,7 +2767,7 @@ h4 { font-size: var(--text-xl); }
 
 /* ─── RESPONSIVE — 768px ──────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .main-nav, .header-cta { display: none; }
+  .main-nav, .header-cta, .lang-switcher { display: none; }
   .hamburger { display: flex; }
   .hero-stats { position: relative; bottom: auto; left: auto; border-radius: 0; border: none; background: var(--charcoal); display: flex; overflow-x: auto; }
   .hero { max-height: 100vh; align-items: center; }
@@ -2951,18 +2957,8 @@ h4 { font-size: var(--text-xl); }
 }
 #langSuggestNo:hover { color: var(--ivory); }
 
-/* ─── i18n Header Layout Adjustment ────────────────────────────── */
-/* Ensure header accommodates the switcher without overflow */
-.header-inner {
-  display: grid;
-  grid-template-columns: auto 1fr auto auto;
-  gap: var(--space-4);
-  align-items: center;
-}
-@media (max-width: 960px) {
-  .header-inner {
-    grid-template-columns: auto 1fr auto;
-  }
+/* Lang switcher hidden below 768px (mobile menu takes over) */
+@media (max-width: 768px) {
   .lang-switcher { display: none; }
 }
 
