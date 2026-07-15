@@ -2,7 +2,7 @@
 'use client';
 import { useAppStore } from '@/lib/store';
 import type { Client, Gender, Pronoun, MaritalStatus } from '@/lib/types';
-import { User } from 'lucide-react';
+import { User, Stethoscope, Sparkles } from 'lucide-react';
 
 const GENDERS: Gender[] = ['Male', 'Female', 'Non-binary', 'Transgender Male', 'Transgender Female', 'Other', 'Prefer not to say'];
 const PRONOUNS: Pronoun[] = ['He/Him', 'She/Her', 'They/Them', 'Other'];
@@ -12,6 +12,7 @@ export default function Step01Client({ evalId }: { evalId: string }) {
   const evaluation = useAppStore(s => s.evaluations.find(e => e.id === evalId));
   const updateEvalClient = useAppStore(s => s.updateEvalClient);
   const updateEvalSection = useAppStore(s => s.updateEvalSection);
+  const practiceSettings = useAppStore(s => s.practiceSettings);
 
   if (!evaluation) return null;
   const client = evaluation.client;
@@ -25,6 +26,21 @@ export default function Step01Client({ evalId }: { evalId: string }) {
     updateEvalSection(evalId, 'step01', { [field]: value });
   };
 
+  const autoFillClinician = () => {
+    const updates: Record<string, string> = {};
+    if (practiceSettings.evaluatorName && !s01.clinicianName) updates.clinicianName = practiceSettings.evaluatorName;
+    if (practiceSettings.credentials && !s01.clinicianCredentials) updates.clinicianCredentials = practiceSettings.credentials;
+    if (practiceSettings.licenseNumber) {
+      const licenseStr = [practiceSettings.licenseType, practiceSettings.licenseNumber].filter(Boolean).join(' #');
+      if (!s01.clinicianLicense) updates.clinicianLicense = licenseStr;
+    }
+    if (Object.keys(updates).length > 0) {
+      updateEvalSection(evalId, 'step01', updates);
+    }
+  };
+
+  const hasSettingsData = practiceSettings.evaluatorName || practiceSettings.credentials || practiceSettings.licenseNumber;
+
   return (
     <div className="animate-fade-in">
       <div style={{ marginBottom: 32 }}>
@@ -34,12 +50,95 @@ export default function Step01Client({ evalId }: { evalId: string }) {
           </div>
           <div>
             <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 24, fontWeight: 600, color: 'var(--charcoal)', lineHeight: 1.2 }}>Client Information</h2>
-            <p className="text-secondary" style={{ marginTop: 2 }}>Demographics, contact details, and case identifiers</p>
+            <p className="text-secondary" style={{ marginTop: 2 }}>Demographics, contact details, and evaluator credentials</p>
           </div>
         </div>
       </div>
 
-      {/* Identity */}
+      {/* ── Clinician Bio & Credentials ──────────────────────────────────────── */}
+      <div className="card" style={{ padding: 28, marginBottom: 20, borderLeft: '3px solid var(--gold)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(197,165,90,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Stethoscope size={18} color="var(--gold)" />
+            </div>
+            <div>
+              <h3 className="heading-md" style={{ marginBottom: 0 }}>Evaluator Credentials</h3>
+              <p className="form-hint" style={{ margin: 0 }}>Your professional information for this evaluation report</p>
+            </div>
+          </div>
+          {hasSettingsData && (
+            <button
+              className="btn-ghost"
+              onClick={autoFillClinician}
+              style={{ fontSize: 12, gap: 6, color: 'var(--gold)' }}
+              aria-label="Auto-fill from practice settings"
+            >
+              <Sparkles size={13} />
+              Auto-fill from Settings
+            </button>
+          )}
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20, marginBottom: 20 }}>
+          <div>
+            <label className="form-label" htmlFor="clinicianName">Evaluator Name</label>
+            <input
+              id="clinicianName"
+              className="form-input"
+              value={s01.clinicianName || ''}
+              onChange={e => updateS01('clinicianName', e.target.value)}
+              placeholder="e.g., Dr. Jane Smith"
+              aria-label="Evaluator name"
+            />
+          </div>
+          <div>
+            <label className="form-label" htmlFor="clinicianCredentials">Credentials / Degrees</label>
+            <input
+              id="clinicianCredentials"
+              className="form-input"
+              value={s01.clinicianCredentials || ''}
+              onChange={e => updateS01('clinicianCredentials', e.target.value)}
+              placeholder="e.g., PhD, LCSW, Psy.D."
+              aria-label="Credentials"
+            />
+            <p className="form-hint">Professional degrees and certifications</p>
+          </div>
+          <div>
+            <label className="form-label" htmlFor="clinicianLicense">License Information</label>
+            <input
+              id="clinicianLicense"
+              className="form-input"
+              value={s01.clinicianLicense || ''}
+              onChange={e => updateS01('clinicianLicense', e.target.value)}
+              placeholder="e.g., LCSW #087654, NY State"
+              aria-label="License information"
+            />
+            <p className="form-hint">License type, number, and state</p>
+          </div>
+        </div>
+
+        <div>
+          <label className="form-label" htmlFor="clinicianBio">Professional Bio & Qualifications</label>
+          <textarea
+            id="clinicianBio"
+            className="form-textarea"
+            value={s01.clinicianBio || ''}
+            onChange={e => updateS01('clinicianBio', e.target.value)}
+            placeholder="Describe your professional background, areas of expertise, years of experience conducting immigration evaluations, relevant training (e.g., trauma-informed care, cultural competency), and any specialized certifications. This information will appear in the evaluator qualifications section of the report.
+
+Example: Dr. Jane Smith is a licensed clinical psychologist (NY #087654) with over 12 years of experience conducting forensic and immigration psychological evaluations. She holds a Doctorate in Clinical Psychology from Columbia University and has completed specialized training in trauma-informed assessment, cross-cultural evaluation, and immigration mental health through the National Latinx Psychological Association. Dr. Smith has conducted over 500 immigration evaluations across asylum, VAWA, U Visa, and extreme hardship cases."
+            style={{ minHeight: 180 }}
+            aria-label="Professional bio and qualifications"
+          />
+          <p className="form-hint">
+            This bio will be included in the evaluator qualifications section of generated reports. 
+            Include your education, training, experience with immigration evaluations, and relevant specializations.
+          </p>
+        </div>
+      </div>
+
+      {/* ── Identity & Demographics ──────────────────────────────────────────── */}
       <div className="card" style={{ padding: 28, marginBottom: 20 }}>
         <h3 className="heading-md" style={{ marginBottom: 20 }}>Identity &amp; Demographics</h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
@@ -98,7 +197,7 @@ export default function Step01Client({ evalId }: { evalId: string }) {
         </div>
       </div>
 
-      {/* Contact */}
+      {/* ── Contact Information ──────────────────────────────────────────────── */}
       <div className="card" style={{ padding: 28, marginBottom: 20 }}>
         <h3 className="heading-md" style={{ marginBottom: 20 }}>Contact Information</h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
@@ -117,7 +216,7 @@ export default function Step01Client({ evalId }: { evalId: string }) {
         </div>
       </div>
 
-      {/* Case Identifiers */}
+      {/* ── Case Identifiers ─────────────────────────────────────────────────── */}
       <div className="card" style={{ padding: 28, marginBottom: 20 }}>
         <h3 className="heading-md" style={{ marginBottom: 20 }}>Case Identifiers</h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
@@ -133,7 +232,7 @@ export default function Step01Client({ evalId }: { evalId: string }) {
         </div>
       </div>
 
-      {/* Evaluation Context */}
+      {/* ── Evaluation Context ───────────────────────────────────────────────── */}
       <div className="card" style={{ padding: 28 }}>
         <h3 className="heading-md" style={{ marginBottom: 20 }}>Evaluation Context</h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
@@ -170,3 +269,4 @@ export default function Step01Client({ evalId }: { evalId: string }) {
     </div>
   );
 }
+

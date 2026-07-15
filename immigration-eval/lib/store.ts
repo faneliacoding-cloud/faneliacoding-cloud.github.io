@@ -17,7 +17,7 @@ const defaultClient: Client = {
 };
 
 const defaultSections: EvaluationSections = {
-  step01: { evaluationDates: '', interpreterUsed: false, interpreterLanguage: '', evaluationLocation: '', referralSource: '' },
+  step01: { evaluationDates: '', interpreterUsed: false, interpreterLanguage: '', evaluationLocation: '', referralSource: '', clinicianName: '', clinicianCredentials: '', clinicianLicense: '', clinicianBio: '' },
   step02: { caseType: 'asylum', caseNotes: '' },
   step03: { personalHistory: '', familyBackground: '', educationHistory: '', employmentHistory: '', relationshipHistory: '', childrenInfo: '' },
   step04: { immigrationHistory: '', dateOfArrival: '', mannerOfEntry: '', currentStatus: '', previousApplications: '', reasonForFleeing: '' },
