@@ -2,4 +2,4 @@
 2:I[39756,["/immigration-eval-app/_next/static/chunks/11s7oj79tbk-i.js"],"default"]
 3:I[37457,["/immigration-eval-app/_next/static/chunks/11s7oj79tbk-i.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"psLuGqvSJW49mXDk6amdN"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"Bz5_k8RO2ux_EbCEbiyHS"}

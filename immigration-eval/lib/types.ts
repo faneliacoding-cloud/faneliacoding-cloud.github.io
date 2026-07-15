@@ -179,12 +179,35 @@ export interface EvalStep02 {
 }
 
 export interface EvalStep03 {
-  personalHistory: string;
-  familyBackground: string;
+  // Early Life
+  siblings: string;
+  birthOrder: string;
+  raisedBy: string;
+  parentsWork: string;
+  childhoodLocation: string;
+  childhoodEnvironment: string;
+  childhoodStressors: string;
+  travelHistory: string;
+  faithCommunity: string;
+  currentFaith: string;
+  hobbiesInterests: string;
+  // Education
+  educationLevel: string;
+  degreesAwards: string;
   educationHistory: string;
+  // Employment
   employmentHistory: string;
+  currentEmployment: string;
+  // Relationships & Family
+  maritalStatus: string;
   relationshipHistory: string;
   childrenInfo: string;
+  numberOfChildren: string;
+  // General narratives
+  personalHistory: string;
+  familyBackground: string;
+  currentLiving: string;
+  futureHopes: string;
 }
 
 export interface EvalStep04 {

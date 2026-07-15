@@ -254,12 +254,54 @@ Please note that I am not ${name}'s therapist, and I only met with ${obj} for th
 Early Life
 
 `;
+  // Build structured early life details
+  const earlyLifeDetails: string[] = [];
+  if (s03.siblings) earlyLifeDetails.push(`Siblings: ${s03.siblings}${s03.birthOrder ? ` (${s03.birthOrder})` : ''}`);
+  if (s03.raisedBy) earlyLifeDetails.push(`Raised by: ${s03.raisedBy}`);
+  if (s03.parentsWork) earlyLifeDetails.push(`Parents' occupation: ${s03.parentsWork}`);
+  if (s03.childhoodLocation) earlyLifeDetails.push(`Childhood location: ${s03.childhoodLocation}`);
+  if (s03.childhoodEnvironment) earlyLifeDetails.push(`Childhood environment: ${s03.childhoodEnvironment}`);
+  if (earlyLifeDetails.length > 0) report += earlyLifeDetails.join('\n') + '\n\n';
+  if (s03.childhoodStressors) report += `${s03.childhoodStressors}\n\n`;
+  if (s03.travelHistory) report += `Travel history: ${s03.travelHistory}\n\n`;
+  if (s03.faithCommunity || s03.currentFaith) {
+    let faith = '';
+    if (s03.faithCommunity) faith += s03.faithCommunity;
+    if (s03.currentFaith) faith += faith ? `. Currently: ${s03.currentFaith}` : s03.currentFaith;
+    report += `Faith/spiritual background: ${faith}\n\n`;
+  }
+  if (s03.hobbiesInterests) report += `Hobbies and interests: ${s03.hobbiesInterests}\n\n`;
   if (s03.personalHistory) report += `${s03.personalHistory}\n\n`;
   if (s03.familyBackground) report += `${s03.familyBackground}\n\n`;
-  if (s03.educationHistory) report += `${s03.educationHistory}\n\n`;
-  if (s03.employmentHistory) report += `${s03.employmentHistory}\n\n`;
-  if (s03.relationshipHistory) report += `${s03.relationshipHistory}\n\n`;
-  if (s03.childrenInfo) report += `${s03.childrenInfo}\n\n`;
+
+  // Education
+  if (s03.educationLevel || s03.degreesAwards || s03.educationHistory) {
+    report += `Education\n\n`;
+    if (s03.educationLevel) report += `Highest level of education: ${s03.educationLevel}\n`;
+    if (s03.degreesAwards) report += `Degrees/Awards: ${s03.degreesAwards}\n`;
+    if (s03.educationLevel || s03.degreesAwards) report += '\n';
+    if (s03.educationHistory) report += `${s03.educationHistory}\n\n`;
+  }
+
+  // Employment
+  if (s03.employmentHistory || s03.currentEmployment) {
+    report += `Employment\n\n`;
+    if (s03.employmentHistory) report += `${s03.employmentHistory}\n\n`;
+    if (s03.currentEmployment) report += `Current employment: ${s03.currentEmployment}\n\n`;
+  }
+
+  // Relationships & Family
+  if (s03.maritalStatus || s03.relationshipHistory || s03.childrenInfo) {
+    if (s03.maritalStatus) report += `Marital status: ${s03.maritalStatus}\n`;
+    if (s03.numberOfChildren) report += `Children: ${s03.numberOfChildren}\n`;
+    if (s03.maritalStatus || s03.numberOfChildren) report += '\n';
+    if (s03.relationshipHistory) report += `${s03.relationshipHistory}\n\n`;
+    if (s03.childrenInfo) report += `${s03.childrenInfo}\n\n`;
+  }
+
+  // Current Life
+  if (s03.currentLiving) report += `Current living situation: ${s03.currentLiving}\n\n`;
+  if (s03.futureHopes) report += `Future hopes: ${s03.futureHopes}\n\n`;
 
   // ══ IMMIGRATION HISTORY ══
   if (s04.immigrationHistory || s04.dateOfArrival || s04.mannerOfEntry || s04.reasonForFleeing) {

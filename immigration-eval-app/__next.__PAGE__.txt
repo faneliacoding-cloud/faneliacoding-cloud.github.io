@@ -3,7 +3,7 @@
 3:I[31713,["/immigration-eval-app/_next/static/chunks/11s7oj79tbk-i.js","/immigration-eval-app/_next/static/chunks/0ei~s.ovbk5d..js"],"default"]
 6:I[97367,["/immigration-eval-app/_next/static/chunks/11s7oj79tbk-i.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/immigration-eval-app/_next/static/chunks/0ei~s.ovbk5d..js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"psLuGqvSJW49mXDk6amdN"}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/immigration-eval-app/_next/static/chunks/0ei~s.ovbk5d..js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"Bz5_k8RO2ux_EbCEbiyHS"}
 4:{}
 5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
 8:null
