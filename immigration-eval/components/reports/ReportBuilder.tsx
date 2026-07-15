@@ -11,14 +11,13 @@ import {
   Loader2, Check, Shield, FileDown,
 } from 'lucide-react';
 
-type ReportFormat = 'pdf' | 'docx' | 'print' | 'attorney';
+type ReportFormat = 'pdf' | 'docx' | 'pages';
 type GenerationState = 'idle' | 'generating' | 'complete' | 'error';
 
-const FORMAT_OPTIONS: { key: ReportFormat; label: string; description: string; icon: string }[] = [
-  { key: 'pdf', label: 'PDF Document', description: 'Print-ready PDF format', icon: '📄' },
-  { key: 'docx', label: 'Word Document', description: 'Editable DOCX format', icon: '📝' },
-  { key: 'print', label: 'Print-Ready', description: 'Optimized for direct printing', icon: '🖨️' },
-  { key: 'attorney', label: 'Attorney Review Copy', description: 'Watermarked draft for review', icon: '⚖️' },
+const FORMAT_OPTIONS: { key: ReportFormat; label: string; description: string; icon: string; ext: string }[] = [
+  { key: 'pdf', label: 'PDF Document', description: 'Print-ready PDF for courts & filing', icon: '📄', ext: '.pdf' },
+  { key: 'docx', label: 'Word Document', description: 'Editable DOCX for Microsoft Word', icon: '📝', ext: '.docx' },
+  { key: 'pages', label: 'Pages Document', description: 'Apple Pages compatible format', icon: '🍎', ext: '.rtf' },
 ];
 
 const GENERATION_STEPS = [
@@ -68,18 +67,16 @@ export default function ReportBuilder() {
     }
 
     try {
-      if (selectedFormat === 'pdf' || selectedFormat === 'print') {
-        // Dynamic import to handle missing module gracefully
+      if (selectedFormat === 'pdf') {
         try {
           const docGen = await import('@/lib/docGenerator');
           if (docGen.generatePDF) {
             await docGen.generatePDF(selectedEval as never);
           }
         } catch {
-          // Graceful fallback — module structure may differ
           console.warn('[ReportBuilder] PDF generation not available for current data model');
         }
-      } else if (selectedFormat === 'docx' || selectedFormat === 'attorney') {
+      } else if (selectedFormat === 'docx') {
         try {
           const docGen = await import('@/lib/docGenerator');
           if (docGen.generateDOCX) {
@@ -87,6 +84,15 @@ export default function ReportBuilder() {
           }
         } catch {
           console.warn('[ReportBuilder] DOCX generation not available for current data model');
+        }
+      } else if (selectedFormat === 'pages') {
+        try {
+          const docGen = await import('@/lib/docGenerator');
+          if (docGen.generatePages) {
+            await docGen.generatePages(selectedEval as never);
+          }
+        } catch {
+          console.warn('[ReportBuilder] Pages generation not available for current data model');
         }
       }
       setGenerationState('complete');
@@ -271,9 +277,22 @@ export default function ReportBuilder() {
                   }}>
                     {fmt.label}
                   </div>
-                  <div className="text-muted" style={{ fontSize: 11 }}>
+                  <div className="text-muted" style={{ fontSize: 11, marginBottom: 6 }}>
                     {fmt.description}
                   </div>
+                  <span style={{
+                    display: 'inline-block',
+                    fontSize: 10,
+                    fontWeight: 600,
+                    padding: '2px 8px',
+                    borderRadius: 6,
+                    background: selectedFormat === fmt.key ? 'rgba(45,90,69,0.10)' : 'var(--ivory)',
+                    color: selectedFormat === fmt.key ? 'var(--forest)' : 'var(--charcoal-muted)',
+                    letterSpacing: '0.5px',
+                    textTransform: 'uppercase',
+                  }}>
+                    {fmt.ext}
+                  </span>
                 </button>
               ))}
             </div>

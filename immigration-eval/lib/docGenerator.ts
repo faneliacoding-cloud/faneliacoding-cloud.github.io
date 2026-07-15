@@ -573,3 +573,45 @@ export async function generatePDF(evaluation: Evaluation): Promise<void> {
     setTimeout(function() { printWindow.close(); }, 60000);
   };
 }
+
+// ── Pages (RTF) Generation ───────────────────────────────────────────────────
+
+function textToRtf(text: string): string {
+  // Escape RTF special characters and convert Unicode
+  let rtf = '';
+  for (let i = 0; i < text.length; i++) {
+    const c = text.charCodeAt(i);
+    if (text[i] === '\\') rtf += '\\\\';
+    else if (text[i] === '{') rtf += '\\{';
+    else if (text[i] === '}') rtf += '\\}';
+    else if (text[i] === '\n') rtf += '\\par\n';
+    else if (c > 127) rtf += `\\u${c}?`;
+    else rtf += text[i];
+  }
+  return rtf;
+}
+
+export async function generatePages(evaluation: Evaluation): Promise<void> {
+  const content = buildReportText(evaluation);
+  const clientName = evaluation.client?.fullName || 'Evaluation';
+  const safeClientName = clientName.replace(/[^a-zA-Z0-9_\s-]/g, '_');
+  const filename = `${safeClientName}_Psych_Eval_${new Date().toISOString().split('T')[0]}.rtf`;
+
+  const rtfContent = textToRtf(content);
+
+  // Build RTF document with Times New Roman 12pt
+  const rtf = `{\\rtf1\\ansi\\ansicpg1252\\cocoartf2761
+{\\fonttbl\\f0\\froman\\fcharset0 TimesNewRomanPSMT;\\f1\\froman\\fcharset0 TimesNewRomanPS-BoldMT;}
+{\\colortbl;\\red0\\green0\\blue0;\\red26\\green26\\blue26;}
+{\\info{\\title ${textToRtf(clientName)} - Clinical Psychological Evaluation}}
+\\paperw12240\\paperh15840\\margl1440\\margr1440\\margt1440\\margb1440
+\\vieww12240\\viewh15840\\viewkind1
+\\pard\\ri0\\sl360\\slmult1\\pardirnatural
+\\f0\\fs24\\cf2 ${rtfContent}
+}`;
+
+  const blob = new Blob([rtf], { type: 'application/rtf' });
+  const { saveAs } = await import('file-saver');
+  saveAs(blob, filename);
+}
+
