@@ -415,7 +415,7 @@ export const DEFAULT_CLIENT: Client = {
 export const DEFAULT_SECTIONS: EvaluationSections = {
   step01: { evaluationDates: '', interpreterUsed: false, interpreterLanguage: '', evaluationLocation: '', referralSource: '', clinicianName: '', clinicianCredentials: '', clinicianLicense: '', clinicianBio: '' },
   step02: { caseType: 'asylum', caseNotes: '' },
-  step03: { personalHistory: '', familyBackground: '', educationHistory: '', employmentHistory: '', relationshipHistory: '', childrenInfo: '' },
+  step03: { siblings: '', birthOrder: '', raisedBy: '', parentsWork: '', childhoodLocation: '', childhoodEnvironment: '', childhoodStressors: '', travelHistory: '', faithCommunity: '', currentFaith: '', hobbiesInterests: '', educationLevel: '', degreesAwards: '', educationHistory: '', employmentHistory: '', currentEmployment: '', maritalStatus: '', relationshipHistory: '', childrenInfo: '', numberOfChildren: '', personalHistory: '', familyBackground: '', currentLiving: '', futureHopes: '' },
   step04: { immigrationHistory: '', dateOfArrival: '', mannerOfEntry: '', currentStatus: '', previousApplications: '', reasonForFleeing: '' },
   step05: { traumaCategory: '', traumaNarrative: '', perpetratorInfo: '', frequencyDuration: '', reportedToAuthorities: false, authoritiesResponse: '', whyCantReturn: '', ongoingThreats: '' },
   step06: { currentSymptoms: '', sleepDisturbances: '', appetiteChanges: '', concentrationDifficulties: '', emotionalRegulation: '', avoidanceBehaviors: '', hypervigilance: '', flashbacksNightmares: '', suicidalIdeation: '', selfHarm: '', substanceUse: '', functionalImpairment: '', phq9Scores: Array(9).fill(-1), gad7Scores: Array(7).fill(-1), pcl5Scores: Array(20).fill(-1) },
