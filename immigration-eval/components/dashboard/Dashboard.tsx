@@ -68,7 +68,7 @@ export default function Dashboard({ showAll }: { showAll?: boolean } = {}) {
       description: 'Start a comprehensive immigration evaluation',
       icon: <Plus size={28} />,
       accent: true,
-      onClick: () => createEvaluation(),
+      onClick: () => setView('templates'),
     },
     {
       title: 'Resume Draft',

@@ -22,7 +22,7 @@ const VIEW_TITLES: Record<View, string> = {
 };
 
 export default function TopBar() {
-  const { activeView, searchQuery, setSearchQuery, toggleSidebar, createEvaluation } = useAppStore();
+  const { activeView, searchQuery, setSearchQuery, toggleSidebar, setView } = useAppStore();
 
   const pageTitle = VIEW_TITLES[activeView] || 'Dashboard';
 
@@ -106,7 +106,7 @@ export default function TopBar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
         <button
           className="btn-primary"
-          onClick={() => createEvaluation()}
+          onClick={() => setView('templates')}
           aria-label="Start new evaluation"
           style={{ padding: '8px 18px', fontSize: 13, gap: 6 }}
         >
