@@ -1,162 +1,490 @@
 // @ts-nocheck
 'use client';
 /**
- * Document Generation Engine
- * Handles DOCX template population and PDF export
- * Production-hardened with photo embedding, validation, and cross-browser compatibility
+ * Document Generation Engine — V2
+ * Generates clinical psychological evaluation reports matching the Asylum Template.docx structure.
+ * Maps the V2 Zustand store data model (evaluation.client, evaluation.sections.*) into
+ * a professional clinical report with proper formatting, score breakdowns, and addenda.
  */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-type Evaluation = any; // Accepts both V1 and V2 evaluation shapes
-import { getAllImagesForExport } from './imageStore';
+import type { Evaluation, Client, EvalStep01, EvalStep03, EvalStep04, EvalStep05, EvalStep06, EvalStep07, EvalStep08, EvalStep10 } from './types';
+import { DIAGNOSIS_LABELS, CASE_TYPE_CONFIG } from './types';
 
-function escapeHtml(str: string): string {
+// ── Helpers ──────────────────────────────────────────────────────────────────
+
+function esc(str: string): string {
+  if (!str) return '';
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-// Build template variables from evaluation data
-export function buildTemplateVars(eval_: Evaluation): Record<string, string> {
-  const { clientInfo: c, clinicianInfo: cl, caseSummary: cs, traumaHistory: t,
-    psychSymptoms: ps, mentalStatusExam: mse, phq9, gad7, pcl5,
-    optionalSections: os, findings: f } = eval_;
-
-  const pronounMap: Record<string, { subject: string; object: string; possessive: string; title: string }> = {
-    'She/Her': { subject: 'she', object: 'her', possessive: 'her', title: 'Ms.' },
-    'He/Him': { subject: 'he', object: 'him', possessive: 'his', title: 'Mr.' },
-    'They/Them': { subject: 'they', object: 'them', possessive: 'their', title: '' },
-    'Other': { subject: 'they', object: 'them', possessive: 'their', title: '' },
-  };
-  const pro = pronounMap[c.pronouns] || pronounMap['She/Her'];
-
-  const diagnosesList = f.diagnoses.map(d => `${d.code} ${d.name}${d.specifier ? `, ${d.specifier}` : ''}`).join('\n');
-
-  return {
-    // Client basics
-    FULL_NAME: c.fullName || '[Client Name]',
-    PREFERRED_NAME: c.preferredName || c.fullName || '[Preferred Name]',
-    PRONOUNS: c.pronouns,
-    GENDER: c.gender || '[Gender]',
-    TITLE: pro.title,
-    MS_XXX: `${pro.title} ${c.fullName?.split(' ').pop() || 'XXX'}`,
-    DOB: c.dateOfBirth || '00-00-0000',
-    AGE: c.age || '00',
-    NATIONALITY: c.nationality || '[Nationality]',
-    COUNTRY_OF_ORIGIN: c.countryOfOrigin || '[Country of Origin]',
-    COUNTRY_XXX: c.countryOfOrigin || 'CountryXXX',
-    ADDRESS: c.currentAddress || '[Address]',
-    PHONE: c.phone || '[Phone]',
-    EMAIL: c.email || '[Email]',
-    MARITAL_STATUS: c.maritalStatus || '[Marital Status]',
-    NUM_CHILDREN: c.numberOfChildren || '0',
-    INTERPRETER: c.interpreterNeeded ? c.interpreterName || '[Interpreter Name]' : 'Not required',
-    EVAL_LOCATION: c.evaluationLocation === 'Other' ? c.otherLocation : c.evaluationLocation,
-    EVAL_DATES: c.evaluationDates || '00-00-00 and 00-00-00',
-    SUBJECT: pro.subject,
-    OBJECT: pro.object,
-    POSSESSIVE: pro.possessive,
-    // Clinician
-    CLINICIAN_NAME: cl.name || '[Clinician Name]',
-    LICENSE_TYPE: cl.licenseType || '[License]',
-    LICENSE_NUMBER: cl.licenseNumber || '[License #]',
-    CLINICIAN_CREDENTIALS: `${cl.name}, ${cl.licenseType} #${cl.licenseNumber}`,
-    OFFICE_ADDRESS: cl.officeAddress || '[Office Address]',
-    CLINICIAN_PHONE: cl.phone || '[Phone]',
-    CLINICIAN_EMAIL: cl.email || '[Email]',
-    CLINICIAN_BIO: cl.bio || '[Clinician Bio]',
-    // Case Summary
-    CASE_SUMMARY: cs.summary || '[Case Summary]',
-    KEY_QUOTE: cs.keyQuote ? `"${cs.keyQuote}"` : '',
-    // Trauma
-    TRAUMA_CATEGORY: t.traumaCategory || '[Trauma Category]',
-    TRAUMA_DESCRIPTION: t.descriptionOfEvents || '[Trauma Description]',
-    ABUSE_TYPE: t.abuseType || '[Abuse Type]',
-    PERPETRATOR: t.perpetratorInfo || '[Perpetrator]',
-    TRAUMA_DATES: t.datesOfTrauma || '[Dates]',
-    PHYSICAL_VIOLENCE: t.physicalViolence ? 'Yes' : 'No',
-    SEXUAL_VIOLENCE: t.sexualViolence ? 'Yes' : 'No',
-    POLICE_INVOLVEMENT: t.policeInvolvement || 'None reported',
-    DECISION_TO_LEAVE: t.decisionToLeave || '[Decision to Leave]',
-    WHY_CANT_RETURN: t.whyCantReturn || '[Cannot Return Because]',
-    TRAUMA_QUOTE: t.keyQuote ? `"${t.keyQuote}"` : '',
-    // Symptoms
-    DEPRESSION_SEVERITY: ps.depressionSeverity,
-    ANXIETY_SEVERITY: ps.anxietySeverity,
-    PTSD_SYMPTOMS: ps.ptsdSymptoms,
-    SLEEP_PROBLEMS: ps.sleepProblems,
-    SUICIDAL_IDEATION: ps.suicidalIdeation,
-    // MSE
-    APPEARANCE: mse.appearance,
-    EYE_CONTACT: mse.eyeContact,
-    SPEECH: mse.speech,
-    MOOD: mse.mood,
-    AFFECT: mse.affect,
-    THOUGHT_PROCESS: mse.thoughtProcess,
-    ORIENTATION: mse.orientation,
-    MSE_NOTES: mse.additionalObservations,
-    // Scores
-    PHQ9_TOTAL: String(phq9.total),
-    PHQ9_SEVERITY: phq9.severity,
-    GAD7_TOTAL: String(gad7.total),
-    GAD7_SEVERITY: gad7.severity,
-    PCL5_TOTAL: String(pcl5.total),
-    PCL5_SEVERITY: pcl5.severity,
-    PCL5_PTSD: pcl5.likelyPTSD ? 'Yes – meets threshold' : 'Below threshold',
-    // Findings
-    DIAGNOSES: diagnosesList || '[Diagnoses]',
-    CLINICAL_IMPRESSION: f.clinicalImpression || '[Clinical Impression]',
-    CREDIBILITY: f.credibilityAssessment || '[Credibility Assessment]',
-    RECOMMENDATIONS: f.recommendations || '[Recommendations]',
-    RISK_ASSESSMENT: f.riskAssessment || '[Risk Assessment]',
-    FUNCTIONAL_IMPAIRMENT: f.functionalImpairment || '[Functional Impairment]',
-    PROGNOSIS: f.prognosis || '[Prognosis]',
-    // Optional
-    LGBTQ_SECTION: os.lgbtqAsylum.enabled ? os.lgbtqAsylum.personalExperiences : '',
-    DELAYED_FILING: os.delayedFiling.enabled ? os.delayedFiling.explanation : '',
-    PHYSICAL_SCARS: os.physicalScars.enabled ? os.physicalScars.scarDescription : '',
-    MEDICAL_CONDITIONS: os.medicalConditions.enabled ? os.medicalConditions.conditions : '',
-    // Date
-    REPORT_DATE: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-  };
+function orPlaceholder(val: string | undefined | null, placeholder: string): string {
+  return val?.trim() || placeholder;
 }
 
-// Build DOCX blob (core logic — reused by generateDOCX and cloud upload)
-export async function generateDOCXBlob(evaluation: Evaluation): Promise<{ blob: Blob; filename: string }> {
-  const vars = buildTemplateVars(evaluation);
-  const clientName = evaluation.clientInfo.fullName || 'Evaluation';
-  const filename = `${clientName}_Psych_Eval_${new Date().toISOString().split('T')[0]}.docx`;
+/** Pronoun mapping */
+function getPronouns(pronouns: string) {
+  const map: Record<string, { subject: string; object: string; possessive: string; reflexive: string; title: string }> = {
+    'She/Her': { subject: 'she', object: 'her', possessive: 'her', reflexive: 'herself', title: 'Ms.' },
+    'He/Him': { subject: 'he', object: 'him', possessive: 'his', reflexive: 'himself', title: 'Mr.' },
+    'They/Them': { subject: 'they', object: 'them', possessive: 'their', reflexive: 'themselves', title: 'Mx.' },
+    'Other': { subject: 'they', object: 'them', possessive: 'their', reflexive: 'themselves', title: '' },
+  };
+  return map[pronouns] || map['She/Her'];
+}
 
-  // Try template-based approach first
-  try {
-    const { default: PizZip } = await import('pizzip');
-    const { default: Docxtemplater } = await import('docxtemplater');
+/** Build "Ms. LastName" or "Mr. LastName" */
+function clientTitle(client: Client): string {
+  const pro = getPronouns(client.pronouns);
+  const lastName = client.fullName?.split(' ').pop() || 'XXX';
+  return pro.title ? `${pro.title} ${lastName}` : lastName;
+}
 
-    // Try multiple paths for the template
-    let response = await fetch('/immigration-eval-app/asylum-template.docx');
-    if (!response.ok) response = await fetch('/asylum-template.docx');
+// ── PHQ-9 Items ──────────────────────────────────────────────────────────────
 
-    if (response.ok) {
-      const arrayBuffer = await response.arrayBuffer();
-      const zip = new PizZip(arrayBuffer);
-      const doc = new Docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
-      doc.render(vars);
-      const blob = doc.getZip().generate({
-        type: 'blob',
-        mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      });
-      return { blob, filename };
+const PHQ9_ITEMS = [
+  'Little interest or pleasure in doing things',
+  'Feeling down, depressed, or hopeless',
+  'Trouble falling or staying asleep, or sleeping too much',
+  'Feeling tired or having little energy',
+  'Poor appetite or overeating',
+  'Feeling bad about yourself, that you are a failure or have let yourself or family down',
+  'Trouble concentrating on things, such as reading the newspaper or watching television',
+  'Moving or speaking so slowly that other people could have noticed',
+  'Thoughts that you would be better off dead or hurting yourself in some way',
+];
+
+const PHQ9_LABELS = ['not at all', 'several days', 'more than half the days', 'nearly every day'];
+const PHQ9_SEVERITY_RANGES = [
+  { max: 4, label: 'none-minimal' },
+  { max: 9, label: 'mild' },
+  { max: 14, label: 'moderate' },
+  { max: 19, label: 'moderately severe' },
+  { max: 27, label: 'severe' },
+];
+
+// ── GAD-7 Items ──────────────────────────────────────────────────────────────
+
+const GAD7_ITEMS = [
+  'Feeling nervous, anxious, or on edge',
+  'Not being able to stop or control worrying',
+  'Worrying too much about different things',
+  'Trouble relaxing',
+  'Being so restless that it is hard to sit still',
+  'Becoming easily annoyed or irritable',
+  'Feeling afraid as if something awful might happen',
+];
+
+const GAD7_LABELS = ['not at all', 'several days', 'more than half the days', 'nearly every day'];
+const GAD7_SEVERITY_RANGES = [
+  { max: 4, label: 'none-minimal' },
+  { max: 9, label: 'mild' },
+  { max: 14, label: 'moderate' },
+  { max: 21, label: 'severe' },
+];
+
+// ── PCL-5 Items ──────────────────────────────────────────────────────────────
+
+const PCL5_ITEMS = [
+  'Repeated, disturbing, and unwanted memories of the stressful experience',
+  'Repeated, disturbing dreams of the stressful experience',
+  'Suddenly feeling or acting as if the stressful experience were actually happening again',
+  'Feeling very upset when reminded of the stressful experience',
+  'Having strong physical reactions when reminded of the stressful experience',
+  'Avoiding memories, thoughts, or feelings related to the stressful experience',
+  'Avoiding external reminders of the stressful experience',
+  'Trouble remembering important parts of the stressful experience',
+  'Having strong negative beliefs about yourself, other people, or the world',
+  'Blaming yourself for the stressful experience or what happened after it',
+  'Having strong negative feelings such as fear, horror, anger, guilt, or shame',
+  'Loss of interest in activities that were once enjoyable',
+  'Feeling distant or cut off from other people',
+  'Trouble experiencing positive feelings',
+  'Irritable behavior, angry outbursts, or acting aggressively',
+  'Taking too many risks or doing things that could cause you harm',
+  'Being "superalert" or watchful or on guard',
+  'Feeling jumpy or easily startled',
+  'Having difficulty concentrating',
+  'Trouble falling or staying asleep',
+];
+
+const PCL5_LABELS = ['not at all', 'a little bit', 'moderately', 'quite a bit', 'extremely'];
+
+// ── Score Helpers ─────────────────────────────────────────────────────────────
+
+function sumScores(scores: number[]): number {
+  return scores.filter(s => s >= 0).reduce((a, b) => a + b, 0);
+}
+
+function getSeverity(total: number, ranges: { max: number; label: string }[]): string {
+  for (const r of ranges) {
+    if (total <= r.max) return r.label;
+  }
+  return ranges[ranges.length - 1].label;
+}
+
+function buildScoreBreakdown(scores: number[], items: string[], labels: string[], title: string, maxPerItem: number): string {
+  const groups = new Map<number, string[]>();
+  scores.forEach((score, idx) => {
+    if (score < 0) return; // unanswered
+    const list = groups.get(score) || [];
+    list.push(`${idx + 1}) ${items[idx]}`);
+    groups.set(score, list);
+  });
+
+  let text = '';
+  // From highest severity to lowest
+  for (let level = maxPerItem; level >= 0; level--) {
+    const itemsAtLevel = groups.get(level);
+    if (!itemsAtLevel || itemsAtLevel.length === 0) continue;
+    const label = labels[level] || `level ${level}`;
+    if (level === maxPerItem) {
+      text += `${title} scaled the following ${itemsAtLevel.length} out of ${items.length} symptoms at the most severe level, indicating that they bother ${title.split(' ').pop()?.toLowerCase() === 'xxx' ? 'them' : title.includes('Ms.') ? 'her' : title.includes('Mr.') ? 'him' : 'them'} "${label}" in ${title.includes('Ms.') ? 'her' : title.includes('Mr.') ? 'his' : 'their'} day-to-day functioning:\n`;
+    } else if (level === maxPerItem - 1) {
+      text += `\n${title.includes('Ms.') ? 'She' : title.includes('Mr.') ? 'He' : 'They'} scaled the following ${itemsAtLevel.length} out of ${items.length} symptoms at the next most severe level, indicating that they bother ${title.includes('Ms.') ? 'her' : title.includes('Mr.') ? 'him' : 'them'} "${label}" in ${title.includes('Ms.') ? 'her' : title.includes('Mr.') ? 'his' : 'their'} day-to-day functioning:\n`;
+    } else if (level > 0) {
+      text += `\n${title.includes('Ms.') ? 'She' : title.includes('Mr.') ? 'He' : 'They'} scaled the following ${itemsAtLevel.length} out of ${items.length} symptoms at ${level === maxPerItem - 2 ? 'the third most severe' : 'a lower'} level, indicating that they bother ${title.includes('Ms.') ? 'her' : title.includes('Mr.') ? 'him' : 'them'} "${label}" in ${title.includes('Ms.') ? 'her' : title.includes('Mr.') ? 'his' : 'their'} day-to-day functioning:\n`;
+    } else {
+      text += `\nThe following ${itemsAtLevel.length} symptoms ${title.includes('Ms.') ? 'she' : title.includes('Mr.') ? 'he' : 'they'} experience${title.includes('They') ? '' : 's'} "${label}":\n`;
     }
-  } catch (e) {
-    console.warn('[DOCX] Template approach failed, using HTML fallback:', e);
+    itemsAtLevel.forEach(item => { text += `${item} `; });
+    text += '\n';
+  }
+  return text;
+}
+
+// ── Main Report Builder ──────────────────────────────────────────────────────
+
+export function buildReportText(evaluation: Evaluation): string {
+  const c = evaluation.client;
+  const s01 = evaluation.sections?.step01 || {} as EvalStep01;
+  const s02 = evaluation.sections?.step02 || {};
+  const s03 = evaluation.sections?.step03 || {} as EvalStep03;
+  const s04 = evaluation.sections?.step04 || {} as EvalStep04;
+  const s05 = evaluation.sections?.step05 || {} as EvalStep05;
+  const s06 = evaluation.sections?.step06 || {} as EvalStep06;
+  const s07 = evaluation.sections?.step07 || {} as EvalStep07;
+  const s08 = evaluation.sections?.step08 || {} as EvalStep08;
+  const s10 = evaluation.sections?.step10 || {} as EvalStep10;
+
+  const pro = getPronouns(c.pronouns);
+  const name = clientTitle(c);
+  const fullName = c.fullName || '[Client Name]';
+  const Sub = pro.subject.charAt(0).toUpperCase() + pro.subject.slice(1);
+  const sub = pro.subject;
+  const obj = pro.object;
+  const pos = pro.possessive;
+  const Pos = pro.possessive.charAt(0).toUpperCase() + pro.possessive.slice(1);
+  const refl = pro.reflexive;
+  const country = c.countryOfOrigin || 'CountryXXX';
+  const caseLabel = CASE_TYPE_CONFIG[evaluation.caseType]?.label || evaluation.caseType;
+  const reportDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+  // Scores
+  const phq9Scores = s06.phq9Scores || Array(9).fill(-1);
+  const gad7Scores = s06.gad7Scores || Array(7).fill(-1);
+  const pcl5Scores = s06.pcl5Scores || Array(20).fill(-1);
+  const phq9Total = sumScores(phq9Scores);
+  const gad7Total = sumScores(gad7Scores);
+  const pcl5Total = sumScores(pcl5Scores);
+  const phq9Severity = getSeverity(phq9Total, PHQ9_SEVERITY_RANGES);
+  const gad7Severity = getSeverity(gad7Total, GAD7_SEVERITY_RANGES);
+  const pcl5Severity = pcl5Total >= 33 ? 'meets threshold for PTSD' : 'below threshold';
+
+  // Diagnoses
+  const diagCodes = s08.diagnoses || [];
+  const diagText = diagCodes.length > 0
+    ? diagCodes.map(code => `${code}  ${DIAGNOSIS_LABELS[code] || code}`).join('\n')
+    : '[No diagnoses selected]';
+
+  // ── Build sections ──────────────────────────────────────────────────────
+
+  let report = '';
+
+  // ══ HEADER ══
+  report += `CLINICAL PSYCHOLOGICAL EVALUATION
+${orPlaceholder(s01.clinicianName, '[Clinician Name]')}, ${orPlaceholder(s01.clinicianCredentials, '[Credentials]')}
+${orPlaceholder(s01.clinicianLicense, '[License]')}
+
+
+RE: ${fullName}
+Date of Birth: ${orPlaceholder(c.dateOfBirth, '[DOB]')} (${orPlaceholder(c.age, '[Age]')} years old)
+Gender: ${orPlaceholder(c.gender, '[Gender]')}
+Nationality: ${orPlaceholder(c.nationality, '[Nationality]')}
+Country of Origin: ${country}
+Marital Status: ${orPlaceholder(c.maritalStatus, '[Marital Status]')}
+Number of Children: ${orPlaceholder(c.numberOfChildren, '0')}
+A-Number: ${orPlaceholder(c.aNumber, '[A-Number]')}
+Referring Attorney: ${orPlaceholder(c.referringAttorney, '[Attorney]')}
+Referral Source: ${orPlaceholder(s01.referralSource, '[Referral Source]')}
+Dates of Evaluation: ${orPlaceholder(s01.evaluationDates, '[Evaluation Dates]')}
+Location of Evaluation: ${orPlaceholder(s01.evaluationLocation, '[Location]')}
+Interpreter: ${s01.interpreterUsed ? `Yes — ${orPlaceholder(s01.interpreterLanguage, '[Language]')}` : 'Not required'}
+Date of Report: ${reportDate}
+
+
+`;
+
+  // ══ EVALUATOR QUALIFICATIONS ══
+  if (s01.clinicianBio) {
+    report += `EVALUATOR QUALIFICATIONS
+
+${s01.clinicianBio}
+
+`;
   }
 
-  // Fallback: Generate a proper HTML-based Word document
-  const content = buildReportText(evaluation, vars);
+  // ══ REFERRAL AND PURPOSE ══
+  report += `REFERRAL AND PURPOSE OF EVALUATION
+
+${name} is a ${orPlaceholder(c.age, '[age]')}-year-old ${orPlaceholder(c.nationality, '[nationality]')} ${c.gender?.toLowerCase() || 'individual'} who was referred for a clinical psychological evaluation by ${orPlaceholder(c.referringAttorney, pos + ' attorney')} in connection with ${pos} ${caseLabel} case. The purpose of this evaluation is to assess ${name}'s current psychological functioning, document ${pos} trauma history, and provide a clinical opinion regarding the psychological impact of the events ${sub} experienced.
+
+I met with ${name} on ${orPlaceholder(s01.evaluationDates, '[dates]')}${s01.evaluationLocation ? ` at ${s01.evaluationLocation}` : ''}.${s01.interpreterUsed ? ` The interview was conducted with the assistance of a ${orPlaceholder(s01.interpreterLanguage, '[language]')} interpreter.` : ''} During this evaluation, I conducted a thorough clinical interview and administered the following standardized assessment instruments:
+
+• PTSD Checklist for DSM-5 (PCL-5)
+• Patient Health Questionnaire-9 (PHQ-9)
+• Generalized Anxiety Disorder-7 (GAD-7)
+
+Please note that I am not ${name}'s therapist, and I only met with ${obj} for this clinical evaluation. I met with ${obj} as an impartial, objective assessor, and I have no vested interest in the outcome of ${pos} legal proceedings.
+
+
+`;
+
+  // ══ HISTORY — EARLY LIFE ══
+  report += `HISTORY
+
+Early Life
+
+`;
+  if (s03.personalHistory) report += `${s03.personalHistory}\n\n`;
+  if (s03.familyBackground) report += `${s03.familyBackground}\n\n`;
+  if (s03.educationHistory) report += `${s03.educationHistory}\n\n`;
+  if (s03.employmentHistory) report += `${s03.employmentHistory}\n\n`;
+  if (s03.relationshipHistory) report += `${s03.relationshipHistory}\n\n`;
+  if (s03.childrenInfo) report += `${s03.childrenInfo}\n\n`;
+
+  // ══ IMMIGRATION HISTORY ══
+  if (s04.immigrationHistory || s04.dateOfArrival || s04.mannerOfEntry || s04.reasonForFleeing) {
+    report += `Immigration History
+
+`;
+    if (s04.immigrationHistory) report += `${s04.immigrationHistory}\n\n`;
+    if (s04.dateOfArrival) report += `Date of Arrival: ${s04.dateOfArrival}\n`;
+    if (s04.mannerOfEntry) report += `Manner of Entry: ${s04.mannerOfEntry}\n`;
+    if (s04.currentStatus) report += `Current Immigration Status: ${s04.currentStatus}\n`;
+    if (s04.previousApplications) report += `Previous Applications: ${s04.previousApplications}\n`;
+    report += '\n';
+    if (s04.reasonForFleeing) report += `Reason for Fleeing: ${s04.reasonForFleeing}\n\n`;
+  }
+
+  // ══ TRAUMA / STRESSOR HISTORY ══
+  report += `TRAUMA EXPERIENCED
+
+`;
+  if (s05.traumaCategory) report += `Trauma Category: ${s05.traumaCategory}\n\n`;
+  if (s05.traumaNarrative) report += `During the interviews, ${name} shared the following:\n\n${s05.traumaNarrative}\n\n`;
+  if (s05.perpetratorInfo) report += `Perpetrator Information: ${s05.perpetratorInfo}\n\n`;
+  if (s05.frequencyDuration) report += `Frequency/Duration: ${s05.frequencyDuration}\n\n`;
+
+  if (s05.reportedToAuthorities !== undefined) {
+    report += `Reported to Authorities: ${s05.reportedToAuthorities ? 'Yes' : 'No'}\n`;
+    if (s05.authoritiesResponse) report += `Authorities Response: ${s05.authoritiesResponse}\n`;
+    report += '\n';
+  }
+
+  // ══ FEARS ABOUT RETURNING ══
+  if (s05.whyCantReturn || s05.ongoingThreats) {
+    report += `Fears About Returning to ${country}
+
+`;
+    if (s05.whyCantReturn) report += `${s05.whyCantReturn}\n\n`;
+    if (s05.ongoingThreats) report += `Ongoing Threats: ${s05.ongoingThreats}\n\n`;
+  }
+
+  // ══ PSYCHOLOGICAL FUNCTIONING — MSE ══
+  report += `PSYCHOLOGICAL FUNCTIONING
+
+Mental Status Exam
+
+`;
+  // Build MSE as narrative paragraph like the template
+  const mseNarrative: string[] = [];
+  if (s07.appearance) mseNarrative.push(s07.appearance);
+  if (s07.behavior) mseNarrative.push(s07.behavior);
+  if (s07.speech) mseNarrative.push(`${Pos} speech was ${s07.speech.toLowerCase()}.`);
+  if (s07.mood) mseNarrative.push(`${Pos} mood appeared ${s07.mood.toLowerCase()}.`);
+  if (s07.affect) mseNarrative.push(`${Pos} affect was ${s07.affect.toLowerCase()}.`);
+  if (s07.thoughtProcess) mseNarrative.push(`Thought process: ${s07.thoughtProcess}.`);
+  if (s07.thoughtContent) mseNarrative.push(`Thought content: ${s07.thoughtContent}.`);
+  if (s07.perceptions) mseNarrative.push(`Perceptions: ${s07.perceptions}.`);
+  if (s07.cognition) mseNarrative.push(`Cognition: ${s07.cognition}.`);
+  if (s07.insight) mseNarrative.push(`Insight: ${s07.insight}.`);
+  if (s07.judgment) mseNarrative.push(`Judgment: ${s07.judgment}.`);
+  if (s07.rapport) mseNarrative.push(`Rapport: ${s07.rapport}.`);
+
+  if (mseNarrative.length > 0) {
+    report += mseNarrative.join(' ') + '\n\n';
+  } else {
+    report += `${name} is a ${orPlaceholder(c.age, '[age]')}-year-old self-identified ${c.gender?.toLowerCase() || 'individual'} who arrived at the appointment on time and was neatly groomed. ${Sub} was oriented to person, place, time, and situation. There was no evidence of impaired thought process, and ${sub} did not appear to respond to internal stimuli or exhibit other symptoms indicative of psychosis.\n\n`;
+  }
+
+  // ══ CURRENT PSYCHOLOGICAL SYMPTOMS ══
+  report += `Current Psychological Symptoms
+
+`;
+  if (s06.currentSymptoms) report += `${s06.currentSymptoms}\n\n`;
+  if (s06.sleepDisturbances) report += `Sleep: ${s06.sleepDisturbances}\n\n`;
+  if (s06.appetiteChanges) report += `Appetite: ${s06.appetiteChanges}\n\n`;
+  if (s06.concentrationDifficulties) report += `Concentration: ${s06.concentrationDifficulties}\n\n`;
+  if (s06.emotionalRegulation) report += `Emotional Regulation: ${s06.emotionalRegulation}\n\n`;
+  if (s06.avoidanceBehaviors) report += `Avoidance: ${s06.avoidanceBehaviors}\n\n`;
+  if (s06.hypervigilance) report += `Hypervigilance: ${s06.hypervigilance}\n\n`;
+  if (s06.flashbacksNightmares) report += `Flashbacks/Nightmares: ${s06.flashbacksNightmares}\n\n`;
+  if (s06.suicidalIdeation) report += `Suicidal Ideation: ${s06.suicidalIdeation}\n\n`;
+  if (s06.selfHarm) report += `Self-Harm: ${s06.selfHarm}\n\n`;
+  if (s06.substanceUse) report += `Substance Use: ${s06.substanceUse}\n\n`;
+  if (s06.functionalImpairment) report += `Functional Impairment: ${s06.functionalImpairment}\n\n`;
+
+  // ══ DIAGNOSTIC FINDINGS ══
+  report += `Diagnostic Findings
+
+${name}'s symptoms meet criteria for the following DSM-5 psychological disorders:
+
+${diagText}
+
+`;
+  if (s08.diagnosticRationale) report += `Diagnostic Rationale: ${s08.diagnosticRationale}\n\n`;
+  if (s08.differentialDiagnosis) report += `Differential Diagnosis: ${s08.differentialDiagnosis}\n\n`;
+  if (s08.ruleOutConditions) report += `Rule-Out Conditions: ${s08.ruleOutConditions}\n\n`;
+  if (s08.severityLevel && s08.severityLevel !== 'none') report += `Severity: ${s08.severityLevel}\n\n`;
+  if (s08.prognosticFactors) report += `Prognostic Factors: ${s08.prognosticFactors}\n\n`;
+
+  // ══ CREDIBILITY ASSESSMENT ══
+  if (s07.credibilityAssessment) {
+    report += `CREDIBILITY OF ${name.toUpperCase()}'S ACCOUNT
+
+${s07.credibilityAssessment}
+
+`;
+  }
+
+  // ══ FINDINGS ══
+  report += `FINDINGS
+
+After thorough assessment including clinical interview${phq9Total > 0 || gad7Total > 0 || pcl5Total > 0 ? ' and review of three self-assessment scales' : ''}, I have concluded the following:
+
+${name} is a reliable reporter, and ${pos} account is highly credible.
+
+${Pos} current psychological symptoms include ${s06.currentSymptoms ? s06.currentSymptoms.substring(0, 200) + (s06.currentSymptoms.length > 200 ? '...' : '') : '[symptoms summary]'}. ${Sub} ${diagCodes.length > 0 ? 'fully meets' : 'may meet'} criteria for the following psychological disorder(s):
+
+${diagText}
+
+`;
+  if (s10.clinicalImpression) report += `${s10.clinicalImpression}\n\n`;
+  report += `${name}'s psychological distress has resulted primarily from the trauma ${sub} suffered and ${pos} fear of returning to ${country}.
+
+Due to ${name}'s traumatic experiences, ${pos} psychological functioning has been compromised. If faced with significant stressors, ${sub} is at high risk of worsening symptoms which could necessitate a higher level of care.
+
+`;
+
+  // ══ RECOMMENDATIONS ══
+  report += `RECOMMENDATIONS
+
+To improve symptoms and functioning, I recommend that:
+
+${name} be allowed to remain in the United States to reduce ${pos} fear of persecution and improve ${pos} psychological functioning and well-being.
+
+`;
+  if (s10.treatmentRecommendations) report += `${s10.treatmentRecommendations}\n\n`;
+  if (s10.recommendations) report += `${s10.recommendations}\n\n`;
+  if (s10.returnRisk) report += `Return Risk: ${s10.returnRisk}\n\n`;
+  if (s10.finalStatement) {
+    report += `${s10.finalStatement}\n\n`;
+  } else {
+    report += `${name}'s personal strengths and resiliency are substantial. If allowed to remain in the safety of the United States, it is likely that ${pos} symptoms and functioning will significantly improve, allowing ${obj} to continue making contributions to ${pos} family and community.\n\n`;
+  }
+
+  if (s10.riskAssessment) report += `Risk Assessment: ${s10.riskAssessment}\n\n`;
+  if (s10.prognosticStatement) report += `Prognosis: ${s10.prognosticStatement}\n\n`;
+
+  // ══ SIGNATURE ══
+  report += `________________________________________________________
+
+${orPlaceholder(s01.clinicianName, '[NAME]')}, ${orPlaceholder(s01.clinicianCredentials, '[LICENSE]')}
+${reportDate}
+${orPlaceholder(s01.clinicianLicense, '[License State and Number]')}
+
+
+`;
+
+  // ══ ADDENDUM 1: SELF-ASSESSMENT SCALES ══
+  const hasScores = phq9Scores.some(s => s >= 0) || gad7Scores.some(s => s >= 0) || pcl5Scores.some(s => s >= 0);
+
+  if (hasScores) {
+    report += `ADDENDUM 1: SELF-ASSESSMENT SCALES
+
+`;
+
+    // PCL-5
+    if (pcl5Scores.some(s => s >= 0)) {
+      report += `1) PTSD Checklist for DSM-5 (PCL-5)
+
+The first scale completed by ${name} was the PCL-5, which was developed by the National Center for PTSD to assess individuals who experience traumatic events. Here, the respondent rates the severity of 20 different trauma-related symptoms. ${name} was asked to scale to what degree each symptom disturbed or impaired ${obj} over the past month. Symptoms are rated from 0 to 4, with 0 indicating "not at all," 1 indicating "a little bit," 2 indicating "moderately," 3 indicating "quite a bit," and 4 indicating "extremely."
+
+${buildScoreBreakdown(pcl5Scores, PCL5_ITEMS, PCL5_LABELS, name, 4)}
+Scoring: To interpret the results, a total symptom severity score (range 0–80) can be obtained by adding the scores for each of the 20 items. A score of 33 or higher indicates that the individual may suffer from a trauma or stress-related disorder such as PTSD. ${name} scored ${pcl5Total} out of 80${pcl5Total >= 33 ? ', which meets the threshold for a probable PTSD diagnosis' : ''}.
+
+`;
+    }
+
+    // PHQ-9
+    if (phq9Scores.some(s => s >= 0)) {
+      report += `2) Patient Health Questionnaire-9 (PHQ-9)
+
+The second scale completed was the PHQ-9, which assesses depression. On this assessment, the individual rates the frequency of symptoms experienced over the past two weeks. Symptoms are rated from 0 to 3, with 0 indicating "not at all," 1 indicating "several days," 2 indicating "more than half the days," and 3 indicating "nearly every day."
+
+${buildScoreBreakdown(phq9Scores, PHQ9_ITEMS, PHQ9_LABELS, name, 3)}
+Scoring: 0–4 (none-minimal); 5–9 (mild); 10–14 (moderate); 15–19 (moderately severe); 20–27 (severe). ${name}'s score of ${phq9Total} out of 27 indicates that ${sub} is suffering from ${phq9Severity} depression.
+
+`;
+    }
+
+    // GAD-7
+    if (gad7Scores.some(s => s >= 0)) {
+      report += `3) Generalized Anxiety Disorder-7 Item Scale (GAD-7)
+
+The third scale completed was the GAD-7. On this assessment, the individual is asked to rate the frequency of symptoms experienced over the past two weeks. Symptoms are rated from 0 to 3, with 0 indicating "not at all," 1 indicating "several days," 2 indicating "more than half the days," and 3 indicating "nearly every day."
+
+${buildScoreBreakdown(gad7Scores, GAD7_ITEMS, GAD7_LABELS, name, 3)}
+Scoring: 0–4 (none-minimal); 5–9 (mild); 10–14 (moderate); 15–21 (severe). ${name}'s score of ${gad7Total} out of 21 indicates that ${sub} is suffering from ${gad7Severity} anxiety.
+
+`;
+    }
+  }
+
+  // ══ ADDENDUM 2: IMPACT OF TRAUMA ON MEMORY ══
+  report += `ADDENDUM ${hasScores ? '2' : '1'}: IMPACT OF TRAUMA ON MEMORY
+
+Due to the impact of trauma on memory and thinking, it is common for trauma victims to have trouble remembering specific details and chronology of past traumatic events. This is known as the "faulty nature of traumatic recall." It should be noted that these difficulties with thinking and memory generally worsen when the individual is in psychological distress, such as when testifying in court or being questioned by an authority figure. In this kind of high-pressure situation, it is quite common for trauma victims to seem confused or make mistakes about the details and chronology of past events. By no means does this necessarily indicate that a client is malingering. Paradoxically, this confusion could actually point to the authenticity of their accounts of past trauma.
+`;
+
+  return report;
+}
+
+// ── DOCX Generation ──────────────────────────────────────────────────────────
+
+export async function generateDOCXBlob(evaluation: Evaluation): Promise<{ blob: Blob; filename: string }> {
+  const content = buildReportText(evaluation);
+  const clientName = evaluation.client?.fullName || 'Evaluation';
+  const safeClientName = clientName.replace(/[^a-zA-Z0-9_\s-]/g, '_');
+  const filename = `${safeClientName}_Psych_Eval_${new Date().toISOString().split('T')[0]}.docx`;
+
+  // Generate a proper HTML-based Word document with professional styling
   const htmlDoc = `
 <html xmlns:o="urn:schemas-microsoft-com:office:office"
       xmlns:w="urn:schemas-microsoft-com:office:word"
       xmlns="http://www.w3.org/TR/REC-html40">
 <head>
 <meta charset="utf-8">
-<title>${escapeHtml(clientName)} - Psychological Evaluation</title>
+<title>${esc(clientName)} - Clinical Psychological Evaluation</title>
 <!--[if gte mso 9]>
 <xml>
 <w:WordDocument>
@@ -167,16 +495,35 @@ export async function generateDOCXBlob(evaluation: Evaluation): Promise<{ blob: 
 </xml>
 <![endif]-->
 <style>
-  body { font-family: 'Times New Roman', Georgia, serif; font-size: 12pt; line-height: 1.6; color: #1a1a1a; margin: 1in; }
-  pre { white-space: pre-wrap; word-wrap: break-word; font-family: inherit; font-size: 12pt; margin: 0; }
-  @page { size: letter; margin: 1in; }
-  @page Section1 { mso-header-margin: .5in; mso-footer-margin: .5in; }
+  body {
+    font-family: 'Times New Roman', Georgia, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #1a1a1a;
+    margin: 1in;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Times New Roman', Georgia, serif;
+    font-size: 12pt;
+    margin: 0;
+    line-height: 1.5;
+  }
+  @page {
+    size: letter;
+    margin: 1in;
+  }
+  @page Section1 {
+    mso-header-margin: .5in;
+    mso-footer-margin: .5in;
+  }
   div.Section1 { page: Section1; }
 </style>
 </head>
 <body>
 <div class="Section1">
-<pre>${content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
+<pre>${esc(content)}</pre>
 </div>
 </body>
 </html>`;
@@ -185,215 +532,31 @@ export async function generateDOCXBlob(evaluation: Evaluation): Promise<{ blob: 
   return { blob, filename: filename.replace('.docx', '.doc') };
 }
 
-// Generate DOCX and save locally
 export async function generateDOCX(evaluation: Evaluation): Promise<void> {
   const { blob, filename } = await generateDOCXBlob(evaluation);
   const { saveAs } = await import('file-saver');
   saveAs(blob, filename);
 }
 
-// Generate PDF blob for cloud upload
+// ── PDF Generation ───────────────────────────────────────────────────────────
+
 export function buildPDFHTML(evaluation: Evaluation): string {
-  const vars = buildTemplateVars(evaluation);
-  const content = buildReportText(evaluation, vars);
+  const content = buildReportText(evaluation);
+  const clientName = evaluation.client?.fullName || 'Evaluation';
   return `<!DOCTYPE html><html><head>
-    <title>${escapeHtml(evaluation.clientInfo.fullName || 'Evaluation')} - Psychological Evaluation</title>
+    <title>${esc(clientName)} - Clinical Psychological Evaluation</title>
     <style>
-      body{font-family:Georgia,serif;max-width:800px;margin:40px auto;line-height:1.7;color:#1a1a1a;font-size:13px}
-      pre{white-space:pre-wrap;font-family:inherit}
-      @page{margin:1in;@bottom-center{content:"Page " counter(page) " of " counter(pages);font-size:9px;color:#999}}
-      @media print{body{margin:0}}
+      body{font-family:Georgia,'Times New Roman',serif;max-width:800px;margin:40px auto;line-height:1.6;color:#1a1a1a;font-size:13px}
+      pre{white-space:pre-wrap;word-wrap:break-word;font-family:inherit;font-size:13px;margin:0;line-height:1.6}
+      @page{margin:1in;size:letter;@bottom-center{content:"Page " counter(page) " of " counter(pages);font-size:9px;color:#999}}
+      @media print{body{margin:0;max-width:none}}
       .page-break{page-break-before:always}
     </style>
-    </head><body><pre>${escapeHtml(content)}</pre></body></html>`;
+    </head><body><pre>${esc(content)}</pre></body></html>`;
 }
 
-
-
-// Build full report text
-export function buildReportText(evaluation: Evaluation, vars: Record<string, string>): string {
-  const { clientInfo: c, findings: f, phq9, gad7, pcl5, optionalSections: os } = evaluation;
-
-  let optionalContent = '';
-
-  if (os.lgbtqAsylum.enabled && os.lgbtqAsylum.personalExperiences) {
-    optionalContent += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-LGBTQ+ ASYLUM CONSIDERATIONS
-
-${os.lgbtqAsylum.personalExperiences}
-`;
-  }
-  if (os.delayedFiling.enabled && os.delayedFiling.explanation) {
-    optionalContent += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-DELAYED FILING EXPLANATION
-
-${os.delayedFiling.explanation}
-${os.delayedFiling.psychologicalBarriers ? `\nPsychological Barriers: ${os.delayedFiling.psychologicalBarriers}` : ''}
-`;
-  }
-  if (os.physicalScars.enabled && os.physicalScars.scarDescription) {
-    optionalContent += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-PHYSICAL SCARS/MARKS DOCUMENTATION
-
-${os.physicalScars.scarDescription}
-${os.physicalScars.location ? `Location: ${os.physicalScars.location}` : ''}
-${os.physicalScars.consistentWithAccount ? 'Finding: Consistent with client\'s account of events.' : ''}
-`;
-  }
-  if (os.medicalConditions.enabled && os.medicalConditions.conditions) {
-    optionalContent += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-MEDICAL CONDITIONS
-
-${os.medicalConditions.conditions}
-${os.medicalConditions.medications ? `Medications: ${os.medicalConditions.medications}` : ''}
-${os.medicalConditions.traumaRelated ? 'These conditions are related to the traumatic events described.' : ''}
-`;
-  }
-
-  return `
-CLINICAL PSYCHOLOGICAL EVALUATION
-${vars.CLINICIAN_NAME}, ${vars.LICENSE_TYPE} #${vars.LICENSE_NUMBER}
-${vars.OFFICE_ADDRESS} | ${vars.CLINICIAN_PHONE} | ${vars.CLINICIAN_EMAIL}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-CLINICAL EVALUATION
-
-Name: ${vars.MS_XXX}
-Date of Birth: ${vars.DOB} (${vars.AGE} years old)
-Gender: ${vars.GENDER}
-Nationality: ${vars.NATIONALITY}
-Country of Origin: ${vars.COUNTRY_OF_ORIGIN}
-Marital Status: ${vars.MARITAL_STATUS}
-Clinician: ${vars.CLINICIAN_CREDENTIALS}
-Interpreter: ${vars.INTERPRETER}
-Dates of Evaluation: ${vars.EVAL_DATES}
-Place of Evaluation: ${vars.EVAL_LOCATION}
-Report Date: ${vars.REPORT_DATE}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-CASE SUMMARY
-
-${vars.CASE_SUMMARY}
-${vars.KEY_QUOTE ? `\n${vars.KEY_QUOTE}` : ''}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-EVALUATION METHODS
-
-For this clinical assessment, I met with ${vars.MS_XXX} for the purposes of evaluating ${vars.POSSESSIVE} psychological symptoms. 
-Assessment tools included:
-• The PTSD Checklist for DSM-5 (PCL-5) — Total: ${vars.PCL5_TOTAL}/80 — ${vars.PCL5_SEVERITY}
-• The Patient Health Questionnaire-9 (PHQ-9) — Total: ${vars.PHQ9_TOTAL}/27 — ${vars.PHQ9_SEVERITY}
-• The Generalized Anxiety Disorder-7 (GAD-7) — Total: ${vars.GAD7_TOTAL}/21 — ${vars.GAD7_SEVERITY}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-TRAUMA HISTORY
-
-Category: ${vars.TRAUMA_CATEGORY}
-Type of Abuse/Persecution: ${vars.ABUSE_TYPE}
-
-${vars.TRAUMA_DESCRIPTION}
-
-Perpetrator: ${vars.PERPETRATOR}
-Date(s) of Trauma: ${vars.TRAUMA_DATES}
-Physical Violence: ${vars.PHYSICAL_VIOLENCE}
-Sexual Violence: ${vars.SEXUAL_VIOLENCE}
-Police Involvement: ${vars.POLICE_INVOLVEMENT}
-${vars.TRAUMA_QUOTE ? `\nDirect Quote: ${vars.TRAUMA_QUOTE}` : ''}
-
-Decision to Leave: ${vars.DECISION_TO_LEAVE}
-
-Why ${vars.MS_XXX} Cannot Return: ${vars.WHY_CANT_RETURN}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-PSYCHOLOGICAL FUNCTIONING — MENTAL STATUS EXAM
-
-Appearance: ${vars.APPEARANCE || 'Not assessed'}
-Eye Contact: ${vars.EYE_CONTACT || 'Not assessed'}
-Speech: ${vars.SPEECH || 'Not assessed'}
-Mood: ${vars.MOOD || 'Not assessed'}
-Affect: ${vars.AFFECT || 'Not assessed'}
-Thought Process: ${vars.THOUGHT_PROCESS || 'Not assessed'}
-Orientation: ${vars.ORIENTATION || 'Not assessed'}
-${vars.MSE_NOTES ? `\nAdditional Observations: ${vars.MSE_NOTES}` : ''}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-ASSESSMENT RESULTS
-
-PHQ-9 Depression: ${vars.PHQ9_TOTAL}/27 — ${vars.PHQ9_SEVERITY}
-GAD-7 Anxiety: ${vars.GAD7_TOTAL}/21 — ${vars.GAD7_SEVERITY}
-PCL-5 PTSD: ${vars.PCL5_TOTAL}/80 — ${vars.PCL5_SEVERITY}
-PTSD Threshold: ${vars.PCL5_PTSD}
-${optionalContent}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-CLINICAL IMPRESSION & DIAGNOSES
-
-${vars.CLINICAL_IMPRESSION}
-
-Diagnoses:
-${vars.DIAGNOSES}
-
-Credibility Assessment:
-${vars.CREDIBILITY}
-
-Functional Impairment:
-${vars.FUNCTIONAL_IMPAIRMENT}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-RECOMMENDATIONS
-
-${vars.RECOMMENDATIONS}
-
-Risk Assessment: ${vars.RISK_ASSESSMENT}
-
-Prognosis: ${vars.PROGNOSIS}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Respectfully submitted,
-
-${vars.CLINICIAN_NAME}, ${vars.LICENSE_TYPE}
-${vars.REPORT_DATE}
-`;
-}
-
-// Generate PDF via print — improved for cross-browser compatibility
 export async function generatePDF(evaluation: Evaluation): Promise<void> {
-  const vars = buildTemplateVars(evaluation);
-  const content = buildReportText(evaluation, vars);
-
-  // Try to load photos
-  let photoHTML = '';
-  try {
-    const photos = await getAllImagesForExport(evaluation.id);
-    if (photos.length > 0) {
-      photoHTML = `
-        <div class="page-break"></div>
-        <h2 style="font-size:16px;margin-bottom:16px;border-bottom:2px solid #333;padding-bottom:8px;">SUPPORTING IMAGES & DOCUMENTATION</h2>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-          ${photos.filter(p => p.metadata.mimeType !== 'application/pdf' && p.dataUrl.startsWith('data:image/')).map(p => `
-            <div style="text-align:center;">
-              <img src="${p.dataUrl}" style="max-width:100%;max-height:300px;border:1px solid #ddd;border-radius:4px;" />
-              <div style="font-size:10px;color:#666;margin-top:4px;">${escapeHtml(p.metadata.filename)}</div>
-            </div>
-          `).join('')}
-        </div>
-      `;
-    }
-  } catch (e) {
-    console.warn('[PDF] Failed to load photos for export:', e);
-  }
+  const html = buildPDFHTML(evaluation);
 
   const printWindow = window.open('', '_blank');
   if (!printWindow) {
@@ -401,32 +564,12 @@ export async function generatePDF(evaluation: Evaluation): Promise<void> {
     return;
   }
 
-  printWindow.document.write(`
-    <!DOCTYPE html><html><head>
-    <title>${escapeHtml(evaluation.clientInfo.fullName || 'Evaluation')} - Psychological Evaluation</title>
-    <style>
-      * { box-sizing: border-box; }
-      body { font-family: Georgia, 'Times New Roman', serif; max-width: 800px; margin: 40px auto; line-height: 1.7; color: #1a1a1a; font-size: 13px; }
-      pre { white-space: pre-wrap; word-wrap: break-word; font-family: inherit; margin: 0; }
-      .page-break { page-break-before: always; }
-      @page { margin: 0.9in; size: letter; }
-      @media print {
-        body { margin: 0; max-width: none; }
-        .no-print { display: none !important; }
-      }
-      img { max-width: 100%; height: auto; }
-    </style></head><body>
-    <pre>${escapeHtml(content)}</pre>
-    ${photoHTML}
-    <script>
-      window.onload = function() {
-        setTimeout(function() { window.print(); }, 300);
-        window.onafterprint = function() { window.close(); };
-        // Fallback close for Safari
-        setTimeout(function() { window.close(); }, 60000);
-      };
-    </script>
-    </body></html>
-  `);
+  printWindow.document.write(html);
   printWindow.document.close();
+
+  printWindow.onload = function() {
+    setTimeout(function() { printWindow.print(); }, 300);
+    printWindow.onafterprint = function() { printWindow.close(); };
+    setTimeout(function() { printWindow.close(); }, 60000);
+  };
 }
