@@ -3,81 +3,406 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JCL Staging &amp; Design | Luxury Home Staging New York</title>
-  <meta name="description" content="JCL Staging &amp; Design — New York's premier luxury home staging studio. Serving Manhattan, Brooklyn, New Jersey, and Connecticut since 2017." />
-  <!-- Instant redirect to JCL staging site -->
-  <meta http-equiv="refresh" content="0; url=jcl-staging/" />
-  <link rel="canonical" href="https://faneliacoding-cloud.github.io/jcl-staging/" />
+  <title>Fanelia Coding Cloud | Developer Portfolio</title>
+  <meta name="description" content="Full-stack developer & digital creator — web apps, iOS, music platforms, book stores, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0d0d0f;
+      --surface: #16161a;
+      --surface2: #1e1e24;
+      --border: #2a2a35;
+      --accent: #7c6fff;
+      --accent2: #ff6fd8;
+      --text: #e8e8f0;
+      --muted: #7a7a8c;
+      --card-hover: #1a1a22;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Georgia', serif;
-      background: #FAF8F5;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 13, 15, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .hero-badge span { color: var(--accent); }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      text-decoration: none;
+      padding: 0.8rem 2rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .hero-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── SECTION ── */
+    section { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    .section-sub { color: var(--muted); font-size: 1rem; margin-bottom: 3rem; }
+
+    /* ── PROJECT GRID ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      background: var(--card-hover);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      color: #1A1714;
+      font-size: 1.4rem;
+      flex-shrink: 0;
     }
-    .redirect-wrap {
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      flex: 1;
+    }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+    .tag {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .card-arrow {
+      align-self: flex-end;
+      font-size: 1.1rem;
+      color: var(--muted);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .card:hover .card-arrow { color: var(--accent); transform: translateX(3px); }
+
+    /* ── DIVIDER ── */
+    hr { border: none; border-top: 1px solid var(--border); margin: 0 2rem; }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .skill-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .skill-pill .ico { font-size: 1.2rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
       text-align: center;
-      padding: 2rem;
+      padding: 2.5rem 2rem;
+      color: var(--muted);
+      font-size: 0.875rem;
     }
-    .logo-jcl {
-      display: block;
-      font-size: 2.5rem;
-      font-weight: 300;
-      letter-spacing: 0.35em;
-      margin-bottom: 0.25rem;
-    }
-    .logo-sub {
-      display: block;
-      font-family: 'Arial', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #9B938D;
-      margin-bottom: 2rem;
-    }
-    .loading-bar {
-      width: 120px;
-      height: 1px;
-      background: #E8E0D5;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 1px;
-    }
-    .loading-fill {
-      height: 100%;
-      background: #B08D6A;
-      animation: load 0.8s ease-out forwards;
-    }
-    @keyframes load {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    a {
-      display: block;
-      margin-top: 1.5rem;
-      font-family: 'Arial', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #B08D6A;
-      text-decoration: none;
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero { padding: 4rem 1.25rem 3rem; }
+      section { padding: 3rem 1.25rem; }
     }
   </style>
 </head>
 <body>
-  <div class="redirect-wrap">
-    <span class="logo-jcl">JCL</span>
-    <span class="logo-sub">Staging &amp; Design</span>
-    <div class="loading-bar"><div class="loading-fill"></div></div>
-    <a href="jcl-staging/">Entering site →</a>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">✦ Fanelia</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="https://github.com/faneliacoding-cloud" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">
+      <span>●</span> Open to freelance &amp; collaboration
+    </div>
+    <h1>
+      Building things<br />
+      <span class="gradient">that actually ship.</span>
+    </h1>
+    <p>
+      Full-stack developer &amp; digital creator — web apps, iOS, e-commerce, music platforms, and more. Every project in production.
+    </p>
+    <a class="hero-cta" href="#projects">
+      View my work ↓
+    </a>
   </div>
-  <script>
-    // Instant JS redirect as backup
-    window.location.replace('jcl-staging/');
-  </script>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Work</p>
+    <h2 class="section-title">Live Projects</h2>
+    <p class="section-sub">A collection of apps and sites I've built and deployed.</p>
+
+    <div class="projects-grid">
+
+      <a class="card" href="/faneliabooks/" target="_blank" rel="noopener">
+        <div class="card-icon" style="background: #1a1230;">📚</div>
+        <div class="card-title">Fanelia Books</div>
+        <div class="card-desc">An online bookstore featuring curated titles across romance, business, wellness, kids, and tech. Full checkout flow.</div>
+        <div class="card-tags">
+          <span class="tag">HTML/CSS/JS</span>
+          <span class="tag">E-Commerce</span>
+          <span class="tag">Cloudflare Worker</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a class="card" href="/fanelia-music/" target="_blank" rel="noopener">
+        <div class="card-icon" style="background: #0d1a2a;">🎵</div>
+        <div class="card-title">Fanelia Music</div>
+        <div class="card-desc">Artist showcase platform with embedded tracks, hero visuals, and artist profiles.</div>
+        <div class="card-tags">
+          <span class="tag">HTML/CSS/JS</span>
+          <span class="tag">Music</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a class="card" href="/fanelia-designs-live/" target="_blank" rel="noopener">
+        <div class="card-icon" style="background: #1a0d0d;">🎨</div>
+        <div class="card-title">Fanelia Designs</div>
+        <div class="card-desc">Premium custom merch platform — t-shirts, stickers, magnets, posters, and hats. Design and wear your brand.</div>
+        <div class="card-tags">
+          <span class="tag">Vite + React</span>
+          <span class="tag">Merch</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a class="card" href="/house-of-fanelia/" target="_blank" rel="noopener">
+        <div class="card-icon" style="background: #0d1a12;">🏛️</div>
+        <div class="card-title">House of Fanelia</div>
+        <div class="card-desc">Brand hub showcasing the Fanelia universe — connecting all products and creative ventures.</div>
+        <div class="card-tags">
+          <span class="tag">HTML/CSS/JS</span>
+          <span class="tag">Branding</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a class="card" href="/immigration-eval-app/" target="_blank" rel="noopener">
+        <div class="card-icon" style="background: #1a1a0d;">⚖️</div>
+        <div class="card-title">Immigration Eval App</div>
+        <div class="card-desc">Next.js app that helps users evaluate immigration options and understand pathways based on their profile.</div>
+        <div class="card-tags">
+          <span class="tag">Next.js</span>
+          <span class="tag">Legal Tech</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a class="card" href="/a-better-you/" target="_blank" rel="noopener">
+        <div class="card-icon" style="background: #0d1a1a;">💪</div>
+        <div class="card-title">A Better You</div>
+        <div class="card-desc">Wellness and fitness platform with personalized workout plans and health tracking features.</div>
+        <div class="card-tags">
+          <span class="tag">Vite</span>
+          <span class="tag">Wellness</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a class="card" href="/anna-figueroa-mockup/" target="_blank" rel="noopener">
+        <div class="card-icon" style="background: #1a0d1a;">📸</div>
+        <div class="card-title">Anna Figueroa — Model Portfolio</div>
+        <div class="card-desc">High-end model portfolio site with editorial work, campaign pages, and a casting contact flow.</div>
+        <div class="card-tags">
+          <span class="tag">HTML/CSS/JS</span>
+          <span class="tag">Portfolio</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a class="card" href="/jcl-staging/" target="_blank" rel="noopener">
+        <div class="card-icon" style="background: #1a1505;">🏠</div>
+        <div class="card-title">JCL Staging &amp; Design</div>
+        <div class="card-desc">Luxury home staging studio website for a NYC-based client. Manhattan, Brooklyn, NJ, and CT markets.</div>
+        <div class="card-tags">
+          <span class="tag">HTML/CSS/JS</span>
+          <span class="tag">Client Work</span>
+          <span class="tag">Real Estate</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">Stack</p>
+    <h2 class="section-title">Tools &amp; Technologies</h2>
+    <p class="section-sub">Technologies I use to design, build, and ship.</p>
+
+    <div class="skills-grid">
+      <div class="skill-pill"><span class="ico">⚛️</span> React / Next.js</div>
+      <div class="skill-pill"><span class="ico">⚡</span> Vite</div>
+      <div class="skill-pill"><span class="ico">🌐</span> HTML · CSS · JavaScript</div>
+      <div class="skill-pill"><span class="ico">🍎</span> iOS / SwiftUI</div>
+      <div class="skill-pill"><span class="ico">🔥</span> Firebase</div>
+      <div class="skill-pill"><span class="ico">☁️</span> Cloudflare Workers</div>
+      <div class="skill-pill"><span class="ico">🐍</span> Python</div>
+      <div class="skill-pill"><span class="ico">🐙</span> GitHub Pages CI/CD</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      Built by <a href="https://github.com/faneliacoding-cloud" target="_blank" rel="noopener">faneliacoding-cloud</a> · Hosted on GitHub Pages
+    </p>
+  </footer>
+
 </body>
 </html>
